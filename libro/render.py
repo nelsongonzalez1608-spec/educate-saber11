@@ -27,11 +27,13 @@ import tempfile
 LIBRO = os.path.dirname(os.path.realpath(__file__))
 
 
-def conv(src, out):
+def conv(src, out, m=0):
+    """m = margen en puntos. El cuaderno entregado va a página completa (m=0: 1 pt = 2000/612
+    unidades); el render.py del 28 oct usaba m=10 y las hojas salían 3 % más pequeñas."""
     h = open(src, encoding="utf-8").read(400)
     Wd = float(re.search(r'width="(\d+)"', h).group(1))
     Hd = float(re.search(r'height="(\d+)"', h).group(1))
-    pw, ph, m = 612, 792, 10          # carta
+    pw, ph = 612, 792                 # carta
     s = min((ph - 2 * m) / Hd, (pw - 2 * m) / Wd)
     w, hh = Wd * s, Hd * s
     subprocess.run(["rsvg-convert", "-f", "pdf", "--page-width", f"{pw}pt",

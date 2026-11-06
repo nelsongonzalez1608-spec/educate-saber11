@@ -11,8 +11,9 @@ CW = W - 2 * M         # ancho útil 1860
 # paleta institucional (propuesta) + áreas
 EDU_AZUL = "#242478"; EDU_ROJO = "#A82424"; EDU_VERDE = "#30843C"; EDU_ORO = "#C9821B"
 CREMA = "#FFF8EC"; CREMA_LN = "#EAD9B4"; SOFT = "#F4F6FA"
+# 7 áreas desde el 6 nov: Biología y Química por separado, como el libro; las tres ciencias en verdes
 AREAS = [("Matemáticas", "#1F4E8C"), ("Lectura Crítica", "#A82424"), ("Sociales y Ciudadanas", "#C9821B"),
-         ("Ciencias Naturales", "#30843C"), ("Física", "#5B3E96"), ("Inglés", "#1BA0A8")]
+         ("Biología", "#30843C"), ("Química", "#0F7A68"), ("Física", "#5C7A1E"), ("Inglés", "#1BA0A8")]
 
 
 def svg_open(h=H_PAGE):

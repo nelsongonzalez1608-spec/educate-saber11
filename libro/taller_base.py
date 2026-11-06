@@ -287,18 +287,38 @@ def columna_derecha(b, y, est, cierre=("Lo que me llevo de esta pregunta",
                anchor="middle"))
 
 
+# El salvavidas es igual en todas las áreas: fondo claro para escribir con lápiz (Nelson, 6 nov).
+SALV = "#E4572E"       # coral de flotador
+SALV_D = "#B23A16"     # rótulo
+SALV_BG = "#FFF7F2"    # fondo claro: el lápiz se lee
+SALV_TX = "#3A3F4B"    # texto de las frases guía
+SALV_LN = "#C9CED6"    # renglones
+
+
+def flotador(cx, cy, r=20, sw=11):
+    """Aro salvavidas: anillo blanco con cuatro franjas coral y su contorno."""
+    import math as _m
+    C = 2 * _m.pi * r
+    return (f'<circle cx="{cx}" cy="{cy}" r="{r + sw / 2}" fill="none" stroke="{SALV}" stroke-width="1.6"/>'
+            f'<circle cx="{cx}" cy="{cy}" r="{r - sw / 2}" fill="none" stroke="{SALV}" stroke-width="1.6"/>'
+            f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="white" stroke-width="{sw - 1.6}"/>'
+            f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{SALV}" stroke-width="{sw - 1.6}" '
+            f'stroke-dasharray="{C / 8:.2f} {C / 8:.2f}" transform="rotate(-22.5 {cx} {cy})"/>')
+
+
 def salvavidas(b, rx, sy, rw, h=300):
-    """Lo mínimo que sí tenía claro → entonces tenía que ser → y no podía ser ___ porque."""
-    s = A["soft"]
-    b.append(rect(rx, sy, rw, h, A["dark"], r=18))
-    b.append(buoy(rx + 34, sy + 34, 13))
-    b.append(T(rx + 62, sy + 42, ["SALVAVIDAS"], 18, "white", weight="700", ls=2))
-    b.append(T(rx + 24, sy + 84, ["Lo mínimo que sí tenía claro:"], 18, s))
-    b.append(line(rx + 24, sy + 126, rx + rw - 24, sy + 126, "white", 1.6, "6,6"))
-    b.append(T(rx + 24, sy + 170, ["→ entonces tenía que ser"], 18, s))
-    b.append(line(rx + 24, sy + 214, rx + rw - 24, sy + 214, "white", 1.6, "6,6"))
-    b.append(T(rx + 24, sy + 252, ["y no podía ser ____ porque"], 18, s))
-    b.append(line(rx + 290, sy + 260, rx + rw - 24, sy + 260, "white", 1.6, "6,6"))
+    """Lo mínimo que sí tenía claro → entonces tenía que ser → y no podía ser ___ porque.
+    Mismo diseño en todas las áreas; se escribe encima con lápiz."""
+    b.append(rect(rx, sy, rw, h, SALV_BG, r=18, stroke=SALV, sw=2.4))
+    b.append(rect(rx, sy, 8, h, SALV, r=4))
+    b.append(flotador(rx + 48, sy + 38))
+    b.append(T(rx + 80, sy + 46, ["SALVAVIDAS"], 18, SALV_D, weight="700", ls=2))
+    b.append(T(rx + 24, sy + 92, ["Lo mínimo que sí tenía claro:"], 18, SALV_TX))
+    b.append(line(rx + 24, sy + 130, rx + rw - 24, sy + 130, SALV_LN, 1.8))
+    b.append(T(rx + 24, sy + 174, ["→ entonces tenía que ser"], 18, SALV_TX))
+    b.append(line(rx + 24, sy + 214, rx + rw - 24, sy + 214, SALV_LN, 1.8))
+    b.append(T(rx + 24, sy + 256, ["y no podía ser ____ porque"], 18, SALV_TX))
+    b.append(line(rx + 260, sy + 260, rx + rw - 24, sy + 260, SALV_LN, 1.8))
 
 
 def chip_estrategia(b, x, y, est, prefijo="Estrategia", derecha=False):

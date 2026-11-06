@@ -78,9 +78,11 @@ aprobado era de 270: **falta que Cristian apruebe la ampliación** (impresión y
 Cada área son **43 páginas**: una portada y seis misiones de siete.
 
 Colores de área: Matemáticas `#1F4E8C` · Lectura Crítica `#A82424` · Sociales `#C9821B` ·
-Biología `#30843C` · Química *(por definir)* · Física `#5B3E96` · Inglés `#1BA0A8`.
-Cada área tiene su color: es su personalidad (Nelson). Las misiones de Matemáticas ya impresas
-salieron en el rojo de Lectura Crítica (hallazgo 36): se corrige solo si se rehacen esas páginas.
+Biología `#30843C` (verde hoja) · Química `#0F7A68` (verde esmeralda) · Física `#5C7A1E` (verde oliva) ·
+Inglés `#1BA0A8`. Cada área tiene su color: es su personalidad (Nelson). Las tres ciencias van en verdes.
+
+**El salvavidas es igual en todas las áreas** (Nelson, 6 nov): fondo claro `#FFF7F2`, borde y flotador coral
+`#E4572E`, renglones grises. El estudiante lo llena con lápiz: nunca un fondo oscuro donde se escribe.
 Paleta institucional: azul `#242478`, rojo `#A82424`, verde `#30843C`, oro `#C9821B`.
 
 ---
@@ -238,6 +240,14 @@ Así funciona:
 - Los módulos ICFES definen `QA…QD = dict(est, comp, f=membrete, e=enunciado, o=[4 opciones],
   datos=función que dibuja el texto)`.
 
+### Rehacer una página ya entregada (sin sus módulos)
+
+`rehace_hojas.py` toma la página del PDF entregado, lee su texto con `pdftotext -bbox` y la vuelve a
+armar con `taller_base.py`; cada instrumento se recorta del original en vectores. `arma_pdf.py`
+compone el PDF final poniendo la página original (fuentes reales) bajo el recorte. Si se cambia el
+motor (marco, salvavidas, colores), basta `python3 rehace_hojas.py && python3 arma_pdf.py`.
+El PDF entregado se rindió a página completa: 1 pt = 2000/612 unidades; `render.conv()` usa m=0.
+
 ### Lecciones que costaron caro (no repetirlas)
 
 - **`LGRAY = #D8DEE6` es el gris de las LÍNEAS, nunca de texto.** En papel no se lee. Texto
@@ -313,10 +323,11 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
 
 ## 9. Lo que falta (en orden)
 
-1. ~~Reconstruir el motor del cuaderno~~ — hecho el 6 nov (`taller_base.py`, `verifica_cajas.py`,
-   `verifica_pistas.py`, `extrae_instrumentos.py`, `render.unir/verifica`). **Pendiente de Nelson:**
-   hallazgos 35 (franja de vocabulario tapa la segunda tarjeta en las 30 hojas de taller de
-   Matemáticas) y 36 (las misiones de Matemáticas salieron en rojo, no en azul).
+1. ~~Reconstruir el motor del cuaderno~~ — hecho el 6 nov. ~~Hallazgos 35 y 36~~ — corregidos: las
+   98 páginas de misión entregadas se rehicieron con `rehace_hojas.py` (marco nuevo, salvavidas claro,
+   Matemáticas en azul) y `arma_pdf.py` arma `entregables/Cuaderno_Saber11_paginas_1_a_110_v2.pdf`.
+   **Pendiente:** actualizar la apertura (páginas 1–9): dice «seis áreas», usa los colores viejos y la
+   hoja que explica las partes muestra el salvavidas oscuro.
 2. Sociales misiones 3 a 6 (páginas 111–138).
 3. Biología (139–181), Química (182–224), Física (225–267), Inglés (268–310), cierre (311–313).
 4. Las 8 guías de clase de Matemáticas (con el motor de `clase_viva_lc.py`).
