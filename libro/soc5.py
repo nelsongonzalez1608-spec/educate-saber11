@@ -11,7 +11,7 @@ Claves verificadas (resueltas a mano contra el texto del libro, no copiadas, 6 n
 
     1·A  2·A  3·B  4·C  5·B  6·A  7·D  8·B  9·C  10·D
 
-Reparto: A 3 · B 3 · C 2 · D 2. Equilibrado. Pero en 1, 2, 4, 9 y 10 la correcta es la que
+Reparto: A 3 · B 3 · C 2 · D 2. Equilibrado. Pero en 1, 2, 4, 8, 9 y 10 la correcta es la que
 «integra» a todos y las demás cierran con absolutos («ninguna función», «resuelve al mismo
 tiempo», «elimina», «garantiza que no»): registrado en tablero/propuestas/soc5_hallazgos.csv.
 
@@ -296,9 +296,9 @@ def i6(b, x, y, w, h):
         ry += 74
     yy += 400
     return ojo(b, x0, yy, ww, "Palabras que encierran al lugar:",
-               "«únicamente», «aislada», «privado». Si una opción le pone al parque una de esas etiquetas, "
-               "compárala con tu cédula. Y fíjate en algo más: la pregunta pide una característica del ESPACIO, "
-               "no de la gente que llegó.")
+               "una opción que le pone al parque una etiqueta cerrada («solo para esto», «solo de ellos») tiene "
+               "que pasar por tu cédula antes de que le creas. Y fíjate en algo más: la pregunta pide una "
+               "característica del espacio, no de la gente que llegó.")
 
 
 def _mezcla_local(c):
@@ -372,7 +372,10 @@ def i8(b, x, y, w, h):
         rot(b, rx + 20, ry + 30, rt, c)
         pista(b, rx + 20, ry + 56, ps)
         renglon(b, rx + 20, ry + 96, rx + rw - 20)
-        b.append(hand_arrow(cx + 92 + k * 64, cy - 30 - k * 20, rx - 10, ry + 63, c, sw=2.4, bend=0.08, head=12))
+        r_, ang = (92, 156, 220)[k], math.radians((40, 8, -24)[k])
+        b.append(hand_arrow(cx + r_ * math.cos(ang), cy - r_ * math.sin(ang), rx - 10, ry + 63, c, sw=2.4,
+                            bend=0.06, head=12))
+        b.append(f'<circle cx="{cx + r_ * math.cos(ang):.1f}" cy="{cy - r_ * math.sin(ang):.1f}" r="5" fill="{c}"/>')
     yy += 470
     return trampa(b, x0, yy, ww, "Una opción dice que la extracción «fortalece el ecosistema»:",
                   "ponla junto a tu onda 1. Si choca con lo que advierte la comunidad, no integra nada: borra una "
@@ -416,8 +419,8 @@ def i9(b, x, y, w, h):
     renglon(b, x0 + 20, yy + 74, x0 + ww - 20)
     yy += 112
     return ojo(b, x0, yy, ww, "Si no está en la ruta, no está en el texto:",
-               "antes de aceptar una opción, busca en tus tres paradas lo que ella describe. Una ruta con "
-               "carreteras, ciudades cercanas o desierto es otra ruta.")
+               "antes de aceptar una opción, busca en tus tres paradas lo que ella describe. Si lo que la "
+               "opción pone en el camino no aparece en ninguna parada, está hablando de otra ruta.")
 
 
 # ───────── P10 · HRW · cuatro actores ─────────
