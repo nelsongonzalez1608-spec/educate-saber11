@@ -1,0 +1,278 @@
+[
+ {
+  "n": 1,
+  "bloque": "Bloque 1",
+  "est": 1,
+  "ctx": "Temperatura · Chingaza",
+  "piensa": [
+   "¿Los valores solo suben, o suben y en algún momento bajan?",
+   "¿A qué hora está la temperatura más alta? ¿Qué pasa después?",
+   "La gráfica correcta tiene que mostrar ese mismo cambio de dirección."
+  ],
+  "pasos": [
+   "Leo la fila de temperaturas y anoto cómo cambia.",
+   "Marco la hora donde deja de subir: ahí está el pico.",
+   "Busco la gráfica que suba hasta un pico y después baje."
+  ],
+  "grid": [
+   "4  6  8  10   9  7  5",
+   "+2 +2 +2   −1 −2 −2",
+   "sube hasta las 9:00 (10°)",
+   "y de ahí se devuelve"
+  ],
+  "resp": "B",
+  "nota": "(sube y luego baja)",
+  "sv": [
+   "que no solo subía: a las 9 empezó a bajar",
+   "B",
+   "A y D"
+  ]
+ },
+ {
+  "n": 2,
+  "bloque": "Bloque 1",
+  "est": 1,
+  "ctx": "Deportista · 5 m/s",
+  "piensa": [
+   "¿La velocidad cambia en algún momento, o se mantiene igual?",
+   "Si cada segundo avanza lo mismo, ¿qué operación los relaciona?"
+  ],
+  "pasos": [
+   "Identifico el dato constante: 5 metros cada segundo.",
+   "Multiplico ese valor por los 8 segundos.",
+   "Reviso que la justificación de la opción diga lo mismo."
+  ],
+  "grid": [
+   "5 m cada segundo",
+   "1s = 5   2s = 10   4s = 20",
+   "5 × 8 = 40 m"
+  ],
+  "resp": "B",
+  "nota": "= 40 metros",
+  "sv": [
+   "que la velocidad no cambiaba nunca",
+   "B",
+   "la C"
+  ]
+ },
+ {
+  "n": 3,
+  "bloque": "Bloque 2",
+  "est": 2,
+  "ctx": "DANE · expresión H = 0,465 × Th",
+  "piensa": [
+   "El 46,5 % es una parte de un total. ¿De cuál total?",
+   "¿Qué operación convierte un porcentaje en cantidad de personas?",
+   "Cuidado: una cosa es el porcentaje y otra el número de personas."
+  ],
+  "pasos": [
+   "Escribo el porcentaje como decimal: 46,5 % = 0,465.",
+   "Lo multiplico por el total de hombres encuestados (Th).",
+   "Verifico que la expresión escogida haga exactamente eso."
+  ],
+  "grid": [
+   "46,5 % → 0,465",
+   "H = 0,465 × Th",
+   "es multiplicar, no dividir"
+  ],
+  "resp": "A",
+  "nota": "",
+  "sv": [
+   "que un % se multiplica, no se suma",
+   "A",
+   "la C"
+  ]
+ },
+ {
+  "n": 4,
+  "bloque": "Bloque 2",
+  "est": 2,
+  "ctx": "DANE · cuántas personas leyeron",
+  "piensa": [
+   "Son 800 personas, pero divididas en dos grupos de 400.",
+   "Cada grupo tiene su propio porcentaje. ¿Puedo usar uno solo?"
+  ],
+  "pasos": [
+   "Calculo el 46,5 % de los 400 hombres.",
+   "Calculo el 35,2 % de las 400 mujeres.",
+   "Sumo los dos resultados."
+  ],
+  "grid": [
+   "400 × 0,465 = 186",
+   "400 × 0,352 = 140,8",
+   "186 + 141 ≈ 327"
+  ],
+  "resp": "B",
+  "nota": "≈ 327",
+  "sv": [
+   "que eran dos grupos distintos, no uno",
+   "B",
+   "la A"
+  ]
+ },
+ {
+  "n": 5,
+  "bloque": "Bloque 3",
+  "est": 3,
+  "ctx": "Camilo · describir la relación",
+  "piensa": [
+   "¿El aumento de cada mes es siempre la misma cantidad de pesos?",
+   "De 1.000.000 a 1.020.000 subió 20.000. ¿Y del segundo al tercero?",
+   "Si el aumento crece, el interés se calcula sobre un saldo mayor."
+  ],
+  "pasos": [
+   "Resto cada mes con el anterior y anoto los aumentos.",
+   "Comparo esos aumentos entre sí: ¿iguales o crecientes?",
+   "Elijo la opción que describa ese comportamiento."
+  ],
+  "grid": [
+   "1.020.000 − 1.000.000 = 20.000",
+   "1.040.400 − 1.020.000 = 20.400",
+   "sube cada vez más → no es lineal"
+  ],
+  "resp": "A",
+  "nota": "(exponencial)",
+  "sv": [
+   "que el aumento no era siempre igual",
+   "A",
+   "la B"
+  ]
+ },
+ {
+  "n": 6,
+  "bloque": "Bloque 3",
+  "est": 3,
+  "ctx": "Camilo · valor al sexto mes",
+  "piensa": [
+   "El 2 % se aplica cada mes sobre lo que haya acumulado.",
+   "¿Puedo multiplicar 20.000 × 6, o el aumento va creciendo?"
+  ],
+  "pasos": [
+   "Reconozco que cada mes multiplico por 1,02.",
+   "Avanzo del mes 3 al mes 6 aplicando ese factor.",
+   "Comparo con las opciones y escojo la más cercana."
+  ],
+  "grid": [
+   "mes 3 = 1.061.208",
+   "× 1,02 tres veces más",
+   "≈ 1.126.000"
+  ],
+  "resp": "C",
+  "nota": "",
+  "sv": [
+   "que crecía cada vez más, no de a 20.000",
+   "C",
+   "la A"
+  ]
+ },
+ {
+  "n": 7,
+  "bloque": "Bloque 3",
+  "est": 3,
+  "ctx": "Camilo · tendencia del ahorro",
+  "piensa": [
+   "Mira otra vez los aumentos: 20.000, luego 20.400, luego 20.808.",
+   "¿Esa diferencia se mantiene, se achica o se agranda?",
+   "La tasa es fija (2 %), pero el saldo sobre el que se aplica no lo es."
+  ],
+  "pasos": [
+   "Calculo las diferencias entre meses consecutivos.",
+   "Observo si esas diferencias crecen.",
+   "Escojo la afirmación que explique por qué crecen."
+  ],
+  "grid": [
+   "20.000 → 20.400 → 20.808",
+   "cada vez un poquito más",
+   "porque el 2 % se aplica al total"
+  ],
+  "resp": "D",
+  "nota": "",
+  "sv": [
+   "que el aumento se iba agrandando",
+   "D",
+   "la A"
+  ]
+ },
+ {
+  "n": 8,
+  "bloque": "Bloque 3",
+  "est": 3,
+  "ctx": "Camilo · procedimiento a 12 meses",
+  "piensa": [
+   "¿El interés se suma una sola vez al final, o mes a mes?",
+   "Multiplicar por 1,02 doce veces no es lo mismo que sumar 2 % × 12."
+  ],
+  "pasos": [
+   "Descarto las que suman el interés una sola vez.",
+   "Busco la que multiplica repetidamente por 1,02.",
+   "Confirmo que el exponente sea el número de meses."
+  ],
+  "grid": [
+   "12 meses seguidos",
+   "× 1,02 doce veces",
+   "V = 1.000.000 × (1,02)¹²"
+  ],
+  "resp": "B",
+  "nota": "",
+  "sv": [
+   "que el interés se aplicaba cada mes",
+   "B",
+   "la A"
+  ]
+ },
+ {
+  "n": 9,
+  "bloque": "Bloque 4",
+  "est": 4,
+  "ctx": "Valeria · afirmación sobre datos",
+  "piensa": [
+   "La gráfica no es una línea: sube, baja y vuelve a subir.",
+   "¿El consumo del final del mes es mayor o menor que el del inicio?",
+   "Ojo con las opciones que hablan de 'siempre' o 'nunca'."
+  ],
+  "pasos": [
+   "Recorro la gráfica de izquierda a derecha por tramos.",
+   "Comparo la primera mitad del mes con la segunda.",
+   "Descarto las opciones que contradigan lo que veo."
+  ],
+  "grid": [
+   "empieza en 2, baja a 1",
+   "y al final sube hasta 6",
+   "el final gasta más que el inicio"
+  ],
+  "resp": "A",
+  "nota": "",
+  "sv": [
+   "que al final del mes el consumo se dispara",
+   "A",
+   "la C"
+  ]
+ },
+ {
+  "n": 10,
+  "bloque": "Bloque 4",
+  "est": 4,
+  "ctx": "Valeria · área bajo la gráfica",
+  "piensa": [
+   "Si el eje horizontal es tiempo, el área bajo la curva es consumo total.",
+   "¿En qué tramo la curva está más alta durante más tiempo?"
+  ],
+  "pasos": [
+   "Divido el mes en dos mitades: días 5-15 y días 15-25.",
+   "Estimo en cuál la curva encierra más área.",
+   "Escojo la afirmación coherente con esa comparación."
+  ],
+  "grid": [
+   "1ra mitad: valores bajos",
+   "2da mitad: sube a 4, 5, 6",
+   "los últimos días pesan más"
+  ],
+  "resp": "C",
+  "nota": "",
+  "sv": [
+   "que al final la curva estaba mucho más alta",
+   "C",
+   "la A"
+  ]
+ }
+]

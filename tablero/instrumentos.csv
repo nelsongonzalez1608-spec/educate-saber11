@@ -1,0 +1,197 @@
+area,mision,pregunta,estrategia,instrumento,contexto
+Matemáticas,1,1,"Subir, llegar y volver","El recorrido, segundo a segundo",El proyectil · f(t) = −5t² + 30t
+Matemáticas,1,2,"Subir, llegar y volver",El espejo de la parábola,El proyectil · ¿cuándo vuelve a 40 m?
+Matemáticas,1,3,"Subir, llegar y volver",Tres sellos de control,El proyectil · ¿cuál gráfica es?
+Matemáticas,1,4,Lo fijo y lo que crece,La escalera entre dos puntos,Costo de producción · C(x) = 2.500x + 10.000
+Matemáticas,1,5,Lo fijo y lo que crece,Poner a prueba la afirmación,Servicio por días · C(n) = 2.000n + 15.000
+Matemáticas,1,6,Lo fijo y lo que crece,Deshacer la máquina,Ingreso del evento · I = 50.000p + 200.000
+Matemáticas,1,7,"Un modelo, tres preguntas",La tabla que delata el patrón,Transporte de paquetes · C(p) = 8.500(p−1) + 60.000
+Matemáticas,1,8,"Un modelo, tres preguntas",Acotar antes de despejar,Transporte · ¿cuánto pesaba el paquete?
+Matemáticas,1,9,"Un modelo, tres preguntas",Cazar la condición escondida,Transporte · ¿qué se concluye del costo adicional?
+Matemáticas,1,10,El patrón que continúa,Los escalones de las barras,Ahorro semanal · el patrón de las barras
+Matemáticas,2,1,Encontrar el techo,"El vértice, y después la prueba de la pareja",Ciclistas · D(t) = −5t² + 40t + 120
+Matemáticas,2,2,Refutar con el modelo,Un solo número tumba la afirmación,Ciclistas · «el descanso debería ser en la semana 10»
+Matemáticas,2,3,Encontrar el techo,"El mismo truco, con otro disfraz",Parque de diversiones · A(t) = −15t² + 180t + 900
+Matemáticas,2,4,Refutar con el modelo,¿Más visitantes o más dinero?,Parque · «los mayores ingresos serán los últimos días»
+Matemáticas,2,5,El aumento constante,De dos filas al modelo completo,Cooperativa de bloques · dos filas de un registro
+Matemáticas,2,6,El aumento constante,El tamaño no es la velocidad,"La planta del invernadero · 2,5 cm cada semana"
+Matemáticas,2,7,El aumento constante,Estirar la serie hasta donde piden,Inscripciones del gimnasio · de enero a junio
+Matemáticas,2,8,Los datos mandan,El día en que empieza a sobrar pan,Panadería · «hornear siempre 160 panes»
+Matemáticas,2,9,Los datos mandan,"La frase, partida en dos","Panadería · «si produzco más, se vende más»"
+Matemáticas,2,10,Los datos mandan,Lo que entra y lo que sale,Panadería · el ingreso neto del día 4
+Matemáticas,3,1,Partir el cuerpo en piezas,Separa el cuerpo y cóbralo por partes,Tanque de agua · prisma de 4 × 4 × 3 con cubierta piramidal
+Matemáticas,3,2,La misma razón para los dos,Dos triángulos con la misma forma,Cristo Rey y la farola · sombras en la misma dirección
+Matemáticas,3,3,La misma razón para los dos,Las cuatro divisiones posibles,"La razón altura : sombra, escrita en decimales"
+Matemáticas,3,4,Cuántas veces cabe,"Primero la misma unidad, después la cuenta",Auditorio de Pasto · 12 m × 8 m con baldosas de 40 cm
+Matemáticas,3,5,Cuántas veces cabe,"Una tajada de la curva, no del queso",Sendero circular de radio 10 m · cuatro arcos iguales
+Matemáticas,3,6,"Antes de mover, mide",Arma la torre piso por piso,Pirámide de cajas · la altura hasta donde empieza la muñeca
+Matemáticas,3,7,"Antes de mover, mide","Cuánto falta, y de dónde puede salir",La muñeca no cabe · reorganizar con las mismas piezas
+Matemáticas,3,8,Partir el cuerpo en piezas,"Un cubo primero, los 32 después",Los 32 cubos de la base · volumen total en m³
+Matemáticas,3,9,Partir el cuerpo en piezas,"Pártelo con la vista, compruébalo con la cuenta",Un prisma frente a un cubo de la base
+Matemáticas,3,10,"Antes de mover, mide",Cuenta antes de encajar,Tetris · completar las dos últimas filas
+Matemáticas,4,1,Dimensión por dimensión,"Lo que mide, lo que cubre y lo que llena",Maqueta 1:100 · tanque cilíndrico de r = 2 cm y h = 5 cm
+Matemáticas,4,2,Dimensión por dimensión,"Del papel al terreno, sin saltarse la unidad",Plano 1:2000 · del parque al mirador hay 12 cm
+Matemáticas,4,3,Nombra los lados primero,Primero ponle nombre a cada lado,"Tres grupos, tres fórmulas para la misma rampa"
+Matemáticas,4,4,Nombra los lados primero,Cuando lo que buscas está abajo,Rampa de base 4 m e inclinación de 30°
+Matemáticas,4,5,Juzgar lo que afirman,9π no es 9,«El cilindro no puede tener 9π m³»
+Matemáticas,4,6,"Cada cuerpo, su fórmula",Cuántos litros caben en un metro cúbico,Llenar la escultura cilíndrica de agua
+Matemáticas,4,7,"Cada cuerpo, su fórmula",Pártela en dos figuras que sí sabes medir,Parque infantil · rectángulo de 12 × 8 más un semicírculo
+Matemáticas,4,8,Juzgar lo que afirman,¿El ángulo hasta dónde?,«El ángulo de tiro se calcula con tan(θ) = 7/18»
+Matemáticas,4,9,Dimensión por dimensión,La tercera escala de esta misión,"Plano 1:500 · del balón al arco hay 3,6 cm"
+Matemáticas,4,10,Juzgar lo que afirman,Dibújalo de lado y compara dos alturas,¿El balón superó la barrera de 2 m?
+Matemáticas,5,1,Cuál medida responde,Cada palabra se mide en una columna distinta,"Movilidad urbana · tres barrios, tres medidas"
+Matemáticas,5,2,De porcentaje a personas,Sombrea el pedazo que te piden,Portal web · 260 visitas en cuatro franjas
+Matemáticas,5,3,Cuál medida responde,Calcula las cuatro y después mira cuál te sirve,"Camisetas defectuosas · «en promedio, más de 7»"
+Matemáticas,5,4,Afirmación por afirmación,Pasa las barras a una tabla y acumula,Histograma · 200 estudiantes en una prueba de Ciencias
+Matemáticas,5,5,Afirmación por afirmación,Marca las dos tajadas y súmalas,Frutas en la lonchera · gráfico circular de 500 estudiantes
+Matemáticas,5,6,Afirmación por afirmación,Una cuenta corta por cada afirmación,Canal de YouTube · visualizaciones por país
+Matemáticas,5,7,De porcentaje a personas,"Primero el porcentaje junto, después las personas",500.000 visualizaciones · cuántas son de Chile y Argentina
+Matemáticas,5,8,Probar los cuatro casos,Cuatro sumas y una línea que no se debe cruzar,La gira · qué conjunto de países NO llega al 50 %
+Matemáticas,5,9,De porcentaje a personas,"En esa pantalla hay dos barras, y miden cosas distintas","TikTok · 4.100 espectadores, nuevos y recurrentes"
+Matemáticas,5,10,Probar los cuatro casos,"El mismo público, partido dos veces",TikTok · cruzar el tipo de espectador con el sexo
+Matemáticas,6,1,Juzgar el procedimiento,Qué supone cada método antes de decidir cuál sirve,El dólar · tres métodos para proyectar el próximo mes
+Matemáticas,6,2,Todos los casos que cuentan,Escribe la lista de los casos que te sirven,Cuatro servidores · al menos 3 deben funcionar
+Matemáticas,6,3,Juzgar el procedimiento,Separa el número de la explicación,"Hábitos de lectura · «la probabilidad es 0,7»"
+Matemáticas,6,4,Juzgar el procedimiento,"Dos filtros, uno detrás del otro","Educación · 0,30 × 0,30 = 0,09"
+Matemáticas,6,5,Hasta dónde llega el dato,Riesgo no es lo mismo que pérdida,Manufactura · «el 65 % perderá su empleo»
+Matemáticas,6,6,Lo que cambia el total,Lo que queda cuando quitas lo que te dieron,Servicios financieros · la probabilidad de NO estar en riesgo
+Matemáticas,6,7,Hasta dónde llega el dato,La palabra que hace insostenible la frase,Educación · «no tendrá problemas con la automatización»
+Matemáticas,6,8,Lo que cambia el total,Dibuja la caja antes y después,"Una bola roja y luego una azul, sin reemplazo"
+Matemáticas,6,9,Todos los casos que cuentan,«Sin importar el orden» quiere decir dos caminos,Biblioteca · un libro de literatura y uno de ciencia
+Matemáticas,6,10,Hasta dónde llega el dato,Lo que la encuesta midió y lo que el analista afirmó,Plataformas digitales · «el 40 % seguirá usándolas»
+Lectura Crítica,1,1,La palabra exacta,Cada palabra trae su propio mundo,Columna de opinión · «el matiz suena a traición»
+Lectura Crítica,1,2,Para qué está ahí,Escribe en una línea qué hace cada párrafo,Columna de opinión · qué hace el segundo párrafo
+Lectura Crítica,1,3,Lo que no se dice,Lo que dice y lo que deja entender,Columna de opinión · la crítica de la última línea
+Lectura Crítica,1,4,La palabra exacta,Unas comillas también dicen algo,"Caricatura de prensa · «servicio», entre comillas"
+Lectura Crítica,1,5,Lo que no se dice,Completa el eslabón que falta,Caricatura de prensa · el ataúd como servicio
+Lectura Crítica,1,6,Lo que no se dice,El título promete una cosa y el dibujo muestra otra,Caricatura de prensa · el título contra la escena
+Lectura Crítica,1,7,La idea que sostiene,Mira qué buscaba antes de abrir el libro,Fragmento de novela · para qué le sirve la cita
+Lectura Crítica,1,8,La idea que sostiene,El texto repite la misma idea tres veces,Fragmento de novela · qué visión del ser humano
+Lectura Crítica,1,9,Para qué está ahí,Desarma la metáfora palabra por palabra,Fragmento de novela · «mellizos de antípodas»
+Lectura Crítica,1,10,La palabra exacta,«Representar un papel» es una palabra de teatro,Fragmento de novela · «me cansé de representar»
+Lectura Crítica,2,1,Qué hace este párrafo,Un párrafo no hace lo mismo al principio que al final,"Post en redes · el último párrafo, «lo más irónico»"
+Lectura Crítica,2,2,Qué hace este párrafo,Busca el verbo que delata lo que el párrafo hace,Cosas que solo los árboles saben · el tercer párrafo
+Lectura Crítica,2,3,Para qué lo escribió,Casi nunca se compara por comparar,Los árboles · para qué compara árboles con humanos
+Lectura Crítica,2,4,La crítica que no se ve,Rastrea las palabras del texto dentro de las opciones,Los árboles · la crítica del segundo párrafo
+Lectura Crítica,2,5,Cómo se enlazan,"Una caricatura se lee por planos, del frente al fondo",Caricatura · el gráfico contra la fila del fondo
+Lectura Crítica,2,6,La crítica que no se ve,«Miente» y «omite» no son la misma acusación,Caricatura · «la estadística a veces miente… o simplemente omite»
+Lectura Crítica,2,7,Qué hace este párrafo,Arma la cadena de los tres párrafos,El lado solitario del algoritmo · el tercer párrafo
+Lectura Crítica,2,8,La crítica que no se ve,"Cuando hay un «pero», el peso cae del lado derecho","El algoritmo · «burbuja cómoda, pero también peligrosa»"
+Lectura Crítica,2,9,Para qué lo escribió,Todo texto tiene un verbo que lo resume,El algoritmo · el propósito de todo el texto
+Lectura Crítica,2,10,Cómo se enlazan,La relación está escrita: búscala en el conector,El algoritmo · «la fricción con ideas distintas»
+Lectura Crítica,3,1,La bisagra del texto,Un texto de tres párrafos tiene dos bisagras,El espectáculo de lo cotidiano · qué hace el segundo párrafo
+Lectura Crítica,3,2,El juicio que no se dice,Cuando el autor pone dos cosas que no deberían ir juntas,El espectáculo · la crítica detrás de «auténtico» vs «fabricado»
+Lectura Crítica,3,3,La pieza que remata,"Un cierre puede repetir, negar o integrar",El espectáculo · qué relación guarda el cierre con el inicio
+Lectura Crítica,3,4,El juicio que no se dice,El cronista no califica a nadie: deja que lo veas,El silencio de las sirenas · qué piensa el autor de los que miran
+Lectura Crítica,3,5,El detalle que lo delata,Son dos palabras y cada una hace su parte,El silencio de las sirenas · «fascinación morbosa»
+Lectura Crítica,3,6,La bisagra del texto,Un texto sube de escalón cuando deja de hablar de uno solo,El silencio de las sirenas · qué función cumple el segundo párrafo
+Lectura Crítica,3,7,El juicio que no se dice,En una caricatura la crítica está en lo que falta,Caricatura del parque · la crítica a los que están sentados
+Lectura Crítica,3,8,La pieza que remata,El chiste está en que cambiaron los papeles,Caricatura del parque · qué aporta el globo del perro
+Lectura Crítica,3,9,El detalle que lo delata,Hay una Holly todo el párrafo y otra durante un segundo,Brillo prestado · para qué sirve la mirada perdida
+Lectura Crítica,3,10,El juicio que no se dice,No toda frase verdadera es una valoración,Brillo prestado · qué vale la relación de Holly con Tiffany's
+Lectura Crítica,4,1,La señal de tránsito,«Es tal… que» siempre apunta hacia adelante,Infografía de chatbots · «Es tal el éxito… que»
+Lectura Crítica,4,2,Qué pieza es esta,Una infografía se lee por pisos,Infografía de chatbots · el bloque del PLN y el NLU
+Lectura Crítica,4,3,La forma delata el propósito,Cada clase de texto deja huellas distintas,Infografía de chatbots · qué clase de texto es
+Lectura Crítica,4,4,Qué pieza es esta,Un ejemplo trabaja para la frase que tiene encima,Leer en pantalla · para qué sirve el ejemplo
+Lectura Crítica,4,5,Lo que puedo señalar con el dedo,"Cuatro cifras, cuatro opciones, una por una",Inflación del DANE · qué dato está respaldado
+Lectura Crítica,4,6,La señal de tránsito,Dos palabras anuncian que viene una comparación,Economía circular · qué hace el segundo párrafo
+Lectura Crítica,4,7,Lo que puedo señalar con el dedo,Cada opción trae una cifra. Búscala en el texto,Economía circular · qué afirmación es literal
+Lectura Crítica,4,8,Qué pieza es esta,"¿Son causas, resultados o requisitos?",Economía circular · la enumeración del final
+Lectura Crítica,4,9,Lo que puedo señalar con el dedo,A veces el texto ya escribió la respuesta,Economía circular · reciclaje y modelo económico
+Lectura Crítica,4,10,La forma delata el propósito,El autor arma dos listas y después las enfrenta,Carta al editor · lo individual contra lo estructural
+Lectura Crítica,5,1,La idea detrás de la imagen,El texto pesa dos cosas y dice cuál pesa más,Sun Tzu · cómo se gana según el texto
+Lectura Crítica,5,2,La idea detrás de la imagen,El primer párrafo deja una pregunta sin contestar,Sun Tzu · qué le añade el segundo párrafo al primero
+Lectura Crítica,5,3,Qué quiere que yo haga,Un principio es universal si aguanta el traslado,Sun Tzu · si sirve fuera de la guerra
+Lectura Crítica,5,4,Lo que dice y lo que muestra,La letra dice una cosa y el dibujo muestra otra,Caricatura de Chappatte · el decreto contra el letrero
+Lectura Crítica,5,5,Lo que dice y lo que muestra,Antes del decreto y después del decreto,Caricatura de Chappatte · qué cambió después del decreto
+Lectura Crítica,5,6,La idea detrás de la imagen,En una alegoría cada pieza tiene su equivalente,La caverna · qué es cada cosa en la alegoría
+Lectura Crítica,5,7,Qué quiere que yo haga,Platón no está hablando de una cueva,La caverna · para qué cuenta Platón esta historia
+Lectura Crítica,5,8,Quién habla y desde dónde,"Cuando un texto cita a un experto, úsalo como ficha",Columna de opinión · para qué cita al abogado
+Lectura Crítica,5,9,Qué quiere que yo haga,"Antes de leer una línea, lee el título",Columna de opinión · qué se propone el autor
+Lectura Crítica,5,10,Quién habla y desde dónde,Mide el texto: cuántas frases para cada lado,Columna de opinión · cuánto espacio le da a cada lado
+Lectura Crítica,6,1,Una sola línea: qué defiende,Escríbelo con tus palabras y después búscalo en el texto,Blog de fotografía · qué papel le da a la foto
+Lectura Crítica,6,2,Qué se cae si quito esto,Tapa el párrafo del viaje y mira qué se cae,Blog de fotografía · para qué sirve el ejemplo del viaje
+Lectura Crítica,6,3,Una sola línea: qué defiende,Dónde queda el recuerdo: en la vivencia o en la foto,Blog de fotografía · qué le hace a la memoria
+Lectura Crítica,6,4,Dice una cosa y hace la contraria,Parte el post por la mitad y júntalas a ver si encajan,Post de Facebook · innovación contra repetición
+Lectura Crítica,6,5,Dice una cosa y hace la contraria,La ironía critica algo: ponle nombre a ese algo,Post de Facebook · qué está criticando
+Lectura Crítica,6,6,Qué se cae si quito esto,Una paradoja tiene dos mitades verdaderas: escríbelas,Ensayo sobre el dinero · la base de la paradoja
+Lectura Crítica,6,7,Una sola línea: qué defiende,"Tres casos del texto, una sola cosa en común",Ensayo sobre el dinero · la tesis del autor
+Lectura Crítica,6,8,Cómo llega el texto hasta ahí,Sigue el hilo: qué pasa en cada nudo del fragmento,El principito · del zorro a la comprensión final
+Lectura Crítica,6,9,Qué se cae si quito esto,El texto descarta dos razones y deja una: márcalas,El principito · para qué está el «tiempo dedicado»
+Lectura Crítica,6,10,Cómo llega el texto hasta ahí,Cuatro opciones parecidas: gana la que usa las palabras del texto,El principito · a qué lleva la lección del zorro
+Sociales y Ciudadanas,1,1,Lo de antes explica lo de ahora,"Para comparar dos momentos, escribe el argumento de cada uno",Asamblea Constituyente 2024 · y la Constitución de 1991
+Sociales y Ciudadanas,1,2,Quién dice qué y por qué,Te piden dos cosas a la vez: un actor y una causa,Visas rechazadas · quién explica la causa
+Sociales y Ciudadanas,1,3,"Si pasa esto, qué pasa después","Te piden un efecto en dos dimensiones, no en una",Restricciones a la pesca industrial · qué pasaría
+Sociales y Ciudadanas,1,4,El principio que hay detrás,Igualdad no es darle lo mismo a todos,Becas por puntaje Saber 11 · qué principio la sostiene
+Sociales y Ciudadanas,1,5,Quién dice qué y por qué,El propio Petro ordena las dos riquezas en el tiempo,Petro y los U'wa (1997) · qué entiende por progreso
+Sociales y Ciudadanas,1,6,"Si pasa esto, qué pasa después",Pasa cada opción por las dos columnas,Territorios ancestrales · qué integra lo social y lo ambiental
+Sociales y Ciudadanas,1,7,El principio que hay detrás,"Mira qué están pidiendo, no de qué tema es",Gobierno Escolar en Medellín · qué principio lo respalda
+Sociales y Ciudadanas,1,8,Quién dice qué y por qué,Dos posturas chocan en una sola pregunta,Reforma a la salud · dónde chocan pacientes y EPS
+Sociales y Ciudadanas,1,9,"Si pasa esto, qué pasa después",Un efecto tiene que empezar por la causa que te dan,Cese al fuego · qué efecto integra las dos dimensiones
+Sociales y Ciudadanas,1,10,El principio que hay detrás,Un análisis integral nombra el derecho y lo que le pasa a la gente,Alimentación escolar · del hecho al derecho vulnerado
+Sociales y Ciudadanas,2,1,En qué coinciden y en qué no,Separa lo que propone cada uno de por qué lo propone,Foro sobre celulares en clase · tres voces
+Sociales y Ciudadanas,2,2,Las dos caras de la misma medida,Una medida grande casi nunca es solo buena o solo mala,"Reforma fiscal 2025 · lo social, lo económico y lo fiscal"
+Sociales y Ciudadanas,2,3,El nombre exacto de la figura,Nombra primero el hecho y después búscale el derecho,Fotos publicadas sin permiso · qué principio aplica
+Sociales y Ciudadanas,2,4,En qué coinciden y en qué no,"La misma frase, leída desde dos lugares distintos",Palacio de Justicia 1985 · dos lecturas de una frase
+Sociales y Ciudadanas,2,5,Qué queda en entredicho,Pon la frase encima de los hechos y mira si cuadran,Palacio de Justicia · qué función cumple la frase
+Sociales y Ciudadanas,2,6,Qué queda en entredicho,Escribe el deber del Estado y después mira cuál se rompió,Estado Social de Derecho · qué deber se cuestiona
+Sociales y Ciudadanas,2,7,En qué coinciden y en qué no,"Mira la clase de razón, no solo el bando",Prohibición de las corridas · qué defiende cada lado
+Sociales y Ciudadanas,2,8,Las dos caras de la misma medida,La misma medida cambia de signo según cuándo la mires,"Alerta ambiental por basuras · ventas hoy, turismo mañana"
+Sociales y Ciudadanas,2,9,El nombre exacto de la figura,Cada mecanismo decide una cosa distinta: marca el que encaja,Firmas contra el alcalde · qué mecanismo es
+Sociales y Ciudadanas,2,10,En qué coinciden y en qué no,Un buen acuerdo le deja algo a cada lado: escribe qué,Autonomía indígena y escuela · qué deja el acuerdo a cada lado
+Matemáticas,1 · ICFES,1,Lo fijo y lo que crece,Busca el kilometraje donde los dos planes empatan,Una empresa alquila automóviles a sus clientes de acuerdo con dos planes. Si durante una s…
+Matemáticas,1 · ICFES,2,"Un modelo, tres preguntas",Despeja el tiempo y lee qué quedó al lado derecho,Dos ciudades E y F están separadas por una distancia h. Desde E sale un carro con velocida…
+Matemáticas,1 · ICFES,3,El patrón que continúa,Mira las diferencias antes que los números,Observe la siguiente secuencia numérica. El décimo término de la sucesión es 3.077 porque
+Matemáticas,1 · ICFES,4,Lo fijo y lo que crece,Arma el recibo por partes,La empresa de Acueducto y Alcantarillado de una ciudad liquida las cuentas de sus usuarios…
+Matemáticas,2 · ICFES,1,Encontrar el techo,Dibuja la barra de cada trimestre,La gráfica muestra las ganancias mensuales de una empresa durante un año. Para analizar la…
+Matemáticas,2 · ICFES,2,Refutar con el modelo,La resta que deja ver la regla,La tabla muestra algunos datos que evidencian la relación entre dos unidades de medida de …
+Matemáticas,2 · ICFES,3,El aumento constante,Prueba las cuatro recetas con los números reales,La figura muestra un arreglo de árboles en forma de escalera en la entrada de un vivero. E…
+Matemáticas,2 · ICFES,4,Los datos mandan,Dos requisitos: hay que pasar los dos,En la tabla se muestra la cantidad de fotocopias y almuerzos comprados por 5 estudiantes. …
+Matemáticas,3 · ICFES,1,Partir el cuerpo en piezas,"Primero el cuerpo, después la fila correcta","Para preparar una mezcla de cemento y arena, se debe calcular el volumen de la zona por co…"
+Matemáticas,3 · ICFES,2,La misma razón para los dos,Qué cambia y qué no cambia entre los dos,Las sombras proyectadas por dos postes paralelos de 10 metros y 5 metros se muestran en la…
+Matemáticas,3 · ICFES,3,Cuántas veces cabe,Mide el hueco y mide lo que vas a meter,"Cuatro locales cuadrados p, q, r y s, con medidas iguales, se instalaron alrededor de una …"
+Matemáticas,3 · ICFES,4,"Antes de mover, mide",Cada cosa crece a su manera,"Una persona elabora una vela en forma de cubo, de lado 2 cm, y coloca una cinta, que le cu…"
+Matemáticas,4 · ICFES,1,Dimensión por dimensión,¿El número sube o baja?,"El triángulo de las Bermudas está formado entre Miami, Bermuda y San Juan de Puerto Rico, …"
+Matemáticas,4 · ICFES,2,Nombra los lados primero,"Los tres lados primero, las razones después",La cosecante de un ángulo en un triángulo rectángulo se define como la razón entre la hipo…
+Matemáticas,4 · ICFES,3,"Cada cuerpo, su fórmula",¿Cuáles dos lados forman la esquina recta?,"Un granjero quiere cultivar un terreno triangular, como se muestra en la figura. Para calc…"
+Matemáticas,4 · ICFES,4,Juzgar lo que afirman,Sigue el procedimiento paso por paso,Se apila una regla y una escuadra para formar el área sombreada de la figura. El área del …
+Matemáticas,5 · ICFES,1,Cuál medida responde,Ordena por una columna y después por la otra,La tabla muestra el promedio y el rango de ventas de algunos productos de una cafetería lo…
+Matemáticas,5 · ICFES,2,De porcentaje a personas,Arma la tabla completa antes de dividir,"En un barrio donde hay 1.000 casas de estratos 1 y 2, se realizó una encuesta para conocer…"
+Matemáticas,5 · ICFES,3,Afirmación por afirmación,¿Entre quiénes estás escogiendo?,Los resultados de una encuesta sobre sexo y edad de cada uno de los estudiantes de un curs…
+Matemáticas,5 · ICFES,4,Probar los cuatro casos,Fila por fila: ¿hay algún dato repetido?,Los valores dominantes en un conjunto de datos son aquellos que aparecen con mayor frecuen…
+Matemáticas,6 · ICFES,1,Todos los casos que cuentan,Pruébalos con un caso que puedas contar con los dedos,Pedro tiene un candado que se abre al colocar una contraseña de dos números diferentes del…
+Matemáticas,6 · ICFES,2,Juzgar el procedimiento,Ejecuta los dos pasos tal como están escritos,"Para saber la cantidad de códigos de 4 cifras, donde los dígitos se pueden repetir, que pu…"
+Matemáticas,6 · ICFES,3,Lo que cambia el total,Cada porcentaje se calcula sobre un total distinto,Se presentan para la gobernación de un departamento varios candidatos; los de mayor opción…
+Matemáticas,6 · ICFES,4,Hasta dónde llega el dato,Pon el dato que falta en sus dos extremos,El administrador de una librería debe registrar en una tabla la cantidad de libros que ven…
+Lectura Crítica,1 · ICFES,1,La palabra exacta,Mete las cuatro en la frase y escucha cuál desentona,"Entre las siguientes opciones, ¿cuál podría reemplazar, sin cambiar el sentido, la palabra…"
+Lectura Crítica,1 · ICFES,2,Para qué está ahí,Prueba los dos sentidos con un «si… entonces»,Considere las siguientes frases que aparecen en el texto. ¿Qué tipo de relación hay entre …
+Lectura Crítica,1 · ICFES,3,Lo que no se dice,¿Te da una razón o te repite la tesis?,"Asumiendo la tesis del autor, ¿el fragmento constituye una razón a favor de la tesis prese…"
+Lectura Crítica,1 · ICFES,4,La idea que sostiene,Haz la lista de todo lo que el poema sabe del verdugo,En el texto de Raúl Gómez Jattin se nos plantea implícitamente que una buena víctima
+Lectura Crítica,2 · ICFES,1,Qué hace este párrafo,"Primero ubícalo, después decide qué hace",Lea el siguiente fragmento del texto. ¿Qué función cumple este fragmento al interior del t…
+Lectura Crítica,2 · ICFES,2,Para qué lo escribió,Cada opción afirma tres cosas: compruébalas,¿Qué tipo de estrategia argumentativa utiliza el autor para convencer al lector de su posi…
+Lectura Crítica,2 · ICFES,3,La crítica que no se ve,El autor no dice qué opina: lo deja en las palabras,Al comentar que algunas mujeres del siglo XIX se tragaban una solitaria para recobrar una …
+Lectura Crítica,2 · ICFES,4,Cómo se enlazan,Cambia el «Pero» por otros y escucha cuál aguanta,Considere el siguiente fragmento. ¿Cuál es la función de la expresión «Pero» en el fragmen…
+Lectura Crítica,3 · ICFES,1,La bisagra del texto,Tapa el conector y lee las dos partes solas,"Al inicio del segundo párrafo del texto, el conector «en efecto» se emplea para"
+Lectura Crítica,3 · ICFES,2,El juicio que no se dice,"La misma palabra, dos veces, dos sentidos",La idea planteada por «Checho» en su juego de palabras hace referencia a que
+Lectura Crítica,3 · ICFES,3,La pieza que remata,Hay palabras que anuncian que el texto va a cerrar,El enunciado «La corrupción política es una realidad internacional que pone en evidencia e…
+Lectura Crítica,3 · ICFES,4,El detalle que lo delata,Un contrario no se piensa suelto: se prueba en la frase,En la frase «el conjunto de actitudes y actividades mediante las cuales una persona transg…
+Lectura Crítica,4 · ICFES,1,La señal de tránsito,Prueba cada opción en el hueco y lee la frase entera,"En el segundo párrafo, puede afirmarse que la expresión «Dicho de otro modo» cumple en el …"
+Lectura Crítica,4 · ICFES,2,Qué pieza es esta,"Un texto cita algo para que lo veas, no para rellenar",El autor usa el anterior fragmento para dar
+Lectura Crítica,4 · ICFES,3,Lo que puedo señalar con el dedo,Busca la palabra del enunciado dentro del texto,"Según el texto anterior, ¿qué implicación tiene el uso excesivo de fertilizantes?"
+Lectura Crítica,4 · ICFES,4,La forma delata el propósito,"Cuatro verbos, y solo uno deja huellas en el texto","En este texto, el autor"
+Lectura Crítica,5 · ICFES,1,Qué quiere que yo haga,El propósito casi siempre está en la última frase,"En este artículo, el autor se propone"
+Lectura Crítica,5 · ICFES,2,Lo que dice y lo que muestra,¿Quién está diciendo esto?,"En el segundo párrafo del texto, la expresión «¡Qué horrible!» representa"
+Lectura Crítica,5 · ICFES,3,Quién habla y desde dónde,Nadie cita porque sí: la cita hace un trabajo,"En el texto, el autor acude en varias ocasiones a información emitida por la Unesco para a…"
+Lectura Crítica,5 · ICFES,4,La idea detrás de la imagen,No te acuerdes de los nombres: prueba la frase,La frase «inclinado sobre el río de su conciencia» constituye una
+Lectura Crítica,6 · ICFES,1,Una sola línea: qué defiende,Primero separa: ¿está dicho o hay que deducirlo?,"De las siguientes proposiciones, la que presenta la inferencia más relevante es"
+Lectura Crítica,6 · ICFES,2,Qué se cae si quito esto,Ponle nombre a cada oración antes de mirar las flechas,La secuencia que representa la función de cada idea dentro del párrafo es
+Lectura Crítica,6 · ICFES,3,Dice una cosa y hace la contraria,"Un eufemismo cambia la palabra, no el hecho",La intención de la frase es
+Lectura Crítica,6 · ICFES,4,Cómo llega el texto hasta ahí,Qué se queda sin sentido cuando los bárbaros no llegan,En el poema «Esperando a los bárbaros» se puede inferir que
+Sociales y Ciudadanas,1 · ICFES,1,Quién dice qué y por qué,"Subraya cada motivo que ella nombra, uno por uno","Los tipos de discriminación que se hacen evidentes, en este caso, son:"
+Sociales y Ciudadanas,1 · ICFES,2,El principio que hay detrás,La pregunta no es qué puede hacer el presidente: es por qué no puede más,En el texto anterior se dice que el presidente puede «limitar» mas no «suspender» algunas …
+Sociales y Ciudadanas,1 · ICFES,3,Lo de antes explica lo de ahora,"Si cambia el mecanismo, cambia quién decide",Este cambio en los dos tipos de democracia propuestos por estas dos constituciones (la de …
+Sociales y Ciudadanas,1 · ICFES,4,El principio que hay detrás,Reparte las funciones entre las tres ramas,"De acuerdo con la Constitución política de Colombia, ¿cuál de las ramas del poder puede ej…"
+Sociales y Ciudadanas,2 · ICFES,1,En qué coinciden y en qué no,Te piden la que NO es correcta: marca primero las tres que sí,Las dos personas están a favor del vegetarianismo. ¿Cuál de las siguientes afirmaciones so…
+Sociales y Ciudadanas,2 · ICFES,2,El nombre exacto de la figura,"Primero: ¿qué se quiere cambiar, una ley o la Constitución?",El presidente puede hacerlo a través de alguno de los mecanismos de participación ciudadan…
+Sociales y Ciudadanas,2 · ICFES,3,Las dos caras de la misma medida,Busca la pareja: una política social y un efecto económico,Que las políticas sociales influyen en los resultados económicos se nota cuando
+Sociales y Ciudadanas,2 · ICFES,4,Qué queda en entredicho,Subraya la palabra absoluta de cada opción,Con la anterior situación se demostró que

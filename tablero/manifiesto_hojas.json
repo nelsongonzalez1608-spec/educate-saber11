@@ -1,0 +1,882 @@
+[
+ {
+  "svg": "ap01_portada",
+  "pagina": 1,
+  "area": "ap",
+  "mision": null,
+  "rol": "Apertura",
+  "titulo": "Portada del cuaderno"
+ },
+ {
+  "svg": "ap02_intro1",
+  "pagina": 2,
+  "area": "ap",
+  "mision": null,
+  "rol": "Apertura",
+  "titulo": "Esto no es un libro de respuestas"
+ },
+ {
+  "svg": "ap03_intro2",
+  "pagina": 3,
+  "area": "ap",
+  "mision": null,
+  "rol": "Apertura",
+  "titulo": "Lo que sí es"
+ },
+ {
+  "svg": "ap04_metas1",
+  "pagina": 4,
+  "area": "ap",
+  "mision": null,
+  "rol": "Apertura",
+  "titulo": "Dónde estoy hoy"
+ },
+ {
+  "svg": "ap05_metas2",
+  "pagina": 5,
+  "area": "ap",
+  "mision": null,
+  "rol": "Apertura",
+  "titulo": "A dónde quiero llegar"
+ },
+ {
+  "svg": "ap06_encontrar1",
+  "pagina": 6,
+  "area": "ap",
+  "mision": null,
+  "rol": "Apertura",
+  "titulo": "Cómo se lee este cuaderno"
+ },
+ {
+  "svg": "ap07_encontrar2",
+  "pagina": 7,
+  "area": "ap",
+  "mision": null,
+  "rol": "Apertura",
+  "titulo": "Las seis áreas"
+ },
+ {
+  "svg": "ap08_psico1",
+  "pagina": 8,
+  "area": "ap",
+  "mision": null,
+  "rol": "Apertura",
+  "titulo": "El día de la prueba"
+ },
+ {
+  "svg": "ap09_psico2",
+  "pagina": 9,
+  "area": "ap",
+  "mision": null,
+  "rol": "Apertura",
+  "titulo": "Mi pacto conmigo"
+ },
+ {
+  "svg": "ap10_mate",
+  "pagina": 10,
+  "area": "mate",
+  "mision": null,
+  "rol": "Portada de área",
+  "titulo": "Portada · Matemáticas"
+ },
+ {
+  "svg": "m1_t1",
+  "pagina": 11,
+  "area": "mate",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 1 · Taller"
+ },
+ {
+  "svg": "m1_t2",
+  "pagina": 12,
+  "area": "mate",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 1 · Taller"
+ },
+ {
+  "svg": "m1_i1",
+  "pagina": 13,
+  "area": "mate",
+  "mision": 1,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Matemáticas · Misión 1 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "m1_t3",
+  "pagina": 14,
+  "area": "mate",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 1 · Taller"
+ },
+ {
+  "svg": "m1_t4",
+  "pagina": 15,
+  "area": "mate",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 1 · Taller"
+ },
+ {
+  "svg": "m1_t5",
+  "pagina": 16,
+  "area": "mate",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 1 · Taller"
+ },
+ {
+  "svg": "m1_i2",
+  "pagina": 17,
+  "area": "mate",
+  "mision": 1,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Matemáticas · Misión 1 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "m2_t1",
+  "pagina": 18,
+  "area": "mate",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 2 · Taller"
+ },
+ {
+  "svg": "m2_t2",
+  "pagina": 19,
+  "area": "mate",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 2 · Taller"
+ },
+ {
+  "svg": "m2_i1",
+  "pagina": 20,
+  "area": "mate",
+  "mision": 2,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Matemáticas · Misión 2 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "m2_t3",
+  "pagina": 21,
+  "area": "mate",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 2 · Taller"
+ },
+ {
+  "svg": "m2_t4",
+  "pagina": 22,
+  "area": "mate",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 2 · Taller"
+ },
+ {
+  "svg": "m2_t5",
+  "pagina": 23,
+  "area": "mate",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 2 · Taller"
+ },
+ {
+  "svg": "m2_i2",
+  "pagina": 24,
+  "area": "mate",
+  "mision": 2,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Matemáticas · Misión 2 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "m3_t1",
+  "pagina": 25,
+  "area": "mate",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 3 · Taller"
+ },
+ {
+  "svg": "m3_t2",
+  "pagina": 26,
+  "area": "mate",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 3 · Taller"
+ },
+ {
+  "svg": "m3_i1",
+  "pagina": 27,
+  "area": "mate",
+  "mision": 3,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Matemáticas · Misión 3 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "m3_t3",
+  "pagina": 28,
+  "area": "mate",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 3 · Taller"
+ },
+ {
+  "svg": "m3_t4",
+  "pagina": 29,
+  "area": "mate",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 3 · Taller"
+ },
+ {
+  "svg": "m3_t5",
+  "pagina": 30,
+  "area": "mate",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 3 · Taller"
+ },
+ {
+  "svg": "m3_i2",
+  "pagina": 31,
+  "area": "mate",
+  "mision": 3,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Matemáticas · Misión 3 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "m4_t1",
+  "pagina": 32,
+  "area": "mate",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 4 · Taller"
+ },
+ {
+  "svg": "m4_t2",
+  "pagina": 33,
+  "area": "mate",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 4 · Taller"
+ },
+ {
+  "svg": "m4_i1",
+  "pagina": 34,
+  "area": "mate",
+  "mision": 4,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Matemáticas · Misión 4 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "m4_t3",
+  "pagina": 35,
+  "area": "mate",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 4 · Taller"
+ },
+ {
+  "svg": "m4_t4",
+  "pagina": 36,
+  "area": "mate",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 4 · Taller"
+ },
+ {
+  "svg": "m4_t5",
+  "pagina": 37,
+  "area": "mate",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 4 · Taller"
+ },
+ {
+  "svg": "m4_i2",
+  "pagina": 38,
+  "area": "mate",
+  "mision": 4,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Matemáticas · Misión 4 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "m5_t1",
+  "pagina": 39,
+  "area": "mate",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 5 · Taller"
+ },
+ {
+  "svg": "m5_t2",
+  "pagina": 40,
+  "area": "mate",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 5 · Taller"
+ },
+ {
+  "svg": "m5_i1",
+  "pagina": 41,
+  "area": "mate",
+  "mision": 5,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Matemáticas · Misión 5 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "m5_t3",
+  "pagina": 42,
+  "area": "mate",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 5 · Taller"
+ },
+ {
+  "svg": "m5_t4",
+  "pagina": 43,
+  "area": "mate",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 5 · Taller"
+ },
+ {
+  "svg": "m5_t5",
+  "pagina": 44,
+  "area": "mate",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 5 · Taller"
+ },
+ {
+  "svg": "m5_i2",
+  "pagina": 45,
+  "area": "mate",
+  "mision": 5,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Matemáticas · Misión 5 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "m6_t1",
+  "pagina": 46,
+  "area": "mate",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 6 · Taller"
+ },
+ {
+  "svg": "m6_t2",
+  "pagina": 47,
+  "area": "mate",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 6 · Taller"
+ },
+ {
+  "svg": "m6_i1",
+  "pagina": 48,
+  "area": "mate",
+  "mision": 6,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Matemáticas · Misión 6 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "m6_t3",
+  "pagina": 49,
+  "area": "mate",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 6 · Taller"
+ },
+ {
+  "svg": "m6_t4",
+  "pagina": 50,
+  "area": "mate",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 6 · Taller"
+ },
+ {
+  "svg": "m6_t5",
+  "pagina": 51,
+  "area": "mate",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Matemáticas · Misión 6 · Taller"
+ },
+ {
+  "svg": "m6_i2",
+  "pagina": 52,
+  "area": "mate",
+  "mision": 6,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Matemáticas · Misión 6 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "ap53_lc",
+  "pagina": 53,
+  "area": "lc",
+  "mision": null,
+  "rol": "Portada de área",
+  "titulo": "Portada · Lectura Crítica"
+ },
+ {
+  "svg": "lc1_t1",
+  "pagina": 54,
+  "area": "lc",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 1 · Taller"
+ },
+ {
+  "svg": "lc1_t2",
+  "pagina": 55,
+  "area": "lc",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 1 · Taller"
+ },
+ {
+  "svg": "lc1_i1",
+  "pagina": 56,
+  "area": "lc",
+  "mision": 1,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Lectura Crítica · Misión 1 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "lc1_t3",
+  "pagina": 57,
+  "area": "lc",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 1 · Taller"
+ },
+ {
+  "svg": "lc1_t4",
+  "pagina": 58,
+  "area": "lc",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 1 · Taller"
+ },
+ {
+  "svg": "lc1_t5",
+  "pagina": 59,
+  "area": "lc",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 1 · Taller"
+ },
+ {
+  "svg": "lc1_i2",
+  "pagina": 60,
+  "area": "lc",
+  "mision": 1,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Lectura Crítica · Misión 1 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "lc2_t1",
+  "pagina": 61,
+  "area": "lc",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 2 · Taller"
+ },
+ {
+  "svg": "lc2_t2",
+  "pagina": 62,
+  "area": "lc",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 2 · Taller"
+ },
+ {
+  "svg": "lc2_i1",
+  "pagina": 63,
+  "area": "lc",
+  "mision": 2,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Lectura Crítica · Misión 2 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "lc2_t3",
+  "pagina": 64,
+  "area": "lc",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 2 · Taller"
+ },
+ {
+  "svg": "lc2_t4",
+  "pagina": 65,
+  "area": "lc",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 2 · Taller"
+ },
+ {
+  "svg": "lc2_t5",
+  "pagina": 66,
+  "area": "lc",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 2 · Taller"
+ },
+ {
+  "svg": "lc2_i2",
+  "pagina": 67,
+  "area": "lc",
+  "mision": 2,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Lectura Crítica · Misión 2 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "lc3_t1",
+  "pagina": 68,
+  "area": "lc",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 3 · Taller"
+ },
+ {
+  "svg": "lc3_t2",
+  "pagina": 69,
+  "area": "lc",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 3 · Taller"
+ },
+ {
+  "svg": "lc3_i1",
+  "pagina": 70,
+  "area": "lc",
+  "mision": 3,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Lectura Crítica · Misión 3 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "lc3_t3",
+  "pagina": 71,
+  "area": "lc",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 3 · Taller"
+ },
+ {
+  "svg": "lc3_t4",
+  "pagina": 72,
+  "area": "lc",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 3 · Taller"
+ },
+ {
+  "svg": "lc3_t5",
+  "pagina": 73,
+  "area": "lc",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 3 · Taller"
+ },
+ {
+  "svg": "lc3_i2",
+  "pagina": 74,
+  "area": "lc",
+  "mision": 3,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Lectura Crítica · Misión 3 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "lc4_t1",
+  "pagina": 75,
+  "area": "lc",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 4 · Taller"
+ },
+ {
+  "svg": "lc4_t2",
+  "pagina": 76,
+  "area": "lc",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 4 · Taller"
+ },
+ {
+  "svg": "lc4_i1",
+  "pagina": 77,
+  "area": "lc",
+  "mision": 4,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Lectura Crítica · Misión 4 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "lc4_t3",
+  "pagina": 78,
+  "area": "lc",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 4 · Taller"
+ },
+ {
+  "svg": "lc4_t4",
+  "pagina": 79,
+  "area": "lc",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 4 · Taller"
+ },
+ {
+  "svg": "lc4_t5",
+  "pagina": 80,
+  "area": "lc",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 4 · Taller"
+ },
+ {
+  "svg": "lc4_i2",
+  "pagina": 81,
+  "area": "lc",
+  "mision": 4,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Lectura Crítica · Misión 4 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "lc5_t1",
+  "pagina": 82,
+  "area": "lc",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 5 · Taller"
+ },
+ {
+  "svg": "lc5_t2",
+  "pagina": 83,
+  "area": "lc",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 5 · Taller"
+ },
+ {
+  "svg": "lc5_i1",
+  "pagina": 84,
+  "area": "lc",
+  "mision": 5,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Lectura Crítica · Misión 5 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "lc5_t3",
+  "pagina": 85,
+  "area": "lc",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 5 · Taller"
+ },
+ {
+  "svg": "lc5_t4",
+  "pagina": 86,
+  "area": "lc",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 5 · Taller"
+ },
+ {
+  "svg": "lc5_t5",
+  "pagina": 87,
+  "area": "lc",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 5 · Taller"
+ },
+ {
+  "svg": "lc5_i2",
+  "pagina": 88,
+  "area": "lc",
+  "mision": 5,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Lectura Crítica · Misión 5 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "lc6_t1",
+  "pagina": 89,
+  "area": "lc",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 6 · Taller"
+ },
+ {
+  "svg": "lc6_t2",
+  "pagina": 90,
+  "area": "lc",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 6 · Taller"
+ },
+ {
+  "svg": "lc6_i1",
+  "pagina": 91,
+  "area": "lc",
+  "mision": 6,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Lectura Crítica · Misión 6 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "lc6_t3",
+  "pagina": 92,
+  "area": "lc",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 6 · Taller"
+ },
+ {
+  "svg": "lc6_t4",
+  "pagina": 93,
+  "area": "lc",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 6 · Taller"
+ },
+ {
+  "svg": "lc6_t5",
+  "pagina": 94,
+  "area": "lc",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Lectura Crítica · Misión 6 · Taller"
+ },
+ {
+  "svg": "lc6_i2",
+  "pagina": 95,
+  "area": "lc",
+  "mision": 6,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Lectura Crítica · Misión 6 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "ap96_soc",
+  "pagina": 96,
+  "area": "soc",
+  "mision": null,
+  "rol": "Portada de área",
+  "titulo": "Portada · Sociales y Ciudadanas"
+ },
+ {
+  "svg": "soc1_t1",
+  "pagina": 97,
+  "area": "soc",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 1 · Taller"
+ },
+ {
+  "svg": "soc1_t2",
+  "pagina": 98,
+  "area": "soc",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 1 · Taller"
+ },
+ {
+  "svg": "soc1_i1",
+  "pagina": 99,
+  "area": "soc",
+  "mision": 1,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Sociales y Ciudadanas · Misión 1 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "soc1_t3",
+  "pagina": 100,
+  "area": "soc",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 1 · Taller"
+ },
+ {
+  "svg": "soc1_t4",
+  "pagina": 101,
+  "area": "soc",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 1 · Taller"
+ },
+ {
+  "svg": "soc1_t5",
+  "pagina": 102,
+  "area": "soc",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 1 · Taller"
+ },
+ {
+  "svg": "soc1_i2",
+  "pagina": 103,
+  "area": "soc",
+  "mision": 1,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Sociales y Ciudadanas · Misión 1 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "soc2_t1",
+  "pagina": 104,
+  "area": "soc",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 2 · Taller"
+ },
+ {
+  "svg": "soc2_t2",
+  "pagina": 105,
+  "area": "soc",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 2 · Taller"
+ },
+ {
+  "svg": "soc2_i1",
+  "pagina": 106,
+  "area": "soc",
+  "mision": 2,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Sociales y Ciudadanas · Misión 2 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "soc2_t3",
+  "pagina": 107,
+  "area": "soc",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 2 · Taller"
+ },
+ {
+  "svg": "soc2_t4",
+  "pagina": 108,
+  "area": "soc",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 2 · Taller"
+ },
+ {
+  "svg": "soc2_t5",
+  "pagina": 109,
+  "area": "soc",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 2 · Taller"
+ },
+ {
+  "svg": "soc2_i2",
+  "pagina": 110,
+  "area": "soc",
+  "mision": 2,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Sociales y Ciudadanas · Misión 2 · Entrenamiento ICFES"
+ }
+]

@@ -1,0 +1,16 @@
+EduCaTe · Misión 1 de Matemáticas · presentaciones
+
+Los dos archivos .html de esta carpeta funcionan con doble clic, sin internet
+(todo va incrustado: tipografías del sistema como respaldo, imágenes en base64).
+
+También están publicados como páginas privadas en claude.ai. Los enlaces están
+en la conversación. Para que un profesor pueda abrirlos hay que compartirlos
+desde el menú Share de cada página.
+
+CÓMO SE MANEJAN
+  flechas  ←  →   avanzar y retroceder
+  barra espaciadora   avanzar
+  Inicio / Fin        primera y última diapositiva
+  G                   abrir y cerrar la guía del profe
+  T                   iniciar o pausar el cronómetro
+  Esc                 cerrar la guía
