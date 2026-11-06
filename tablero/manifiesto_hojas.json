@@ -878,5 +878,117 @@
   "mision": 2,
   "rol": "Entrenamiento ICFES",
   "titulo": "Sociales y Ciudadanas · Misión 2 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "soc3_t1",
+  "pagina": 111,
+  "area": "soc",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 3 · Taller"
+ },
+ {
+  "svg": "soc3_t2",
+  "pagina": 112,
+  "area": "soc",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 3 · Taller"
+ },
+ {
+  "svg": "soc3_i1",
+  "pagina": 113,
+  "area": "soc",
+  "mision": 3,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Sociales y Ciudadanas · Misión 3 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "soc3_t3",
+  "pagina": 114,
+  "area": "soc",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 3 · Taller"
+ },
+ {
+  "svg": "soc3_t4",
+  "pagina": 115,
+  "area": "soc",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 3 · Taller"
+ },
+ {
+  "svg": "soc3_t5",
+  "pagina": 116,
+  "area": "soc",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 3 · Taller"
+ },
+ {
+  "svg": "soc3_i2",
+  "pagina": 117,
+  "area": "soc",
+  "mision": 3,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Sociales y Ciudadanas · Misión 3 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "soc4_t1",
+  "pagina": 118,
+  "area": "soc",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 4 · Taller"
+ },
+ {
+  "svg": "soc4_t2",
+  "pagina": 119,
+  "area": "soc",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 4 · Taller"
+ },
+ {
+  "svg": "soc4_i1",
+  "pagina": 120,
+  "area": "soc",
+  "mision": 4,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Sociales y Ciudadanas · Misión 4 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "soc4_t3",
+  "pagina": 121,
+  "area": "soc",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 4 · Taller"
+ },
+ {
+  "svg": "soc4_t4",
+  "pagina": 122,
+  "area": "soc",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 4 · Taller"
+ },
+ {
+  "svg": "soc4_t5",
+  "pagina": 123,
+  "area": "soc",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Sociales y Ciudadanas · Misión 4 · Taller"
+ },
+ {
+  "svg": "soc4_i2",
+  "pagina": 124,
+  "area": "soc",
+  "mision": 4,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Sociales y Ciudadanas · Misión 4 · Entrenamiento ICFES"
  }
 ]
