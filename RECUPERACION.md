@@ -93,4 +93,6 @@ guías HTML ya entregadas, que las traen incrustadas.
 - **Sigue roto:** `plan_lc.py` y `clase_viva_lc.py` (necesitan `matriz.py` y los datos de LC:
   la salida es `tablero/lc_datos.json` sacado de las guías HTML entregadas, que no están aquí),
   `verifica_claves.py` (necesita `m*_icfes.py`) y el visor.
-- **`entregables/` sigue vacío.** Los PDF, el .xlsx y los HTML solo existen en la conversación de Cowork.
+- **`entregables/` recuperado** (subido por Nelson el 6 nov): cuaderno de 110 páginas, los dos
+  planeadores, las 8 guías de Lectura Crítica, la matriz, el informe de hallazgos y el visor.
+  Las guías HTML traen incrustadas las claves y preguntas de LC: de ahí sale `tablero/lc_datos.json`.
