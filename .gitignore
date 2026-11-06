@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 *.svg
 /tmp/
+libro/pdf_*.pdf
+libro/chk_*.jpg
+libro/Cuaderno_APERTURA.pdf

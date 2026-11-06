@@ -82,3 +82,15 @@ guías HTML ya entregadas, que las traen incrustadas.
 - Esta carpeta es ahora la fuente. **Haz `git init` y un commit al final de cada sesión.**
 - Al cerrar cada misión, sube un zip del código al proyecto de claude.ai, reemplazando
   `EDUCATE_cuaderno_fuente.zip`.
+
+## Estado al 6 nov, tarde (sesión de Claude Code en la nube)
+
+- Todo el proyecto está en GitHub: `nelsongonzalez1608-spec/educate-saber11`.
+- **Reconstruido:** `taller_base.py` (prueba: `prueba_taller_base.py` rehace las páginas 106 y 107),
+  `verifica_cajas.py`, `verifica_pistas.py`, `extrae_instrumentos.py` (lee el CSV) y
+  `render.unir()` / `render.verifica()`, que tampoco venían en el zip. `lib.chip()` y
+  `lib.panel()` miden con `tw()`. `plan_mate.py` vuelve a correr (24/24, todo en su caja).
+- **Sigue roto:** `plan_lc.py` y `clase_viva_lc.py` (necesitan `matriz.py` y los datos de LC:
+  la salida es `tablero/lc_datos.json` sacado de las guías HTML entregadas, que no están aquí),
+  `verifica_claves.py` (necesita `m*_icfes.py`) y el visor.
+- **`entregables/` sigue vacío.** Los PDF, el .xlsx y los HTML solo existen en la conversación de Cowork.

@@ -160,6 +160,14 @@ Fuentes: el texto se mide con **Carlito** (métrica idéntica a Calibri) en
 (Caveat, Patrick Hand) están en `fuentes/`. Para probar las guías HTML hace falta Playwright,
 que se instala cuando se necesite: `npm install -g playwright && npx playwright install chromium`.
 
+### Trabajo en la nube (Claude Code en claude.ai)
+
+El repositorio es `github.com/nelsongonzalez1608-spec/educate-saber11` (privado) y es la fuente.
+En un contenedor nuevo: `apt-get install -y librsvg2-bin` y los enlaces
+`/home/claude/libro`, `/home/claude/tablero` → las carpetas del repo y `/home/claude/cuaderno` →
+`piloto/cuaderno_mision1_oct`; `mkdir -p /tmp/claude-0`. **Commit y push al final de cada sesión.**
+Las pruebas de campo del libro (42 PDF, 6 misiones × 7 áreas) están en `fuente_libro/`.
+
 ## 5. Arquitectura
 
 ```
@@ -196,9 +204,12 @@ fuentes/                  tipografías de mano
 docs/                     HANDOVER del 28 oct (desactualizado) y la muestra
 ```
 
-### El motor de una hoja de taller (`taller_base.py` — HAY QUE RECONSTRUIRLO, ver RECUPERACION.md)
+### El motor de una hoja de taller (`taller_base.py` — reconstruido el 6 nov)
 
-Así funcionaba, y así tiene que volver a funcionar:
+Reconstruido contra `referencia/hojas/`. La prueba es `prueba_taller_base.py`, que rehace las
+páginas 106 y 107 ya entregadas. Al empezar una misión nueva, copiar su forma de uso (docstring de
+`taller_base.py`): `configurar()`, `usar_estrategias()`, `hoja_taller()`, `hoja_icfes()`.
+Así funciona:
 
 - Cada hoja de taller trae **dos preguntas**, una por tarjeta. La tarjeta tiene: número,
   «la lees en tu libro, página N», chip de estrategia, «mi primera idea, antes de hacer nada»,
@@ -245,10 +256,10 @@ Así funcionaba, y así tiene que volver a funcionar:
 
 | Qué revisa | Archivo | Estado |
 |---|---|---|
-| Alto y borde derecho de cada instrumento; texto en LGRAY; ancho de chips | `verifica_cajas.py` | **perdido, reconstruir** |
-| Que ningún instrumento delate la respuesta (borde y tipografía) | `verifica_pistas.py` | **perdido, reconstruir** |
-| Que no haya dos instrumentos con el mismo título | `extrae_instrumentos.py` | **perdido; el registro está en `tablero/instrumentos.csv`** |
-| Pie presente en todas las páginas del PDF (detecta PDF recortados) | `render.verifica()` | disponible |
+| Alto y borde derecho de cada instrumento; texto en LGRAY; ancho de chips | `verifica_cajas.py` | disponible (reconstruido 6 nov) |
+| Que ningún instrumento delate la respuesta (borde y tipografía) | `verifica_pistas.py` | disponible (reconstruido 6 nov) |
+| Que no haya dos instrumentos con el mismo título | `extrae_instrumentos.py "Título nuevo" …` | disponible (lee `tablero/instrumentos.csv`; al cerrar una misión, agregar sus filas) |
+| Pie presente en todas las páginas del PDF (detecta PDF recortados) | `render.verifica()` | disponible (reconstruido 6 nov: el zip no lo traía) |
 | Desbordes del planeador | `verifica_plan.py` | disponible |
 | Claves ICFES al lado de su pregunta | `verifica_claves.py` | disponible (necesita los módulos `m*_icfes.py`) |
 
@@ -294,8 +305,10 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
 
 ## 9. Lo que falta (en orden)
 
-1. **Reconstruir el motor del cuaderno** (`taller_base.py` y los verificadores). Ver
-   `RECUPERACION.md`. Sin esto no se pueden construir misiones nuevas.
+1. ~~Reconstruir el motor del cuaderno~~ — hecho el 6 nov (`taller_base.py`, `verifica_cajas.py`,
+   `verifica_pistas.py`, `extrae_instrumentos.py`, `render.unir/verifica`). **Pendiente de Nelson:**
+   hallazgos 35 (franja de vocabulario tapa la segunda tarjeta en las 30 hojas de taller de
+   Matemáticas) y 36 (las misiones de Matemáticas salieron en rojo, no en azul).
 2. Sociales misiones 3 a 6 (páginas 111–138).
 3. Ciencias Naturales (139–181), Física (182–224), Inglés (225–267), cierre (268–270).
 4. Las 8 guías de clase de Matemáticas (con el motor de `clase_viva_lc.py`).

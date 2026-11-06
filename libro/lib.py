@@ -69,9 +69,9 @@ def parrafo(body, x, y, txt, w_chars=100, size=30, color=INK, lh=None, font=UI, 
 def panel(body, x, y, w, h, color, title=None, fill="white", r=22, sw=3, dash=None, title_size=22):
     body.append(rect(x, y, w, h, fill, r=r, stroke=color, sw=sw, dash=dash))
     if title:
-        tw = len(title) * title_size * 0.62 + 44
-        body.append(rect(x + 26, y - title_size * 0.75, tw, title_size * 1.5, color, r=title_size * 0.75))
-        body.append(T(x + 26 + tw / 2, y + title_size * 0.32, [title], title_size, "white", weight="700",
+        w_t = tw(title, title_size, "700") + len(title) * 1 + 44   # ls=1 por carácter
+        body.append(rect(x + 26, y - title_size * 0.75, w_t, title_size * 1.5, color, r=title_size * 0.75))
+        body.append(T(x + 26 + w_t / 2, y + title_size * 0.32, [title], title_size, "white", weight="700",
                       anchor="middle", ls=1))
 
 
@@ -159,10 +159,15 @@ def write_box(body, x, y, w, h, c=LGRAY, lines=True, step=46, label=None, label_
 
 
 def chip(body, x, y, txt, c, size=20, pad=18, fill=None, txtc="white", h=None):
+    """Ancho medido con la fuente real (tw), nunca contando caracteres: contando, los chips
+    salían hasta 170 px más anchos y se montaban en la columna vecina. Va en <g class="chip">
+    para que verifica_cajas.py lo compare con su texto."""
     h = h or size * 1.9
-    w = len(txt) * size * 0.6 + pad * 2
-    body.append(rect(x, y, w, h, fill or c, r=h / 2, stroke=c, sw=2))
-    body.append(T(x + w / 2, y + h / 2 + size * 0.36, [txt], size, txtc, weight="700", anchor="middle"))
+    w = tw(txt, size, "700") + pad * 2
+    body.append(f'<g class="chip" data-pad="{pad}">'
+                + rect(x, y, w, h, fill or c, r=h / 2, stroke=c, sw=2)
+                + T(x + w / 2, y + h / 2 + size * 0.36, [txt], size, txtc, weight="700", anchor="middle")
+                + "</g>")
     return w
 
 
