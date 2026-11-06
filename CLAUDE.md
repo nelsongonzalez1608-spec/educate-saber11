@@ -35,14 +35,19 @@ tres cuadernos al azar sin haber entrado a la clase.
 
 | Entregable | Listo | Total |
 |---|---|---|
-| Cuaderno combinado de las seis áreas | 110 | **270 páginas** |
-| Planeadores del docente (uno por área) | 2 | 6 |
-| Guías de clase proyectables (una por clase) | 8 | 48 |
+| Cuaderno combinado de las siete áreas | 110 | **313 páginas** |
+| Planeadores del docente (uno por área) | 2 | 7 |
+| Guías de clase proyectables (una por clase) | 8 | 56 |
 | Documento maestro de metodología | 0 | 1 |
 | Reporte de los especialistas | 0 | 1 |
 | Informe de hallazgos del libro | 1 | 1 |
 
-**Son 270 PÁGINAS, no hojas** (135 hojas a doble cara). Nunca escribir «270 hojas».
+**Son PÁGINAS, no hojas.** Nunca escribir «hojas» para el total.
+
+**Cambio del 6 nov (decisión de Nelson):** el cuaderno sigue al libro tal cual. Como el libro trae
+**Biología y Química por separado** (6 misiones cada una), Ciencias Naturales se parte en dos áreas:
+son **7 áreas** y el cuaderno pasa de 270 a **313 páginas** (planeadores 7, clases 56). El proyecto
+aprobado era de 270: **falta que Cristian apruebe la ampliación** (impresión y tiempo).
 
 ### Las tres unidades, que no se confunden
 
@@ -50,13 +55,13 @@ tres cuadernos al azar sin haber entrado a la clase.
   **7 páginas**: 5 de taller con las 10 preguntas del libro y 2 de entrenamiento con 4
   preguntas reales del ICFES. Orden impreso: taller, taller, ICFES, taller, taller, taller, ICFES.
 - **Clase** = sesión de 2 horas. Cada área tiene **8**, número fijo: 6 de contenido + clase 7
-  (simulacro del área) + clase 8 (devolución). Total 48 clases.
+  (simulacro del área) + clase 8 (devolución). Total 56 clases (7 áreas).
 - **Las seis fases** de una clase de 120 minutos, con el reparto **aprobado en el piloto**:
   Activación **15** · Pregunta problematizadora **20** · Desarrollo guiado **35** ·
   Reto en equipo **20** · Evaluación individual **20** · Cierre **10**.
   No cambiar este reparto: ya se cambió una vez por error y hubo que rehacerlo.
 
-### Mapa de páginas (exactamente 270)
+### Mapa de páginas (exactamente 313, desde el 6 nov)
 
 | Páginas | Sección |
 |---|---|
@@ -64,15 +69,18 @@ tres cuadernos al azar sin haber entrado a la clase.
 | 10–52 | Matemáticas (portada + 6 misiones) |
 | 53–95 | Lectura Crítica |
 | 96–138 | Sociales y Ciudadanas |
-| 139–181 | Ciencias Naturales |
-| 182–224 | Física |
-| 225–267 | Inglés |
-| 268–270 | Cierre post-prueba |
+| 139–181 | Biología |
+| 182–224 | Química |
+| 225–267 | Física |
+| 268–310 | Inglés |
+| 311–313 | Cierre post-prueba |
 
 Cada área son **43 páginas**: una portada y seis misiones de siete.
 
 Colores de área: Matemáticas `#1F4E8C` · Lectura Crítica `#A82424` · Sociales `#C9821B` ·
-C. Naturales `#30843C` · Física `#5B3E96` · Inglés `#1BA0A8`.
+Biología `#30843C` · Química *(por definir)* · Física `#5B3E96` · Inglés `#1BA0A8`.
+Cada área tiene su color: es su personalidad (Nelson). Las misiones de Matemáticas ya impresas
+salieron en el rojo de Lectura Crítica (hallazgo 36): se corrige solo si se rehacen esas páginas.
 Paleta institucional: azul `#242478`, rojo `#A82424`, verde `#30843C`, oro `#C9821B`.
 
 ---
@@ -310,9 +318,9 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
    hallazgos 35 (franja de vocabulario tapa la segunda tarjeta en las 30 hojas de taller de
    Matemáticas) y 36 (las misiones de Matemáticas salieron en rojo, no en azul).
 2. Sociales misiones 3 a 6 (páginas 111–138).
-3. Ciencias Naturales (139–181), Física (182–224), Inglés (225–267), cierre (268–270).
+3. Biología (139–181), Química (182–224), Física (225–267), Inglés (268–310), cierre (311–313).
 4. Las 8 guías de clase de Matemáticas (con el motor de `clase_viva_lc.py`).
-5. Planeadores y guías de Sociales, Naturales, Física e Inglés.
+5. Planeadores y guías de Sociales, Biología, Química, Física e Inglés.
 6. **Decisión de Cristian** sobre los nombres de políticos vivos, antes de imprimir.
 7. Subir a la matriz los sellos y textos de Matemáticas (hoy figuran en cero) y las 48
    dinámicas nuevas.

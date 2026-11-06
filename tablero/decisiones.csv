@@ -13,3 +13,5 @@ El alto de bloque depende de la franja,"Las hojas con franja de vocabulario usan
 Antes de entregar se corre verifica_cajas.py,"Mide los 126 instrumentos contra el alto disponible. Lo que se sale del recuadro no se ve en el código ni se nota en el PDF",Regla nueva
 El instrumento no resalta la opción correcta,"Resaltar el trozo del texto por el que se pregunta sí. Resaltar una de las alternativas entre las que el estudiante decide no: el ojo va ahí antes de leer. Lo vigila verifica_pistas.py",Corrección del 2 nov 2026
 Todo ancho se mide con la fuente real,"Vale para el texto justificado y también para los chips y los rótulos. Contar caracteres siempre termina en algo montado encima de otra cosa",Regla extendida
+El cuaderno sigue al libro tal cual,"Biología y Química van por separado, 6 misiones cada una. Son 7 áreas y 313 páginas. Falta la aprobación de Cristian","Nelson, 6 nov"
+Cada área tiene su color,El color es la personalidad del área. Corregir el rojo de Matemáticas es estético: solo si se rehacen esas páginas,"Nelson, 6 nov"
