@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 """Arma el PDF corregido del cuaderno (páginas 1 a 110) a partir del PDF entregado.
 
-  · Las páginas que no son de misión (apertura, portadas) se copian tal cual.
+  · Las páginas que no son de misión (apertura 1–9, portadas de área 10, 53, 96) salen de su SVG
+    regenerado (apertura.py, apertura2.py, apertura3.py) si existe; si no, se copian tal cual
+    del PDF entregado.
   · Cada página de misión sale de dos capas:
       1. el MARCO nuevo: la hoja que dibujó rehace_hojas.py, sin el original incrustado;
       2. la página ORIGINAL del PDF entregado, puesta como Form XObject debajo de un recorte en
@@ -11,6 +13,7 @@
     Así el instrumento conserva sus fuentes reales: el archivo pesa casi lo mismo que el
     original y el texto se puede buscar y copiar.
 
+    python3 apertura.py && python3 apertura2.py && python3 apertura3.py
     python3 rehace_hojas.py && python3 arma_pdf.py
     → entregables/Cuaderno_Saber11_paginas_1_a_110_v2.pdf
 """
@@ -80,12 +83,21 @@ def armar(dest=DEST):
     orig = pikepdf.open(PDF)
     nuevo = pikepdf.new()
     rehechas = 0
+    regeneradas = 0
+    vivos = []          # los PDF de origen tienen que seguir abiertos hasta save()
     with tempfile.TemporaryDirectory() as tmp:
         for p in range(1, len(orig.pages) + 1):
             svg = os.path.join(LIBRO, man[p] + ".svg")
             es_mision = re.fullmatch(r"(m|lc|soc)\d_[ti]\d", man[p]) is not None
             if not es_mision:
-                nuevo.pages.append(orig.pages[p - 1])
+                if os.path.exists(svg):          # apertura o portada regenerada
+                    hoja_pdf = os.path.join(tmp, f"{p}.pdf")
+                    render.conv(svg, hoja_pdf)
+                    hoja = pikepdf.open(hoja_pdf); vivos.append(hoja)
+                    nuevo.pages.append(hoja.pages[0])
+                    regeneradas += 1
+                else:
+                    nuevo.pages.append(orig.pages[p - 1])
                 continue
             txt = open(svg, encoding="utf-8").read()
             marco_svg = os.path.join(tmp, f"{p}.svg")
@@ -104,10 +116,11 @@ def armar(dest=DEST):
             pg.contents_add(pikepdf.Stream(nuevo, b"Q\n" + ops), prepend=False)
             rehechas += 1
         nuevo.save(dest, compress_streams=True, object_stream_mode=pikepdf.ObjectStreamMode.generate)
-    return dest, rehechas
+    return dest, rehechas, regeneradas
 
 
 if __name__ == "__main__":
-    d, n = armar()
-    print(f"{d}: {n} páginas rehechas · {os.path.getsize(d) / 1e6:.1f} MB")
+    d, n, r = armar()
+    print(f"{d}: {n} páginas de misión rehechas · {r} de apertura y portadas regeneradas · "
+          f"{os.path.getsize(d) / 1e6:.1f} MB")
     print("pies:", render.verifica(d, "Aprende"))

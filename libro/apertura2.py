@@ -3,6 +3,7 @@
 """Hojas 4-10: metas, qué te vas a encontrar, psicología, portada de Matemáticas."""
 import math, random
 from lib import *
+from taller_base import salvavidas, SALV_D   # el salvavidas nuevo (flotador coral), igual en todas las áreas
 
 random.seed(31)
 OUT = "/home/claude/libro/"
@@ -143,12 +144,18 @@ def metas_2():
     y = top + 2 * (ph + 60) + 20
 
     # puntaje por área: hoy y meta
-    b.append(rect(M, y, CW, 330, SOFT, r=26))
+    b.append(rect(M, y, CW, 380, SOFT, r=26))
     b.append(T(M + 40, y + 56, ["Mi puntaje por área · hoy y meta"], 32, EDU_AZUL, weight="700"))
     b.append(T(M + 620, y + 56, ["(de 0 a 100 cada una; lo llenas con tu primer simulacro)"], 22, GRAY, style="italic"))
-    gw = (CW - 80 - 5 * 20) / 6
+    n_ar = len(AREAS)
+    gw = (CW - 80 - (n_ar - 1) * 20) / n_ar
+    # En la prueba, Biología, Química y Física dan un solo puntaje: Ciencias Naturales.
+    cien = [i for i, (nm, _) in enumerate(AREAS) if nm in ("Biología", "Química", "Física")]
+    cx0 = M + 40 + cien[0] * (gw + 20); cx1 = M + 40 + cien[-1] * (gw + 20) + gw
+    b.append(T((cx0 + cx1) / 2, y + 116, ["en la prueba son una sola: Ciencias Naturales, con un solo puntaje"],
+               19, GRAY, style="italic", anchor="middle"))
     for i, (nm, c) in enumerate(AREAS):
-        x = M + 40 + i * (gw + 20); yy = y + 100
+        x = M + 40 + i * (gw + 20); yy = y + 150
         b.append(rect(x, yy, gw, 190, "white", r=16, stroke=c, sw=2.4))
         b.append(rect(x, yy, gw, 60, c, r=16)); b.append(rect(x, yy + 30, gw, 30, c, r=0))
         ls_ = wrap(nm, 14)
@@ -165,7 +172,7 @@ def encontrar_1():
     b = svg_open()
     y = frame(b, "Qué te vas a encontrar", EDU_VERDE, 6, "así se lee una hoja de trabajo")
     y = titulo(b, y + 20, "Así se lee una hoja", EDU_VERDE,
-               sub="Todas las hojas del cuaderno, en las seis áreas, tienen las mismas partes. Apréndetelas una vez.")
+               sub="Todas las hojas del cuaderno, en las siete áreas, tienen las mismas partes. Apréndetelas una vez.")
     top = y + 20
     # ── maqueta de hoja a la izquierda ──
     HX, HW, HH = M, 880, 1760
@@ -194,33 +201,31 @@ def encontrar_1():
         b.append(T(HX + pad + 46, py + 84 + k * 44, [ln], 19, INK))
     # paso a paso + cuadrícula
     sy = py + 250
-    b.append(rect(HX + pad, sy, 360, 600, "white", r=12, stroke=AZ_LN, sw=2))
+    SH = 520   # alto del paso a paso y la cuadrícula (cedió 80 px al salvavidas nuevo, que es más alto)
+    b.append(rect(HX + pad, sy, 360, SH, "white", r=12, stroke=AZ_LN, sw=2))
     b.append(T(HX + pad + 20, sy + 38, ["PASO A PASO"], 18, AZ_D, weight="700", ls=1))
     pasos = ["Escribo el valor inicial.", "Calculo el cambio de un paso al siguiente.", "Reviso si el cambio es fijo o crece.", "Elijo la opción que lo muestre."]
     for k, ln in enumerate(pasos):
-        yy = sy + 96 + k * 122
+        yy = sy + 96 + k * 112
         b.append(checkbox(HX + pad + 20, yy - 20, s=11, c=AZ_D))
         for j, l2 in enumerate(wrap(ln, 22)):
             b.append(T(HX + pad + 56, yy + j * 24, [l2], 18, INK))
-    b.append(grid_box(HX + pad + 380, sy, HW - 2 * pad - 380, 600, step=28))
+    b.append(grid_box(HX + pad + 380, sy, HW - 2 * pad - 380, SH, step=28))
     b.append(T(HX + pad + 400, sy + 36, ["CUADRÍCULA DE TRABAJO"], 16, AZ_M, weight="700", ls=1))
     b.append(PT(HX + pad + 420, sy + 120, ["4  6  8  10  12", "+2 +2 +2 +2", "sube siempre lo mismo", "→ es lineal"], 27, PENCIL, rot=-1, lh=44))
     # marca tu respuesta
-    ry = sy + 640
+    ry = sy + SH + 40
     b.append(T(HX + pad, ry + 30, ["MARCO AL FINAL:"], 18, AZ_D, weight="700", ls=1))
     for k, L in enumerate("ABCD"):
         cx = HX + pad + 260 + k * 90
         b.append(f'<circle cx="{cx}" cy="{ry+22}" r="24" fill="white" stroke="{AZ_D}" stroke-width="2.4"/>')
         b.append(T(cx, ry + 31, [L], 22, AZ_D, weight="700", anchor="middle"))
     b.append(ring(HX + pad + 260 + 2 * 90, ry + 22, r=27))
-    # salvavidas
-    vy = ry + 90
-    b.append(rect(HX + pad, vy, HW - 2 * pad, 130, AZ_D, r=12))
-    b.append(buoy(HX + pad + 40, vy + 40, 14))
-    b.append(T(HX + pad + 70, vy + 48, ["SALVAVIDAS · ruta mínima"], 18, "white", weight="700", ls=1))
-    b.append(T(HX + pad + 24, vy + 98, ["Lo mínimo que sí tenía claro: ______  → tenía que ser __ porque __ no podía ser."], 16, "#BFD4F2"))
+    # salvavidas: el mismo de todas las hojas (taller_base.salvavidas)
+    vy = ry + 90; VH = 300
+    salvavidas(b, HX + pad, vy, HW - 2 * pad, h=VH)
     # bitácora
-    by = vy + 170
+    by = vy + VH + 40
     b.append(rect(HX + pad, by, HW - 2 * pad, 170, SOFT, r=12, stroke="#DDE3EA", sw=2))
     b.append(T(HX + pad + 20, by + 40, ["BITÁCORA DE LA CLASE"], 18, GRAY, weight="700", ls=1))
     b.append(T(HX + pad + 20, by + 82, ["Hoy entendí ________________   ·   Todavía no entiendo ________________"], 16, GRAY))
@@ -233,9 +238,9 @@ def encontrar_1():
         (qy + 35, "La pregunta no está reimpresa", "La lees en tu libro. El cuaderno te dice la página y la estrategia con que se resuelve.", EDU_AZUL),
         (py + 105, "Piensa en esto", "Preguntas para mirar lo importante ANTES de calcular. Si las respondes en tu cabeza, medio camino está hecho.", AMBER_D),
         (sy + 170, "Paso a paso", "La ruta. Tachas cada paso cuando lo hagas. Si te saltas uno, ahí suele estar el error.", AZ_D),
-        (sy + 440, "La cuadrícula", "Aquí va TODO lo que pienses: números, tablas, un dibujo, una flecha. Nada se hace «en la cabeza».", AZ_M),
+        (sy + 400, "La cuadrícula", "Aquí va TODO lo que pienses: números, tablas, un dibujo, una flecha. Nada se hace «en la cabeza».", AZ_M),
         (ry + 22, "Marcas al final", "La letra es lo último que escribes. Sin cuadrícula, la hoja no está resuelta.", EDU_ROJO),
-        (vy + 65, "Salvavidas", "La ruta mínima cuando te bloqueas: lo poco que sí tenías claro. De ahí se sale.", AZ_D),
+        (vy + 120, "Salvavidas", "Cuando te bloqueas: escribe lo poco que sí tenías claro, qué tenía que ser entonces y qué opción no podía ser. De ahí se sale.", SALV_D),
         (by + 85, "Bitácora", "Una vez por clase, siempre. Es lo que lee la coordinación para saber cómo vas.", GRAY),
     ]
     for (ay, t, d, c) in notas:
@@ -248,12 +253,13 @@ def encontrar_1():
     cy_ = top + HH + 60
     b.append(rect(M, cy_, CW, 250, CREMA, r=26))
     b.append(T(M + 40, cy_ + 60, ["En cada área cambia el color y el instrumento de pensamiento. Las ocho partes de la hoja, nunca."], 27, EDU_AZUL, weight="700"))
-    gw = (CW - 80 - 5 * 20) / 6
+    n_ar = len(AREAS)
+    gw = (CW - 80 - (n_ar - 1) * 20) / n_ar
     for i, (nm, c) in enumerate(AREAS):
         x = M + 40 + i * (gw + 20)
         b.append(rect(x, cy_ + 110, gw, 100, "white", r=16, stroke=c, sw=2.6))
         b.append(rect(x, cy_ + 110, 16, 100, c, r=8))
-        ls_ = wrap(nm, 15)
+        ls_ = [" ".join(l) for l in wrap_px(nm, 21, gw - 56, "700")]
         for j, ln in enumerate(ls_):
             b.append(T(x + 36, cy_ + (168 if len(ls_) == 1 else 152 + j * 30), [ln], 21, c, weight="700"))
     footer(b, 6, EDU_VERDE)

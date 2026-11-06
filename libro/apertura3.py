@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Hojas 8-10: la psicología de la meta (estudiante, coordinadores) y portada de Matemáticas."""
+"""Hojas 8-10: la psicología de la meta (estudiante, coordinadores) y las portadas de área (10, 53, 96)."""
 import math, random
 from lib import *
 
@@ -146,56 +146,68 @@ def psico_2():
     svg_close(b, OUT + "ap09_psico2.svg")
 
 
-# ═════════════════════════════ 10 · PORTADA DE ÁREA · MATEMÁTICAS ═════════════════════════════
-def portada_mate():
-    AZm = "#1F4E8C"
+# ═════════════════════════════ PORTADAS DE ÁREA (10 · 53 · 96) ═════════════════════════════
+N_AREAS = len(AREAS)   # siete, como en el libro (Biología y Química por separado)
+
+
+def _tinte(c, k=0.28):
+    """El color del área mezclado con blanco: borde suave de las tarjetas de clase."""
+    r, g, b_ = (int(c[i:i + 2], 16) for i in (1, 3, 5))
+    return "#%02X%02X%02X" % tuple(round(255 - (255 - v) * k) for v in (r, g, b_))
+
+
+def portada_area(pag, n_area, nombre, c, titulo, comps, instr_titulo, instr_texto, dibujo,
+                 momentos, clase_sub, clase_lab, archivo, sub_titulo=None, iw=300,
+                 cajas=(EDU_ROJO, EDU_VERDE, EDU_ORO), borde_clase=None,
+                 x_clase_sub=700, x_puntaje=520, paso_puntaje=330, claro=None):
+    # claro: color de los textos secundarios sobre la banda (None → blanco translúcido)
+    cl, op_cl = (claro, 1) if claro else ("white", 0.78)
     b = svg_open()
-    b.append(rect(0, 0, W, 760, AZm, r=0))
+    b.append(rect(0, 0, W, 760, c, r=0))
     b.append(dots(60, 50, "white", r=3, step=38, cols=50, rows=18, op=0.10))
     b.append(logo(M, 60, 70, chip=True, pad=14))
-    b.append(T(W - M, 110, ["ÁREA 1 DE 6"], 26, "#BFD4F2", weight="700", anchor="end", ls=4))
-    b.append(T(M, 400, ["MATEMÁTICAS"], 150, "white", weight="700", ls=6))
-    b.append(T(M, 480, ["Interpretación y representación  ·  Formulación y ejecución  ·  Argumentación"], 28, "#BFD4F2"))
-    b.append(T(M, 540, ["Componentes: numérico-variacional  ·  geométrico-métrico  ·  aleatorio"], 28, "#BFD4F2"))
+    b.append(T(W - M, 110, [f"ÁREA {n_area} DE {N_AREAS}"], 26, cl, weight="700", anchor="end", ls=4, op=op_cl))
+    b.append(T(M, 400, [titulo], 150, "white", weight="700", ls=6))
+    if sub_titulo:
+        b.append(T(M, 480, [sub_titulo], 56, "white", weight="700", ls=8, op=0.85))
+    for k, ln in enumerate(comps):
+        b.append(T(M, (540 if sub_titulo else 480) + k * 60, [ln], 28, cl, op=op_cl))
     # instrumento
-    b.append(rect(M, 620, CW, 280, "white", r=26, stroke=AZm, sw=3))
-    b.append(grid_box(M + 36, 650, 300, 220, step=26))
-    b.append(PT(M + 60, 700, ["4  6  8  10", "+2 +2 +2", "→ lineal"], 28, PENCIL, rot=-1.5, lh=44))
-    b.append(T(M + 380, 690, ["Tu instrumento de pensamiento: la cuadrícula de trabajo"], 34, AZm, weight="700"))
-    parrafo_j(b, M + 380, 712, "En Matemáticas nada se resuelve «en la cabeza». La cuadrícula es donde pones la tabla, la "
-            "diferencia entre un valor y el siguiente, el dibujo de la gráfica, la cuenta. Si la cuadrícula está vacía, "
-            "la respuesta no es tuya todavía.", CW - 420, 24, color=INK, lh=34)
+    b.append(rect(M, 620, CW, 280, "white", r=26, stroke=c, sw=3))
+    dibujo(b, M + 36, 650, iw, 220)
+    tx = M + 80 + iw
+    b.append(T(tx, 690, [instr_titulo], 34, c, weight="700"))
+    parrafo_j(b, tx, 712, instr_texto, W - M - 40 - tx, 24, color=INK, lh=34)
 
     # seis momentos
     y = 960
-    b.append(T(M, y + 40, ["Tus seis momentos"], 38, AZm, weight="700"))
+    b.append(T(M, y + 40, ["Tus seis momentos"], 38, c, weight="700"))
     b.append(T(M + 380, y + 40, ["cada uno: 10 preguntas del libro + entrenamiento ICFES + simulacro"], 23, GRAY, style="italic"))
-    momentos = ["Patrones y relaciones de cambio", "", "", "", "", ""]
     mw = (CW - 40) / 2
-    for i, nm in enumerate(momentos):
+    for i, (nm, comp) in enumerate(momentos):
         x = M + (i % 2) * (mw + 40); yy = y + 90 + (i // 2) * 130
-        b.append(rect(x, yy, mw, 110, "white", r=18, stroke=AZm, sw=2.4))
-        b.append(num_badge(x + 50, yy + 55, i + 1, AZm, r=30, size=30))
+        b.append(rect(x, yy, mw, 110, "white", r=18, stroke=c, sw=2.4))
+        b.append(num_badge(x + 50, yy + 55, i + 1, c, r=30, size=30))
         if nm:
-            b.append(T(x + 104, yy + 50, [nm], 26, AZm, weight="700"))
-            b.append(T(x + 104, yy + 84, ["Componente numérico-variacional"], 20, GRAY))
+            b.append(T(x + 104, yy + 50, [nm], 26, c, weight="700"))
+            b.append(T(x + 104, yy + 84, [comp], 20, GRAY))
         else:
             b.append(line(x + 104, yy + 56, x + mw - 150, yy + 56, LGRAY, 2.4))
-            b.append(T(x + 104, yy + 88, ["Momento " + str(i + 1)], 20, GRAY))
+            b.append(T(x + 104, yy + 88, [comp or "Momento " + str(i + 1)], 20, GRAY))
         for k in range(3):
-            b.append(checkbox(x + mw - 130 + k * 38, yy + 40, s=11, c=[EDU_ROJO, EDU_VERDE, EDU_ORO][k]))
+            b.append(checkbox(x + mw - 130 + k * 38, yy + 40, s=11, c=cajas[k]))
     b.append(T(M, y + 90 + 3 * 130 + 20, ["casillas: libro · ICFES · simulacro"], 19, GRAY, style="italic"))
 
     # ocho clases
     y = y + 90 + 3 * 130 + 70
     b.append(rect(M, y, CW, 560, SOFT, r=26))
-    b.append(T(M + 40, y + 56, ["Mis ocho clases de Matemáticas"], 36, AZm, weight="700"))
-    b.append(T(M + 700, y + 56, ["fecha · cómo llegué · cómo salí · una cosa que aprendí"], 23, GRAY, style="italic"))
+    b.append(T(M + 40, y + 56, [f"Mis ocho clases de {nombre}"], 36, c, weight="700"))
+    b.append(T(M + x_clase_sub, y + 56, [clase_sub], 23, GRAY, style="italic"))
     cw_ = (CW - 80 - 3 * 20) / 4
     for i in range(8):
         x = M + 40 + (i % 4) * (cw_ + 20); yy = y + 90 + (i // 4) * 220
-        b.append(rect(x, yy, cw_, 200, "white", r=18, stroke=AZ_LN, sw=2))
-        b.append(num_badge(x + 34, yy + 34, i + 1, AZm, r=22, size=22))
+        b.append(rect(x, yy, cw_, 200, "white", r=18, stroke=borde_clase or _tinte(c), sw=2))
+        b.append(num_badge(x + 34, yy + 34, i + 1, c, r=22, size=22))
         b.append(T(x + 70, yy + 42, ["fecha ________"], 20, GRAY))
         for k, lab in enumerate(["llegué", "salí"]):
             fy = yy + 90 + k * 46
@@ -203,21 +215,94 @@ def portada_mate():
             for m_, mood in enumerate(["worried", "calm", "happy"]):
                 b.append(face(x + 110 + m_ * 54, fy, 18, mood, GRAY, "white", sw=2))
         b.append(line(x + 24, yy + 184, x + cw_ - 24, yy + 184, LGRAY, 2))
-        b.append(T(x + 24, yy + 176, ["aprendí:"], 16, GRAY, style="italic"))
+        b.append(T(x + 24, yy + 176, [clase_lab], 16, GRAY, style="italic"))
 
     # puntaje del área
     y += 600
     b.append(rect(M, y, CW, 150, "white", r=26, stroke=EDU_ORO, sw=3))
-    b.append(T(M + 40, y + 62, ["Mi puntaje en Matemáticas"], 30, EDU_ORO, weight="700"))
+    b.append(T(M + 40, y + 62, [f"Mi puntaje en {nombre}"], 30, c if c != "#1F4E8C" else EDU_ORO, weight="700"))
     b.append(T(M + 40, y + 106, ["(de 0 a 100)"], 20, GRAY, style="italic"))
     for k, lab in enumerate(["simulacro 1", "simulacro 2", "simulacro 3", "META"]):
-        x = M + 520 + k * 330
+        x = M + x_puntaje + k * paso_puntaje
         b.append(T(x, y + 62, [lab], 22, EDU_AZUL if lab == "META" else GRAY, weight="700" if lab == "META" else "400"))
         b.append(line(x, y + 112, x + 260, y + 112, EDU_AZUL if lab == "META" else LGRAY, 2.6))
-    footer(b, 10, AZm, texto="Matemáticas · área 1 de 6")
-    svg_close(b, OUT + "ap10_mate.svg")
+    footer(b, pag, c, texto=f"{nombre if not sub_titulo else nombre + ' y Ciudadanas'} · área {n_area} de {N_AREAS}")
+    svg_close(b, OUT + archivo)
+
+
+def _dib_mate(b, x, y, w, h):
+    b.append(grid_box(x, y, w, h, step=26))
+    b.append(PT(x + 24, y + 50, ["4  6  8  10", "+2 +2 +2", "→ lineal"], 28, PENCIL, rot=-1.5, lh=44))
+
+
+def _dib_lc(b, x, y, w, h):
+    c = "#A82424"
+    b.append(rect(x, y, w, h, SOFT, r=14, stroke="#E3E8EF", sw=2))
+    b.append(rect(x + 4, y + 8, 8, h - 16, c, r=4))
+    for k, (ln, sub) in enumerate([("el matiz suena", True), ("a traición; la duda,", False), ("a tibieza", True)]):
+        yy = y + 50 + k * 44
+        if sub:   # el subrayado va DEBAJO del texto, en el color del área
+            b.append(f'<line x1="{x + 30}" y1="{yy + 11}" x2="{x + 34 + tw(ln, 23, style="italic")}" y2="{yy + 11}" '
+                     f'stroke="{c}" stroke-width="4" stroke-linecap="round" opacity="0.6"/>')
+        b.append(T(x + 32, yy, [ln], 23, INK, style="italic"))
+    b.append(PT(x + 32, y + 196, ["¿traición a quién?"], 24, PENCIL, rot=-1.5))
+
+
+def _dib_soc(b, x, y, w, h):
+    c = "#C9821B"
+    b.append(rect(x, y, w, h, SOFT, r=14, stroke="#E3E8EF", sw=2))
+    b.append(rect(x + 4, y + 8, 8, h - 16, c, r=4))
+    b.append(T(x + 32, y + 36, ["EL CASO"], 15, GRAY, weight="700", ls=2))
+    for k, (lab, mano) in enumerate([("quién gana", "los pescadores"), ("quién pierde", "el turismo"),
+                                     ("quién decide", "la alcaldía")]):
+        yy = y + 66 + k * 48
+        b.append(T(x + 32, yy, [lab], 20, c, weight="700"))
+        b.append(line(x + 160, yy + 8, x + w - 14, yy + 8, LGRAY, 2))
+        b.append(PT(x + 170, yy, [mano], 22, PENCIL, rot=-1))
+
+
+def portada_mate():
+    portada_area(10, 1, "Matemáticas", "#1F4E8C", "MATEMÁTICAS",
+                 ["Interpretación y representación  ·  Formulación y ejecución  ·  Argumentación",
+                  "Componentes: numérico-variacional  ·  geométrico-métrico  ·  aleatorio"],
+                 "Tu instrumento de pensamiento: la cuadrícula de trabajo",
+                 "En Matemáticas nada se resuelve «en la cabeza». La cuadrícula es donde pones la tabla, la "
+                 "diferencia entre un valor y el siguiente, el dibujo de la gráfica, la cuenta. Si la cuadrícula está vacía, "
+                 "la respuesta no es tuya todavía.", _dib_mate,
+                 [("Patrones y relaciones de cambio", "Componente numérico-variacional")] + [("", "")] * 5,
+                 "fecha · cómo llegué · cómo salí · una cosa que aprendí", "aprendí:", "ap10_mate.svg",
+                 borde_clase=AZ_LN, claro="#BFD4F2")
+
+
+def portada_lc():
+    portada_area(53, 2, "Lectura Crítica", "#A82424", "LECTURA CRÍTICA",
+                 ["Identificar contenidos locales  ·  Comprender el sentido global  ·  Reflexionar y evaluar",
+                  "Textos continuos: literarios, filosóficos, informativos  ·  Textos discontinuos"],
+                 "Tu instrumento de pensamiento: el texto marcado",
+                 "En Lectura Crítica no hay cuentas que hacer: hay un texto que interrogar. Lo que aquí reemplaza a la "
+                 "cuadrícula es el subrayado y la pregunta escrita al margen. Si la hoja está limpia, no leíste: "
+                 "pasaste los ojos.", _dib_lc,
+                 [("El sentido de las palabras", "Componente semántico"),
+                  ("La arquitectura del texto", "Componente semántico")] + [("", "")] * 4,
+                 "fecha · cómo llegué · cómo salí · una palabra nueva", "palabra nueva:", "ap53_lc.svg",
+                 cajas=(EDU_AZUL, EDU_VERDE, EDU_ORO), x_clase_sub=760, x_puntaje=560, paso_puntaje=320)
+
+
+def portada_soc():
+    portada_area(96, 3, "Sociales", "#C9821B", "SOCIALES",
+                 ["Pensamiento social  ·  Interpretación de perspectivas  ·  Pensamiento reflexivo y sistémico"],
+                 "Tu instrumento de pensamiento: el mapa de actores",
+                 "Casi ninguna pregunta de esta área se resuelve recordando una fecha. Se resuelve preguntando quién "
+                 "gana, quién pierde y quién decide. Cuando tengas los tres nombres escritos, la mitad de las opciones "
+                 "se cae sola.", _dib_soc,
+                 [("Pensar socialmente", "Competencias ciudadanas"), ("", "Competencias ciudadanas"),
+                  ("", "Competencias ciudadanas"), ("", "Historia y cultura"), ("", "Espacio y ambiente"),
+                  ("", "Ético-político")],
+                 "fecha · cómo llegué · cómo salí · un caso que me marcó", "el caso:", "ap96_soc.svg",
+                 sub_titulo="Y CIUDADANAS", iw=330, cajas=(EDU_AZUL, EDU_VERDE, EDU_ORO),
+                 x_clase_sub=760, x_puntaje=560, paso_puntaje=320)
 
 
 if __name__ == "__main__":
-    psico_1(); psico_2(); portada_mate()
-    print("ok 8-10")
+    psico_1(); psico_2(); portada_mate(); portada_lc(); portada_soc()
+    print("ok 8-10, 53, 96")

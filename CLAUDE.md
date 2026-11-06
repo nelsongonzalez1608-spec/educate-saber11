@@ -175,7 +175,9 @@ que se instala cuando se necesite: `npm install -g playwright && npx playwright 
 El repositorio es `github.com/nelsongonzalez1608-spec/educate-saber11` (privado) y es la fuente.
 En un contenedor nuevo: `apt-get install -y librsvg2-bin` y los enlaces
 `/home/claude/libro`, `/home/claude/tablero` → las carpetas del repo y `/home/claude/cuaderno` →
-`piloto/cuaderno_mision1_oct`; `mkdir -p /tmp/claude-0`. **Commit y push al final de cada sesión.**
+`piloto/cuaderno_mision1_oct`; `mkdir -p /tmp/claude-0`. Las letras de mano (Caveat, Patrick Hand) se
+instalan con `mkdir -p ~/.local/share/fonts && cp fuentes/*.ttf ~/.local/share/fonts/ && fc-cache -f`;
+sin ellas la apertura sale con una letra de respaldo. Para el PDF final: `pip install pikepdf`. **Commit y push al final de cada sesión.**
 Las pruebas de campo del libro (42 PDF, 6 misiones × 7 áreas) están en `fuente_libro/`.
 
 ## 5. Arquitectura

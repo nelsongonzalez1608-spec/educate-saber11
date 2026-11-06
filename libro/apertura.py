@@ -15,7 +15,7 @@ def portada():
     b.append(dots(80, 60, "white", r=3, step=38, cols=50, rows=21, op=0.10))
     b.append(logo(W / 2 - logo_w(180) / 2, 170, 180, chip=True, pad=36, r=32))
     b.append(T(W / 2, 540, ["CUADERNO DE TRABAJO"], 50, "white", weight="700", anchor="middle", ls=9))
-    b.append(T(W / 2, 640, ["Saber 11 · las seis áreas en un solo cuaderno"], 34, "#BFD4F2", anchor="middle"))
+    b.append(T(W / 2, 640, ["Saber 11 · las siete áreas de tu libro en un solo cuaderno"], 34, "#BFD4F2", anchor="middle"))
     b.append(T(W / 2, 790, ["Aprende  ·  Practica  ·  Avanza"], 38, EDU_ORO, weight="700", anchor="middle", ls=4))
 
     # tarjeta de identidad
@@ -34,10 +34,15 @@ def portada():
     b.append(T(cx, cy + 78, ["puntaje global"], 22, GRAY, anchor="middle"))
     b.append(T(cx, cy + 108, ["(la defines en la hoja 4)"], 19, GRAY, anchor="middle", style="italic"))
 
-    # seis áreas
+    # siete áreas (como en el libro; en la prueba, Biología, Química y Física son Ciencias Naturales)
     y2 = 1640
-    b.append(T(M, y2 + 30, ["Las seis áreas que vas a entrenar aquí"], 30, EDU_AZUL, weight="700"))
-    gw = (CW - 5 * 24) / 6
+    t_areas = "Las siete áreas que vas a entrenar aquí"
+    b.append(T(M, y2 + 30, [t_areas], 30, EDU_AZUL, weight="700"))
+    b.append(T(M + tw(t_areas, 30, "700") + 28, y2 + 30,
+               ["(en el Saber 11, Biología, Química y Física se evalúan juntas en Ciencias Naturales)"],
+               22, GRAY, style="italic"))
+    n_ar = len(AREAS)
+    gw = (CW - (n_ar - 1) * 24) / n_ar
     for i, (nm, c) in enumerate(AREAS):
         x = M + i * (gw + 24); yy = y2 + 76
         b.append(rect(x, yy, gw, 190, "white", r=22, stroke=c, sw=3))
@@ -101,7 +106,7 @@ def intro_1():
     # tres paneles
     items = [("Te va a pedir", EDU_AZUL, ["Escribir antes de marcar.", "Llenar la bitácora, siempre.",
                                            "Anotar en qué te equivocaste.", "Llegar con el libro."]),
-             ("Te devuelve", EDU_VERDE, ["Una forma de pensar que sirve en las seis áreas.",
+             ("Te devuelve", EDU_VERDE, ["Una forma de pensar que sirve en las siete áreas.",
                                           "Saber exactamente en qué fallas.", "Tu puntaje subiendo con datos."]),
              ("No es", EDU_ROJO, ["Un cuaderno de respuestas.", "Un libro de teoría.",
                                    "Algo que se llena por cumplir."])]
