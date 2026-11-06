@@ -372,9 +372,14 @@ def tarjeta(b, y, n, est, pag, ctx, inst, comp=None, **_):
 
 
 # ───────── entrenamiento ICFES ─────────
-def membrete(b, x, y, txt):
-    """Regla 7: el año solo si está verificado contra el cuadernillo liberado. Si no:
-    «Pregunta oficial ICFES · Saber 11»."""
+MEMBRETE = "Pregunta oficial ICFES · Saber 11"
+
+
+def membrete(b, x, y, txt=None):
+    """Siempre genérico: «Pregunta oficial ICFES · Saber 11» (Nelson, 6 nov: no hay certeza del
+    año ni de la aplicación de cada pregunta del banco). `txt` se ignora a propósito: el
+    cuadernillo y el número verificados se guardan en tablero/icfes.csv (columna fuente)."""
+    txt = MEMBRETE
     c = A["color"]
     w = tw(txt, 19, "700") + 48
     b.append(rect(x, y, w, 44, "white", r=10, stroke=c, sw=2.2))

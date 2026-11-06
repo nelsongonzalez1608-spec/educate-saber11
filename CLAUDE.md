@@ -108,6 +108,10 @@ Son de Nelson, textuales. Romper una es retroceder.
 7. **NUNCA inventar el año ni el cuadernillo de una pregunta del ICFES.** El membrete lleva
    año solo si está verificado contra el cuadernillo liberado. Si no se puede verificar, va
    **«Pregunta oficial ICFES · Saber 11»** sin año. Decidido; no se vuelve a discutir.
+   **Desde el 6 nov el membrete es SIEMPRE genérico** («Pregunta oficial ICFES · Saber 11»), aunque el
+   año esté verificado: Nelson no tiene certeza del año ni de la aplicación de cada pregunta del
+   banco. El cuadernillo y el número verificados se guardan en `tablero/icfes.csv`, columna `fuente`.
+   `taller_base.membrete()` ya no imprime otra cosa.
 
 Y estas, que salieron del trabajo y también son reglas:
 

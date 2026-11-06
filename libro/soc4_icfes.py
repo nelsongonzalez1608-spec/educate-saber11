@@ -19,7 +19,9 @@ from soc4 import *   # noqa: F401,F403  (configura la misión y EST)
 
 
 def membrete_2016(n):
-    return f"Pregunta oficial ICFES · Saber 11 · 2016-1 · N.º {n}"
+    """Verificada contra el cuadernillo 2016-1 (ítem n), pero el membrete es genérico por
+    decisión de Nelson (6 nov). El dato queda en tablero/icfes.csv, columna fuente."""
+    return "Pregunta oficial ICFES · Saber 11"
 
 
 # ───────── QA · N.º 87 ─────────

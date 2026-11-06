@@ -198,8 +198,8 @@ MISIONES = {
            "pregunta 1 de este momento.",
    ojo="Refutar es una operación matemática, no una opinión. Un solo contraejemplo numérico "
        "tumba la afirmación: hay que hacerlo en el tablero una vez para que lo crean.",
-   clave_est="Las cuatro preguntas ICFES de este momento son de 2019, cuadernillo 2, todas "
-             "verificadas contra el liberado."),
+   clave_est="Las cuatro preguntas ICFES de este momento son oficiales y están verificadas "
+             "una por una."),
  3: dict(comp="Espacial-métrico", pags="25 a 31",
    estr=["Partir el cuerpo en piezas", "La misma razón para los dos",
          "Cuántas veces cabe", "Antes de mover, mide"],
@@ -459,8 +459,7 @@ def h2():
             banco = BANCO.get(mis, [])
             txt = f"{len(banco)} preguntas oficiales"
             b.append(T(colx[4] + 20, y + 46, [txt], 22, VERDE, weight="700"))
-            anios = sorted({x["membrete"].split(" · ")[0] for x in banco})
-            b.append(T(colx[4] + 20, y + 76, [" · ".join(anios)[:46]], 19, GRAY))
+            b.append(T(colx[4] + 20, y + 76, ["verificadas una por una"], 19, GRAY))
         else:
             b.append(T(colx[2] + 20, y + 58, ["las 6 franjas"], 23, GRAY, style="italic"))
             b.append(T(colx[3] + 20, y + 58, ["todo el área"], 22, GRAY))
@@ -695,7 +694,7 @@ def hoja_clase_b(mis):
     banco = BANCO.get(mis, [])
     y = seccion(b, y, "Las cuatro preguntas oficiales del momento",
         "Van en las dos hojas de entrenamiento del cuaderno. Todas verificadas una por una: el "
-        "membrete lleva año solo si se pudo cruzar contra el cuadernillo liberado.")
+        "membrete es siempre «Pregunta oficial ICFES · Saber 11».")
     for k, (x4, est, ins, ctx) in enumerate(INS_ICFES.get(mis, [])):
         fila = banco[k] if k < len(banco) else {}
         l_ins = wrap_px(ins, 23, CW - 700)

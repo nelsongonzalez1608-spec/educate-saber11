@@ -225,8 +225,11 @@ def rehacer(pag, svg_nombre):
 
 def hojas():
     man = json.load(open(os.path.join(RAIZ, "tablero", "manifiesto_hojas.json"), encoding="utf-8"))
+    n = int(re.search(r"^Pages:\s+(\d+)", subprocess.run(["pdfinfo", PDF], capture_output=True,
+                                                         text=True).stdout, re.M).group(1))
+    # solo las páginas que existen en el PDF entregado (1–110): las nuevas tienen su propio módulo
     return sorted((h["pagina"], h["svg"]) for h in man
-                  if re.fullmatch(r"(m|lc|soc)\d_[ti]\d", h["svg"]))
+                  if h["pagina"] <= n and re.fullmatch(r"(m|lc|soc)\d_[ti]\d", h["svg"]))
 
 
 if __name__ == "__main__":

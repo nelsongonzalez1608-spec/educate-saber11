@@ -340,9 +340,9 @@ def encontrar_2():
     y += 740
     b.append(rect(M, y, CW, 190, "white", r=26, stroke=EDU_AZUL, sw=3))
     b.append(rect(M + 40, y + 50, 560, 90, SOFT, r=14, stroke=AZ_LN, sw=2))
-    b.append(T(M + 70, y + 106, ["Saber 11 · 2019 · Cuadernillo 2 · N.º 18"], 26, AZ_D, weight="700"))
-    b.append(T(M + 640, y + 80, ["Cuando veas un membrete así, la pregunta es real: salió en esa prueba, ese cuadernillo,"], 24, INK))
-    b.append(T(M + 640, y + 116, ["con ese número. Puedes buscarla y comprobarlo. No entrenas con preguntas inventadas."], 24, INK))
+    b.append(T(M + 70, y + 106, ["Pregunta oficial ICFES · Saber 11"], 26, AZ_D, weight="700"))
+    b.append(T(M + 640, y + 80, ["Cuando veas este membrete, la pregunta es real: la hizo el ICFES para el Saber 11."], 24, INK))
+    b.append(T(M + 640, y + 116, ["La resolvió alguien antes que tú, en la prueba de verdad. No entrenas con preguntas inventadas."], 24, INK))
     b.append(hand_arrow(M + 620, y + 95, M + 605, y + 95, EDU_ORO, sw=3, bend=0, head=0))
     footer(b, 7, EDU_VERDE)
     svg_close(b, OUT + "ap07_encontrar2.svg")

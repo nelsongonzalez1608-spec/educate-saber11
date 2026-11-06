@@ -18,3 +18,4 @@ Cada área tiene su color,El color es la personalidad del área. Corregir el roj
 Matemáticas en su azul,Las 42 páginas de misión pasan al azul #1F4E8C. Los detalles rojos dentro de los instrumentos se quedan como se aprobaron,"Nelson, 6 nov (opción A)"
 Las tres ciencias en verdes,"Biología #30843C, Química #0F7A68, Física #5C7A1E","Nelson, 6 nov"
 Salvavidas claro y único,"Fondo claro para escribir con lápiz, borde y flotador coral, igual en todas las áreas","Nelson, 6 nov"
+Membrete ICFES siempre genérico,"«Pregunta oficial ICFES · Saber 11» en todas, aunque el año esté verificado. El dato va en icfes.csv, columna fuente","Nelson, 6 nov"
