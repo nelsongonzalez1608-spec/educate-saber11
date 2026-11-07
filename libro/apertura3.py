@@ -303,6 +303,37 @@ def portada_soc():
                  x_clase_sub=760, x_puntaje=560, paso_puntaje=320)
 
 
+def _dib_bio(b, x, y, w, h):
+    c = "#30843C"
+    b.append(rect(x, y, w, h, SOFT, r=14, stroke="#E3E8EF", sw=2))
+    b.append(rect(x + 4, y + 8, 8, h - 16, c, r=4))
+    b.append(T(x + 32, y + 36, ["EL DATO"], 15, GRAY, weight="700", ls=2))
+    base = y + h - 46
+    for k, (lab, alto) in enumerate((("reposo", 50), ("esfuerzo", 112))):
+        bx = x + 44 + k * 96
+        b.append(rect(bx, base - alto, 60, alto, c if k else "white", r=4, stroke=c, sw=2.4))
+        b.append(T(bx + 30, base + 26, [lab], 17, GRAY, anchor="middle"))
+    b.append(line(x + 34, base, x + 230, base, INK, 2))
+    b.append(PT(x + 232, y + 90, ["¿contra", "qué lo", "comparo?"], 22, PENCIL, rot=-2, lh=28))
+
+
+def portada_bio():
+    portada_area(139, 4, "Biología", "#30843C", "BIOLOGÍA",
+                 ["Uso comprensivo del conocimiento científico  ·  Explicación de fenómenos  ·  Indagación",
+                  "Componentes: celular  ·  organísmico  ·  ecosistémico  ·  ciencia, tecnología y sociedad"],
+                 "Tu instrumento de pensamiento: el dato y su comparación",
+                 "Tu cuerpo regula su agua, su azúcar y su calcio sin pedirte permiso, y ninguna de tus células ha "
+                 "leído un libro de biología. Aquí vas a mirarlas como las mira un científico: qué cambió, qué se "
+                 "midió y contra qué se compara. Si no puedes señalar con el dedo de dónde sale tu respuesta, "
+                 "todavía es una corazonada.", _dib_bio,
+                 [("La célula, una fábrica en cadena", "Componente biológico · celular"),
+                  ("El equilibrio de adentro", "Componente biológico · organísmico"),
+                  ("", "Componente biológico · ecosistémico"), ("", "Ciencia, tecnología y sociedad"),
+                  ("", "Entorno biológico"), ("", "Entorno biológico")],
+                 "fecha · cómo llegué · cómo salí · algo que observé", "observé:", "ap139_bio.svg",
+                 iw=330, cajas=(EDU_AZUL, EDU_ROJO, EDU_ORO), x_clase_sub=760, x_puntaje=560, paso_puntaje=320)
+
+
 if __name__ == "__main__":
-    psico_1(); psico_2(); portada_mate(); portada_lc(); portada_soc()
-    print("ok 8-10, 53, 96")
+    psico_1(); psico_2(); portada_mate(); portada_lc(); portada_soc(); portada_bio()
+    print("ok 8-10, 53, 96, 139")

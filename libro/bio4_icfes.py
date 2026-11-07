@@ -83,18 +83,15 @@ def _mini(b, x, y, w, h, L, tipo, valores):
         b.append(T(lx + 36, gy + 56, ["sin pectinasa"], 14, INK))
 
 
+PREG_99 = ("Al leer la información del contexto, un investigador piensa que si se emplean pectinasas durante la "
+           "producción de vino de uva, la intensidad del color de un vino es mayor que la de un vino producido sin "
+           "pectinasas. Si la hipótesis del investigador es cierta, ¿cuál de las siguientes gráficas muestra los "
+           "resultados esperados por el investigador?")
+
+
 def datos_99(b, x, y, w):
-    yy = cita(b, x, y + 4, w, "DEL CONTEXTO (EL TEXTO COMPLETO LO TIENE EL PROFE)",
-              "La adición de enzimas, como pectinasas y glucanasas durante la producción de vino, es una práctica "
-              "común en algunas empresas productoras de vino, la cual ha demostrado mejorar la extracción de "
-              "pigmentos de las frutas y cambiar la intensidad del color, que se mide con equipos especializados.",
-              EST[1][1], size=17)
-    yy = pregunta(b, x, yy + 4, w, "Al leer la información del contexto, un investigador piensa que si se emplean "
-                                   "pectinasas durante la producción de vino de uva, la intensidad del color de un "
-                                   "vino es mayor que la de un vino producido sin pectinasas. Si la hipótesis del "
-                                   "investigador es cierta, ¿cuál de las siguientes gráficas muestra los resultados "
-                                   "esperados por el investigador?")
-    gw, gh = (w - 30) / 2, 170
+    yy = y
+    gw, gh = (w - 30) / 2, 140
     graf = (("A", "barras", (0.42, 0.62)), ("B", "barras", (0.88, 0.52)),
             ("C", "lineas", ([(0, 0.6), (0.5, 0.6), (0.5, 0.0)], [(0, 0.64), (0.5, 0.64), (0.85, 0.3)])),
             ("D", "lineas", ([(0, 0.15), (0.85, 0.5)], [(0, 0.42), (0.85, 0.78)])))
@@ -110,7 +107,7 @@ def ii1(b, x, y, w, h):
                       "barras que esperaría el investigador si tiene razón, y solo después busca la gráfica que se "
                       "parece a la tuya.")
     x0, ww = x + 22, w - 44
-    gx, gy, gw, gh = x0 + 40, yy + 10, 300, 200
+    gx, gy, gw, gh = x0 + 40, yy + 10, 300, 190
     b.append(line(gx, gy + gh, gx + gw, gy + gh, INK, 2.4))
     b.append(line(gx, gy, gx, gy + gh, INK, 2.4))
     for k, lab in enumerate(("con pectinasa", "sin pectinasa")):
@@ -122,12 +119,12 @@ def ii1(b, x, y, w, h):
     for k, (rt, ps) in enumerate((("LO QUE EL INVESTIGADOR CAMBIA", "la variable que él decide"),
                                   ("LO QUE MIDE", "la variable que responde"),
                                   ("¿LA HIPÓTESIS HABLA DEL TIEMPO?", "sí o no, y entonces qué va en el eje x"))):
-        ry = gy - 4 + k * 78
-        caja(b, rx, ry, rw, 66, c, r=12)
+        ry = gy - 4 + k * 94
+        caja(b, rx, ry, rw, 82, c, r=12)
         rot(b, rx + 16, ry + 26, rt, c, size=13)
         pista(b, rx + 16 + tw(rt, 13, "700") + len(rt) * 1.5 + 12, ry + 26, ps)
-        renglon(b, rx + 16, ry + 54, rx + rw - 16)
-    return gy + gh + 40
+        renglon(b, rx + 16, ry + 70, rx + rw - 16)
+    return max(gy + gh + 40, gy + 3 * 94)
 
 
 # ───────── QB · N.º 101 · dos viñedos ─────────
@@ -238,7 +235,7 @@ def ii4(b, x, y, w, h):
 
 
 
-QA = dict(est=1, comp="Indagación", e="", o=[], datos=datos_99, inst=ii1)
+QA = dict(est=1, comp="Indagación", e=PREG_99, o=[], datos=datos_99, inst=ii1)
 QB = dict(est=4, comp="Indagación",
           e="Un comerciante compra dos viñedos en dos municipios lejanos entre sí, y tiene la hipótesis de que los "
             "vinos fabricados en estos dos municipios distantes van a tener la misma cantidad de pigmentos, porque se "
