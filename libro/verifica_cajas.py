@@ -28,7 +28,7 @@ NS = "{http://www.w3.org/2000/svg}"
 TOL = 1.0
 HOJAS = ("m[0-9]*_[ti][0-9].svg", "lc[0-9]*_[ti][0-9].svg", "soc[0-9]*_[ti][0-9].svg",
          "bio[0-9]*_[ti][0-9].svg", "qui[0-9]*_[ti][0-9].svg", "fis[0-9]*_[ti][0-9].svg",
-         "ing[0-9]*_[ti][0-9].svg",
+         "ing[0-9]*_[ti][0-9].svg", "ing[0-9]*_t[0-9][0-9].svg",
          "prueba_*.svg")
 
 
@@ -61,7 +61,7 @@ def revisar(ruta):
                           f"(lo que se sale empieza en x={peor[0]:.0f}, y={peor[1]:.0f})")
     # 0 · la misión de la cabecera y del pie es la del archivo (soc3_i1 → MISIÓN 3).
     #     El 7 nov dos hojas salieron con la misión de otro módulo construido en el mismo proceso.
-    m_arch = re.match(r"(?:.*/)?[a-z]+(\d)_[ti]\d\.svg$", ruta)
+    m_arch = re.match(r"(?:.*/)?[a-z]+(\d)_[ti]\d+\.svg$", ruta)
     if m_arch:
         textos = ["".join(t.itertext()) for t in raiz.iter(NS + "text")]
         vistas = {int(x) for t in textos for x in re.findall(r"MISI[ÓO]N (\d)\b", t.upper())}
