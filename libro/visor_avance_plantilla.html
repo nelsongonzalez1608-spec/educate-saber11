@@ -3,56 +3,92 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* Plano del cuaderno: arriba el mapa de las 313 páginas, abajo cada área con sus misiones de 7 páginas */
+/* Tablero del proyecto: pestañas (cuaderno, material del docente, hallazgos, descargas) sobre una sola columna ancha */
 :root{
   --papel:#F6F7FB; --hoja:#FFFFFF; --tinta:#1B1E3A; --suave:#5E6378; --linea:#DADDE8;
-  --edu:#242478; --vacio:#ECEEF4;
+  --edu:#242478; --vacio:#ECEEF4; --alta:#B42318; --media:#B7791F; --baja:#2E6FAD; --aten:#5E6378; --ok:#2E8540;
   --display:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
   --texto:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   --num:"IBM Plex Mono", ui-monospace, Menlo, monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --papel:#12142A; --hoja:#1B1E38; --tinta:#ECEEF8; --suave:#A3A8C3; --linea:#2E3256; --edu:#9EA2FF; --vacio:#22264A; color-scheme:dark}}
-:root[data-theme="dark"]{--papel:#12142A; --hoja:#1B1E38; --tinta:#ECEEF8; --suave:#A3A8C3; --linea:#2E3256; --edu:#9EA2FF; --vacio:#22264A; color-scheme:dark}
+  --papel:#12142A; --hoja:#1B1E38; --tinta:#ECEEF8; --suave:#A3A8C3; --linea:#2E3256; --edu:#9EA2FF; --vacio:#22264A;
+  --alta:#FF8A80; --media:#F2C14E; --baja:#8CB8F0; --aten:#A3A8C3; --ok:#7DD08E; color-scheme:dark}}
+:root[data-theme="dark"]{--papel:#12142A; --hoja:#1B1E38; --tinta:#ECEEF8; --suave:#A3A8C3; --linea:#2E3256; --edu:#9EA2FF; --vacio:#22264A;
+  --alta:#FF8A80; --media:#F2C14E; --baja:#8CB8F0; --aten:#A3A8C3; --ok:#7DD08E; color-scheme:dark}
 body{background:var(--papel);color:var(--tinta);font:16px/1.5 var(--texto)}
+[hidden]{display:none!important}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--papel)}
 .envoltura{max-width:1180px;margin:0 auto;padding-block:28px 64px;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:36px}
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
 h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
 h1{font-size:clamp(28px,4.4vw,44px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:24px}
 .eyebrow{font:700 12px/1 var(--texto);letter-spacing:.14em;text-transform:uppercase;color:var(--edu)}
 .cabeza{display:grid;gap:10px}
 .cabeza p{margin:0;color:var(--suave);max-width:62ch}
 .cifras{display:flex;flex-wrap:wrap;gap:10px 28px;font-variant-numeric:tabular-nums}
 .cifra b{font:800 30px/1 var(--display);display:block}
 .cifra span{font-size:13px;color:var(--suave)}
+nav.pestanas{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--papel);display:flex;gap:6px;flex-wrap:wrap;padding-block:8px}
+nav.pestanas a{font-weight:700;font-size:15px;text-decoration:none;color:var(--suave);padding:8px 14px;border-radius:999px;border:1.5px solid var(--linea)}
+nav.pestanas a[aria-current="page"]{color:var(--hoja);background:var(--tinta);border-color:var(--tinta)}
+nav.pestanas a:focus-visible{outline:2px solid var(--edu);outline-offset:2px}
+.vista{display:grid;gap:32px}
 .mapa{display:grid;grid-template-columns:repeat(auto-fill,minmax(11px,1fr));gap:3px;padding:14px;background:var(--hoja);border:1px solid var(--linea);border-radius:12px}
-.celda{aspect-ratio:3/4;border-radius:2px;background:var(--vacio);border:0;padding:0;cursor:default}
+.celda{aspect-ratio:3/4;border-radius:2px;background:var(--vacio);border:0;padding:0}
 .celda.lista{background:var(--c);cursor:pointer}
 .celda.lista:hover,.celda.lista:focus-visible{outline:2px solid var(--tinta);outline-offset:1px}
 .leyenda{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--suave)}
 .leyenda i{display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--c);margin-right:6px;vertical-align:-1px}
-.area{display:grid;gap:16px;scroll-margin-top:16px}
+.area{display:grid;gap:16px;scroll-margin-top:64px}
 .area-cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px}
-.area-cab h2{font-size:26px;color:var(--c)}
-:root[data-theme="dark"] .area-cab h2{filter:brightness(1.5)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .area-cab h2{filter:brightness(1.5)}}
+.area-cab h2{color:var(--c)}
+:root[data-theme="dark"] .area-cab h2,:root[data-theme="dark"] .bloque h3{filter:brightness(1.5)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .area-cab h2,:root:not([data-theme="light"]) .bloque h3{filter:brightness(1.5)}}
 .rango{font:500 13px var(--num);color:var(--suave)}
-.estado{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;border:1.5px solid currentColor}
-.estado.ok{color:#2E8540}.estado.va{color:#B7791F}.estado.no{color:var(--suave)}
+.estado{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;border:1.5px solid currentColor;white-space:nowrap}
+.estado.ok{color:var(--ok)}.estado.va{color:var(--media)}.estado.no{color:var(--suave)}
 .barra{height:6px;border-radius:3px;background:var(--vacio);overflow:hidden;flex:1 1 160px;min-width:120px;align-self:center}
 .barra span{display:block;height:100%;background:var(--c);width:var(--p)}
-.mision{display:grid;gap:8px;padding:14px;background:var(--hoja);border:1px solid var(--linea);border-radius:12px}
+.mision,.bloque{display:grid;gap:10px;padding:14px;background:var(--hoja);border:1px solid var(--linea);border-radius:12px;min-width:0}
 .mision h3{font-size:16px;font-family:var(--texto);font-weight:700}
-.mision small{color:var(--suave);font-size:13px}
+.mision small,.bloque p{color:var(--suave);font-size:13px;margin:0}
 .tiras{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
 @media (max-width:620px){.tiras{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.mini{display:grid;gap:4px;border:0;padding:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.mini{display:grid;gap:4px;border:0;padding:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;min-width:0}
 .mini img{width:100%;aspect-ratio:900/1165;object-fit:cover;object-position:top;border-radius:6px;border:1px solid var(--linea);background:#fff}
 .mini span{font:500 11px var(--num);color:var(--suave)}
 .mini.falta{cursor:default}
 .mini.falta div{aspect-ratio:900/1165;border-radius:6px;border:1.5px dashed var(--linea);display:grid;place-items:center;font:500 12px var(--num);color:var(--suave)}
 .mini:not(.falta):focus-visible img,.mini:not(.falta):hover img{outline:2px solid var(--c);outline-offset:2px}
 .sueltas{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.docentes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:14px}
+.bloque h3{font-size:18px;color:var(--c)}
+.fila{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.boton{font:700 14px var(--texto);border-radius:8px;border:1.5px solid var(--linea);background:var(--hoja);color:var(--tinta);padding:8px 12px;cursor:pointer;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.boton:hover,.boton:focus-visible{border-color:var(--tinta);outline:none}
+.boton[disabled]{opacity:.5;cursor:default}
+.pendiente{font-size:13px;color:var(--suave);font-style:italic}
+.filtros{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+.filtros label{display:grid;gap:4px;font-size:12px;font-weight:700;color:var(--suave);letter-spacing:.04em;text-transform:uppercase}
+.filtros select,.filtros input{font:15px var(--texto);padding:8px 10px;border-radius:8px;border:1.5px solid var(--linea);background:var(--hoja);color:var(--tinta);min-width:0}
+.filtros input{width:min(280px,100%)}
+.resumen{display:flex;flex-wrap:wrap;gap:8px}
+.tabla-caja{overflow-x:auto;border:1px solid var(--linea);border-radius:12px;background:var(--hoja)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--linea)}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--suave);position:sticky;top:0;background:var(--hoja)}
+td.n{font:500 12px var(--num);color:var(--suave)}
+tr:last-child td{border-bottom:0}
+.sev{font-size:12px;font-weight:700;white-space:nowrap}
+.sev.Alta{color:var(--alta)}.sev.Media{color:var(--media)}.sev.Baja{color:var(--baja)}.sev.Atención{color:var(--aten)}
+.desc{display:grid;gap:8px}
+.desc-fila{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--hoja);border:1px solid var(--linea);border-radius:10px}
+.desc-fila b{font-weight:700}
+.desc-fila small{color:var(--suave);font:500 12px var(--num)}
+.aviso{font-size:14px;color:var(--suave);margin:0}
+#mensaje{min-height:1.4em;font-size:14px;color:var(--ok);margin:0}
 dialog{border:0;padding:0;background:transparent;max-width:min(980px,100vw);width:100%;max-height:100vh}
 dialog::backdrop{background:rgba(10,12,30,.82)}
 .visor{display:grid;gap:10px;padding:12px max(12px,env(safe-area-inset-left,0px));color:#fff}
@@ -69,18 +105,55 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
   <header class="cabeza">
     <span class="eyebrow">EDUCATE · Para el Saber</span>
     <h1>Cuaderno Saber 11 · cómo va</h1>
-    <p>Cada cuadrito es una página del cuaderno. Los de color ya están hechos y revisados; tócalos para ver la página. Los grises faltan.</p>
+    <p>Todo lo que se va construyendo: el cuaderno página por página, el material del docente, los hallazgos del libro y los archivos para descargar.</p>
     <div class="cifras" id="cifras"></div>
   </header>
-  <section aria-label="Mapa de las 313 páginas" style="display:grid;gap:10px">
-    <div class="mapa" id="mapa"></div>
-    <div class="leyenda" id="leyenda"></div>
+
+  <nav class="pestanas" aria-label="Secciones">
+    <a href="#cuaderno">Cuaderno</a>
+    <a href="#docente">Material del docente</a>
+    <a href="#hallazgos">Hallazgos</a>
+    <a href="#descargas">Descargas</a>
+  </nav>
+
+  <section class="vista" id="v-cuaderno" aria-label="Cuaderno">
+    <div style="display:grid;gap:10px">
+      <p class="aviso">Cada cuadrito es una página. Los de color están hechos y revisados: tócalos para verla. Los grises faltan.</p>
+      <div class="mapa" id="mapa"></div>
+      <div class="leyenda" id="leyenda"></div>
+    </div>
+    <div id="areas" style="display:grid;gap:40px"></div>
   </section>
-  <div id="areas" style="display:grid;gap:40px"></div>
+
+  <section class="vista" id="v-docente" aria-label="Material del docente" hidden>
+    <p class="aviso">Por área: el planeador del docente (24 hojas) y las 8 guías de clase que se proyectan. El planeador se ve hoja por hoja aquí mismo; las guías se abren en otra pestaña y se manejan con las flechas del teclado (G abre la guía del profe).</p>
+    <div class="docentes" id="docentes"></div>
+  </section>
+
+  <section class="vista" id="v-hallazgos" aria-label="Hallazgos" hidden>
+    <p class="aviso">Todo lo que se encontró en el libro y en nuestro propio trabajo. «Nuestro» son errores del cuaderno; «Atención» es algo que no requiere corrección pero conviene saber.</p>
+    <div class="resumen" id="h-resumen"></div>
+    <div class="filtros">
+      <label for="f-area">Área<select id="f-area"></select></label>
+      <label for="f-sev">Severidad<select id="f-sev"></select></label>
+      <label for="f-est">Estado<select id="f-est"></select></label>
+      <label for="f-q">Buscar<input id="f-q" type="search" placeholder="pregunta, palabra, página…"></label>
+      <button class="boton" id="h-csv" type="button">Descargar esta lista (.csv)</button>
+    </div>
+    <p class="nota" id="h-cuenta"></p>
+    <div class="tabla-caja"><table><thead><tr><th>N.º</th><th>Área</th><th>Dónde</th><th>Qué pasa</th><th>Qué significa</th><th>Severidad</th><th>Estado</th></tr></thead><tbody id="h-filas"></tbody></table></div>
+  </section>
+
+  <section class="vista" id="v-descargas" aria-label="Descargas" hidden>
+    <p class="aviso">Cada archivo pide una confirmación antes de guardarse. Los PDF del cuaderno van por área para que pesen poco.</p>
+    <p id="mensaje" role="status"></p>
+    <div class="desc" id="desc"></div>
+  </section>
+
   <p class="nota" id="pie"></p>
 </div>
 
-<dialog id="dlg" aria-label="Página del cuaderno">
+<dialog id="dlg" aria-label="Página">
   <div class="visor">
     <img id="dlg-img" alt="">
     <div class="mando">
@@ -95,31 +168,46 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
 <script>
 const D = __DATOS__;
 const AREAS = [
-  {k:"ap", n:"Apertura", c:"#242478", a:1, b:9, est:"ok"},
-  {k:"m", n:"Matemáticas", c:"#1F4E8C", a:10, b:52, est:"ok"},
-  {k:"lc", n:"Lectura Crítica", c:"#A82424", a:53, b:95, est:"ok"},
-  {k:"soc", n:"Sociales y Ciudadanas", c:"#C9821B", a:96, b:138, est:"ok"},
-  {k:"bio", n:"Biología", c:"#30843C", a:139, b:181, est:"ok"},
-  {k:"qui", n:"Química", c:"#0F7A68", a:182, b:224, est:"no"},
-  {k:"fis", n:"Física", c:"#5C7A1E", a:225, b:267, est:"no"},
-  {k:"ing", n:"Inglés", c:"#1BA0A8", a:268, b:310, est:"no"},
-  {k:"cie", n:"Cierre", c:"#6E7480", a:311, b:313, est:"no"},
+  {k:"ap", n:"Apertura", c:"#242478", a:1, b:9},
+  {k:"m", n:"Matemáticas", c:"#1F4E8C", a:10, b:52},
+  {k:"lc", n:"Lectura Crítica", c:"#A82424", a:53, b:95},
+  {k:"soc", n:"Sociales y Ciudadanas", c:"#C9821B", a:96, b:138},
+  {k:"bio", n:"Biología", c:"#30843C", a:139, b:181},
+  {k:"qui", n:"Química", c:"#0F7A68", a:182, b:224},
+  {k:"fis", n:"Física", c:"#5C7A1E", a:225, b:267},
+  {k:"ing", n:"Inglés", c:"#1BA0A8", a:268, b:310},
+  {k:"cie", n:"Cierre", c:"#6E7480", a:311, b:313},
 ];
 const ROL = ["taller","taller","ICFES","taller","taller","taller","ICFES"];
 const porNum = new Map(D.pags.map(p => [p.n, p]));
 const hechas = D.pags.map(p => p.n).sort((x,y)=>x-y);
 const areaDe = n => AREAS.find(a => n >= a.a && n <= a.b);
-const img = n => `pag/${String(n).padStart(3,"0")}.jpg`;
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const imgPag = n => `pag/${String(n).padStart(3,"0")}.jpg`;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 document.getElementById("cifras").innerHTML = [
   [`${hechas.length} / 313`, "páginas hechas"],
   [`${Math.round(hechas.length/313*100)} %`, "del cuaderno"],
   [D.instrumentos, "instrumentos de pensamiento"],
   [D.icfes, "preguntas reales del ICFES"],
-  [D.hallazgos, "hallazgos del libro registrados"],
+  [D.hallazgos.length, "hallazgos registrados"],
 ].map(([b,s]) => `<div class="cifra"><b>${b}</b><span>${s}</span></div>`).join("");
 
+/* ---------- visor de imágenes (páginas del cuaderno y hojas del planeador) ---------- */
+const dlg = document.getElementById("dlg"), dimg = document.getElementById("dlg-img"), dtxt = document.getElementById("dlg-txt");
+let lista = [], pos = 0;
+function verLista(items, i) { lista = items; pos = i; pintar(); if (!dlg.open) dlg.showModal(); }
+function pintar() { const it = lista[pos]; dimg.src = it.src; dimg.alt = it.txt; dtxt.textContent = it.txt; }
+function mover(d) { const i = pos + d; if (i >= 0 && i < lista.length) { pos = i; pintar(); } }
+document.getElementById("ant").onclick = () => mover(-1);
+document.getElementById("sig").onclick = () => mover(1);
+document.getElementById("cerrar").onclick = () => dlg.close();
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+document.addEventListener("keydown", e => { if (!dlg.open) return; if (e.key === "ArrowRight") mover(1); if (e.key === "ArrowLeft") mover(-1); });
+const listaCuaderno = hechas.map(n => ({src: imgPag(n), txt: `Página ${n} · ${porNum.get(n).tit}`}));
+const abrirPag = n => verLista(listaCuaderno, hechas.indexOf(n));
+
+/* ---------- cuaderno ---------- */
 const mapa = document.getElementById("mapa");
 for (let n = 1; n <= 313; n++) {
   const a = areaDe(n), ok = porNum.has(n);
@@ -128,27 +216,26 @@ for (let n = 1; n <= 313; n++) {
   el.style.setProperty("--c", a.c);
   el.title = `Página ${n} · ${a.n}${ok ? "" : " · falta"}`;
   el.setAttribute("aria-label", el.title);
-  if (ok) el.onclick = () => abrir(n); else el.disabled = true;
+  if (ok) el.onclick = () => abrirPag(n); else el.disabled = true;
   mapa.appendChild(el);
 }
 document.getElementById("leyenda").innerHTML = AREAS.map(a => `<span style="--c:${a.c}"><i></i>${a.n}</span>`).join("");
-
 const mini = n => {
   const p = porNum.get(n);
   if (!p) return `<div class="mini falta"><div>${n}</div><span>pág. ${n}</span></div>`;
-  return `<button class="mini" type="button" data-n="${n}"><img loading="lazy" src="${img(n)}" alt="Página ${n}: ${esc(p.tit)}"><span>pág. ${n}</span></button>`;
+  return `<button class="mini" type="button" data-n="${n}"><img loading="lazy" src="${imgPag(n)}" alt="Página ${n}: ${esc(p.tit)}"><span>pág. ${n}</span></button>`;
 };
 const misionKey = (a, m) => ({m:`Misión ${m}`, lc:`LC Misión ${m}`, soc:`SOC Misión ${m}`, bio:`BIO Misión ${m}`, qui:`QUI Misión ${m}`, fis:`FIS Misión ${m}`, ing:`ING Misión ${m}`})[a.k];
 let html = "";
 for (const a of AREAS) {
   const tot = a.b - a.a + 1, hay = hechas.filter(n => n >= a.a && n <= a.b).length;
-  const est = {ok:["ok","Completa"], va:["va","En construcción"], no:["no","Pendiente"]}[hay === tot ? "ok" : a.est];
-  html += `<section class="area" id="${a.k}" style="--c:${a.c}">
+  const est = hay === tot ? ["ok","Completa"] : hay ? ["va","En construcción"] : ["no","Pendiente"];
+  html += `<section class="area" id="area-${a.k}" style="--c:${a.c}">
     <div class="area-cab"><h2>${a.n}</h2><span class="rango">págs. ${a.a}–${a.b}</span>
-      <span class="estado ${est[0]}">${est[1]}${a.nota && est[0]==="va" ? " · " + a.nota.split(":")[1].trim() : ""}</span>
+      <span class="estado ${est[0]}">${est[1]}</span>
       <div class="barra" title="${hay} de ${tot}"><span style="--p:${hay/tot*100}%"></span></div>
       <span class="rango">${hay}/${tot}</span></div>`;
-  if (tot === 43) {
+  if (tot === 43 && hay) {
     html += `<div class="mision"><h3>Portada del área</h3><div class="tiras">${mini(a.a)}</div></div>`;
     for (let m = 1; m <= 6; m++) {
       const base = a.a + 1 + (m - 1) * 7, info = D.mis[misionKey(a, m)] || {};
@@ -156,7 +243,7 @@ for (const a of AREAS) {
         ${info.est ? `<small>Estrategias: ${esc(info.est)}</small>` : ""}
         <div class="tiras">${ROL.map((r, i) => mini(base + i)).join("")}</div></div>`;
     }
-  } else {
+  } else if (tot !== 43) {
     const ns = []; for (let n = a.a; n <= a.b; n++) ns.push(n);
     html += `<div class="sueltas">${ns.map(mini).join("")}</div>`;
   }
@@ -164,27 +251,89 @@ for (const a of AREAS) {
 }
 const cont = document.getElementById("areas");
 cont.innerHTML = html;
-cont.addEventListener("click", e => { const b = e.target.closest(".mini[data-n]"); if (b) abrir(+b.dataset.n); });
+cont.addEventListener("click", e => { const b = e.target.closest(".mini[data-n]"); if (b) abrirPag(+b.dataset.n); });
 
-const dlg = document.getElementById("dlg"), dimg = document.getElementById("dlg-img"), dtxt = document.getElementById("dlg-txt");
-let actual = null;
-function abrir(n) {
-  actual = n; const p = porNum.get(n);
-  dimg.src = img(n); dimg.alt = `Página ${n}: ${p.tit}`;
-  dtxt.textContent = `Página ${n} · ${p.tit}`;
-  if (!dlg.open) dlg.showModal();
-}
-function mover(d) { const i = hechas.indexOf(actual) + d; if (i >= 0 && i < hechas.length) abrir(hechas[i]); }
-document.getElementById("ant").onclick = () => mover(-1);
-document.getElementById("sig").onclick = () => mover(1);
-document.getElementById("cerrar").onclick = () => dlg.close();
-dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
-document.addEventListener("keydown", e => {
-  if (!dlg.open) return;
-  if (e.key === "ArrowRight") mover(1);
-  if (e.key === "ArrowLeft") mover(-1);
+/* ---------- material del docente ---------- */
+const doc = document.getElementById("docentes");
+doc.innerHTML = D.docente.map((d, i) => {
+  const a = AREAS.find(x => x.n === d.area) || {c: "#242478"};
+  const plan = d.planeador
+    ? `<div class="fila"><button class="boton" type="button" data-plan="${i}">Ver el planeador (${d.planeador.hojas.length} hojas)</button>
+         <button class="boton" type="button" data-bajar="${esc(d.planeador.pdf)}">Descargar PDF</button></div>`
+    : `<p class="pendiente">Planeador: pendiente</p>`;
+  const guias = d.guias.length
+    ? `<div class="fila">${d.guias.map(g => `<a class="boton" href="${esc(g.f)}" target="_blank" rel="noopener">${esc(g.t)}</a>`).join("")}</div>`
+    : `<p class="pendiente">Guías de clase: ${esc(d.guias_nota || "pendientes")}</p>`;
+  return `<div class="bloque" style="--c:${a.c}"><h3>${esc(d.area)}</h3>${d.nota ? `<p>${esc(d.nota)}</p>` : ""}
+    <strong style="font-size:13px">Planeador del docente</strong>${plan}
+    <strong style="font-size:13px">Guías de clase (se proyectan)</strong>${guias}</div>`;
+}).join("");
+doc.addEventListener("click", e => {
+  const b = e.target.closest("[data-plan]");
+  if (b) { const d = D.docente[+b.dataset.plan]; verLista(d.planeador.hojas.map((s, i) => ({src: s, txt: `${d.area} · planeador · hoja ${i + 1} de ${d.planeador.hojas.length}`})), 0); }
 });
-const s = D.sev;
-document.getElementById("pie").textContent =
-  `Hallazgos del libro: ${s["Alta"]||0} de severidad alta, ${s["Media"]||0} media, ${s["Baja"]||0} baja y ${s["Atención"]||0} de atención. Actualizado: __FECHA__.`;
+
+/* ---------- hallazgos ---------- */
+const H = D.hallazgos;
+const opciones = (id, campo, orden) => {
+  const vals = [...new Set(H.map(h => h[campo]))].sort((x, y) => orden ? orden.indexOf(x) - orden.indexOf(y) : x.localeCompare(y));
+  document.getElementById(id).innerHTML = `<option value="">Todos</option>` + vals.map(v => `<option>${esc(v)}</option>`).join("");
+};
+const SEV = ["Alta","Media","Baja","Atención"];
+opciones("f-area", "area"); opciones("f-sev", "sev", SEV); opciones("f-est", "estado");
+document.getElementById("h-resumen").innerHTML = SEV.map(s => `<span class="estado sev ${s}">${H.filter(h => h.sev === s).length} · ${s}</span>`).join("");
+let visibles = H;
+function filtrar() {
+  const fa = document.getElementById("f-area").value, fs = document.getElementById("f-sev").value,
+        fe = document.getElementById("f-est").value, q = document.getElementById("f-q").value.trim().toLowerCase();
+  visibles = H.filter(h => (!fa || h.area === fa) && (!fs || h.sev === fs) && (!fe || h.estado === fe) &&
+    (!q || [h.ubic, h.que, h.efecto, h.pag].join(" ").toLowerCase().includes(q)));
+  document.getElementById("h-cuenta").textContent = `${visibles.length} de ${H.length} hallazgos`;
+  document.getElementById("h-filas").innerHTML = visibles.map(h => `<tr><td class="n">${h.n}</td><td>${esc(h.area)}</td>
+    <td>${esc(h.ubic)}${h.pag && h.pag !== "—" ? `<br><small class="rango">libro p. ${esc(h.pag)}</small>` : ""}</td>
+    <td>${esc(h.que)}</td><td>${esc(h.efecto)}</td><td><span class="sev ${esc(h.sev)}">${esc(h.sev)}</span></td><td>${esc(h.estado)}</td></tr>`).join("");
+}
+["f-area","f-sev","f-est"].forEach(id => document.getElementById(id).addEventListener("change", filtrar));
+document.getElementById("f-q").addEventListener("input", filtrar);
+filtrar();
+
+/* ---------- descargas ---------- */
+let bajador = null;
+const msg = document.getElementById("mensaje");
+async function bajar(ruta, nombre) {
+  if (!bajador) { msg.textContent = "Las descargas no están disponibles en esta vista. Abre la página en claude.ai."; return; }
+  msg.textContent = `Preparando ${nombre}…`;
+  try {
+    const r = await fetch(ruta); if (!r.ok) throw new Error("no se pudo leer el archivo");
+    const res = await bajador.save({filename: nombre, data: await r.blob()});
+    msg.textContent = res.status === "saved" ? `Guardado: ${nombre}` : `Enviado: ${nombre}`;
+  } catch (e) {
+    msg.textContent = e && e.code === "declined" ? "Descarga cancelada." : `No se pudo descargar ${nombre}. Intenta de nuevo en un momento.`;
+  }
+}
+function csvHallazgos() {
+  const cols = [["n","N.º"],["area","Área"],["ubic","Dónde"],["pag","Página del libro"],["que","Qué pasa"],["efecto","Qué significa"],["sev","Severidad"],["estado","Estado"]];
+  const q = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  return "﻿" + [cols.map(c => q(c[1])).join(","), ...visibles.map(h => cols.map(c => q(h[c[0]])).join(","))].join("\r\n");
+}
+document.getElementById("h-csv").onclick = async () => {
+  if (!bajador) { document.getElementById("h-cuenta").textContent = "Las descargas no están disponibles en esta vista."; return; }
+  try { await bajador.save({filename: "EDUCATE_hallazgos.csv", data: csvHallazgos()}); } catch (e) {}
+};
+document.getElementById("desc").innerHTML = D.descargas.map(d => `<div class="desc-fila"><div><b>${esc(d.t)}</b><br><small>${esc(d.f.split("/").pop())} · ${d.mb} MB</small></div>
+  <button class="boton" type="button" data-bajar="${esc(d.f)}">Descargar</button></div>`).join("");
+document.addEventListener("click", e => { const b = e.target.closest("[data-bajar]"); if (b) bajar(b.dataset.bajar, b.dataset.bajar.split("/").pop()); });
+(async () => { try { bajador = await window.claude?.use?.("downloads"); } catch (e) { bajador = null; } })();
+
+/* ---------- pestañas ---------- */
+const VISTAS = ["cuaderno","docente","hallazgos","descargas"];
+function mostrar() {
+  const h = location.hash.slice(1), v = VISTAS.includes(h) ? h : "cuaderno";
+  VISTAS.forEach(x => { document.getElementById("v-" + x).hidden = x !== v; });
+  document.querySelectorAll("nav.pestanas a").forEach(a => a.toggleAttribute("aria-current", a.getAttribute("href") === "#" + v));
+  document.querySelectorAll("nav.pestanas a[aria-current]").forEach(a => a.setAttribute("aria-current", "page"));
+}
+window.addEventListener("hashchange", mostrar); mostrar();
+
+document.getElementById("pie").textContent = `Actualizado: __FECHA__.`;
 </script>

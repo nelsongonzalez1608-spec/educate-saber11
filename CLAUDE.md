@@ -256,7 +256,9 @@ El PDF entregado se rindió a página completa: 1 pt = 2000/612 unidades; `rende
 
 ### Visor de avance (página privada en claude.ai)
 
-https://claude.ai/artifact/2wZ42PVyMpwpxbTz8BZ8Bw — mapa de las 313 páginas y cada página hecha.
+https://claude.ai/artifact/2wZ42PVyMpwpxbTz8BZ8Bw — tablero del proyecto con cuatro pestañas: cuaderno
+(mapa de 313 páginas), material del docente (planeadores hoja por hoja y guías HTML), hallazgos (tabla con
+filtros y descarga .csv) y descargas (PDF por área; capacidad `downloads`). No sirve .xlsx.
 Se regenera con `python3 libro/visor_avance.py <carpeta>` (lee el manifiesto y el tablero; las imágenes
 salen de los PDF de `entregables/` o, si no hay PDF, del SVG) y se vuelve a publicar en la misma URL.
 Actualizarlo cada vez que se cierra un área.
