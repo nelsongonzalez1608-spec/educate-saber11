@@ -36,8 +36,8 @@ Claves verificadas (resueltas a mano contra el texto del libro, 7 nov 2026):
       oración con verbo; However va solo, seguido de coma, y no rige un sustantivo.
  10 · A but also: correlativo «not only … but also». and y so no cierran la pareja.
 
-Reparto: A 4 · B 3 · C 3. Equilibrado. Reparto de los 40 espacios del libro: A 13 · B 13 · C 14
-(contando las claves defendibles). Los espacios con problemas (12, 18–20, 24, 32, 34, 35, 39, 40)
+Reparto: A 4 · B 3 · C 3. Equilibrado. Reparto de los 39 espacios del libro que tienen clave: A 12 · B 12 · C 15
+(el 32 no tiene ninguna opción correcta). Los espacios con problemas (12, 18–20, 24, 32, 34, 35, 39, 40)
 están en tablero/propuestas/ing3_hallazgos.csv.
 
 Estrategias:
