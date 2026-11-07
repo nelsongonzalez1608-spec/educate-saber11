@@ -1,6 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Inglés · Misión 2 · componente conversacional · páginas 276–282.
+"""Inglés · Misión 2 · Parte 3 del ICFES · componente conversacional · páginas 282–288.
+
+Versión 3 (7 nov 2026): las 10 preguntas del libro ya tenían tarjeta; se ajustan a la Parte 3
+(estrategia en tema=, subestrategias en el chip, pasos en la línea de contexto), se imprime la
+Corrección EDUCATE de la pregunta 9 y se cambian cinco tablas por instrumentos que no se ven
+como tablas (decisión de Nelson: «se ven como tablas»). Queda una tabla (9, was/were).
+
+Estrategia de la Parte 3 («Complete las conversaciones»): «Contéstale a la persona, no a la
+palabra», en cuatro pasos: 1 ¿qué clase de frase es? · 2 ¿qué quiere quien habla? ·
+3 ¿en qué tiempo está? · 4 la opción que le contesta a esa persona.
+
+Corrección EDUCATE impresa: 9 · una opción tiene un error de concordancia sujeto-verbo («Mark and
+I was», debe ser «were»): el estudiante la encuentra con su tabla, la marca con X y escribe cómo
+quedaría bien escrita (la tarjeta no dice cuál es). Ojo: corregida, B también respondería;
+el ítem solo discrimina por la gramática (ver ing2_hallazgos.csv).
 
 Libro fuente: «PRUEBA DE CAMPO MISIÓN 2» de Inglés (fuente_libro/INGLÉS), páginas 424–425.
 Diez diálogos cortos con dibujo: alguien dice una frase y hay que escoger la respuesta natural
@@ -44,14 +58,15 @@ Estrategias:
     3 · El tiempo del verbo manda            (6, 8, 9   · ICFES Ex. 2 · 9 rained)     morado
     4 · Reacciono a lo que me cuentan        (7, 10     · ICFES Ex. 2 · 7 sandwich)   oro
 
-Hojas: 276 ing2_t1 (1-2) · 277 ing2_t2 (3-4) · 278 ing2_i1 · 279 ing2_t3 (5-6) ·
-       280 ing2_t4 (7-8) · 281 ing2_t5 (9-10) · 282 ing2_i2.
+Hojas: 282 ing2_t1 (1-2) · 283 ing2_t2 (3-4) · 284 ing2_i1 · 285 ing2_t3 (5-6) ·
+       286 ing2_t4 (7-8) · 287 ing2_t5 (9-10) · 288 ing2_i2.
 """
 from taller_base import *
+from ing_diario import correccion, ctx_ok
 
 configurar("Inglés", 2, "conversacional",
-           tema="Contestarle a la persona, no a la palabra",
-           nota="LO QUE SUBRAYÉ DE LA CONVERSACIÓN")
+           tema="Parte 3 · Contéstale a la persona, no a la palabra",
+           nota="LO QUE SUBRAYÉ DE LA CONVERSACIÓN", prefijo="Subestrategia", n_hojas=5)
 MORADO = "#5B3E96"
 EST = {1: ("¿Qué clase de pregunta me hacen?", EDU_AZUL),
        2: ("¿Qué me están pidiendo?", EDU_ROJO),
@@ -164,10 +179,19 @@ def i1(b, x, y, w, h):
         b.append(checkbox(cx_, cy_, s=11, c=c))
         texto(b, cx_ + 32, cy_ + 18, t, size=17)
     yy += 210
-    cols = (330, ww - 330)
-    yy = tabla_vacia(b, x0, yy, cols, ("SI ME PIDEN ALGO, PUEDO…", "LO DIRÍA ASÍ EN INGLÉS"),
-                     ("aceptar", "negarme con una razón", "preguntar algo antes"), c, rh=56, hh=42)
-    yy += 20
+    rot(b, x0, yy + 18, "SI ME PIDEN UN FAVOR, PUEDO CONTESTAR DE TRES MANERAS · ESCRÍBELAS EN INGLÉS", c, size=14)
+    yy += 34
+    bw = (ww - 2 * 24) / 3
+    for k, t in enumerate(("aceptar", "negarme con una razón", "preguntar algo antes")):
+        bx = x0 + k * (bw + 24)
+        b.append(rect(bx, yy, bw, 118, tinte(c, 0.96), r=22, stroke=c, sw=2))
+        b.append(f'<path d="M {bx + bw - 60} {yy + 117} L {bx + bw - 40} {yy + 140} L {bx + bw - 34} {yy + 117}" '
+                 f'fill="{tinte(c, 0.96)}" stroke="{c}" stroke-width="2" stroke-linejoin="round"/>')
+        b.append(rect(bx + bw - 64, yy + 112, 34, 8, tinte(c, 0.96), r=0))
+        rot(b, bx + 20, yy + 30, t.upper(), c, size=13)
+        renglon(b, bx + 20, yy + 70, bx + bw - 20)
+        renglon(b, bx + 20, yy + 102, bx + bw - 20)
+    yy += 160
     return trampa(b, x0, yy, ww, "Una respuesta puede repetir una palabra del pedido y no contestarlo:",
                   "pregúntale a cada opción: después de oírla, ¿sé si esta persona va a imprimir los documentos o no? "
                   "Si todavía no lo sé, esa opción no contestó.", c)
@@ -212,7 +236,7 @@ def i3(b, x, y, w, h):
     c = AZ
     yy = titulo_instr(b, x, y, "La pregunta empieza por el verbo", c,
                       "La primera palabra de una pregunta en inglés te dice qué clase de respuesta espera. Desarma "
-                      "la pregunta 3 y completa la tabla de las palabras que abren preguntas.")
+                      "la pregunta 3 y completa las dos puertas: cada una se abre con otras palabras.")
     x0, ww = x + 22, w - 44
     piezas = ("Is", "this", "the line", "for the concert tickets?")
     anchos = (150, 150, 220, ww - 520 - 3 * 20)
@@ -224,10 +248,18 @@ def i3(b, x, y, w, h):
         renglon(b, bx + 16, yy + 96, bx + aw - 16)
         bx += aw + 20
     yy += 130
-    cols = (380, 380, ww - 760)
-    yy = tabla_vacia(b, x0, yy, cols, ("SI LA PREGUNTA EMPIEZA CON…", "ESPERO OÍR…", "UN EJEMPLO EN INGLÉS"),
-                     ("Is / Are / Do / Does / Can…", "What / Where / How much…"), c, rh=60, hh=42)
-    yy += 20
+    half = (ww - 40) / 2
+    for k, (ab, ps) in enumerate((("Is · Are · Do · Does · Can…", "puerta 1: espero oír…"),
+                                  ("What · Where · How much…", "puerta 2: espero oír…"))):
+        bx = x0 + k * (half + 40)
+        b.append(f'<path d="M {bx} {yy + 190} L {bx} {yy + 50} Q {bx + half / 2} {yy - 6} {bx + half} {yy + 50} '
+                 f'L {bx + half} {yy + 190} Z" fill="{tinte(c, 0.96)}" stroke="{c}" stroke-width="2.4"/>')
+        texto(b, bx + half / 2, yy + 62, ab, size=20, weight="700", anchor="middle")
+        pista(b, bx + 24, yy + 100, ps)
+        renglon(b, bx + 24, yy + 134, bx + half - 24)
+        pista(b, bx + 24, yy + 166, "un ejemplo mío:")
+        renglon(b, bx + 140, yy + 168, bx + half - 24)
+    yy += 210
     caja(b, x0, yy, ww, 150, c, r=14)
     rot(b, x0 + 20, yy + 30, "«LINE» TIENE DOS SIGNIFICADOS", c)
     pista(b, x0 + 20, yy + 66, "significado 1:")
@@ -336,10 +368,17 @@ def i6(b, x, y, w, h):
                                "(el verbo principal de cada opción)")
     pista(b, x0 + 20, yy + 210, "si dos caen en el mismo sitio, escríbelas una encima de la otra")
     yy += 250
-    cols = (300, ww - 300)
-    yy = tabla_vacia(b, x0, yy, cols, ("LA PIEZA", "LO QUE ENTIENDO"),
-                     ("hear about", "Anna's new job", "¿qué quiere saber?"), c, rh=56, hh=42)
-    yy += 20
+    pw = (ww - 2 * 40) / 3
+    for k, (p_, ps) in enumerate((("hear about", "lo que entiendo:"), ("Anna's new job", "lo que entiendo:"),
+                                  ("¿qué quiere saber?", "en una frase:"))):
+        bx = x0 + k * (pw + 40)
+        caja(b, bx, yy, pw, 120, c, r=14, fill=tinte(c, 0.97) if k == 2 else "white")
+        texto(b, bx + 18, yy + 36, p_, size=20, weight="700")
+        pista(b, bx + 18, yy + 66, ps)
+        renglon(b, bx + 18, yy + 102, bx + pw - 18)
+        if k < 2:
+            flecha(b, bx + pw + 4, yy + 60, bx + pw + 36, yy + 60, c, head=9)
+    yy += 140
     return ojo(b, x0, yy, ww, "DID… ? PIDE ALGO QUE YA PASÓ",
                "La respuesta natural dice si te enteraste o no, y puede agregar un detalle de cuándo o cómo. Si el "
                "verbo principal de una opción no tiene nada que ver con enterarse de la noticia, sospecha.")
@@ -383,10 +422,24 @@ def i8(b, x, y, w, h):
                       "Las palabras de tiempo dicen en qué tiempo tiene que ir el verbo de la respuesta. Clasifica "
                       "estas marcas y después mira con cuál habla la pregunta 8.")
     x0, ww = x + 22, w - 44
-    cols = (300, 330, ww - 630)
-    yy = tabla_vacia(b, x0, yy, cols, ("LA MARCA DE TIEMPO", "¿PASADO, HÁBITO O FUTURO?", "UNA FRASE MÍA CON ELLA"),
-                     ("last night", "yesterday", "usually", "every weekend", "tomorrow"), c, rh=54, hh=42)
-    yy += 20
+    marcas = ("last night", "yesterday", "usually", "every weekend", "tomorrow")
+    mx = x0
+    for m_ in marcas:
+        mw_ = tw(m_, 19, "700") + 40
+        b.append(rect(mx, yy, mw_, 44, "white", r=22, stroke=c, sw=2))
+        texto(b, mx + 20, yy + 29, m_, size=19, weight="700")
+        mx += mw_ + 18
+    pista(b, mx + 4, yy + 28, "← mete cada una en su cajón")
+    yy += 62
+    dw = (ww - 2 * 24) / 3
+    for k, t in enumerate(("YA PASÓ", "PASA SIEMPRE · HÁBITO", "VA A PASAR")):
+        bx = x0 + k * (dw + 24)
+        caja(b, bx, yy, dw, 150, c, sw=2.4, r=8, fill=tinte(c, 0.97))
+        b.append(rect(bx + dw / 2 - 40, yy + 16, 80, 14, "white", r=7, stroke=c, sw=2))
+        rot(b, bx + dw / 2, yy + 56, t, c, size=14, anchor="middle")
+        renglon(b, bx + 20, yy + 96, bx + dw - 20)
+        renglon(b, bx + 20, yy + 132, bx + dw - 20)
+    yy += 170
     caja(b, x0, yy, ww, 120, c, r=14)
     rot(b, x0 + 20, yy + 30, "LA PREGUNTA 8 EN ESPAÑOL", c)
     pista(b, x0 + 20, yy + 66, "Did you watch the new episode last night? =")
@@ -426,9 +479,11 @@ def i9(b, x, y, w, h):
         pista(b, bx + 18, yy + 90, ps)
         renglon(b, bx + 18, yy + 124, bx + half - 18)
     yy += 160
-    return ojo(b, x0, yy, ww, "REVISA LA GRAMÁTICA DE CADA OPCIÓN",
-               "En el examen una opción puede tener sentido y estar mal escrita. El sujeto y el verbo tienen que "
-               "concordar: compara el sujeto de cada opción con tu tabla antes de marcar.")
+    return correccion(b, x0, yy, ww,
+                      "Una de las tres opciones de tu libro tiene un error de concordancia entre el sujeto y el "
+                      "verbo. Encuéntrala con tu tabla, márcala con una X y escribe al lado cómo quedaría bien "
+                      "escrita. En esta pregunta el libro usa ese error para descartarla: decide entre las otras "
+                      "dos por lo que te preguntan.", cierre_txt="La encontré y la escribí bien")
 
 
 # ───────── P10 · un consejo del médico ─────────
@@ -444,39 +499,46 @@ def i10(b, x, y, w, h):
     pista(b, x0 + 650, yy + 16, "¿termina en signo de pregunta?")
     sino(b, x0 + 880, yy, c)
     yy += 40
-    cols = (360, ww - 360)
-    yy = tabla_vacia(b, x0, yy, cols, ("PUEDO REACCIONAR…", "LO DIRÍA ASÍ EN INGLÉS"),
-                     ("dándole la razón", "animándolo", "preguntándole algo", "llevándole la contraria"),
-                     c, rh=56, hh=42)
-    yy += 20
+    rot(b, x0, yy + 18, "CUATRO MANERAS DE REACCIONAR · ESCRIBE CÓMO LO DIRÍAS EN INGLÉS", c, size=14)
+    yy += 34
+    half = (ww - 30) / 2
+    for k, (t, mood) in enumerate((("dándole la razón", "happy"), ("animándolo", "calm"),
+                                   ("preguntándole algo", "calm"), ("llevándole la contraria", "worried"))):
+        bx = x0 + (k % 2) * (half + 30)
+        by = yy + (k // 2) * 108
+        caja(b, bx, by, half, 94, c, r=14)
+        b.append(face(bx + 44, by + 47, 26, mood, c, "white", sw=2.4))
+        texto(b, bx + 90, by + 34, t, size=18, weight="700")
+        renglon(b, bx + 90, by + 76, bx + half - 20)
+    yy += 2 * 108 + 6
     return trampa(b, x0, yy, ww, "Algo puede ser cierto en el mundo y no responderle a esta persona:",
                   "¿la opción muestra que escuchaste lo que le dijo su médico? Si la podrías decir sin haber oído la "
                   "frase, no es una reacción a ella.", c)
 
 
-Q = {1: dict(n=1, est=2, pag=424, ctx="Could you print these documents…?", inst=i1, comp="Pragmático",
+Q = {1: dict(n=1, est=2, pag=424, ctx=ctx_ok("Parte 3 · paso 2, qué quiere: Could you print…?"), inst=i1, comp="Pragmático",
              letras="ABC"),
-     2: dict(n=2, est=2, pag=424, ctx="Una llamada · Internet service", inst=i2, comp="Pragmático",
+     2: dict(n=2, est=2, pag=424, ctx=ctx_ok("Parte 3 · paso 2, qué quiere quien llama: Internet service"), inst=i2, comp="Pragmático",
              letras="ABC"),
-     3: dict(n=3, est=1, pag=424, ctx="Is this the line for the concert tickets?", inst=i3, comp="Pragmático",
+     3: dict(n=3, est=1, pag=424, ctx=ctx_ok("Parte 3 · paso 1, qué clase de frase: Is this the line…?"), inst=i3, comp="Pragmático",
              letras="ABC"),
-     4: dict(n=4, est=2, pag=424, ctx="Do you think we should add more details…?", inst=i4, comp="Pragmático",
+     4: dict(n=4, est=2, pag=424, ctx=ctx_ok("Parte 3 · paso 2, me piden opinión: Do you think we should…?"), inst=i4, comp="Pragmático",
              letras="ABC"),
-     5: dict(n=5, est=1, pag=424, ctx="Does this phone have enough memory…?", inst=i5, comp="Pragmático",
+     5: dict(n=5, est=1, pag=424, ctx=ctx_ok("Parte 3 · paso 1, qué clase de frase: Does this phone…?"), inst=i5, comp="Pragmático",
              letras="ABC"),
-     6: dict(n=6, est=3, pag=424, ctx="Did you hear about Anna's new job?", inst=i6, comp="Pragmático",
+     6: dict(n=6, est=3, pag=424, ctx=ctx_ok("Parte 3 · paso 3, el tiempo: Did you hear about…?"), inst=i6, comp="Pragmático",
              letras="ABC"),
-     7: dict(n=7, est=4, pag=425, ctx="How are you feeling today?", inst=i7, comp="Pragmático",
+     7: dict(n=7, est=4, pag=425, ctx=ctx_ok("Parte 3 · paso 4, le contesto a él: How are you feeling today?"), inst=i7, comp="Pragmático",
              letras="ABC"),
-     8: dict(n=8, est=3, pag=425, ctx="Did you watch the new episode last night?", inst=i8, comp="Pragmático",
+     8: dict(n=8, est=3, pag=425, ctx=ctx_ok("Parte 3 · paso 3, el tiempo: … last night?"), inst=i8, comp="Pragmático",
              letras="ABC"),
-     9: dict(n=9, est=3, pag=425, ctx="I saw you talking to Mark… What happened?", inst=i9, comp="Pragmático",
+     9: dict(n=9, est=3, pag=425, ctx=ctx_ok("Parte 3 · paso 3, el tiempo: What happened?"), inst=i9, comp="Pragmático",
              letras="ABC"),
-     10: dict(n=10, est=4, pag=425, ctx="The doctor said I should drink more water.", inst=i10, comp="Pragmático",
+     10: dict(n=10, est=4, pag=425, ctx=ctx_ok("Parte 3 · paso 4, reacciono: The doctor said I should…"), inst=i10, comp="Pragmático",
               letras="ABC")}
 
 
-def build(pages=(276, 277, 279, 280, 281)):
+def build(pages=(282, 283, 285, 286, 287)):
     out = []
     for k, (a, b_) in enumerate(((1, 2), (3, 4), (5, 6), (7, 8), (9, 10))):
         out.append(hoja_taller(f"ing2_t{k + 1}", pages[k], k + 1, Q[a], Q[b_]))

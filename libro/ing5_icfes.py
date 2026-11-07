@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Inglés · Misión 5 · entrenamiento ICFES · páginas 299 y 303.
+"""Inglés · Misión 5 · entrenamiento ICFES · páginas 325 y 330.
 
 Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
 
@@ -232,7 +232,7 @@ QD = dict(est=4, comp="Lectura · contraste implícito",
           datos=datos_394, inst=ii4)
 
 
-def build(pages=(299, 303)):
+def build(pages=(325, 330)):
     return [hoja_icfes("ing5_i1", pages[0], QA, QB, vocab=False),
             hoja_icfes("ing5_i2", pages[1], QC, QD, vocab=False)]
 

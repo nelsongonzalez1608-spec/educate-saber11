@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Inglés · Misión 4 · entrenamiento ICFES · páginas 292 y 296.
+"""Inglés · Misión 4 · entrenamiento ICFES · páginas 315 y 320.
 
 Las cuatro salen del cuadernillo oficial «Prueba Inglés · Cuadernillo de preguntas · Saber 11.º»
 (Icfes, septiembre de 2024; fuente_icfes/16-octubre-cuadernillo-ingles-saber-11-2024.pdf), Parte 5
@@ -183,7 +183,7 @@ QD = dict(est=4, f=F, e=INSTR, inst=ii4,
           o=["James Salter.", "Deborah Treisman.", "Nick Paumgarten."])
 
 
-def build(pages=(292, 296)):
+def build(pages=(315, 320)):
     return [hoja_icfes("ing4_i1", pages[0], QA, QB),
             hoja_icfes("ing4_i2", pages[1], QC, QD)]
 

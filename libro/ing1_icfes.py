@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Inglés · Misión 1 · entrenamiento ICFES · páginas 271 y 275.
+"""Inglés · Misión 1 · entrenamiento ICFES · páginas 274 y 281.
 
 Fuente de QB, QC y QD (QA: ver abajo, cambió el 7 nov): «Cuadernillo de preguntas · Prueba Inglés · Saber 11.º» (Icfes, septiembre
 de 2024; fuente_icfes/16-octubre-cuadernillo-ingles-saber-11-2024.pdf): 50 preguntas «utilizadas
@@ -213,7 +213,7 @@ QD = dict(est=4, comp="Pragmático · Parte 2", e="¿Dónde puede ver este aviso
           datos=aviso(["New Toys: Green", "monsters, angry dolls,", "and black helicopters"]), inst=ii4)
 
 
-def build(pages=(271, 275)):
+def build(pages=(274, 281)):
     return [hoja_icfes("ing1_i1", pages[0], QA, QB),
             hoja_icfes("ing1_i2", pages[1], QC, QD)]
 

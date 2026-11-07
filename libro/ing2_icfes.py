@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Inglés · Misión 2 · entrenamiento ICFES · páginas 278 y 282.
+"""Inglés · Misión 2 · entrenamiento ICFES · páginas 284 y 288.
 
 Fuente de las cuatro: «Cuadernillo de preguntas · Prueba Inglés · Saber 11.º» (Icfes, septiembre
 de 2024; fuente_icfes/16-octubre-cuadernillo-ingles-saber-11-2024.pdf), Parte 3 («Complete las
@@ -143,7 +143,7 @@ QD = dict(est=4, comp="Pragmático · Parte 3", e=CONV, o=["I hope so.", "I agre
           datos=conversa("I can't eat a cold sandwich. It is horrible!"), inst=ii4)
 
 
-def build(pages=(278, 282)):
+def build(pages=(284, 288)):
     return [hoja_icfes("ing2_i1", pages[0], QA, QB),
             hoja_icfes("ing2_i2", pages[1], QC, QD)]
 

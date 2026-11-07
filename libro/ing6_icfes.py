@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Inglés · Misión 6 · entrenamiento ICFES · páginas 306 y 310 (cierre del área).
+"""Inglés · Misión 6 · entrenamiento ICFES · páginas 337 y 344 (cierre del área).
 
 Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
 
@@ -219,7 +219,7 @@ QD = dict(est=4, comp="Gramática · conectores y cohesión", e=INSTR, o=["Becau
           datos=datos_222, inst=ii4)
 
 
-def build(pages=(306, 310)):
+def build(pages=(337, 344)):
     return [hoja_icfes("ing6_i1", pages[0], QA, QB),
             hoja_icfes("ing6_i2", pages[1], QC, QD)]
 
