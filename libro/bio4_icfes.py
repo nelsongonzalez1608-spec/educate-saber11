@@ -162,11 +162,7 @@ ETAPAS = "selección de la fruta, prensado, fermentación-añejamiento, filtraci
 
 
 def datos_100(b, x, y, w):
-    yy = cita(b, x, y + 4, w, "DEL CONTEXTO (EL TEXTO COMPLETO LO TIENE EL PROFE)",
-              "En general, para comercializar cualquier vino actualmente, el proceso debe cumplir las siguientes "
-              f"etapas: {ETAPAS}. La última etapa debe realizarse en recipientes lavados y desinfectados "
-              "previamente.", EST[2][1], size=17)
-    yy = pregunta(b, x, yy + 4, w, "Si un investigador cuenta con los siguientes elementos para preparar una bebida "
+    yy = pregunta(b, x, y, w, "Si un investigador cuenta con los siguientes elementos para preparar una bebida "
                                    "alcohólica a base de manzana, ¿cuál es el modelo que indicaría correctamente un "
                                    "proceso de producción que le permitiría comercializar el vino de manzana "
                                    "empleando todos estos elementos?")
@@ -184,9 +180,10 @@ def ii3(b, x, y, w, h):
     c = EST[2][1]
     yy = titulo_instr(b, x, y, "Las tarjetas del proceso, en orden", c,
                       "Lo de la toxina y la vacuna: cada eslabón necesita que el anterior ya haya pasado. Escribe las "
-                      "etapas en las cinco tarjetas, en el orden en que tienen que ocurrir.")
+                      "etapas en las tarjetas que necesites, en el orden en que tienen que ocurrir. Puede sobrar "
+                      "alguna tarjeta.")
     x0, ww = x + 22, w - 44
-    n, gap = 5, 30
+    n, gap = 6, 26
     cw_ = (ww - (n - 1) * gap) / n
     for k in range(n):
         px = x0 + k * (cw_ + gap)
@@ -253,7 +250,10 @@ QB = dict(est=4, comp="Indagación",
              "Mantenerla, porque todos los vinos deben tener una cantidad similar de pigmentos, siempre y cuando "
              "pasen por la etapa de fermentación."],
           inst=ii2)
-QC = dict(est=2, comp="Uso comprensivo del conocimiento científico", e="",
+QC = dict(est=2, comp="Uso comprensivo del conocimiento científico",
+          e="Del contexto que comparte con otras preguntas: «En general, para comercializar cualquier vino "
+            f"actualmente, el proceso debe cumplir las siguientes etapas: {ETAPAS}. La última etapa debe realizarse "
+            "en recipientes lavados y desinfectados previamente».",
           o=["Prensado de manzanas → fermentación y añejamiento (azúcar → etanol + dióxido de carbono) → filtración "
              "y envasado → lavado y desinfección de botellas → adición de levadura.",
              "Prensado de manzanas → filtración y envasado → adición de levadura → lavado y desinfección de "
