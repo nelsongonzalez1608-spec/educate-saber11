@@ -91,7 +91,7 @@ PREG_99 = ("Al leer la información del contexto, un investigador piensa que si 
 
 def datos_99(b, x, y, w):
     yy = y
-    gw, gh = (w - 30) / 2, 140
+    gw, gh = (w - 30) / 2, 132
     graf = (("A", "barras", (0.42, 0.62)), ("B", "barras", (0.88, 0.52)),
             ("C", "lineas", ([(0, 0.6), (0.5, 0.6), (0.5, 0.0)], [(0, 0.64), (0.5, 0.64), (0.85, 0.3)])),
             ("D", "lineas", ([(0, 0.15), (0.85, 0.5)], [(0, 0.42), (0.85, 0.78)])))
@@ -102,29 +102,25 @@ def datos_99(b, x, y, w):
 
 def ii1(b, x, y, w, h):
     c = EST[1][1]
-    yy = titulo_instr(b, x, y, "Dibuja lo que esperas antes de mirar", c,
-                      "Lo del banco de pruebas: una hipótesis dice qué se compara y qué se mide. Dibuja tú las dos "
-                      "barras que esperaría el investigador si tiene razón, y solo después busca la gráfica que se "
-                      "parece a la tuya.")
+    yy = titulo_instr(b, x, y, "Diccionario de la hipótesis a la gráfica", c,
+                      "Lo del banco de pruebas: una hipótesis dice qué se compara y qué se mide. Traduce cada pedazo "
+                      "de la hipótesis a lo que tendría que verse en la gráfica. Solo después mira las cuatro.")
     x0, ww = x + 22, w - 44
-    gx, gy, gw, gh = x0 + 40, yy + 10, 300, 190
-    b.append(line(gx, gy + gh, gx + gw, gy + gh, INK, 2.4))
-    b.append(line(gx, gy, gx, gy + gh, INK, 2.4))
-    for k, lab in enumerate(("con pectinasa", "sin pectinasa")):
-        bx = gx + 50 + k * 130
-        b.append(rect(bx, gy + 10, 70, gh - 10, "white", r=0, stroke=LGRAY, sw=2, dash="5,5"))
-        b.append(T(bx + 35, gy + gh + 24, [lab], 14, GRAY, anchor="middle"))
-    rx = gx + gw + 50
-    rw = x0 + ww - rx
-    for k, (rt, ps) in enumerate((("LO QUE EL INVESTIGADOR CAMBIA", "la variable que él decide"),
-                                  ("LO QUE MIDE", "la variable que responde"),
-                                  ("¿LA HIPÓTESIS HABLA DEL TIEMPO?", "sí o no, y entonces qué va en el eje x"))):
-        ry = gy - 4 + k * 94
-        caja(b, rx, ry, rw, 82, c, r=12)
-        rot(b, rx + 16, ry + 26, rt, c, size=13)
-        pista(b, rx + 16 + tw(rt, 13, "700") + len(rt) * 1.5 + 12, ry + 26, ps)
-        renglon(b, rx + 16, ry + 70, rx + rw - 16)
-    return max(gy + gh + 40, gy + 3 * 94)
+    filas = (("«con pectinasas» y «sin pectinasas»", "¿qué son en la gráfica: dos barras, dos líneas, un eje?"),
+             ("«la intensidad del color»", "¿en qué eje va?"),
+             ("«es mayor que»", "¿qué se tiene que ver, y de cuál de las dos?"),
+             ("¿la hipótesis dice algo del tiempo?", "entonces, ¿qué va en el eje horizontal?"))
+    lw = 400
+    for k, (dice, ps) in enumerate(filas):
+        ry = yy + k * 84
+        caja(b, x0, ry, lw, 72, c, r=36, fill=A["bg"])
+        b.append(T(x0 + 24, ry + 43, [dice], 17, INK, style="italic"))
+        b.append(hand_arrow(x0 + lw + 8, ry + 36, x0 + lw + 58, ry + 36, c, sw=2.4, bend=0.0, head=10))
+        bx = x0 + lw + 70
+        caja(b, bx, ry, ww - lw - 70, 72, c, r=10)
+        pista(b, bx + 16, ry + 22, ps, size=14)
+        renglon(b, bx + 16, ry + 62, x0 + ww - 16)
+    return yy + 4 * 84
 
 
 # ───────── QB · N.º 101 · dos viñedos ─────────

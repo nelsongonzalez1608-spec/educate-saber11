@@ -411,40 +411,45 @@ def i7(b, x, y, w, h):
 
 
 # ───────── P8 · fertilizantes · parcela B ─────────
-FILAS_8 = ("microorganismos por gramo", "descomponedoras (%)", "fijadoras de nitrógeno (%)")
+FILAS_8 = ("microorganismos", "descomponedoras", "fijadoras")
 
 
 def i8(b, x, y, w, h):
     c = AZ
-    yy = titulo_instr(b, x, y, "Restar contra el control, fila por fila", c,
-                      "La parcela C no recibió fertilizante: es el control, la vara para medir a las otras. Copia los "
-                      "datos del libro y resta. Un resultado se explica por la diferencia con el control, no por el "
-                      "número suelto.")
+    yy = titulo_instr(b, x, y, "El control es el cero: barras hacia arriba o hacia abajo", c,
+                      "La parcela C no recibió fertilizante: es el control, y en esta gráfica es la raya del cero. "
+                      "Para cada fila de la tabla, dibuja una barra para B y otra para A: hacia arriba si quedó por "
+                      "encima del control, hacia abajo si quedó por debajo. Escribe en la punta cuánto.")
     x0, ww = x + 22, w - 44
-    lw = max(tw(f, 17, "700") for f in FILAS_8) + 40
-    cols = ("PARCELA B", "CONTROL C", "B − C", "PARCELA A", "A − C")
-    cw_ = (ww - lw) / len(cols)
-    hy = yy + 4
-    for j, cn in enumerate(cols):
-        cx_ = x0 + lw + j * cw_
-        fill = A["bg"] if "−" in cn else "white"
-        caja(b, cx_ + 4, hy, cw_ - 8, 44, c, fill=fill, r=8)
-        rot(b, cx_ + cw_ / 2, hy + 29, cn, c, size=14, anchor="middle")
+    gx, gw = x0 + 70, ww - 70
+    top, alto = yy + 20, 300
+    cero = top + alto / 2
+    b.append(line(gx, top, gx, top + alto, INK, 2.2))
+    b.append(line(gx, cero, gx + gw, cero, INK, 3))
+    b.append(T(gx - 12, cero + 6, ["C = 0"], 15, INK, weight="700", anchor="end"))
+    pista(b, gx - 12, top + 14, "más", anchor="end")
+    pista(b, gx - 12, top + alto - 4, "menos", anchor="end")
+    for k in (1, 2, 3):
+        for sgn in (-1, 1):
+            b.append(line(gx, cero + sgn * k * alto / 8, gx + gw, cero + sgn * k * alto / 8, LGRAY, 1.4, "3,6"))
+    gw3 = gw / 3
     for i, f in enumerate(FILAS_8):
-        ry = hy + 58 + i * 64
-        b.append(T(x0, ry + 34, [f], 17, INK, weight="700"))
-        for j, cn in enumerate(cols):
-            cx_ = x0 + lw + j * cw_
-            fill = A["bg"] if "−" in cn else "white"
-            caja(b, cx_ + 4, ry, cw_ - 8, 52, c, fill=fill, r=8)
-    yy = hy + 58 + 3 * 64 + 10
-    yy = frase_hueco(b, x0, yy, ww, "En las tres filas, la parcela B queda ________ del control, y la parcela A "
-                                    "queda ________ .", c)
+        fx = gx + i * gw3
+        rot(b, fx + gw3 / 2, top + alto + 30, f.upper(), c, size=13, anchor="middle")
+        for j, par in enumerate(("B", "A")):
+            bx = fx + gw3 / 2 - 90 + j * 110
+            b.append(rect(bx, top + 6, 70, alto - 12, "white", r=4, stroke=LGRAY, sw=1.6, dash="5,5"))
+            b.append(T(bx + 35, top + alto + 56, [f"parcela {par}"], 14, GRAY,
+                       anchor="middle"))
+    yy = top + alto + 76
+    yy = frase_hueco(b, x0, yy, ww, "Las barras de la parcela B van hacia ________ ; las de la parcela A, hacia "
+                                    "________ .", c)
     yy += 16
-    yy = fila_letras(b, x0, yy, c, "¿De qué parcela habla cada opción? Escribe A, B o C antes de leer el «porque».")
+    yy = fila_letras(b, x0, yy, c, "¿De qué parcela habla cada opción? Escribe la parcela (A, B o C) antes de leer "
+                                   "el «porque».")
     return ojo(b, x0, yy + 4, ww, "LA PREGUNTA ES SOBRE LA PARCELA B",
                "Una opción puede describir bien lo que pasó en otra parcela y aun así no responder. Primero, de "
-               "quién habla; después, si lo que dice coincide con tus restas.")
+               "quién habla; después, si lo que dice coincide con tus barras.")
 
 
 # ───────── P9 · fertilizantes · agricultura sostenible ─────────
