@@ -172,7 +172,7 @@ def hoja_estrategia(nombre, pag, hoja, parte, que_pide, muestra, estrategia, pas
     y = Y0
     hA = 372
     tarjeta_marco(b, x, y, w, hA)
-    banda(b, x, y, parte, f"Lo que pide la Parte {parte} del examen",
+    banda(b, x, y, f"P{parte}", f"Lo que pide la Parte {parte} del examen",
           "dicho de frente, antes de empezar")
     pw = 1080
     svg, yy = TJ(x + 34, y + 110, que_pide, pw, 21, INK, lh=30)
@@ -221,9 +221,8 @@ def pasos_ruta(b, x, y, w, pasos):
         b.append(rect(px, y, pw, 118, tinte(c, 0.95), r=16, stroke=A["ln"], sw=2))
         b.append(rect(px, y, 8, 118, c, r=4))
         rot(b, px + 26, y + 30, rot_, c, size=15)
-        lineas = wrap_px(txt, 18, pw - 46)
-        for i, ln in enumerate(lineas[:3]):
-            b.append(T(px + 26, y + 60 + i * 25, [" ".join(ln)], 18, INK))
+        svg, _ = TJ(px + 26, y + 42, txt, pw - 50, 18, INK, lh=25)
+        b.append(svg)
         if k < n - 1:
             flecha(b, px + pw + 8, y + 59, px + pw + gap - 8, y + 59, c, sw=3.2, head=12)
 
@@ -304,7 +303,7 @@ def modelo_voz_alta(b, x, y, w, h, frase, opciones, pensamientos, fila, nota=Non
 
 
 # ───────── hojas de trabajo: una fila por ítem ─────────
-RH = 66          # alto de fila (el renglón de la pista queda con 50 px libres encima)
+RH = 62          # alto de fila (el renglón de la pista queda con 49 px libres encima)
 HH = 62          # alto del encabezado de la tabla
 
 
@@ -339,7 +338,7 @@ def fila_espacio(b, x, y, w, n, letras, par):
     k = _cols(x, w)
     if par:
         b.append(rect(x, y, w, RH, tinte(c, 0.965), r=10))
-    b.append(f'<circle cx="{k["num"]}" cy="{y + RH / 2}" r="22" fill="white" stroke="{c}" '
+    b.append(f'<circle cx="{k["num"]}" cy="{y + RH / 2}" r="21" fill="white" stroke="{c}" '
              f'stroke-width="2.4"/>')
     b.append(T(k["num"], y + RH / 2 + 7, [str(n)], 20, c, weight="700", anchor="middle"))
     renglon(b, k["pista0"], y + RH - 13, k["pista1"], LN)
@@ -390,18 +389,16 @@ def bloque_texto(b, y, t, ymax=None):
     # el alto se calcula desde donde termina de verdad el contenido: se dibuja y luego el marco
     cuerpo = []
     ix, iw = x + 30, w - 60
-    yy = y + 100
-    rot(cuerpo, ix + 4, yy + 22, "MI PRIMERA IDEA DEL TEXTO", c, size=15)
-    pista(cuerpo, ix + 4 + tw("MI PRIMERA IDEA DEL TEXTO", 15, "700") + 21 * 1.5 + 30, yy + 22,
-          "léelo entero, sin llenar nada, y contesta esto primero", size=16)
-    yy += 74
+    yy = y + 100 + 40
+    rot(cuerpo, ix + 4, yy - 2, "MI PRIMERA IDEA DEL TEXTO", c, size=15)
+    x0 = ix + 4 + tw("MI PRIMERA IDEA DEL TEXTO", 15, "700") + 25 * 1.5 + 30
     lab = "De qué trata, en una frase:"
-    cuerpo.append(T(ix + 4, yy, [lab], 19, INK))
-    renglon(cuerpo, ix + 14 + tw(lab, 19), yy + 4, ix + iw - 10, LN)
-    yy += 56
+    cuerpo.append(T(x0, yy, [lab], 19, INK))
+    renglon(cuerpo, x0 + 10 + tw(lab, 19), yy + 4, ix + iw - 10, LN)
+    yy += 54
     lab = "Va en:"
-    cuerpo.append(T(ix + 4, yy, [lab], 19, INK))
-    xx = ix + 14 + tw(lab, 19) + 10
+    cuerpo.append(T(x0, yy, [lab], 19, INK))
+    xx = x0 + 10 + tw(lab, 19) + 10
     for o in ("pasado", "presente", "se mezclan"):
         cuerpo.append(checkbox(xx, yy - 19, s=12, c=c))
         cuerpo.append(T(xx + 34, yy, [o], 19, INK))
@@ -409,7 +406,7 @@ def bloque_texto(b, y, t, ymax=None):
     lab = "La pista que me lo dijo:"
     cuerpo.append(T(xx + 30, yy, [lab], 19, INK))
     renglon(cuerpo, xx + 40 + tw(lab, 19), yy + 4, ix + iw - 10, LN)
-    yy += 30
+    yy += 26
     tabla = []
     yy = encabezado_tabla(tabla, ix, yy, iw)
     for i, n in enumerate(esp):
@@ -418,28 +415,30 @@ def bloque_texto(b, y, t, ymax=None):
         yy = fila_espacio(tabla, ix, yy, iw, n, letras, par=(i % 2 == 1))
         if n in corr:
             yy = nota_correccion(tabla, ix, yy + 2, iw, corr[n])
-    yy += 22
+    yy += 20
     # cierre del texto
     rot(tabla, ix + 4, yy + 18, "CIERRE DEL TEXTO", c, size=15)
+    x0 = ix + 4 + tw("CIERRE DEL TEXTO", 15, "700") + 16 * 1.5 + 30
     lab = f"Marqué «seguro» en ____ de {len(esp)} espacios."
-    tabla.append(T(ix + 4 + tw("CIERRE DEL TEXTO", 15, "700") + 16 * 1.5 + 30, yy + 18, [lab], 19, INK))
-    x2 = ix + 820
+    tabla.append(T(x0, yy + 18, [lab], 19, INK))
+    x2 = x0 + tw(lab, 19) + 60
     lab2 = "La subestrategia que más llamé:"
     tabla.append(T(x2, yy + 18, [lab2], 19, INK))
-    casillas_sub(tabla, x2 + tw(lab2, 19) + 22, yy - 3)
-    yy += 62
+    xf = casillas_sub(tabla, x2 + tw(lab2, 19) + 22, yy - 3)
+    pista(tabla, ix + iw - 10, yy + 18, f"las palabras que me frenaron → mi diccionario, página "
+                                        f"{t.get('pag_dicc', '')}", size=16, anchor="end")
+    yy += 64
     lab3 = "Lo que me llevo de este texto:"
     tabla.append(T(ix + 4, yy, [lab3], 19, c, weight="700"))
     renglon(tabla, ix + 14 + tw(lab3, 19, "700"), yy + 4, ix + iw - 10, LN)
-    yy += 30
-    pista(tabla, ix + 4, yy + 4, f"Las palabras que me frenaron en este texto van a mi diccionario "
-                                 f"(página {t.get('pag_dicc', '')}).", size=16)
     yy += 26
     h = yy - y
     tarjeta_marco(b, x, y, w, h)
     banda(b, x, y, t["n"], f"Texto {t['n']} · {t['titulo']}",
           f"espacios {t['desde']} a {t['hasta']} · lo lees en tu libro, página {t['pag']} · "
           f"{len(letras)} opciones por espacio: {', '.join(letras[:-1])} o {letras[-1]}")
+    pista(b, x + w - 34, y + 54, "léelo entero, sin llenar nada, antes de la primera fila", size=17,
+          anchor="end")
     b.extend(cuerpo)
     envolver(b, f"texto{t['n']}", tabla, x + w - 20, ymax or (y + h))
     return y + h
@@ -502,7 +501,9 @@ def reto_equipo(b, y, h, titulo, minutos, consigna, reglas, filas, total):
         rot(frag, cx + 18, yy + 31, lab_, c, size=14)
         cx += cw_
     yy += 50
-    fila_h = 62
+    disp = y + h - 84 - yy
+    filas = max(3, min(filas, int(disp // 62)))
+    fila_h = min(74, disp / filas)          # las filas se estiran para llenar la tarjeta
     for i in range(filas):
         if i % 2:
             frag.append(rect(ix, yy, iw, fila_h, tinte(c, 0.965), r=10))
@@ -527,24 +528,25 @@ def reto_equipo(b, y, h, titulo, minutos, consigna, reglas, filas, total):
                     xx += 30 + tw(o, 17) + 30
             cx += cw_
         yy += fila_h
-    frag.append(line(ix + 150, yy - filas * fila_h - 50, ix + 150, yy, tinte(c, 0.75), 1.6))
-    envolver(b, "reto", frag, x + w - 20, y + h - 90)
-    yy += 26
+    envolver(b, "reto", frag, x + w - 20, y + h - 70)
+    yy = y + h - 64
     lab1 = "Mi compañero(a):"
     b.append(T(x + 34, yy + 22, [lab1], 19, INK))
     renglon(b, x + 44 + tw(lab1, 19), yy + 26, x + 600, LN)
     b.append(T(x + 650, yy + 22, [f"Coincidimos en ____ de {total} espacios."], 19, INK))
-    b.append(T(x + w - 34, yy + 22, ["Lo que ninguno pudo defender, se lo llevamos al profe."], 19, c,
+    b.append(T(x + w - 34, yy + 22, ["Mis duelos: gané ____ · perdí ____ · fueron al profe ____"], 19, c,
                weight="700", anchor="end"))
     return yy + 40
 
 
 # ───────── cierre de la misión: salvavidas, mapa de errores, lo que me llevo ─────────
-def cierre_mision(b, y, h, parte, total):
+def cierre_mision(b, y, h, parte, textos):
+    """Cierre de la parte: salvavidas del espacio que más costó, mapa de errores por subestrategia,
+    termómetro de seguridad (seguro vs. acerté) y lo que me llevo. textos: [(n, cuántos espacios)]."""
     c = A["color"]
     x, w = M, CW
     tarjeta_marco(b, x, y, w, h)
-    banda(b, x, y, parte, f"Cierre de la Parte {parte}",
+    banda(b, x, y, f"P{parte}", f"Cierre de la Parte {parte}",
           "lo lleno al final del sábado, después de corregir con el profe")
     lw = 860
     yy = y + 110
@@ -557,7 +559,7 @@ def cierre_mision(b, y, h, parte, total):
     rw = x + w - 34 - rx
     rot(b, rx, yy + 20, "MI MAPA DE ERRORES", c, size=15)
     pista(b, rx + tw("MI MAPA DE ERRORES", 15, "700") + 18 * 1.5 + 20, yy + 20,
-          f"cuando el profe dé las claves, cuento cuántos fallé con cada una", size=16)
+          "con las claves del profe, cuento cuántos fallé con cada una", size=16)
     my = yy + 46
     for k, n in enumerate(sorted(EST)):
         nombre, ec = EST[n]
@@ -566,17 +568,40 @@ def cierre_mision(b, y, h, parte, total):
         circulo_sub(b, rx + 30, ry + 26, n, r=16, size=18)
         b.append(T(rx + 60, ry + 33, [nombre], 19, ec, weight="700"))
         b.append(T(rx + rw - 20, ry + 33, ["fallé ____"], 19, INK, anchor="end"))
-    yy2 = my + 4 * 62 + 10
+    yy2 = my + 4 * 62 + 14
     b.append(T(rx, yy2 + 20, ["La que más tengo que practicar:"], 19, INK))
     casillas_sub(b, rx + tw("La que más tengo que practicar:", 19) + 20, yy2)
+    # termómetro de seguridad
+    ty = yy + 46 + 300 + 50
+    rot(b, x + 34, ty, "MI TERMÓMETRO DE SEGURIDAD", c, size=15)
+    svg, ty2 = TJ(x + 34, ty + 10, "Pinto una casilla por cada «seguro» que marqué. Cuando el profe dé las "
+                  "claves, le pongo un punto a las que de verdad acerté.", lw, 17, GRAY, style="italic", lh=24)
+    b.append(svg)
+    frag = []
+    ry = ty2 + 8
+    for n, cuantos in textos:
+        frag.append(T(x + 34, ry + 27, [f"Texto {n}"], 19, c, weight="700"))
+        for q in range(cuantos):
+            frag.append(rect(x + 150 + q * 56, ry, 46, 38, "white", r=8, stroke=tinte(c, 0.5), sw=2))
+        ry += 50
+    envolver(b, "termometro", frag, x + 34 + lw, y + h - 20)
     # lo que me llevo
-    ly = yy + 46 + 300 + 50
-    b.append(T(x + 34, ly, [f"Lo que me llevo de la Parte {parte}"], 22, c, weight="700"))
-    b.append(T(x + 34 + tw(f"Lo que me llevo de la Parte {parte}", 22, "700") + 16, ly,
-               ["(una frase que me sirva el día del examen)"], 17, GRAY, style="italic"))
-    for i in range(2):
-        renglon(b, x + 34, ly + 54 + i * 54, x + w - 34, LN)
-    return ly + 54 + 54
+    b.append(T(rx, ty, [f"Lo que me llevo de la Parte {parte}"], 22, c, weight="700"))
+    b.append(T(rx, ty + 28, ["(una frase que me sirva el día del examen)"], 17, GRAY, style="italic"))
+    ly = ty + 28
+    for i in range(3):
+        ly += 54
+        renglon(b, rx, ly, x + w - 34, LN)
+    fin = max(ry, ly) + 30
+    if y + h - fin >= 110:
+        lab = "Una pregunta que me quedó para el profe:"
+        b.append(T(x + 34, fin + 24, [lab], 20, c, weight="700"))
+        renglon(b, x + 44 + tw(lab, 20, "700"), fin + 28, x + w - 34, LN)
+        k = fin + 28
+        while k + 54 <= y + h - 30:
+            k += 54
+            renglon(b, x + 34, k, x + w - 34, LN)
+    return y + h
 
 
 # ───────── hoja 5 · mi diccionario ─────────
