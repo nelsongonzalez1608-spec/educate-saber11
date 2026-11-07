@@ -67,13 +67,15 @@ def _mezcla(c, k, con="#FFFFFF"):
     return "#" + "".join(f"{round(x + (y - x) * k):02X}" for x, y in zip(a, b))
 
 
-def configurar(area, mision, componente, tema="", color=None, nota=None):
+def configurar(area, mision, componente, tema="", color=None, nota=None, prefijo="Estrategia",
+               n_hojas=5):
     """Color: el de las hojas de referencia de esa área. Las misiones de Matemáticas y de
     Lectura Crítica se imprimieron en el rojo #A82424; Sociales en el oro #C9821B. Para un área
     nueva, si no se pasa color, se toma el de lib.AREAS."""
     if color is None:
         color = dict(_lib.AREAS).get(area, EDU_ROJO)
-    A.update(area=area, mision=mision, componente=componente, tema=tema, color=color)
+    A.update(area=area, mision=mision, componente=componente, tema=tema, color=color,
+             prefijo=prefijo, n_hojas=n_hojas)   # Inglés: prefijo="Subestrategia", n_hojas = las de su misión
     if nota:
         A["nota"] = nota
     A["bg"] = _mezcla(color, 0.93)        # banda de cabecera y de tarjeta  (#FBF1F0 en rojo)
@@ -363,7 +365,7 @@ def tarjeta(b, y, n, est, pag, ctx, inst, comp=None, letras="ABCD", **_):
     b.append(T(M + 112, y + 44, [f"Pregunta {n} · la lees en tu libro, página {pag}"], 24, c,
                weight="700"))
     b.append(T(M + 112, y + 78, [ctx], 21, GRAY, style="italic"))
-    cx, cw = chip_estrategia(b, M + 760, y + 30, est)
+    cx, cw = chip_estrategia(b, M + 760, y + 30, est, prefijo=A.get("prefijo", "Estrategia"))
     if comp:
         b.append(T(cx + 4, y + 92, [f"competencia · {comp}"], 15, GRAY, style="italic"))
     _primera_idea(b, y, M + 1300, "Mi primera idea, antes de hacer nada:")
@@ -414,7 +416,8 @@ def tarjeta_icfes(b, y, q, n):
     b.append(buoy(M + 58, y + 52, 15))
     b.append(T(M + 112, y + 44, ["Pregunta real para entrenar"], 24, c, weight="700"))
     membrete(b, M + 112, y + 58, q.get("f") or "Pregunta oficial ICFES · Saber 11")
-    chip_estrategia(b, M + 1275, y + 30, est, prefijo="entrena la estrategia", derecha=True)
+    chip_estrategia(b, M + 1275, y + 30, est,
+                    prefijo="entrena la " + A.get("prefijo", "Estrategia").lower(), derecha=True)
     if q.get("comp"):
         b.append(T(M + 1275, y + 92, [f"competencia · {q['comp']}"], 15, GRAY, style="italic",
                    anchor="end"))
@@ -456,13 +459,22 @@ def _pie_texto(tipo):
     return f"{A['area']} · Misión {A['mision']} · {tipo}"
 
 
-def hoja_taller(nombre, pag, hoja, qa, qb, vocab=True):
-    """Una hoja de taller: dos preguntas del libro. Devuelve la ruta del SVG."""
+def hoja_taller(nombre, pag, hoja, qa, qb, vocab=True, cierre=None):
+    """Una hoja de taller: dos preguntas del libro. Devuelve la ruta del SVG.
+    qb=None deja una sola pregunta; entonces `cierre(b, y, h)` dibuja lo que va en el
+    segundo bloque (p. ej. el cierre de la misión) entre y y y + h."""
     set_bloque(vocab)
     b = svg_open()
-    cabecera(b, f"Prueba de Campo · hoja {hoja} de 5 · preguntas {qa['n']} y {qb['n']}")
+    nh = A.get("n_hojas", 5)
+    if qb is None:
+        cabecera(b, f"Prueba de Campo · hoja {hoja} de {nh} · pregunta {qa['n']}")
+    else:
+        cabecera(b, f"Prueba de Campo · hoja {hoja} de {nh} · preguntas {qa['n']} y {qb['n']}")
     tarjeta(b, Y0, **qa)
-    tarjeta(b, y_bloque2(), **qb)
+    if qb is not None:
+        tarjeta(b, y_bloque2(), **qb)
+    elif cierre:
+        cierre(b, y_bloque2(), BLK_H)
     if vocab:
         franja_vocab(b)
     footer(b, pag, A["color"], texto=_pie_texto("Prueba de Campo"))
@@ -477,7 +489,7 @@ def hoja_icfes(nombre, pag, qa, qb, vocab=True):
     b = svg_open()
     e = sorted({qa["est"], qb["est"]})
     ests = " y ".join(str(x) for x in e)
-    cabecera(b, f"Entrenamiento ICFES · entrena las estrategia{'s' if len(e) > 1 else ''} "
+    cabecera(b, f"Entrenamiento ICFES · entrena las {A.get('prefijo', 'Estrategia').lower()}{'s' if len(e) > 1 else ''} "
                 f"{ests} · 2 preguntas reales")
     tarjeta_icfes(b, Y0, qa, 1)
     tarjeta_icfes(b, y_bloque2(), qb, 2)
