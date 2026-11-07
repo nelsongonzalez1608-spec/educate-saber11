@@ -258,19 +258,23 @@ def _primera_idea(b, y, x, texto):
 
 
 def columna_derecha(b, y, est, cierre=("Lo que me llevo de esta pregunta",
-                                        "(una frase que me sirva en otra pregunta parecida)")):
-    """MARCO AL FINAL · ¿qué tan seguro estoy? · salvavidas · lo que me llevo · sello."""
+                                        "(una frase que me sirva en otra pregunta parecida)"),
+                    letras="ABCD"):
+    """MARCO AL FINAL · ¿qué tan seguro estoy? · salvavidas · lo que me llevo · sello.
+    `letras`: las opciones que tiene la pregunta (Inglés trae partes con A–C y con A–H)."""
     c = A["color"]
     rx = M + RX_OFF
     rw = W - M - rx - 24
     ry = y + 130
     b.append(line(rx - 18, ry, rx - 18, y + BLK_H - 30, "#E6EAF0", 2, "6,6"))
     b.append(T(rx, ry + 20, ["MARCO AL FINAL"], 18, c, weight="700", ls=2))
-    for k, L in enumerate("ABCD"):
-        cx = rx + 36 + k * 92
-        b.append(f'<circle cx="{cx}" cy="{ry + 80}" r="30" fill="white" stroke="{c}" '
+    paso = min(92, (rw - 72) / max(len(letras) - 1, 1))
+    r = min(30, paso / 2 - 4)
+    for k, L in enumerate(letras):
+        cx = rx + 36 + k * paso
+        b.append(f'<circle cx="{cx:.1f}" cy="{ry + 80}" r="{r:.1f}" fill="white" stroke="{c}" '
                  f'stroke-width="2.6"/>')
-        b.append(T(cx, ry + 90, [L], 26, c, weight="700", anchor="middle"))
+        b.append(T(cx, ry + 80 + r / 3, [L], round(26 * r / 30), c, weight="700", anchor="middle"))
     b.append(T(rx, ry + 144, ["¿Qué tan seguro estoy?"], 18, GRAY))
     for k, lab in enumerate(["adiviné", "casi", "seguro"]):
         b.append(checkbox(rx + k * 150, ry + 164, s=11, c=GRAY))
@@ -352,7 +356,7 @@ def _instrumento(b, n, inst, x, y, limite):
     return y_fin
 
 
-def tarjeta(b, y, n, est, pag, ctx, inst, comp=None, **_):
+def tarjeta(b, y, n, est, pag, ctx, inst, comp=None, letras="ABCD", **_):
     """Una pregunta del libro. inst(b, x, y, w, h) dibuja su instrumento y devuelve su final."""
     c = _marco_tarjeta(b, y)
     b.append(num_badge(M + 60, y + 52, n, c, r=34, size=34))
@@ -368,7 +372,7 @@ def tarjeta(b, y, n, est, pag, ctx, inst, comp=None, **_):
     y_fin = _instrumento(b, n, inst, ix, iy, fondo)
     if fondo - (y_fin + 14) >= NOTA_MIN:
         notas(b, ix, y_fin + 14, IW - 4, fondo - y_fin - 14)
-    columna_derecha(b, y, est)
+    columna_derecha(b, y, est, letras=letras)
 
 
 # ───────── entrenamiento ICFES ─────────
@@ -394,7 +398,7 @@ def opciones(b, x, y, w, ops, size=19):
     for k, o in enumerate(ops):
         b.append(f'<circle cx="{x + 15}" cy="{yy + 12}" r="15" fill="white" stroke="{c}" '
                  f'stroke-width="2"/>')
-        b.append(T(x + 15, yy + 18, ["ABCD"[k]], 16, c, weight="700", anchor="middle"))
+        b.append(T(x + 15, yy + 18, ["ABCDEFGH"[k]], 16, c, weight="700", anchor="middle"))
         svg, y2 = TJ(x + 47, yy, o, w - 50, size, INK, lh=size + 7)
         b.append(svg)
         yy = y2 + 8
@@ -426,7 +430,8 @@ def tarjeta_icfes(b, y, q, n):
     if fondo - (y_fin + 14) >= NOTA_MIN:
         notas(b, ix, y_fin + 14, IW - 4, fondo - y_fin - 14, rotulo="MIS CUENTAS Y LO QUE SUBRAYÉ")
     columna_derecha(b, y, est, cierre=("¿En qué se parece a lo del taller?",
-                                       "(el libro y el ICFES preguntan lo mismo de otra forma)"))
+                                       "(el libro y el ICFES preguntan lo mismo de otra forma)"),
+                    letras="ABCDEFGH"[:len(q["o"])])
 
 
 # ───────── franja de vocabulario ─────────
