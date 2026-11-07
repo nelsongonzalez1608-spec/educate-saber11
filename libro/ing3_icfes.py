@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Inglés · Misión 3 · entrenamiento ICFES · páginas 285 y 289.
+"""Inglés · Misión 3 · entrenamiento ICFES · páginas 299 y 310 (antes 285 y 289).
 
 Las cuatro salen del cuadernillo oficial «Prueba Inglés · Cuadernillo de preguntas · Saber 11.º»
 (Icfes, septiembre de 2024; fuente_icfes/16-octubre-cuadernillo-ingles-saber-11-2024.pdf), que
@@ -194,7 +194,7 @@ QD = dict(est=4, comp=comp(4), f=F, e=INSTR, inst=ii4,
           o=["While", "Except", "Because"])
 
 
-def build(pages=(285, 289)):
+def build(pages=(299, 310)):
     return [hoja_icfes("ing3_i1", pages[0], QA, QB),
             hoja_icfes("ing3_i2", pages[1], QC, QD)]
 
