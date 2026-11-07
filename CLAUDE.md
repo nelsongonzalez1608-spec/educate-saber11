@@ -353,7 +353,7 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
 3. ~~Biología~~ — hecha el 7 nov (`bio1.py` … `bio6_icfes.py`, portada `ap139_bio`):
    `entregables/Biologia_completo_paginas_139_a_181.pdf`. ~~Química~~ — hecha el 7 nov (`qui1.py` …
    `qui6_icfes.py`, portada `ap182_qui`): `entregables/Quimica_completo_paginas_182_a_224.pdf`. 11 de sus 24
-   preguntas ICFES salen del SIMULACRO II 2023 (Oficio): falta que Nelson confirme si son reales del ICFES.
+   preguntas ICFES salen del SIMULACRO II 2023 (Oficio): Nelson confirmó que son reales del ICFES.
    Faltan Física (225–267), Inglés (268–310) y cierre (311–313).
 4. Las 8 guías de clase de Matemáticas (con el motor de `clase_viva_lc.py`).
 5. Planeadores y guías de Sociales, Biología, Química, Física e Inglés.
@@ -374,3 +374,9 @@ partes, el compilado **ASED pre código 11**, los simulacros **SIM. II 2023** de
 Lectura Crítica y Química, y los compilados `ff1`, `ff2`, `ff3` y `fenix 3`. Libro fuente:
 `1. Grado.11.°.pdf` y `1. Grado.10.°.pdf`. Antes de elegir preguntas nuevas, revisar
 `tablero/icfes.csv` para no repetir.
+
+**Cuadernillos liberados oficiales** (bajados del sitio del ICFES el 7 nov, en `fuente_icfes/`): Ciencias
+Naturales 2025 y 2026, Inglés 2024, Matemáticas 2026 y Lectura Crítica 2026 (dos). Vienen de la página
+«Caja de herramientas Saber 11 · práctica». El entorno `educate-saber11` permite www.icfes.gov.co.
+En Drive (carpeta con id 1kyvVqE2up3vOXl5LG3x-Z9BnVrjqx1LN): SIM. II 2023 de química, biología y física,
+y el ASED (14 MB: se lee con `read_file_content`, la descarga se corta en 10 MB).
