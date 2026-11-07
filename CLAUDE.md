@@ -35,7 +35,7 @@ tres cuadernos al azar sin haber entrado a la clase.
 
 | Entregable | Listo | Total |
 |---|---|---|
-| Cuaderno combinado de las siete áreas | 181 | **313 páginas** |
+| Cuaderno combinado de las siete áreas | 224 | **313 páginas** |
 | Planeadores del docente (uno por área) | 2 | 7 |
 | Guías de clase proyectables (una por clase) | 8 | 56 |
 | Documento maestro de metodología | 0 | 1 |
@@ -351,8 +351,10 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
    `entregables/Sociales_completo_paginas_96_a_138.pdf`. Los textos largos de M6 están en
    `tablero/propuestas/soc6_textos.md` (falta pasarlos a `TEXTOS_GUIA_DOCENTE.md`).
 3. ~~Biología~~ — hecha el 7 nov (`bio1.py` … `bio6_icfes.py`, portada `ap139_bio`):
-   `entregables/Biologia_completo_paginas_139_a_181.pdf`. Faltan Química (182–224), Física (225–267),
-   Inglés (268–310) y cierre (311–313).
+   `entregables/Biologia_completo_paginas_139_a_181.pdf`. ~~Química~~ — hecha el 7 nov (`qui1.py` …
+   `qui6_icfes.py`, portada `ap182_qui`): `entregables/Quimica_completo_paginas_182_a_224.pdf`. 11 de sus 24
+   preguntas ICFES salen del SIMULACRO II 2023 (Oficio): falta que Nelson confirme si son reales del ICFES.
+   Faltan Física (225–267), Inglés (268–310) y cierre (311–313).
 4. Las 8 guías de clase de Matemáticas (con el motor de `clase_viva_lc.py`).
 5. Planeadores y guías de Sociales, Biología, Química, Física e Inglés.
 6. **Decisión de Cristian** sobre los nombres de políticos vivos, antes de imprimir.

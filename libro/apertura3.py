@@ -336,6 +336,41 @@ def portada_bio():
                  iw=330, cajas=(EDU_AZUL, EDU_ROJO, EDU_ORO), x_clase_sub=760, x_puntaje=560, paso_puntaje=320)
 
 
+def _dib_qui(b, x, y, w, h):
+    c = "#0F7A68"
+    b.append(rect(x, y, w, h, SOFT, r=14, stroke="#E3E8EF", sw=2))
+    b.append(rect(x + 4, y + 8, 8, h - 16, c, r=4))
+    b.append(T(x + 32, y + 36, ["LAS PARTÍCULAS"], 15, GRAY, weight="700", ls=2))
+    # un vaso con agua y partículas disueltas
+    vx, vy, vw, vh = x + 40, y + 60, 120, 130
+    b.append(rect(vx, vy + 34, vw, vh - 34, "#EAF4FA", r=8))
+    b.append(f'<path d="M {vx - 6} {vy} L {vx} {vy + 6} L {vx} {vy + vh - 10} Q {vx} {vy + vh} {vx + 10} {vy + vh} '
+             f'L {vx + vw - 10} {vy + vh} Q {vx + vw} {vy + vh} {vx + vw} {vy + vh - 10} L {vx + vw} {vy + 6} '
+             f'L {vx + vw + 6} {vy}" fill="none" stroke="#7C8A99" stroke-width="3" stroke-linejoin="round"/>')
+    for px, py in ((24, 60), (58, 76), (92, 56), (40, 100), (78, 112), (100, 92), (20, 118)):
+        b.append(f'<circle cx="{vx + px}" cy="{vy + py}" r="7" fill="white" stroke="{c}" stroke-width="2"/>')
+    b.append(PT(x + 182, y + 96, ["40 → 0,40 g", "16 → ¿?"], 23, PENCIL, rot=-2, lh=34))
+
+
+def portada_qui():
+    portada_area(182, 5, "Química", "#0F7A68", "QUÍMICA",
+                 ["Uso comprensivo del conocimiento científico  ·  Explicación de fenómenos  ·  Indagación",
+                  "Componentes: aspectos analíticos y fisicoquímicos de sustancias y de mezclas  ·  entorno químico"],
+                 "Tu instrumento de pensamiento: la partícula y su unidad",
+                 "La sal que se pega en el salero, el gas que se escapa cuando destapas una gaseosa, el hielo que "
+                 "flota en tu vaso: todo eso lo hacen partículas que nunca vas a ver. Aquí las vas a dibujar y a "
+                 "contar, con la unidad al lado de cada número. Un número sin unidad no dice nada, y una partícula "
+                 "que no sabes dibujar todavía es una palabra.", _dib_qui,
+                 [("Disolver, separar y reaccionar", "Aspectos analíticos de sustancias"),
+                  ("El calor, los cambios de estado y la densidad", "Aspectos fisicoquímicos de sustancias"),
+                  ("Mezclar no es transformar", "Aspectos analíticos de mezclas"),
+                  ("Cada propiedad física separa algo", "Aspectos fisicoquímicos de mezclas"),
+                  ("El carbono en el tanque, el vaso y la bolsa", "Entorno químico"),
+                  ("Reacciones que calientan y encadenan", "Entorno químico")],
+                 "fecha · cómo llegué · cómo salí · algo que medí", "medí:", "ap182_qui.svg",
+                 iw=330, cajas=(EDU_AZUL, EDU_ROJO, EDU_ORO), x_clase_sub=760, x_puntaje=560, paso_puntaje=320)
+
+
 if __name__ == "__main__":
-    psico_1(); psico_2(); portada_mate(); portada_lc(); portada_soc(); portada_bio()
-    print("ok 8-10, 53, 96, 139")
+    psico_1(); psico_2(); portada_mate(); portada_lc(); portada_soc(); portada_bio(); portada_qui()
+    print("ok 8-10, 53, 96, 139, 182")

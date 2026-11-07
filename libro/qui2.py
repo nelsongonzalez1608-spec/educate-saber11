@@ -424,16 +424,15 @@ def i7(b, x, y, w, h):
         s0, s1 = 80, L - 80
         flecha(b, ax_ + ux * s0 + nx, ay_ + uy * s0 + ny, ax_ + ux * s1 + nx, ay_ + uy * s1 + ny, c, sw=2.4, head=11)
         flecha(b, ax_ + ux * s1 - nx, ay_ + uy * s1 - ny, ax_ + ux * s0 - nx, ay_ + uy * s0 - ny, c, sw=2.4, head=11)
-        # dos renglones (ida y vuelta) por fuera del triángulo, lejos del centro
+        # dos renglones (ida y vuelta) por fuera del triángulo, sin tocar las flechas
         mx, my = ax_ + dx / 2, ay_ + dy / 2
-        gcx, gcy = cx, top + 205
-        vx_, vy_ = mx - gcx, my - gcy
-        vl = math.hypot(vx_, vy_)
-        lx, ly = mx + vx_ / vl * 70, my + vy_ / vl * 70
         if abs(dy) < 1:                     # base del triángulo: renglones debajo
-            lx, ly = mx, my + 56
-        renglon(b, lx - 75, ly - 14, lx + 75)
-        renglon(b, lx - 75, ly + 18, lx + 75)
+            for k in (48, 80):
+                renglon(b, mx - 90, my + k, mx + 90)
+        else:
+            x1, x2 = (mx - 230, mx - 60) if mx < cx else (mx + 60, mx + 230)
+            for k in (-18, 18):
+                renglon(b, x1, my + k, x2)
     rx = x0 + 760
     rw = x0 + ww - rx
     caja(b, rx, yy + 20, rw, 320, c, r=14)
@@ -445,7 +444,7 @@ def i7(b, x, y, w, h):
     renglon(b, rx + 80, yy + 198, rx + rw - 18)
     pista(b, rx + 18, yy + 246, "el camino se llama:")
     renglon(b, rx + 18, yy + 286, rx + rw - 18)
-    yy += 400
+    yy += 440
     return ojo(b, x0, yy, ww, "EL HUMO BLANCO NO ES EL CO₂",
                "El dióxido de carbono gaseoso es invisible. La nube blanca que se ve son gotitas de agua del aire que "
                "se condensan porque el hielo seco las enfría. El hielo seco no se disuelve en esas gotas: desaparece "
@@ -561,9 +560,9 @@ def i10(b, x, y, w, h):
     yy = max(ty + 96, vy + vh + 40)
     yy = frase_hueco(b, x0, yy, ww, "Sube porque ____________________ ; sube rápido porque ____________________ .", c)
     return ojo(b, x0, yy + 14, ww, "LA PREGUNTA PIDE LA RAPIDEZ, NO LA CAUSA",
-               "Lo que hace subir a la esfera ya lo escribiste en la pregunta 9 y no aparece entre las cuatro "
-               "opciones. Busca la opción que nombre una propiedad real del mercurio y que tenga que ver con tu "
-               "segunda casilla.")
+               "Lo que hace subir a la esfera ya lo escribiste en la pregunta 9. Aquí preguntan otra cosa: por qué "
+               "sube tan rápido. Con cada opción hazte dos preguntas: ¿el mercurio de verdad tiene esa propiedad? "
+               "¿y esa propiedad cambia la rapidez de algo que se mueve dentro de él?")
 
 
 Q = {1: dict(n=1, est=1, pag=150, ctx="Dos sólidos X y Y calentados igual · por qué Y tarda más en fundirse",

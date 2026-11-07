@@ -1446,5 +1446,349 @@
   "mision": 6,
   "rol": "Entrenamiento ICFES",
   "titulo": "Biología · Misión 6 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "ap182_qui",
+  "pagina": 182,
+  "area": "qui",
+  "mision": null,
+  "rol": "Portada de área",
+  "titulo": "Química · portada del área"
+ },
+ {
+  "svg": "qui1_t1",
+  "pagina": 183,
+  "area": "qui",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Química · Misión 1 · Taller"
+ },
+ {
+  "svg": "qui1_t2",
+  "pagina": 184,
+  "area": "qui",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Química · Misión 1 · Taller"
+ },
+ {
+  "svg": "qui1_i1",
+  "pagina": 185,
+  "area": "qui",
+  "mision": 1,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Química · Misión 1 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "qui1_t3",
+  "pagina": 186,
+  "area": "qui",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Química · Misión 1 · Taller"
+ },
+ {
+  "svg": "qui1_t4",
+  "pagina": 187,
+  "area": "qui",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Química · Misión 1 · Taller"
+ },
+ {
+  "svg": "qui1_t5",
+  "pagina": 188,
+  "area": "qui",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Química · Misión 1 · Taller"
+ },
+ {
+  "svg": "qui1_i2",
+  "pagina": 189,
+  "area": "qui",
+  "mision": 1,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Química · Misión 1 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "qui2_t1",
+  "pagina": 190,
+  "area": "qui",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Química · Misión 2 · Taller"
+ },
+ {
+  "svg": "qui2_t2",
+  "pagina": 191,
+  "area": "qui",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Química · Misión 2 · Taller"
+ },
+ {
+  "svg": "qui2_i1",
+  "pagina": 192,
+  "area": "qui",
+  "mision": 2,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Química · Misión 2 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "qui2_t3",
+  "pagina": 193,
+  "area": "qui",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Química · Misión 2 · Taller"
+ },
+ {
+  "svg": "qui2_t4",
+  "pagina": 194,
+  "area": "qui",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Química · Misión 2 · Taller"
+ },
+ {
+  "svg": "qui2_t5",
+  "pagina": 195,
+  "area": "qui",
+  "mision": 2,
+  "rol": "Taller",
+  "titulo": "Química · Misión 2 · Taller"
+ },
+ {
+  "svg": "qui2_i2",
+  "pagina": 196,
+  "area": "qui",
+  "mision": 2,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Química · Misión 2 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "qui3_t1",
+  "pagina": 197,
+  "area": "qui",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Química · Misión 3 · Taller"
+ },
+ {
+  "svg": "qui3_t2",
+  "pagina": 198,
+  "area": "qui",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Química · Misión 3 · Taller"
+ },
+ {
+  "svg": "qui3_i1",
+  "pagina": 199,
+  "area": "qui",
+  "mision": 3,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Química · Misión 3 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "qui3_t3",
+  "pagina": 200,
+  "area": "qui",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Química · Misión 3 · Taller"
+ },
+ {
+  "svg": "qui3_t4",
+  "pagina": 201,
+  "area": "qui",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Química · Misión 3 · Taller"
+ },
+ {
+  "svg": "qui3_t5",
+  "pagina": 202,
+  "area": "qui",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Química · Misión 3 · Taller"
+ },
+ {
+  "svg": "qui3_i2",
+  "pagina": 203,
+  "area": "qui",
+  "mision": 3,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Química · Misión 3 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "qui4_t1",
+  "pagina": 204,
+  "area": "qui",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Química · Misión 4 · Taller"
+ },
+ {
+  "svg": "qui4_t2",
+  "pagina": 205,
+  "area": "qui",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Química · Misión 4 · Taller"
+ },
+ {
+  "svg": "qui4_i1",
+  "pagina": 206,
+  "area": "qui",
+  "mision": 4,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Química · Misión 4 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "qui4_t3",
+  "pagina": 207,
+  "area": "qui",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Química · Misión 4 · Taller"
+ },
+ {
+  "svg": "qui4_t4",
+  "pagina": 208,
+  "area": "qui",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Química · Misión 4 · Taller"
+ },
+ {
+  "svg": "qui4_t5",
+  "pagina": 209,
+  "area": "qui",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Química · Misión 4 · Taller"
+ },
+ {
+  "svg": "qui4_i2",
+  "pagina": 210,
+  "area": "qui",
+  "mision": 4,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Química · Misión 4 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "qui5_t1",
+  "pagina": 211,
+  "area": "qui",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Química · Misión 5 · Taller"
+ },
+ {
+  "svg": "qui5_t2",
+  "pagina": 212,
+  "area": "qui",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Química · Misión 5 · Taller"
+ },
+ {
+  "svg": "qui5_i1",
+  "pagina": 213,
+  "area": "qui",
+  "mision": 5,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Química · Misión 5 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "qui5_t3",
+  "pagina": 214,
+  "area": "qui",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Química · Misión 5 · Taller"
+ },
+ {
+  "svg": "qui5_t4",
+  "pagina": 215,
+  "area": "qui",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Química · Misión 5 · Taller"
+ },
+ {
+  "svg": "qui5_t5",
+  "pagina": 216,
+  "area": "qui",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Química · Misión 5 · Taller"
+ },
+ {
+  "svg": "qui5_i2",
+  "pagina": 217,
+  "area": "qui",
+  "mision": 5,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Química · Misión 5 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "qui6_t1",
+  "pagina": 218,
+  "area": "qui",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Química · Misión 6 · Taller"
+ },
+ {
+  "svg": "qui6_t2",
+  "pagina": 219,
+  "area": "qui",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Química · Misión 6 · Taller"
+ },
+ {
+  "svg": "qui6_i1",
+  "pagina": 220,
+  "area": "qui",
+  "mision": 6,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Química · Misión 6 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "qui6_t3",
+  "pagina": 221,
+  "area": "qui",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Química · Misión 6 · Taller"
+ },
+ {
+  "svg": "qui6_t4",
+  "pagina": 222,
+  "area": "qui",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Química · Misión 6 · Taller"
+ },
+ {
+  "svg": "qui6_t5",
+  "pagina": 223,
+  "area": "qui",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Química · Misión 6 · Taller"
+ },
+ {
+  "svg": "qui6_i2",
+  "pagina": 224,
+  "area": "qui",
+  "mision": 6,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Química · Misión 6 · Entrenamiento ICFES"
  }
 ]

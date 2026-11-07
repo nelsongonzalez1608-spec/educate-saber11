@@ -15,7 +15,8 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 ENT, TAB, LIB = (os.path.join(RAIZ, d) for d in ("entregables", "tablero", "libro"))
 PDFS = [("Cuaderno_Saber11_paginas_1_a_110_v2.pdf", 1, 110, 0),
         ("Sociales_completo_paginas_96_a_138.pdf", 111, 138, 95),
-        ("Biologia_completo_paginas_139_a_181.pdf", 139, 181, 138)]
+        ("Biologia_completo_paginas_139_a_181.pdf", 139, 181, 138),
+        ("Quimica_completo_paginas_182_a_224.pdf", 182, 224, 181)]
 
 
 def imagenes(out, pags):
@@ -83,7 +84,7 @@ def docente(out):
              hojas=hojas("EDUCATE_Planeador_LecturaCritica.pdf", "plan_lc")), guias=guias_lc),
         dict(area="Sociales y Ciudadanas", planeador=None, guias=[], guias_nota="pendientes (el cuaderno ya está completo)"),
         dict(area="Biología", planeador=None, guias=[], guias_nota="pendientes (el cuaderno ya está completo)"),
-        dict(area="Química", planeador=None, guias=[], guias_nota="después del cuaderno del área"),
+        dict(area="Química", planeador=None, guias=[], guias_nota="pendientes (el cuaderno ya está completo)"),
         dict(area="Física", planeador=None, guias=[], guias_nota="después del cuaderno del área"),
         dict(area="Inglés", planeador=None, guias=[], guias_nota="después del cuaderno del área"),
     ]
@@ -105,6 +106,7 @@ def descargas(out):
         n.save(os.path.join(d, nom), compress_streams=True, object_stream_mode=pikepdf.ObjectStreamMode.generate)
     copias = [("Sociales_completo_paginas_96_a_138.pdf", "Cuaderno_04_Sociales_p96-138.pdf"),
               ("Biologia_completo_paginas_139_a_181.pdf", "Cuaderno_05_Biologia_p139-181.pdf"),
+              ("Quimica_completo_paginas_182_a_224.pdf", "Cuaderno_06_Quimica_p182-224.pdf"),
               ("EDUCATE_Planeador_Matematicas.pdf", "Planeador_Matematicas.pdf"),
               ("EDUCATE_Planeador_LecturaCritica.pdf", "Planeador_LecturaCritica.pdf"),
               ("EDUCATE_Informe_hallazgos.pdf", "Informe_hallazgos_6nov.pdf"),
@@ -116,7 +118,7 @@ def descargas(out):
             shutil.copy(os.path.join(ENT, a), os.path.join(d, b))
     titulos = {"Cuaderno_01": "Cuaderno · Apertura (páginas 1–9)", "Cuaderno_02": "Cuaderno · Matemáticas (10–52)",
                "Cuaderno_03": "Cuaderno · Lectura Crítica (53–95)", "Cuaderno_04": "Cuaderno · Sociales y Ciudadanas (96–138)",
-               "Cuaderno_05": "Cuaderno · Biología (139–181)", "Planeador_Matematicas": "Planeador del docente · Matemáticas",
+               "Cuaderno_05": "Cuaderno · Biología (139–181)", "Cuaderno_06": "Cuaderno · Química (182–224)", "Planeador_Matematicas": "Planeador del docente · Matemáticas",
                "Planeador_LecturaCritica": "Planeador del docente · Lectura Crítica",
                "Informe_hallazgos_6nov": "Informe de hallazgos del libro (versión del 6 nov)",
                "Matriz_del_proyecto_6nov": "Matriz del proyecto (versión del 6 nov)",
