@@ -14,7 +14,8 @@ import csv, json, os, subprocess, sys, datetime
 RAIZ = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 ENT, TAB, LIB = (os.path.join(RAIZ, d) for d in ("entregables", "tablero", "libro"))
 PDFS = [("Cuaderno_Saber11_paginas_1_a_110_v2.pdf", 1, 110, 0),
-        ("Sociales_completo_paginas_96_a_138.pdf", 111, 138, 95)]
+        ("Sociales_completo_paginas_96_a_138.pdf", 111, 138, 95),
+        ("Biologia_completo_paginas_139_a_181.pdf", 139, 181, 138)]
 
 
 def imagenes(out, pags):

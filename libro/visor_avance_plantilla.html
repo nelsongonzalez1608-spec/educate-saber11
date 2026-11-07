@@ -99,7 +99,7 @@ const AREAS = [
   {k:"m", n:"Matemáticas", c:"#1F4E8C", a:10, b:52, est:"ok"},
   {k:"lc", n:"Lectura Crítica", c:"#A82424", a:53, b:95, est:"ok"},
   {k:"soc", n:"Sociales y Ciudadanas", c:"#C9821B", a:96, b:138, est:"ok"},
-  {k:"bio", n:"Biología", c:"#30843C", a:139, b:181, est:"va", nota:"En construcción: tres agentes trabajando"},
+  {k:"bio", n:"Biología", c:"#30843C", a:139, b:181, est:"ok"},
   {k:"qui", n:"Química", c:"#0F7A68", a:182, b:224, est:"no"},
   {k:"fis", n:"Física", c:"#5C7A1E", a:225, b:267, est:"no"},
   {k:"ing", n:"Inglés", c:"#1BA0A8", a:268, b:310, est:"no"},
@@ -138,7 +138,7 @@ const mini = n => {
   if (!p) return `<div class="mini falta"><div>${n}</div><span>pág. ${n}</span></div>`;
   return `<button class="mini" type="button" data-n="${n}"><img loading="lazy" src="${img(n)}" alt="Página ${n}: ${esc(p.tit)}"><span>pág. ${n}</span></button>`;
 };
-const misionKey = (a, m) => ({m:`Misión ${m}`, lc:`LC Misión ${m}`, soc:`SOC Misión ${m}`})[a.k];
+const misionKey = (a, m) => ({m:`Misión ${m}`, lc:`LC Misión ${m}`, soc:`SOC Misión ${m}`, bio:`BIO Misión ${m}`, qui:`QUI Misión ${m}`, fis:`FIS Misión ${m}`, ing:`ING Misión ${m}`})[a.k];
 let html = "";
 for (const a of AREAS) {
   const tot = a.b - a.a + 1, hay = hechas.filter(n => n >= a.a && n <= a.b).length;

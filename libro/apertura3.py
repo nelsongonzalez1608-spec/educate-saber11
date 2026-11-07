@@ -328,8 +328,10 @@ def portada_bio():
                  "todavía es una corazonada.", _dib_bio,
                  [("La célula, una fábrica en cadena", "Componente biológico · celular"),
                   ("El equilibrio de adentro", "Componente biológico · organísmico"),
-                  ("", "Componente biológico · ecosistémico"), ("", "Ciencia, tecnología y sociedad"),
-                  ("", "Entorno biológico"), ("", "Entorno biológico")],
+                  ("En el ecosistema nada cambia solo", "Componente biológico · ecosistémico"),
+                  ("Cada invento, una oportunidad y un riesgo", "Ciencia, tecnología y sociedad"),
+                  ("Lo que se hereda y lo que se edita", "Entorno biológico"),
+                  ("La vida cambia", "Entorno biológico")],
                  "fecha · cómo llegué · cómo salí · algo que observé", "observé:", "ap139_bio.svg",
                  iw=330, cajas=(EDU_AZUL, EDU_ROJO, EDU_ORO), x_clase_sub=760, x_puntaje=560, paso_puntaje=320)
 
