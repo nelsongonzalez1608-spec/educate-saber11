@@ -35,7 +35,7 @@ tres cuadernos al azar sin haber entrado a la clase.
 
 | Entregable | Listo | Total |
 |---|---|---|
-| Cuaderno combinado de las siete áreas | 110 | **313 páginas** |
+| Cuaderno combinado de las siete áreas | 138 | **313 páginas** |
 | Planeadores del docente (uno por área) | 2 | 7 |
 | Guías de clase proyectables (una por clase) | 8 | 56 |
 | Documento maestro de metodología | 0 | 1 |
@@ -332,9 +332,11 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
 1. ~~Reconstruir el motor del cuaderno~~ — hecho el 6 nov. ~~Hallazgos 35 y 36~~ — corregidos: las
    98 páginas de misión entregadas se rehicieron con `rehace_hojas.py` (marco nuevo, salvavidas claro,
    Matemáticas en azul) y `arma_pdf.py` arma `entregables/Cuaderno_Saber11_paginas_1_a_110_v2.pdf`.
-   **Pendiente:** actualizar la apertura (páginas 1–9): dice «seis áreas», usa los colores viejos y la
-   hoja que explica las partes muestra el salvavidas oscuro.
-2. Sociales misiones 3 a 6 (páginas 111–138).
+   La apertura y las portadas de área ya están a 7 áreas y con el salvavidas nuevo.
+   **Pendiente:** el visor HTML (`EDUCATE_Visor_del_cuaderno.html`) muestra las páginas viejas.
+2. ~~Sociales misiones 3 a 6~~ — hechas el 6 nov (`soc3.py` … `soc6_icfes.py`); Sociales completo en
+   `entregables/Sociales_completo_paginas_96_a_138.pdf`. Los textos largos de M6 están en
+   `tablero/propuestas/soc6_textos.md` (falta pasarlos a `TEXTOS_GUIA_DOCENTE.md`).
 3. Biología (139–181), Química (182–224), Física (225–267), Inglés (268–310), cierre (311–313).
 4. Las 8 guías de clase de Matemáticas (con el motor de `clase_viva_lc.py`).
 5. Planeadores y guías de Sociales, Biología, Química, Física e Inglés.

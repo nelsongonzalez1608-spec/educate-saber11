@@ -19,7 +19,7 @@ demás, en tablero/propuestas/soc6_hallazgos.csv.
 Estrategias (la 3 y la 4 recogen lo trabajado en las misiones 1, 3 y 4 del área):
     1 · La mayoría y sus límites              (2, 3, 4  · ICFES 2016-1 2.ª sesión N.º 22)
     2 · Eficaz no es lo mismo que legítimo    (5, 6     · ICFES N.º 20)
-    3 · Lo político, lo social y lo ético     (7, 10    · ICFES N.º 6)
+    3 · Lo político, lo social y lo ético     (7, 10    · ICFES N.º 2)
     4 · Quién lo dice y desde qué principio   (1, 8, 9  · ICFES N.º 14)
 
 Hojas: 132 soc6_t1 (1-2) · 133 soc6_t2 (3-4) · 134 soc6_i1 · 135 soc6_t3 (5-6) ·

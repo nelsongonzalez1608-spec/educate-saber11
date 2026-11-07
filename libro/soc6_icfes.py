@@ -7,7 +7,8 @@ Las cuatro preguntas salen del cuadernillo oficial Saber 11 2016-1, SEGUNDA sesi
 Ciudadanas, ítems 1 a 24. Verificadas contra la portada («2016-1 · Examen de Estado · Segunda
 sesión») y la página escaneada en Drive («1. CUADERNILLOS ICFES» / «2016-2 SEGUNDA SESION.pdf»:
 el archivo se llama 2016-2 pero la portada dice 2016-1, segunda sesión). Ninguna estaba en
-tablero/icfes.csv. Se tomaron solo ítems pares, para no chocar con la Misión 5.
+tablero/icfes.csv. La N.º 6 se cambió por la N.º 2 porque la Misión 5 usa los ítems 5, 6, 18 y 19; los 7 a 12
+nombran a un exalcalde vivo y no se usan.
 
 Membrete sin año (decisión pendiente de Nelson): «Pregunta oficial ICFES · Saber 11».
 Ninguna nombra a un político colombiano vivo.
@@ -17,7 +18,7 @@ Claves verificadas (resueltas a mano, no copiadas de un solucionario):
     QA · N.º 22 · C   (la MANE y la reforma de 2011 · movimientos sociales y democracia)  estrategia 1
     QB · N.º 14 · D   (Ley de Caducidad de Uruguay · qué consenso hay entre las partes)  estrategia 4
     QC · N.º 20 · C   (Plan de Desarrollo de los 90 · eficiencia y equidad)              estrategia 2
-    QD · N.º 6  · D   (caminos reales y tierras campesinas · qué está en conflicto)     estrategia 3
+    QD · N.º 2  · A   (toque de queda para menores · qué dimensión y por qué)          estrategia 3
 """
 from soc6 import *   # noqa: F401,F403  (configura la misión y EST)
 from soc6 import rot, caja, pista, renglon, frase_hueco, cita
@@ -143,46 +144,36 @@ def ii3(b, x, y, w, h):
                       "la economía. Con esa idea clara, busca qué parte del fragmento va en contra de ella.")
 
 
-# ───────── QD · N.º 6 · caminos reales ─────────
-CAMINOS = ("La gobernación de un departamento tiene como proyecto recuperar los caminos reales de la época colonial "
-           "que recorren varios municipios. Se propone que estos sean el eje de la promoción del departamento como "
-           "destino turístico para caminantes y amantes de la naturaleza. Algunos habitantes de la zona dudan acerca "
-           "de los beneficios de este proyecto, pues los caminos pasan por parte de sus tierras de cultivo y "
-           "ganadería por tanto su recuperación y aprovechamiento implicaría expropiar estas tierras. Mencionan "
-           "también que en los títulos de propiedad de sus tierras no hay nada que indique que una parte de sus "
-           "terrenos sea pública. Adicionalmente, no ven que el turismo sea beneficioso para ellos.")
-
-
-def datos_6(b, x, y, w):
-    return pregunta(b, x, y, w, "¿Qué aspectos de esta situación están en conflicto?")
+# ───────── QD · N.º 2 · toque de queda ─────────
+TOQUE = ("En una ciudad del norte de Colombia, son recurrentes las quejas de la ciudadanía por la presencia de "
+         "niños, niñas y adolescentes circulando por las calles hasta avanzadas horas de la noche. Las quejas "
+         "también se relacionan con su presencia en bares y discotecas y con su aparente venta y consumo de "
+         "sustancias psicoactivas. Al respecto, las autoridades policiales deciden establecer un toque de queda "
+         "que va desde las 9 de la noche hasta las 6 de la mañana, los viernes, sábados y domingos. Esta medida")
 
 
 def ii4(b, x, y, w, h):
     c = EST[3][1]
-    yy = titulo_instr(b, x, y, "El camino real atraviesa la finca", c,
-                      "De un lado del camino, lo que busca la gobernación; del otro, lo que dicen los habitantes. "
-                      "Escribe cada lado con el texto y después nombra los dos aspectos que chocan.")
+    yy = titulo_instr(b, x, y, "Del motivo de la queja al efecto de la medida", c,
+                      "Cada opción le pone una etiqueta a la medida (social, política, económica, de seguridad) y "
+                      "le agrega un «porque». Antes de mirar las etiquetas, sigue la cadena del caso.")
     x0, ww = x + 22, w - 44
-    lw = (ww - 160) / 2
-    caja(b, x0, yy, lw, 150, c, r=16)
-    rot(b, x0 + 18, yy + 28, "LO QUE BUSCA LA GOBERNACIÓN", c, size=14)
-    for i in range(2):
-        renglon(b, x0 + 18, yy + 80 + i * 44, x0 + lw - 18)
-    # el camino: una franja que cruza la finca (forma, no filete)
-    px = x0 + lw + 30
-    b.append(f'<polygon points="{px + 20},{yy} {px + 80},{yy} {px + 100},{yy + 150} {px},{yy + 150}" '
-             f'fill="#EFE6D6" stroke="{c}" stroke-width="1.8"/>')
-    for i in range(4):
-        b.append(f'<circle cx="{px + 50}" cy="{yy + 22 + i * 36}" r="4" fill="{c}"/>')
-    rx = x0 + lw + 160
-    caja(b, rx, yy, lw, 150, c, r=16)
-    rot(b, rx + 18, yy + 28, "LO QUE DICEN LOS HABITANTES", c, size=14)
-    pista(b, rx + 18, yy + 50, "dan tres razones", size=14)
-    for i in range(3):
-        renglon(b, rx + 18, yy + 80 + i * 30, rx + lw - 18)
-    yy += 166
-    return frase_hueco(b, x0, yy, ww, "Lo que está en conflicto: ________________________ frente a "
-                                      "________________________ .", c)
+    n, gap = 3, 56
+    bw = (ww - gap * (n - 1)) / n
+    for k, (rt, ps) in enumerate((("DE QUÉ SE QUEJAN", "lo que ven en las calles de noche"),
+                                  ("QUÉ HACE LA MEDIDA", "a quién, cuándo y dónde"),
+                                  ("QUÉ BUSCA CUIDAR", "y a quién, según el caso"))):
+        bx = x0 + k * (bw + gap)
+        caja(b, bx, yy, bw, 104, c, r=16)
+        rot(b, bx + 18, yy + 28, rt, c, size=14)
+        pista(b, bx + 18, yy + 50, ps, size=14)
+        renglon(b, bx + 18, yy + 88, bx + bw - 18)
+        if k < n - 1:
+            b.append(hand_arrow(bx + bw + 6, yy + 52, bx + bw + gap - 6, yy + 52, c, sw=3, bend=0.0, head=14))
+    yy += 120
+    return trampa(b, x0, yy, ww, "La etiqueta no decide: decide el «porque»:",
+                  "revisa si lo que dice cada opción después de «porque» se sigue de tu cadena. Por ejemplo, "
+                  "¿un toque de queda le quita trabajo a la policía en la noche, o le pone más?", c)
 
 
 QA = dict(est=1, comp="Pensamiento reflexivo y sistémico", e=MANE,
@@ -216,15 +207,12 @@ QC = dict(est=2, comp="Pensamiento reflexivo y sistémico",
              "se señala implícitamente que la privatización de las empresas del Estado es un mecanismo eficiente "
              "para garantizar la equidad."],
           datos=datos_20, inst=ii3)
-QD = dict(est=3, comp="Pensamiento social", e=CAMINOS,
-          o=["El interés de los gobernantes de desarrollar proyectos que beneficien a su región y el interés de los "
-             "caminantes.",
-             "La necesidad de proteger el medio ambiente y la naturaleza y la obligación de los gobernantes de "
-             "proteger el patrimonio cultural.",
-             "El desarrollo de la región como destino turístico y el incremento del poder político del gobernador.",
-             "El desarrollo de una nueva fuente de ingresos para la región y una afectación en las tierras de los "
-             "campesinos."],
-          datos=datos_6, inst=ii4)
+QD = dict(est=3, comp="Pensamiento reflexivo y sistémico", e=TOQUE,
+          o=["es positiva socialmente, porque disminuiría la exposición de los menores a diversos riesgos.",
+             "es negativa políticamente, porque vulneraría los derechos fundamentales de los menores.",
+             "es positiva económicamente, porque disminuiría la presencia policial a avanzadas horas de la noche.",
+             "es negativa para la seguridad, porque incrementaría los índices de delincuencia común."],
+          inst=ii4)
 
 
 def build(pages=(134, 138)):
