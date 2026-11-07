@@ -254,6 +254,13 @@ compone el PDF final poniendo la página original (fuentes reales) bajo el recor
 motor (marco, salvavidas, colores), basta `python3 rehace_hojas.py && python3 arma_pdf.py`.
 El PDF entregado se rindió a página completa: 1 pt = 2000/612 unidades; `render.conv()` usa m=0.
 
+### Visor de avance (página privada en claude.ai)
+
+https://claude.ai/artifact/2wZ42PVyMpwpxbTz8BZ8Bw — mapa de las 313 páginas y cada página hecha.
+Se regenera con `python3 libro/visor_avance.py <carpeta>` (lee el manifiesto y el tablero; las imágenes
+salen de los PDF de `entregables/` o, si no hay PDF, del SVG) y se vuelve a publicar en la misma URL.
+Actualizarlo cada vez que se cierra un área.
+
 ### Lecciones que costaron caro (no repetirlas)
 
 - **`LGRAY = #D8DEE6` es el gris de las LÍNEAS, nunca de texto.** En papel no se lee. Texto

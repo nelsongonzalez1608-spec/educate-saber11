@@ -1,0 +1,190 @@
+<title>Cuaderno Saber 11 EDUCATE</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Plano del cuaderno: arriba el mapa de las 313 páginas, abajo cada área con sus misiones de 7 páginas */
+:root{
+  --papel:#F6F7FB; --hoja:#FFFFFF; --tinta:#1B1E3A; --suave:#5E6378; --linea:#DADDE8;
+  --edu:#242478; --vacio:#ECEEF4;
+  --display:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --texto:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --num:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --papel:#12142A; --hoja:#1B1E38; --tinta:#ECEEF8; --suave:#A3A8C3; --linea:#2E3256; --edu:#9EA2FF; --vacio:#22264A; color-scheme:dark}}
+:root[data-theme="dark"]{--papel:#12142A; --hoja:#1B1E38; --tinta:#ECEEF8; --suave:#A3A8C3; --linea:#2E3256; --edu:#9EA2FF; --vacio:#22264A; color-scheme:dark}
+body{background:var(--papel);color:var(--tinta);font:16px/1.5 var(--texto)}
+.envoltura{max-width:1180px;margin:0 auto;padding-block:28px 64px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:36px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+h1{font-size:clamp(28px,4.4vw,44px);font-weight:800;letter-spacing:-.01em}
+.eyebrow{font:700 12px/1 var(--texto);letter-spacing:.14em;text-transform:uppercase;color:var(--edu)}
+.cabeza{display:grid;gap:10px}
+.cabeza p{margin:0;color:var(--suave);max-width:62ch}
+.cifras{display:flex;flex-wrap:wrap;gap:10px 28px;font-variant-numeric:tabular-nums}
+.cifra b{font:800 30px/1 var(--display);display:block}
+.cifra span{font-size:13px;color:var(--suave)}
+.mapa{display:grid;grid-template-columns:repeat(auto-fill,minmax(11px,1fr));gap:3px;padding:14px;background:var(--hoja);border:1px solid var(--linea);border-radius:12px}
+.celda{aspect-ratio:3/4;border-radius:2px;background:var(--vacio);border:0;padding:0;cursor:default}
+.celda.lista{background:var(--c);cursor:pointer}
+.celda.lista:hover,.celda.lista:focus-visible{outline:2px solid var(--tinta);outline-offset:1px}
+.leyenda{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--suave)}
+.leyenda i{display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--c);margin-right:6px;vertical-align:-1px}
+.area{display:grid;gap:16px;scroll-margin-top:16px}
+.area-cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px}
+.area-cab h2{font-size:26px;color:var(--c)}
+:root[data-theme="dark"] .area-cab h2{filter:brightness(1.5)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .area-cab h2{filter:brightness(1.5)}}
+.rango{font:500 13px var(--num);color:var(--suave)}
+.estado{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;border:1.5px solid currentColor}
+.estado.ok{color:#2E8540}.estado.va{color:#B7791F}.estado.no{color:var(--suave)}
+.barra{height:6px;border-radius:3px;background:var(--vacio);overflow:hidden;flex:1 1 160px;min-width:120px;align-self:center}
+.barra span{display:block;height:100%;background:var(--c);width:var(--p)}
+.mision{display:grid;gap:8px;padding:14px;background:var(--hoja);border:1px solid var(--linea);border-radius:12px}
+.mision h3{font-size:16px;font-family:var(--texto);font-weight:700}
+.mision small{color:var(--suave);font-size:13px}
+.tiras{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+@media (max-width:620px){.tiras{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.mini{display:grid;gap:4px;border:0;padding:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.mini img{width:100%;aspect-ratio:900/1165;object-fit:cover;object-position:top;border-radius:6px;border:1px solid var(--linea);background:#fff}
+.mini span{font:500 11px var(--num);color:var(--suave)}
+.mini.falta{cursor:default}
+.mini.falta div{aspect-ratio:900/1165;border-radius:6px;border:1.5px dashed var(--linea);display:grid;place-items:center;font:500 12px var(--num);color:var(--suave)}
+.mini:not(.falta):focus-visible img,.mini:not(.falta):hover img{outline:2px solid var(--c);outline-offset:2px}
+.sueltas{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+dialog{border:0;padding:0;background:transparent;max-width:min(980px,100vw);width:100%;max-height:100vh}
+dialog::backdrop{background:rgba(10,12,30,.82)}
+.visor{display:grid;gap:10px;padding:12px max(12px,env(safe-area-inset-left,0px));color:#fff}
+.visor img{width:100%;height:auto;border-radius:8px;background:#fff;max-height:calc(100vh - 110px);object-fit:contain}
+.mando{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mando p{margin:0;flex:1 1 220px;font-size:14px}
+.mando button{font:700 14px var(--texto);border-radius:8px;border:1.5px solid rgba(255,255,255,.6);background:transparent;color:#fff;padding:8px 14px;cursor:pointer}
+.mando button:focus-visible{outline:2px solid #fff}
+.nota{font-size:13px;color:var(--suave);margin:0}
+@media (prefers-reduced-motion:no-preference){.mini img{transition:transform .15s}.mini:hover img{transform:translateY(-2px)}}
+</style>
+
+<div class="envoltura">
+  <header class="cabeza">
+    <span class="eyebrow">EDUCATE · Para el Saber</span>
+    <h1>Cuaderno Saber 11 · cómo va</h1>
+    <p>Cada cuadrito es una página del cuaderno. Los de color ya están hechos y revisados; tócalos para ver la página. Los grises faltan.</p>
+    <div class="cifras" id="cifras"></div>
+  </header>
+  <section aria-label="Mapa de las 313 páginas" style="display:grid;gap:10px">
+    <div class="mapa" id="mapa"></div>
+    <div class="leyenda" id="leyenda"></div>
+  </section>
+  <div id="areas" style="display:grid;gap:40px"></div>
+  <p class="nota" id="pie"></p>
+</div>
+
+<dialog id="dlg" aria-label="Página del cuaderno">
+  <div class="visor">
+    <img id="dlg-img" alt="">
+    <div class="mando">
+      <button id="ant" type="button">← Anterior</button>
+      <p id="dlg-txt"></p>
+      <button id="sig" type="button">Siguiente →</button>
+      <button id="cerrar" type="button">Cerrar</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+const D = __DATOS__;
+const AREAS = [
+  {k:"ap", n:"Apertura", c:"#242478", a:1, b:9, est:"ok"},
+  {k:"m", n:"Matemáticas", c:"#1F4E8C", a:10, b:52, est:"ok"},
+  {k:"lc", n:"Lectura Crítica", c:"#A82424", a:53, b:95, est:"ok"},
+  {k:"soc", n:"Sociales y Ciudadanas", c:"#C9821B", a:96, b:138, est:"ok"},
+  {k:"bio", n:"Biología", c:"#30843C", a:139, b:181, est:"va", nota:"En construcción: tres agentes trabajando"},
+  {k:"qui", n:"Química", c:"#0F7A68", a:182, b:224, est:"no"},
+  {k:"fis", n:"Física", c:"#5C7A1E", a:225, b:267, est:"no"},
+  {k:"ing", n:"Inglés", c:"#1BA0A8", a:268, b:310, est:"no"},
+  {k:"cie", n:"Cierre", c:"#6E7480", a:311, b:313, est:"no"},
+];
+const ROL = ["taller","taller","ICFES","taller","taller","taller","ICFES"];
+const porNum = new Map(D.pags.map(p => [p.n, p]));
+const hechas = D.pags.map(p => p.n).sort((x,y)=>x-y);
+const areaDe = n => AREAS.find(a => n >= a.a && n <= a.b);
+const img = n => `pag/${String(n).padStart(3,"0")}.jpg`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+document.getElementById("cifras").innerHTML = [
+  [`${hechas.length} / 313`, "páginas hechas"],
+  [`${Math.round(hechas.length/313*100)} %`, "del cuaderno"],
+  [D.instrumentos, "instrumentos de pensamiento"],
+  [D.icfes, "preguntas reales del ICFES"],
+  [D.hallazgos, "hallazgos del libro registrados"],
+].map(([b,s]) => `<div class="cifra"><b>${b}</b><span>${s}</span></div>`).join("");
+
+const mapa = document.getElementById("mapa");
+for (let n = 1; n <= 313; n++) {
+  const a = areaDe(n), ok = porNum.has(n);
+  const el = document.createElement("button");
+  el.type = "button"; el.className = "celda" + (ok ? " lista" : "");
+  el.style.setProperty("--c", a.c);
+  el.title = `Página ${n} · ${a.n}${ok ? "" : " · falta"}`;
+  el.setAttribute("aria-label", el.title);
+  if (ok) el.onclick = () => abrir(n); else el.disabled = true;
+  mapa.appendChild(el);
+}
+document.getElementById("leyenda").innerHTML = AREAS.map(a => `<span style="--c:${a.c}"><i></i>${a.n}</span>`).join("");
+
+const mini = n => {
+  const p = porNum.get(n);
+  if (!p) return `<div class="mini falta"><div>${n}</div><span>pág. ${n}</span></div>`;
+  return `<button class="mini" type="button" data-n="${n}"><img loading="lazy" src="${img(n)}" alt="Página ${n}: ${esc(p.tit)}"><span>pág. ${n}</span></button>`;
+};
+const misionKey = (a, m) => ({m:`Misión ${m}`, lc:`LC Misión ${m}`, soc:`SOC Misión ${m}`})[a.k];
+let html = "";
+for (const a of AREAS) {
+  const tot = a.b - a.a + 1, hay = hechas.filter(n => n >= a.a && n <= a.b).length;
+  const est = {ok:["ok","Completa"], va:["va","En construcción"], no:["no","Pendiente"]}[hay === tot ? "ok" : a.est];
+  html += `<section class="area" id="${a.k}" style="--c:${a.c}">
+    <div class="area-cab"><h2>${a.n}</h2><span class="rango">págs. ${a.a}–${a.b}</span>
+      <span class="estado ${est[0]}">${est[1]}${a.nota && est[0]==="va" ? " · " + a.nota.split(":")[1].trim() : ""}</span>
+      <div class="barra" title="${hay} de ${tot}"><span style="--p:${hay/tot*100}%"></span></div>
+      <span class="rango">${hay}/${tot}</span></div>`;
+  if (tot === 43) {
+    html += `<div class="mision"><h3>Portada del área</h3><div class="tiras">${mini(a.a)}</div></div>`;
+    for (let m = 1; m <= 6; m++) {
+      const base = a.a + 1 + (m - 1) * 7, info = D.mis[misionKey(a, m)] || {};
+      html += `<div class="mision"><h3>Misión ${m}${info.comp ? ` · <small>${esc(info.comp)}</small>` : ""}</h3>
+        ${info.est ? `<small>Estrategias: ${esc(info.est)}</small>` : ""}
+        <div class="tiras">${ROL.map((r, i) => mini(base + i)).join("")}</div></div>`;
+    }
+  } else {
+    const ns = []; for (let n = a.a; n <= a.b; n++) ns.push(n);
+    html += `<div class="sueltas">${ns.map(mini).join("")}</div>`;
+  }
+  html += `</section>`;
+}
+const cont = document.getElementById("areas");
+cont.innerHTML = html;
+cont.addEventListener("click", e => { const b = e.target.closest(".mini[data-n]"); if (b) abrir(+b.dataset.n); });
+
+const dlg = document.getElementById("dlg"), dimg = document.getElementById("dlg-img"), dtxt = document.getElementById("dlg-txt");
+let actual = null;
+function abrir(n) {
+  actual = n; const p = porNum.get(n);
+  dimg.src = img(n); dimg.alt = `Página ${n}: ${p.tit}`;
+  dtxt.textContent = `Página ${n} · ${p.tit}`;
+  if (!dlg.open) dlg.showModal();
+}
+function mover(d) { const i = hechas.indexOf(actual) + d; if (i >= 0 && i < hechas.length) abrir(hechas[i]); }
+document.getElementById("ant").onclick = () => mover(-1);
+document.getElementById("sig").onclick = () => mover(1);
+document.getElementById("cerrar").onclick = () => dlg.close();
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+document.addEventListener("keydown", e => {
+  if (!dlg.open) return;
+  if (e.key === "ArrowRight") mover(1);
+  if (e.key === "ArrowLeft") mover(-1);
+});
+const s = D.sev;
+document.getElementById("pie").textContent =
+  `Hallazgos del libro: ${s["Alta"]||0} de severidad alta, ${s["Media"]||0} media, ${s["Baja"]||0} baja y ${s["Atención"]||0} de atención. Actualizado: __FECHA__.`;
+</script>
