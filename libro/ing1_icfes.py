@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Inglés · Misión 1 · entrenamiento ICFES · páginas 271 y 275.
 
-Fuente de las cuatro: «Cuadernillo de preguntas · Prueba Inglés · Saber 11.º» (Icfes, septiembre
+Fuente de QB, QC y QD (QA: ver abajo, cambió el 7 nov): «Cuadernillo de preguntas · Prueba Inglés · Saber 11.º» (Icfes, septiembre
 de 2024; fuente_icfes/16-octubre-cuadernillo-ingles-saber-11-2024.pdf): 50 preguntas «utilizadas
 en aplicaciones anteriores de la prueba Saber 11.º», en dos exámenes de 25. Verificadas contra
 las páginas 6, 14 y 15 del cuadernillo y su tabla de respuestas (páginas 23 y 24). Ninguna estaba
@@ -15,14 +15,29 @@ Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
 
 Claves verificadas (resueltas a mano; coinciden con la tabla del cuadernillo):
 
-    QA · Examen 1 · 1 · B   (Clothes · «A person can carry things in one of these»)  estrategia 1
+    QA · 2016-1 2.ª sesión · 87 · F  (time words · «You wear it to know what time it is»)  estrategia 1
     QB · Examen 2 · 2 · D   (Transportation · «People pay to take this public transport
                              by road»)                                              estrategia 2
     QC · Examen 2 · 6 · C   (aviso «Please, take the one you want to read»)          estrategia 3
     QD · Examen 2 · 5 · B   (aviso «New Toys: Green monsters, angry dolls…»)         estrategia 4
 
-  E1 · 1 · B handbags: el verbo es «carry» (cargar, llevar cosas). Gafas, sombrero, pijama,
-       bufanda, falda y medias se llevan PUESTAS (wear); en un bolso se cargan cosas.
+  E1 · 87 · F watch: el banco mezcla momentos del día (afternoon, evening, morning, yesterday,
+       week, birthday) con dos cosas que dan la hora (clock, watch). Las dos dan la hora; el verbo
+       «wear» (llevar puesto) deja solo el reloj de pulsera: el de pared (clock) no se lleva puesto.
+       Las cinco del grupo (87-91): 87·F 88·E 89·D 90·H 91·G; A (afternoon) es el ejemplo y sobran
+       B y C, como dice la instrucción («sobran tres de las ocho, una de las cuales se usa para el
+       ejemplo»): el grupo es coherente. Resuelta a mano; el cuadernillo escaneado no trae tabla.
+
+QA cambió el 7 nov (decisión de Nelson: «si una pregunta del ICFES tiene alguna falla, no la
+uses»). Salió Examen 1 · 1 del cuadernillo 2024 (handbags): el cuadernillo titula el tema «Clothes
+and accesories». Entró la N.º 87 del cuadernillo oficial Saber 11 2016-1, segunda sesión (ABD,
+encabezado «Saber 11 - 051 - F2 - ABD»; en Drive, «2016-2 SEGUNDA SESION.pdf»), Inglés, Parte 2:
+descripción → palabra, A–H, leída palabra por palabra en el escaneo, sin errata. El SIMULACRO II
+2023 la repite como N.º 66 con errata («Dock» por «Clock»): se usa la del cuadernillo oficial.
+Se descartaron, por errata: el grupo 86–90 del SIMULACRO (ejemplo sin punto final) y su grupo
+81–85 (n.º 84 «have it lot»); y el cuadernillo 2024 Examen 2 · 1 y 3 (la instrucción dice
+«Sobran dos palabras más» y con 3 preguntas y 7 palabras sobran cuatro; además repetiría el banco
+de QB en la misma hoja).
   E2 · 2 · D bus: «pay to take» (se paga el pasaje) saca bike y motorbike (son tuyas) y la
        ambulancia; «public transport» se queda con bus, plane, train, boat; «by road» deja solo
        el bus (el tren va por rieles, el avión por aire, el barco por agua).
@@ -32,9 +47,9 @@ Claves verificadas (resueltas a mano; coinciden con la tabla del cuadernillo):
   E4 · 5 · B in a shop: «New toys» + una lista de productos con sus colores = un anuncio que quiere
        vender. En una casa los juguetes no se anuncian «nuevos»; en un zoológico no hay muñecas.
 
-Adaptaciones: el título del tema «Clothes and accesories» del original se corrige a «Clothes and
-accessories» (errata del cuadernillo, registrada). Las opciones de la Parte 1 se imprimen A–G y la
-palabra H va en el ejemplo, como en el original. Los avisos se redibujan como un letrero con el
+Adaptaciones: en QB (Parte 1 del 2024) las opciones se imprimen A–G y la palabra H va en el
+ejemplo, como en el original. En QA (2016-1) se imprimen las ocho, A–H, como en el original; la A
+(afternoon) es la del ejemplo. La instrucción se reduce a una sola descripción. Los avisos se redibujan como un letrero con el
 mismo texto.
 """
 from ing1 import *   # noqa: F401,F403  (configura la misión y EST)
@@ -51,8 +66,11 @@ def pregunta(b, x, y, w, txt, size=20, weight="400"):
 
 def vocab(tema, ejemplo, ej_resp, item):
     def datos(b, x, y, w):
-        texto(b, x + w / 2, y + 26, tema, size=21, weight="700", anchor="middle")
-        yy = y + 44
+        if tema:
+            texto(b, x + w / 2, y + 26, tema, size=21, weight="700", anchor="middle")
+            yy = y + 44
+        else:
+            yy = y + 6
         caja(b, x, yy, w, 52, "#D6DBE3", fill="#F5F6F8", r=10)
         texto(b, x + 18, yy + 33, "Ejemplo:", size=17, color=GRAY, weight="700")
         texto(b, x + 110, yy + 33, ejemplo, size=18)
@@ -79,27 +97,30 @@ def aviso(lineas, titulo=None):
     return datos
 
 
-# ───────── QA · Examen 1 · 1 · handbags ─────────
+# ───────── QA · 2016-1 2.ª sesión · 87 · watch ─────────
 def ii1(b, x, y, w, h):
     c = EST[1][1]
-    yy = titulo_instr(b, x, y, "Wear o carry: dos cajones", c,
-                      "Como con «repairs» en la pregunta 1: el verbo de la descripción decide. Reparte las siete "
-                      "palabras en dos cajones y busca la que va con el verbo que dice la descripción.")
+    yy = titulo_instr(b, x, y, "Primero la clase, después el verbo", c,
+                      "Como con «repairs» en la pregunta 1: antes de leer la descripción, separa qué clase de "
+                      "palabras trae la lista. Después, el verbo de la descripción escoge dentro de la clase.")
     x0, ww = x + 22, w - 44
     half = (ww - 30) / 2
-    for k, (tit, ps) in enumerate((("WEAR · LO LLEVO PUESTO", "en el cuerpo"),
-                                   ("CARRY · LO CARGO, LLEVO COSAS EN ÉL", "en la mano o al hombro"))):
+    for k, (tit, ps) in enumerate((("MOMENTOS DEL TIEMPO", "partes del día, días, semanas…"),
+                                   ("COSAS QUE SE PUEDEN TOCAR", "objetos"))):
         bx = x0 + k * (half + 30)
-        caja(b, bx, yy, half, 150, c, r=14)
+        caja(b, bx, yy, half, 128, c, r=14)
         rot(b, bx + 18, yy + 30, tit, c, size=13)
         pista(b, bx + 18, yy + 54, ps)
-        renglon(b, bx + 18, yy + 96, bx + half - 18)
-        renglon(b, bx + 18, yy + 134, bx + half - 18)
-    yy += 166
-    pista(b, x0, yy + 20, "el verbo de la descripción 1:")
-    renglon(b, x0 + 210, yy + 22, x0 + 500)
-    pista(b, x0 + 530, yy + 20, "entonces miro el cajón:")
-    renglon(b, x0 + 700, yy + 22, x0 + ww)
+        renglon(b, bx + 18, yy + 90, bx + half - 18)
+        renglon(b, bx + 18, yy + 116, bx + half - 18)
+    yy += 144
+    pista(b, x0, yy + 20, "de las cosas, las que sirven para saber la hora:")
+    renglon(b, x0 + 340, yy + 22, x0 + ww)
+    yy += 40
+    pista(b, x0, yy + 20, "el verbo de la descripción:")
+    renglon(b, x0 + 200, yy + 22, x0 + 420)
+    pista(b, x0 + 440, yy + 20, "¿a cuál de ellas se le puede hacer eso?")
+    renglon(b, x0 + 730, yy + 22, x0 + ww)
     return yy + 30
 
 
@@ -173,10 +194,13 @@ def ii4(b, x, y, w, h):
 INSTR_P1 = ("Lea la descripción de la izquierda. ¿Cuál palabra de la columna de la derecha (A - G) concuerda "
             "con la descripción? La opción H se usa para el ejemplo.")
 
-QA = dict(est=1, comp="Léxico · Parte 1", e=INSTR_P1,
-          o=["glasses", "handbags", "hat", "pajamas", "scarf", "skirt", "socks"],
-          datos=vocab("Clothes and accessories", "0.  You wear this to know the time.", "H · watch",
-                      "1.  A person can carry things in one of these."), inst=ii1)
+INSTR_2016 = ("Lea la descripción de la izquierda. ¿Cuál palabra de la columna de la derecha (A - H) concuerda "
+              "con la descripción? La opción A se usa para el ejemplo.")
+
+QA = dict(est=1, comp="Léxico · descripción → palabra", e=INSTR_2016,
+          o=["afternoon", "birthday", "clock", "evening", "morning", "watch", "week", "yesterday"],
+          datos=vocab(None, "0.  This part of the day goes from twelve to six p.m.", "A · afternoon",
+                      "87.  You wear it to know what time it is."), inst=ii1)
 QB = dict(est=2, comp="Léxico · Parte 1", e=INSTR_P1,
           o=["ambulance", "boat", "bike", "bus", "motorbike", "plane", "train"],
           datos=vocab("Transportation", "0.  People drive it on a road and it carries big things.", "H · truck",

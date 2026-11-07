@@ -47,7 +47,7 @@ quien marque «en orden» acierta casi todo. Parte 2: A 3 · B 2 · C 2. De las 
 A 1 · B 2 · C 3 · D 2 · F 2. Registrado en ing1_hallazgos.csv.
 
 Estrategias:
-    1 · El verbo delata la palabra        (1, 11, 13   · ICFES Ex. 1 · 1 handbags)   azul
+    1 · El verbo delata la palabra        (1, 11, 13   · ICFES 2016-1 2.ª sesión · 87 watch)   azul
     2 · Cada pista tacha opciones         (5, 7        · ICFES Ex. 2 · 2 bus)        rojo
     3 · ¿Dónde estaría este aviso?        (19, 21      · ICFES Ex. 2 · 6 bookshelf)  morado
     4 · Quién me escribe y qué quiere     (16, 18, 20  · ICFES Ex. 2 · 5 shop)       oro
