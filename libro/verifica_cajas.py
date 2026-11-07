@@ -26,7 +26,8 @@ from taller_base import _cajas, X_MAX
 NS = "{http://www.w3.org/2000/svg}"
 TOL = 1.0
 HOJAS = ("m[0-9]*_[ti][0-9].svg", "lc[0-9]*_[ti][0-9].svg", "soc[0-9]*_[ti][0-9].svg",
-         "nat[0-9]*_[ti][0-9].svg", "fis[0-9]*_[ti][0-9].svg", "ing[0-9]*_[ti][0-9].svg",
+         "bio[0-9]*_[ti][0-9].svg", "qui[0-9]*_[ti][0-9].svg", "fis[0-9]*_[ti][0-9].svg",
+         "ing[0-9]*_[ti][0-9].svg",
          "prueba_*.svg")
 
 
