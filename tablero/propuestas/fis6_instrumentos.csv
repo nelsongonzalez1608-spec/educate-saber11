@@ -1,0 +1,15 @@
+area,mision,pregunta,estrategia,instrumento,contexto
+Física,6,1,¿Alcanzan los datos para esa conclusión?,"Tres días, dos porcentajes",Calor de un centro de datos · ¿la eficiencia es del 100 %?
+Física,6,2,La energía no desaparece: cambia de forma,El libro de cuentas del motor,Motor de una banda · por qué entrega menos de lo que consume
+Física,6,3,"Multiplica, divide y lleva las unidades",La barra de las 18 casillas,Motor de una banda transportadora · la fracción de energía útil
+Física,6,4,¿Alcanzan los datos para esa conclusión?,Lo que muestra una hora y lo que no muestra,Motor de una banda transportadora · ¿una hora basta para concluir?
+Física,6,5,Cuando algo deja de cambiar: el equilibrio,La balanza del molinillo,Molinillo de convección · por qué el giro deja de acelerar
+Física,6,6,"Multiplica, divide y lleva las unidades",Velas por minutos por kilojulios,Molinillo de convección · energía química de cuatro velas
+Física,6,7,La energía no desaparece: cambia de forma,"Eslabón por eslabón, de la cera al aspa",Molinillo de convección · qué predicción respeta la conservación
+Física,6,8,Cuando algo deja de cambiar: el equilibrio,Dos temperaturas que se encuentran,Agua caliente en la sala · qué pasa hasta el equilibrio
+Física,6,9,"Multiplica, divide y lleva las unidades",El cruce donde se reparte la corriente,Dos resistencias iguales en paralelo · corriente por cada una
+Física,6,10,¿Alcanzan los datos para esa conclusión?,"Lo que entra, lo que se guarda y lo que falta",Cargador de celular de 15 W · ¿la conclusión es adecuada?
+Física,6 · ICFES,QA,"Multiplica, divide y lleva las unidades",Sigue la corriente desde la pila,Fuente de 12 V y cinco resistencias iguales · qué afirmar de las corrientes
+Física,6 · ICFES,QB,La energía no desaparece: cambia de forma,"Posición 1, posición 2: ¿de dónde sale la luz?",Bombillo que se enciende un rato y se apaga · qué va en P
+Física,6 · ICFES,QC,¿Alcanzan los datos para esa conclusión?,Lo que cambió entre la cancha y el salón,Pelotas que rebotan distinto en la cancha y en el salón
+Física,6 · ICFES,QD,Cuando algo deja de cambiar: el equilibrio,Las dos mesetas de la curva,Curva de calentamiento de un sólido desconocido · qué sustancia
