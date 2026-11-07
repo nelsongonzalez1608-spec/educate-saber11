@@ -371,6 +371,46 @@ def portada_qui():
                  iw=330, cajas=(EDU_AZUL, EDU_ROJO, EDU_ORO), x_clase_sub=760, x_puntaje=560, paso_puntaje=320)
 
 
+def _dib_fis(b, x, y, w, h):
+    c = "#5C7A1E"
+    b.append(rect(x, y, w, h, SOFT, r=14, stroke="#E3E8EF", sw=2))
+    b.append(rect(x + 4, y + 8, 8, h - 16, c, r=4))
+    b.append(T(x + 32, y + 36, ["LAS FLECHAS"], 15, GRAY, weight="700", ls=2))
+    # una caja sobre el piso con sus cuatro fuerzas, dibujadas a lápiz
+    piso = y + 160
+    b.append(line(x + 30, piso, x + w - 24, piso, "#7C8A99", 3))
+    bx, by = x + 130, piso - 60
+    b.append(rect(bx, by, 76, 60, "white", r=4, stroke=INK, sw=2.4))
+    cx, cy = bx + 38, by + 30
+    b.append(hand_arrow(cx, cy, cx, cy - 78, PENCIL, sw=3, bend=0.0, head=13))
+    b.append(hand_arrow(cx, cy, cx, cy + 74, PENCIL, sw=3, bend=0.0, head=13))
+    b.append(hand_arrow(cx, cy, cx + 110, cy, PENCIL, sw=3, bend=0.0, head=13))
+    b.append(hand_arrow(cx, cy, cx - 96, cy, PENCIL, sw=3, bend=0.0, head=13))
+    b.append(PT(cx + 12, cy - 56, ["N"], 24, PENCIL, rot=-2))
+    b.append(PT(cx + 12, cy + 70, ["P"], 24, PENCIL, rot=-2))
+    b.append(PT(cx + 56, cy - 14, ["empujo"], 20, PENCIL, rot=-2))
+    b.append(PT(cx - 96, cy - 14, ["roce"], 20, PENCIL, rot=-2))
+
+
+def portada_fis():
+    portada_area(225, 6, "Física", "#5C7A1E", "FÍSICA",
+                 ["Uso comprensivo del conocimiento científico  ·  Explicación de fenómenos  ·  Indagación",
+                  "Componentes: mecánica clásica  ·  termodinámica  ·  eventos ondulatorios  ·  electromagnetismo"],
+                 "Tu instrumento de pensamiento: la flecha con su nombre",
+                 "Nada cambia porque sí. Si el balón frena, algo lo frenó; si el café se enfría, el calor se fue a "
+                 "alguna parte. La física es la terquedad de no aceptar un cambio sin su causa. Aquí cada fuerza se "
+                 "dibuja como una flecha con su nombre y cada julio tiene que aparecer en la cuenta. Si te queda una "
+                 "flecha que nadie empuja, o energía que no sabes a dónde fue, todavía no has terminado.", _dib_fis,
+                 [("Fuerzas, movimiento y energía", "Componente físico · mecánica clásica"),
+                  ("El calor, la temperatura y los cambios de fase", "Componente físico · termodinámica"),
+                  ("", "Componente físico · electromagnetismo"),
+                  ("", "Componente físico · eventos ondulatorios"),
+                  ("", "Componente físico · mecánica clásica"),
+                  ("", "Componente físico · termodinámica")],
+                 "fecha · cómo llegué · cómo salí · una causa que encontré", "la causa:", "ap225_fis.svg",
+                 iw=330, cajas=(EDU_AZUL, EDU_ROJO, EDU_ORO), x_clase_sub=740, x_puntaje=560, paso_puntaje=320)
+
+
 if __name__ == "__main__":
-    psico_1(); psico_2(); portada_mate(); portada_lc(); portada_soc(); portada_bio(); portada_qui()
-    print("ok 8-10, 53, 96, 139, 182")
+    psico_1(); psico_2(); portada_mate(); portada_lc(); portada_soc(); portada_bio(); portada_qui(); portada_fis()
+    print("ok 8-10, 53, 96, 139, 182, 225")
