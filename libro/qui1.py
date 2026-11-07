@@ -44,6 +44,8 @@ Estrategias:
 Hojas: 183 qui1_t1 (1-2) · 184 qui1_t2 (3-4) · 185 qui1_i1 · 186 qui1_t3 (5-6) ·
        187 qui1_t4 (7-8) · 188 qui1_t5 (9-10) · 189 qui1_i2.
 """
+import re
+
 from taller_base import *
 
 configurar("Química", 1, "químico · aspectos analíticos de sustancias",
@@ -69,12 +71,17 @@ def caja(b, x, y, w, h, c, sw=2, fill="white", r=10, dash=None):
     b.append(rect(x, y, w, h, fill, r=r, stroke=c, sw=sw, dash=dash))
 
 
+def _esp(txt):
+    """SVG junta los espacios repetidos: los que separan bloques se vuelven espacios duros."""
+    return re.sub(r" {2,}", lambda m: "\u00a0" * len(m.group()), txt)
+
+
 def pista(b, x, y, txt, size=15, anchor="start"):
-    b.append(T(x, y, [txt], size, GRAY, style="italic", anchor=anchor))
+    b.append(T(x, y, [_esp(txt)], size, GRAY, style="italic", anchor=anchor))
 
 
 def texto(b, x, y, txt, size=17, color=INK, weight="400", anchor="start"):
-    b.append(T(x, y, [txt], size, color, weight=weight, anchor=anchor))
+    b.append(T(x, y, [_esp(txt)], size, color, weight=weight, anchor=anchor))
 
 
 def renglon(b, x1, y, x2):
@@ -89,7 +96,7 @@ def hueco(b, x, y, w=90, h=40, c=GRAY):
 
 def frase_hueco(b, x, y, w, txt, c, h=56):
     caja(b, x, y, w, h, c)
-    b.append(T(x + 24, y + h / 2 + 7, [txt], 18, INK, weight="700"))
+    b.append(T(x + 24, y + h / 2 + 7, [_esp(txt)], 18, INK, weight="700"))
     return y + h
 
 

@@ -49,6 +49,8 @@ Hojas: 190 qui2_t1 (1-2) · 191 qui2_t2 (3-4) · 192 qui2_i1 · 193 qui2_t3 (5-6
 """
 import random
 
+import re
+
 from taller_base import *
 
 configurar("Química", 2, "químico · aspectos fisicoquímicos de sustancias",
@@ -75,12 +77,17 @@ def caja(b, x, y, w, h, c, sw=2, fill="white", r=10, dash=None):
     b.append(rect(x, y, w, h, fill, r=r, stroke=c, sw=sw, dash=dash))
 
 
+def _esp(txt):
+    """SVG junta los espacios repetidos: los que separan bloques se vuelven espacios duros."""
+    return re.sub(r" {2,}", lambda m: "\u00a0" * len(m.group()), txt)
+
+
 def pista(b, x, y, txt, size=15, anchor="start"):
-    b.append(T(x, y, [txt], size, GRAY, style="italic", anchor=anchor))
+    b.append(T(x, y, [_esp(txt)], size, GRAY, style="italic", anchor=anchor))
 
 
 def texto(b, x, y, txt, size=17, color=INK, weight="400", anchor="start"):
-    b.append(T(x, y, [txt], size, color, weight=weight, anchor=anchor))
+    b.append(T(x, y, [_esp(txt)], size, color, weight=weight, anchor=anchor))
 
 
 def renglon(b, x1, y, x2):
@@ -94,7 +101,7 @@ def hueco(b, x, y, w=90, h=40, c=GRAY):
 
 def frase_hueco(b, x, y, w, txt, c, h=56):
     caja(b, x, y, w, h, c)
-    b.append(T(x + 24, y + h / 2 + 7, [txt], 18, INK, weight="700"))
+    b.append(T(x + 24, y + h / 2 + 7, [_esp(txt)], 18, INK, weight="700"))
     return y + h
 
 
@@ -194,10 +201,10 @@ def i2(b, x, y, w, h):
     p0, p1, p2 = (gx + 10, gy + gh - 40), (gx + 150, gy + 70), (gx + gw - 20, gy + 70)
     curva(b, [p0, p1, p2], c)
     b.append(f'<circle cx="{p0[0]}" cy="{p0[1]}" r="5" fill="{c}"/>')
-    pista(b, p0[0] + 14, p0[1] + 4, "____ °C", size=14)
-    pista(b, p1[0] - 20, p1[1] - 14, "____ °C", size=14)
-    rot(b, gx + 40, gy + gh - 70, "TRAMO 1", c, size=13)
-    rot(b, gx + 210, gy + 56, "TRAMO 2", c, size=13)
+    pista(b, p0[0] + 16, p0[1] + 26, "____ °C", size=14)
+    pista(b, p1[0] - 24, p1[1] - 14, "____ °C", size=14)
+    rot(b, gx + 110, gy + gh - 22, "TRAMO 1", c, size=13)
+    rot(b, gx + 210, gy + 100, "TRAMO 2", c, size=13)
     rx = gx + gw + 50
     rw = x0 + ww - rx
     for k, (rt, f, l2) in enumerate((
@@ -402,7 +409,7 @@ def i7(b, x, y, w, h):
                       "Escribe el nombre de cada flecha del triángulo. Después repasa con color el camino que siguió "
                       "el hielo seco en la feria. La pista está en lo que no quedó en la mesa.")
     x0, ww = x + 22, w - 44
-    cx, top = x0 + 330, yy + 30
+    cx, top = x0 + 360, yy + 30
     V = {"SÓLIDO": (cx - 260, top + 300), "LÍQUIDO": (cx + 260, top + 300), "GAS": (cx, top + 10)}
     for nom, (vx, vy) in V.items():
         b.append(rect(vx - 70, vy - 26, 140, 52, "white", r=26, stroke=c, sw=2.6))
@@ -417,12 +424,16 @@ def i7(b, x, y, w, h):
         s0, s1 = 80, L - 80
         flecha(b, ax_ + ux * s0 + nx, ay_ + uy * s0 + ny, ax_ + ux * s1 + nx, ay_ + uy * s1 + ny, c, sw=2.4, head=11)
         flecha(b, ax_ + ux * s1 - nx, ay_ + uy * s1 - ny, ax_ + ux * s0 - nx, ay_ + uy * s0 - ny, c, sw=2.4, head=11)
+        # dos renglones (ida y vuelta) por fuera del triángulo, lejos del centro
         mx, my = ax_ + dx / 2, ay_ + dy / 2
-        off = 46 if a_ != "SÓLIDO" or z_ != "LÍQUIDO" else 40
-        lx = mx + (-uy) * off * (1 if z_ != "LÍQUIDO" else -1)
-        ly = my + ux * off * (1 if z_ != "LÍQUIDO" else -1)
-        renglon(b, lx - 70, ly, lx + 70)
-        renglon(b, lx - 70, ly + 30, lx + 70)
+        gcx, gcy = cx, top + 205
+        vx_, vy_ = mx - gcx, my - gcy
+        vl = math.hypot(vx_, vy_)
+        lx, ly = mx + vx_ / vl * 70, my + vy_ / vl * 70
+        if abs(dy) < 1:                     # base del triángulo: renglones debajo
+            lx, ly = mx, my + 56
+        renglon(b, lx - 75, ly - 14, lx + 75)
+        renglon(b, lx - 75, ly + 18, lx + 75)
     rx = x0 + 760
     rw = x0 + ww - rx
     caja(b, rx, yy + 20, rw, 320, c, r=14)
@@ -434,7 +445,7 @@ def i7(b, x, y, w, h):
     renglon(b, rx + 80, yy + 198, rx + rw - 18)
     pista(b, rx + 18, yy + 246, "el camino se llama:")
     renglon(b, rx + 18, yy + 286, rx + rw - 18)
-    yy += 360
+    yy += 400
     return ojo(b, x0, yy, ww, "EL HUMO BLANCO NO ES EL CO₂",
                "El dióxido de carbono gaseoso es invisible. La nube blanca que se ve son gotitas de agua del aire que "
                "se condensan porque el hielo seco las enfría. El hielo seco no se disuelve en esas gotas: desaparece "
@@ -462,7 +473,7 @@ def i8(b, x, y, w, h):
         pista(b, rx + 16, ry + 50, "estado:", size=14)
         renglon(b, rx + 80, ry + 52, rx + rw - 140)
         pista(b, rx + 16, ry + 76, "partículas →", size=13)
-    yy += 3 * 98 + 20
+    yy = max(yy + 3 * 98, gy + gh + 54) + 16
     yy = frase_hueco(b, x0, yy, ww, "En el tramo 2 el mechero sigue dando calor; ese calor se usa para ____________________ .", c)
     return ojo(b, x0, yy + 14, ww, "QUE LA TEMPERATURA NO SUBA NO QUIERE DECIR QUE NO ENTRE CALOR",
                "El mechero no se apagó. Pregúntate a dónde se va esa energía si no se nota en el termómetro: en la "
@@ -498,9 +509,11 @@ def i9(b, x, y, w, h):
     caja(b, rx, yy + 20, rw, 250, c, r=14)
     rot(b, rx + 18, yy + 50, "DOS FUERZAS SOBRE LA ESFERA", c, size=13)
     ecx, ecy = rx + rw / 2, yy + 160
-    b.append(rect(rx + 30, ecy + 4, rw - 60, 60, "#DDE2E8", r=6))
-    b.append(f'<circle cx="{ecx}" cy="{ecy}" r="34" fill="white" stroke="{INK}" stroke-width="2.4"/>')
-    pista(b, rx + 40, ecy + 46, "mercurio", size=13)
+    # una esfera de acero queda hundida algo más de la mitad (7,9 ÷ 13,6 ≈ 0,58)
+    b.append(f'<circle cx="{ecx}" cy="{ecy}" r="34" fill="white"/>')
+    b.append(f'<rect x="{rx + 30}" y="{ecy - 5}" width="{rw - 60}" height="66" rx="6" fill="#C9D0D8" opacity="0.85"/>')
+    b.append(f'<circle cx="{ecx}" cy="{ecy}" r="34" fill="none" stroke="{INK}" stroke-width="2.4"/>')
+    pista(b, rx + 40, ecy + 50, "mercurio", size=13)
     pista(b, rx + 18, yy + 254, "dibuja el peso (↓) y el empuje (↑): ¿cuál más larga?", size=13)
     yy += 290
     caja(b, rx, yy, rw, 116, c, r=14)
