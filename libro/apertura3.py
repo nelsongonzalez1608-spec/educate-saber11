@@ -411,6 +411,44 @@ def portada_fis():
                  iw=330, cajas=(EDU_AZUL, EDU_ROJO, EDU_ORO), x_clase_sub=740, x_puntaje=560, paso_puntaje=320)
 
 
+def _dib_ing(b, x, y, w, h):
+    c = "#1BA0A8"
+    b.append(rect(x, y, w, h, SOFT, r=14, stroke="#E3E8EF", sw=2))
+    b.append(rect(x + 4, y + 8, 8, h - 16, c, r=4))
+    b.append(T(x + 32, y + 36, ["LA PISTA"], 15, GRAY, weight="700", ls=2))
+    lineas = (("I borrowed it,", "borrowed"), ("so I have to", None), ("give it back.", None))
+    for k, (ln, sub) in enumerate(lineas):
+        yy = y + 78 + k * 40
+        if sub:   # el subrayado va DEBAJO del texto, en el color del área
+            x1 = x + 32 + tw("I ", 23, style="italic")
+            b.append(f'<line x1="{x1:.1f}" y1="{yy + 8}" x2="{x1 + tw(sub, 23, style="italic"):.1f}" y2="{yy + 8}" '
+                     f'stroke="{c}" stroke-width="4" stroke-linecap="round" opacity="0.6"/>')
+        b.append(T(x + 32, yy, [ln], 23, INK, style="italic"))
+    b.append(hand_arrow(x + 210, y + 150, x + 150, y + 92, PENCIL, sw=2.6, bend=0.25, head=11))
+    b.append(PT(x + 180, y + 196, ["¿prestado?"], 24, PENCIL, rot=-2))
+
+
+def portada_ing():
+    portada_area(268, 7, "Inglés", "#1BA0A8", "INGLÉS",
+                 ["Conocimiento léxico  ·  pragmático  ·  gramatical  ·  comprensión de lectura",
+                  "Siete partes: avisos  ·  palabras  ·  conversaciones  ·  textos con espacios  ·  lectura"],
+                 "Tu instrumento de pensamiento: la pista en el contexto",
+                 "Ya sabes más inglés del que crees: lo oyes en canciones, en series, en los juegos. Lo que te falta "
+                 "no son palabras: es la confianza para adivinar. Aquí no vas a traducir palabra por palabra; vas a "
+                 "buscar la pista que trae cada frase (el verbo, el lugar, quién habla y qué quiere) y a apostar con "
+                 "razones. Nadie aprende un idioma sin equivocarse primero. Mistakes are proof that you are trying.",
+                 _dib_ing,
+                 [("Las pistas que trae cada palabra", "Componente léxico · lectura"),
+                  ("Contestarle a la persona, no a la palabra", "Componente conversacional"),
+                  ("", "Componente gramatical · léxico"),
+                  ("", "Componente lectura"),
+                  ("", "Componente lectura"),
+                  ("", "Componente gramatical · léxico")],
+                 "fecha · cómo llegué · cómo salí · una palabra que adiviné", "adiviné:", "ap268_ing.svg",
+                 iw=330, cajas=(EDU_AZUL, EDU_ROJO, EDU_ORO), x_clase_sub=740, x_puntaje=560, paso_puntaje=320)
+
+
 if __name__ == "__main__":
     psico_1(); psico_2(); portada_mate(); portada_lc(); portada_soc(); portada_bio(); portada_qui(); portada_fis()
-    print("ok 8-10, 53, 96, 139, 182, 225")
+    portada_ing()
+    print("ok 8-10, 53, 96, 139, 182, 225, 268")
