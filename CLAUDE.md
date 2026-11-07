@@ -35,7 +35,7 @@ tres cuadernos al azar sin haber entrado a la clase.
 
 | Entregable | Listo | Total |
 |---|---|---|
-| Cuaderno combinado de las siete áreas | 267 | **313 páginas** |
+| Cuaderno combinado de las siete áreas | 310 | **313 páginas** |
 | Planeadores del docente (uno por área) | 2 | 7 |
 | Guías de clase proyectables (una por clase) | 8 | 56 |
 | Documento maestro de metodología | 0 | 1 |
@@ -356,7 +356,12 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
    preguntas ICFES salen del SIMULACRO II 2023 (Oficio): Nelson confirmó que son reales del ICFES.
    ~~Física~~ — hecha el 7 nov (`fis1.py` … `fis6_icfes.py`, portada `ap225_fis`):
    `entregables/Fisica_completo_paginas_225_a_267.pdf`. Los cuadernillos oficiales 2025 y 2026 de Ciencias
-   Naturales son las mismas 50 preguntas. Faltan Inglés (268–310) y cierre (311–313).
+   Naturales son las mismas 50 preguntas. ~~Inglés~~ — hecho el 7 nov (`ing1.py` … `ing6_icfes.py`, portada
+   `ap268_ing`): `entregables/Ingles_completo_paginas_268_a_310.pdf`. El libro de Inglés trae más de 10 ítems
+   por misión (M1 21, M3 40, M4 16, M5 16, M6 24): el cuaderno trabaja 10 y cada tarjeta dice a qué ítem del
+   libro corresponde (**falta que Nelson apruebe la selección**). Las ICFES salen del cuadernillo oficial 2024 y
+   del SIM II 2023 Inglés (`fuente_icfes/SIM_II_2023_OFICIO_INGLES.pdf`; repite ítems del 2024: SIM 230–237 y
+   446–454). `MARCO AL FINAL` dibuja tantas letras como opciones (A–C, A–H). **Falta el cierre (311–313).**
 4. Las 8 guías de clase de Matemáticas (con el motor de `clase_viva_lc.py`).
 5. Planeadores y guías de Sociales, Biología, Química, Física e Inglés.
 6. **Decisión de Cristian** sobre los nombres de políticos vivos, antes de imprimir.

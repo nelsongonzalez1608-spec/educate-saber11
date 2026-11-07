@@ -17,7 +17,8 @@ PDFS = [("Cuaderno_Saber11_paginas_1_a_110_v2.pdf", 1, 110, 0),
         ("Sociales_completo_paginas_96_a_138.pdf", 111, 138, 95),
         ("Biologia_completo_paginas_139_a_181.pdf", 139, 181, 138),
         ("Quimica_completo_paginas_182_a_224.pdf", 182, 224, 181),
-        ("Fisica_completo_paginas_225_a_267.pdf", 225, 267, 224)]
+        ("Fisica_completo_paginas_225_a_267.pdf", 225, 267, 224),
+        ("Ingles_completo_paginas_268_a_310.pdf", 268, 310, 267)]
 
 
 def imagenes(out, pags):
@@ -109,6 +110,7 @@ def descargas(out):
               ("Biologia_completo_paginas_139_a_181.pdf", "Cuaderno_05_Biologia_p139-181.pdf"),
               ("Quimica_completo_paginas_182_a_224.pdf", "Cuaderno_06_Quimica_p182-224.pdf"),
               ("Fisica_completo_paginas_225_a_267.pdf", "Cuaderno_07_Fisica_p225-267.pdf"),
+              ("Ingles_completo_paginas_268_a_310.pdf", "Cuaderno_08_Ingles_p268-310.pdf"),
               ("EDUCATE_Planeador_Matematicas.pdf", "Planeador_Matematicas.pdf"),
               ("EDUCATE_Planeador_LecturaCritica.pdf", "Planeador_LecturaCritica.pdf"),
               ("EDUCATE_Informe_hallazgos.pdf", "Informe_hallazgos_6nov.pdf"),
@@ -120,7 +122,7 @@ def descargas(out):
             shutil.copy(os.path.join(ENT, a), os.path.join(d, b))
     titulos = {"Cuaderno_01": "Cuaderno · Apertura (páginas 1–9)", "Cuaderno_02": "Cuaderno · Matemáticas (10–52)",
                "Cuaderno_03": "Cuaderno · Lectura Crítica (53–95)", "Cuaderno_04": "Cuaderno · Sociales y Ciudadanas (96–138)",
-               "Cuaderno_05": "Cuaderno · Biología (139–181)", "Cuaderno_06": "Cuaderno · Química (182–224)", "Cuaderno_07": "Cuaderno · Física (225–267)", "Planeador_Matematicas": "Planeador del docente · Matemáticas",
+               "Cuaderno_05": "Cuaderno · Biología (139–181)", "Cuaderno_06": "Cuaderno · Química (182–224)", "Cuaderno_07": "Cuaderno · Física (225–267)", "Cuaderno_08": "Cuaderno · Inglés (268–310)", "Planeador_Matematicas": "Planeador del docente · Matemáticas",
                "Planeador_LecturaCritica": "Planeador del docente · Lectura Crítica",
                "Informe_hallazgos_6nov": "Informe de hallazgos del libro (versión del 6 nov)",
                "Matriz_del_proyecto_6nov": "Matriz del proyecto (versión del 6 nov)",

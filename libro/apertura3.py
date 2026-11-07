@@ -440,10 +440,10 @@ def portada_ing():
                  _dib_ing,
                  [("Las pistas que trae cada palabra", "Componente léxico · lectura"),
                   ("Contestarle a la persona, no a la palabra", "Componente conversacional"),
-                  ("", "Componente gramatical · léxico"),
-                  ("", "Componente lectura"),
-                  ("", "Componente lectura"),
-                  ("", "Componente gramatical · léxico")],
+                  ("Cada espacio pide su palabra: tiempo, forma y conector", "Componente gramatical · léxico"),
+                  ("Lo que el texto dice, dato por dato", "Componente lectura"),
+                  ("Lo que el texto dice sin decirlo", "Componente lectura"),
+                  ("Cada palabra en su tiempo y en su lugar", "Componente gramatical · léxico")],
                  "fecha · cómo llegué · cómo salí · una palabra que adiviné", "adiviné:", "ap268_ing.svg",
                  iw=330, cajas=(EDU_AZUL, EDU_ROJO, EDU_ORO), x_clase_sub=740, x_puntaje=560, paso_puntaje=320)
 
