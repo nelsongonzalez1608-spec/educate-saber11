@@ -17,6 +17,7 @@ Sale con código 1 si algo falla. Reconstruido el 6 nov 2026 (el original se per
 """
 import glob
 import os
+import re
 import sys
 import xml.etree.ElementTree as ET
 
@@ -58,6 +59,15 @@ def revisar(ruta):
             peor = max(cs, key=lambda c: c[2])
             fallas.append(f"pregunta {n}: borde derecho {x1:.0f} > {xmax:.0f} "
                           f"(lo que se sale empieza en x={peor[0]:.0f}, y={peor[1]:.0f})")
+    # 0 · la misión de la cabecera y del pie es la del archivo (soc3_i1 → MISIÓN 3).
+    #     El 7 nov dos hojas salieron con la misión de otro módulo construido en el mismo proceso.
+    m_arch = re.match(r"(?:.*/)?[a-z]+(\d)_[ti]\d\.svg$", ruta)
+    if m_arch:
+        textos = ["".join(t.itertext()) for t in raiz.iter(NS + "text")]
+        vistas = {int(x) for t in textos for x in re.findall(r"MISI[ÓO]N (\d)\b", t.upper())}
+        if vistas and vistas != {int(m_arch.group(1))}:
+            fallas.append(f"la hoja dice misión {sorted(vistas)} y el archivo es de la misión "
+                          f"{m_arch.group(1)}: se construyó con la configuración de otro módulo")
     # 3 · texto en LGRAY
     for t in raiz.iter(NS + "text"):
         if (t.get("fill") or "").upper() == LGRAY.upper():

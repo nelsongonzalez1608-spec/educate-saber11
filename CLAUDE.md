@@ -275,6 +275,10 @@ Actualizarlo cada vez que se cierra un área.
 - `line()` no tiene parámetro de opacidad: si hace falta, se escribe el `<line>` a mano.
 - **Python: `"abc".endswith("")` es `True`.** Un verificador que compara membretes vacíos
   pasa sin comparar nada. Le pasó a `verifica_claves.py`; ya está arreglado.
+- **Cada módulo de misión se construye en su propio proceso**: `python3 construye.py soc3 soc3_icfes …`.
+  `configurar()` y `usar_estrategias()` guardan la misión en memoria al importar el módulo; si se
+  importan dos en el mismo proceso, el último pisa al primero. El 7 nov las páginas 113 y 117 salieron
+  «Misión 4» siendo de la 3. `verifica_cajas.py` ahora compara la misión de la cabecera con el archivo.
 - **No reordenar un archivo cortándolo por la posición de una función**: así se perdió una vez
   todo el banco de dinámicas. Mover bloques con el editor, no con `s[:i] + nuevo`.
 - El alto de una tarjeta se calcula **desde dónde termina de verdad el contenido**, no a ojo.
