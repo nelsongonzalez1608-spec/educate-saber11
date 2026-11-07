@@ -159,7 +159,8 @@ def _tinte(c, k=0.28):
 def portada_area(pag, n_area, nombre, c, titulo, comps, instr_titulo, instr_texto, dibujo,
                  momentos, clase_sub, clase_lab, archivo, sub_titulo=None, iw=300,
                  cajas=(EDU_ROJO, EDU_VERDE, EDU_ORO), borde_clase=None,
-                 x_clase_sub=700, x_puntaje=520, paso_puntaje=330, claro=None):
+                 x_clase_sub=700, x_puntaje=520, paso_puntaje=330, claro=None,
+                 nota_momentos="cada uno: 10 preguntas del libro + entrenamiento ICFES + simulacro"):
     # claro: color de los textos secundarios sobre la banda (None → blanco translúcido)
     cl, op_cl = (claro, 1) if claro else ("white", 0.78)
     b = svg_open()
@@ -182,7 +183,7 @@ def portada_area(pag, n_area, nombre, c, titulo, comps, instr_titulo, instr_text
     # seis momentos
     y = 960
     b.append(T(M, y + 40, ["Tus seis momentos"], 38, c, weight="700"))
-    b.append(T(M + 380, y + 40, ["cada uno: 10 preguntas del libro + entrenamiento ICFES + simulacro"], 23, GRAY, style="italic"))
+    b.append(T(M + 380, y + 40, [nota_momentos], 23, GRAY, style="italic"))
     mw = (CW - 40) / 2
     for i, (nm, comp) in enumerate(momentos):
         x = M + (i % 2) * (mw + 40); yy = y + 90 + (i // 2) * 130
@@ -438,13 +439,14 @@ def portada_ing():
                  "buscar la pista que trae cada frase (el verbo, el lugar, quién habla y qué quiere) y a apostar con "
                  "razones. Nadie aprende un idioma sin equivocarse primero. Mistakes are proof that you are trying.",
                  _dib_ing,
-                 [("Las pistas que trae cada palabra", "Componente léxico · lectura"),
-                  ("Contestarle a la persona, no a la palabra", "Componente conversacional"),
-                  ("Cada espacio pide su palabra: tiempo, forma y conector", "Componente gramatical · léxico"),
-                  ("Lo que el texto dice, dato por dato", "Componente lectura"),
-                  ("Lo que el texto dice sin decirlo", "Componente lectura"),
-                  ("Cada palabra en su tiempo y en su lugar", "Componente gramatical · léxico")],
+                 [("La pista que decide", "Partes 1 y 2 del ICFES · componente léxico · lectura"),
+                  ("Contéstale a la persona, no a la palabra", "Parte 3 del ICFES · componente conversacional"),
+                  ("Escucha a los vecinos del hueco", "Parte 4 del ICFES · componente gramatical · léxico"),
+                  ("Lo que el texto dice, dato por dato", "Parte 5 del ICFES · componente lectura"),
+                  ("Leer entre líneas, con la prueba en la mano", "Parte 6 del ICFES · componente lectura"),
+                  ("Leer todo el texto antes de llenar el espacio", "Parte 7 del ICFES · componente gramatical · léxico")],
                  "fecha · cómo llegué · cómo salí · una palabra que adiviné", "adiviné:", "ap268_ing.svg",
+                 nota_momentos="cada uno: una parte del examen · todas las preguntas del libro + entrenamiento ICFES",
                  iw=330, cajas=(EDU_AZUL, EDU_ROJO, EDU_ORO), x_clase_sub=740, x_puntaje=560, paso_puntaje=320)
 
 

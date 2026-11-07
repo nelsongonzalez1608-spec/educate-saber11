@@ -175,8 +175,8 @@ const AREAS = [
   {k:"bio", n:"Biología", c:"#30843C", a:139, b:181},
   {k:"qui", n:"Química", c:"#0F7A68", a:182, b:224},
   {k:"fis", n:"Física", c:"#5C7A1E", a:225, b:267},
-  {k:"ing", n:"Inglés", c:"#1BA0A8", a:268, b:310},
-  {k:"cie", n:"Cierre", c:"#6E7480", a:311, b:313},
+  {k:"ing", n:"Inglés", c:"#1BA0A8", a:268, b:344},
+  {k:"cie", n:"Cierre", c:"#6E7480", a:345, b:347},
 ];
 const ROL = ["taller","taller","ICFES","taller","taller","taller","ICFES"];
 const porNum = new Map(D.pags.map(p => [p.n, p]));
@@ -186,8 +186,8 @@ const imgPag = n => `pag/${String(n).padStart(3,"0")}.jpg`;
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 document.getElementById("cifras").innerHTML = [
-  [`${hechas.length} / 313`, "páginas hechas"],
-  [`${Math.round(hechas.length/313*100)} %`, "del cuaderno"],
+  [`${hechas.length} / 347`, "páginas hechas"],
+  [`${Math.round(hechas.length/347*100)} %`, "del cuaderno"],
   [D.instrumentos, "instrumentos de pensamiento"],
   [D.icfes, "preguntas reales del ICFES"],
   [D.hallazgos.length, "hallazgos registrados"],
@@ -209,7 +209,7 @@ const abrirPag = n => verLista(listaCuaderno, hechas.indexOf(n));
 
 /* ---------- cuaderno ---------- */
 const mapa = document.getElementById("mapa");
-for (let n = 1; n <= 313; n++) {
+for (let n = 1; n <= 347; n++) {
   const a = areaDe(n), ok = porNum.has(n);
   const el = document.createElement("button");
   el.type = "button"; el.className = "celda" + (ok ? " lista" : "");

@@ -35,7 +35,7 @@ tres cuadernos al azar sin haber entrado a la clase.
 
 | Entregable | Listo | Total |
 |---|---|---|
-| Cuaderno combinado de las siete áreas | 310 | **313 páginas** |
+| Cuaderno combinado de las siete áreas | 344 | **347 páginas** |
 | Planeadores del docente (uno por área) | 2 | 7 |
 | Guías de clase proyectables (una por clase) | 8 | 56 |
 | Documento maestro de metodología | 0 | 1 |
@@ -61,7 +61,7 @@ aprobado era de 270: **falta que Cristian apruebe la ampliación** (impresión y
   Reto en equipo **20** · Evaluación individual **20** · Cierre **10**.
   No cambiar este reparto: ya se cambió una vez por error y hubo que rehacerlo.
 
-### Mapa de páginas (exactamente 313, desde el 6 nov)
+### Mapa de páginas (exactamente 347, desde el 7 nov)
 
 | Páginas | Sección |
 |---|---|
@@ -72,10 +72,14 @@ aprobado era de 270: **falta que Cristian apruebe la ampliación** (impresión y
 | 139–181 | Biología |
 | 182–224 | Química |
 | 225–267 | Física |
-| 268–310 | Inglés |
-| 311–313 | Cierre post-prueba |
+| 268–344 | Inglés (77 páginas: todas las preguntas del libro) |
+| 345–347 | Cierre post-prueba |
 
-Cada área son **43 páginas**: una portada y seis misiones de siete.
+Cada área son **43 páginas**: una portada y seis misiones de siete. **Excepto Inglés** (decisión de Nelson, 7 nov):
+trabaja **todas** las preguntas del libro (127: M1 21, M2 10, M3 40, M4 16, M5 16, M6 24), una tarjeta por pregunta con
+su instrumento propio; cada misión es una parte del examen (M1 Partes 1–2 … M6 Parte 7), la estrategia de la parte va en
+`tema=` y las tarjetas dicen «Subestrategia n» (`configurar(..., prefijo="Subestrategia", n_hojas=K)`). Nelson rechazó
+el formato de tablas («se ven como tablas»). Nelson acepta hasta 400 páginas en total; la ampliación a 347 la aprueba Cristian.
 
 Colores de área: Matemáticas `#1F4E8C` · Lectura Crítica `#A82424` · Sociales `#C9821B` ·
 Biología `#30843C` (verde hoja) · Química `#0F7A68` (verde esmeralda) · Física `#5C7A1E` (verde oliva) ·
@@ -356,12 +360,16 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
    preguntas ICFES salen del SIMULACRO II 2023 (Oficio): Nelson confirmó que son reales del ICFES.
    ~~Física~~ — hecha el 7 nov (`fis1.py` … `fis6_icfes.py`, portada `ap225_fis`):
    `entregables/Fisica_completo_paginas_225_a_267.pdf`. Los cuadernillos oficiales 2025 y 2026 de Ciencias
-   Naturales son las mismas 50 preguntas. ~~Inglés~~ — hecho el 7 nov (`ing1.py` … `ing6_icfes.py`, portada
-   `ap268_ing`): `entregables/Ingles_completo_paginas_268_a_310.pdf`. El libro de Inglés trae más de 10 ítems
-   por misión (M1 21, M3 40, M4 16, M5 16, M6 24): el cuaderno trabaja 10 y cada tarjeta dice a qué ítem del
-   libro corresponde (**falta que Nelson apruebe la selección**). Las ICFES salen del cuadernillo oficial 2024 y
-   del SIM II 2023 Inglés (`fuente_icfes/SIM_II_2023_OFICIO_INGLES.pdf`; repite ítems del 2024: SIM 230–237 y
-   446–454). `MARCO AL FINAL` dibuja tantas letras como opciones (A–C, A–H). **Falta el cierre (311–313).**
+   Naturales son las mismas 50 preguntas. ~~Inglés~~ — hecho el 7 nov y rehecho (v3) con las 127 preguntas del libro (`ing1.py` … `ing6_icfes.py`,
+   `ing_diario.py` con `correccion()` y `cierre_mision()`, portada `ap268_ing`): `entregables/Ingles_completo_paginas_268_a_344.pdf`.
+   Los errores del libro se corrigen en la tarjeta («Corrección EDUCATE») y en la matriz quedan «Corregido en el cuaderno ·
+   informar a la editorial». Las ICFES salen del cuadernillo oficial 2024, del 2016-1 y del SIM II 2023 Inglés
+   (`fuente_icfes/SIM_II_2023_OFICIO_INGLES.pdf`; repite ítems del 2024: SIM 230–237 y 446–454). Regla de Nelson: **una
+   pregunta ICFES con cualquier falla no se usa**; las 4 de M5 (Parte 6) tienen erratas y esperan su decisión.
+   **Falta el cierre (345–347).**
+   **ASED:** su presentación dice que sus ~700 preguntas fueron «concebidas específicamente» por la Corporación ASED: no son
+   del ICFES. 7 preguntas del cuaderno salen de él con el membrete oficial (4 Mate, 1 LC, 2 Física): pendiente que Nelson
+   decida reemplazarlas. No usar el ASED como fuente de preguntas ICFES.
 4. Las 8 guías de clase de Matemáticas (con el motor de `clase_viva_lc.py`).
 5. Planeadores y guías de Sociales, Biología, Química, Física e Inglés.
 6. **Decisión de Cristian** sobre los nombres de políticos vivos, antes de imprimir.

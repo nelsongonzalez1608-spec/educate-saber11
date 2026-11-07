@@ -2160,16 +2160,8 @@
   "titulo": "Inglés · Misión 1 · Taller"
  },
  {
-  "svg": "ing1_i1",
-  "pagina": 271,
-  "area": "ing",
-  "mision": 1,
-  "rol": "Entrenamiento ICFES",
-  "titulo": "Inglés · Misión 1 · Entrenamiento ICFES"
- },
- {
   "svg": "ing1_t3",
-  "pagina": 272,
+  "pagina": 271,
   "area": "ing",
   "mision": 1,
   "rol": "Taller",
@@ -2177,7 +2169,7 @@
  },
  {
   "svg": "ing1_t4",
-  "pagina": 273,
+  "pagina": 272,
   "area": "ing",
   "mision": 1,
   "rol": "Taller",
@@ -2185,15 +2177,71 @@
  },
  {
   "svg": "ing1_t5",
-  "pagina": 274,
+  "pagina": 273,
   "area": "ing",
   "mision": 1,
   "rol": "Taller",
   "titulo": "Inglés · Misión 1 · Taller"
  },
  {
-  "svg": "ing1_i2",
+  "svg": "ing1_t6",
   "pagina": 275,
+  "area": "ing",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 1 · Taller"
+ },
+ {
+  "svg": "ing1_t7",
+  "pagina": 276,
+  "area": "ing",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 1 · Taller"
+ },
+ {
+  "svg": "ing1_t8",
+  "pagina": 277,
+  "area": "ing",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 1 · Taller"
+ },
+ {
+  "svg": "ing1_t9",
+  "pagina": 278,
+  "area": "ing",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 1 · Taller"
+ },
+ {
+  "svg": "ing1_t10",
+  "pagina": 279,
+  "area": "ing",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 1 · Taller"
+ },
+ {
+  "svg": "ing1_t11",
+  "pagina": 280,
+  "area": "ing",
+  "mision": 1,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 1 · Taller"
+ },
+ {
+  "svg": "ing1_i1",
+  "pagina": 274,
+  "area": "ing",
+  "mision": 1,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Inglés · Misión 1 · Entrenamiento ICFES"
+ },
+ {
+  "svg": "ing1_i2",
+  "pagina": 281,
   "area": "ing",
   "mision": 1,
   "rol": "Entrenamiento ICFES",
@@ -2201,7 +2249,7 @@
  },
  {
   "svg": "ing2_t1",
-  "pagina": 276,
+  "pagina": 282,
   "area": "ing",
   "mision": 2,
   "rol": "Taller",
@@ -2209,23 +2257,15 @@
  },
  {
   "svg": "ing2_t2",
-  "pagina": 277,
+  "pagina": 283,
   "area": "ing",
   "mision": 2,
   "rol": "Taller",
   "titulo": "Inglés · Misión 2 · Taller"
  },
  {
-  "svg": "ing2_i1",
-  "pagina": 278,
-  "area": "ing",
-  "mision": 2,
-  "rol": "Entrenamiento ICFES",
-  "titulo": "Inglés · Misión 2 · Entrenamiento ICFES"
- },
- {
   "svg": "ing2_t3",
-  "pagina": 279,
+  "pagina": 285,
   "area": "ing",
   "mision": 2,
   "rol": "Taller",
@@ -2233,7 +2273,7 @@
  },
  {
   "svg": "ing2_t4",
-  "pagina": 280,
+  "pagina": 286,
   "area": "ing",
   "mision": 2,
   "rol": "Taller",
@@ -2241,15 +2281,23 @@
  },
  {
   "svg": "ing2_t5",
-  "pagina": 281,
+  "pagina": 287,
   "area": "ing",
   "mision": 2,
   "rol": "Taller",
   "titulo": "Inglés · Misión 2 · Taller"
  },
  {
+  "svg": "ing2_i1",
+  "pagina": 284,
+  "area": "ing",
+  "mision": 2,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Inglés · Misión 2 · Entrenamiento ICFES"
+ },
+ {
   "svg": "ing2_i2",
-  "pagina": 282,
+  "pagina": 288,
   "area": "ing",
   "mision": 2,
   "rol": "Entrenamiento ICFES",
@@ -2257,7 +2305,7 @@
  },
  {
   "svg": "ing3_t1",
-  "pagina": 283,
+  "pagina": 289,
   "area": "ing",
   "mision": 3,
   "rol": "Taller",
@@ -2265,23 +2313,15 @@
  },
  {
   "svg": "ing3_t2",
-  "pagina": 284,
+  "pagina": 290,
   "area": "ing",
   "mision": 3,
   "rol": "Taller",
   "titulo": "Inglés · Misión 3 · Taller"
  },
  {
-  "svg": "ing3_i1",
-  "pagina": 285,
-  "area": "ing",
-  "mision": 3,
-  "rol": "Entrenamiento ICFES",
-  "titulo": "Inglés · Misión 3 · Entrenamiento ICFES"
- },
- {
   "svg": "ing3_t3",
-  "pagina": 286,
+  "pagina": 291,
   "area": "ing",
   "mision": 3,
   "rol": "Taller",
@@ -2289,7 +2329,7 @@
  },
  {
   "svg": "ing3_t4",
-  "pagina": 287,
+  "pagina": 292,
   "area": "ing",
   "mision": 3,
   "rol": "Taller",
@@ -2297,15 +2337,143 @@
  },
  {
   "svg": "ing3_t5",
-  "pagina": 288,
+  "pagina": 293,
   "area": "ing",
   "mision": 3,
   "rol": "Taller",
   "titulo": "Inglés · Misión 3 · Taller"
  },
  {
+  "svg": "ing3_t6",
+  "pagina": 294,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t7",
+  "pagina": 295,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t8",
+  "pagina": 296,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t9",
+  "pagina": 297,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t10",
+  "pagina": 298,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t11",
+  "pagina": 300,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t12",
+  "pagina": 301,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t13",
+  "pagina": 302,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t14",
+  "pagina": 303,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t15",
+  "pagina": 304,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t16",
+  "pagina": 305,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t17",
+  "pagina": 306,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t18",
+  "pagina": 307,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t19",
+  "pagina": 308,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_t20",
+  "pagina": 309,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 3 · Taller"
+ },
+ {
+  "svg": "ing3_i1",
+  "pagina": 299,
+  "area": "ing",
+  "mision": 3,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Inglés · Misión 3 · Entrenamiento ICFES"
+ },
+ {
   "svg": "ing3_i2",
-  "pagina": 289,
+  "pagina": 310,
   "area": "ing",
   "mision": 3,
   "rol": "Entrenamiento ICFES",
@@ -2313,7 +2481,7 @@
  },
  {
   "svg": "ing4_t1",
-  "pagina": 290,
+  "pagina": 311,
   "area": "ing",
   "mision": 4,
   "rol": "Taller",
@@ -2321,23 +2489,15 @@
  },
  {
   "svg": "ing4_t2",
-  "pagina": 291,
+  "pagina": 312,
   "area": "ing",
   "mision": 4,
   "rol": "Taller",
   "titulo": "Inglés · Misión 4 · Taller"
  },
  {
-  "svg": "ing4_i1",
-  "pagina": 292,
-  "area": "ing",
-  "mision": 4,
-  "rol": "Entrenamiento ICFES",
-  "titulo": "Inglés · Misión 4 · Entrenamiento ICFES"
- },
- {
   "svg": "ing4_t3",
-  "pagina": 293,
+  "pagina": 313,
   "area": "ing",
   "mision": 4,
   "rol": "Taller",
@@ -2345,7 +2505,7 @@
  },
  {
   "svg": "ing4_t4",
-  "pagina": 294,
+  "pagina": 314,
   "area": "ing",
   "mision": 4,
   "rol": "Taller",
@@ -2353,15 +2513,47 @@
  },
  {
   "svg": "ing4_t5",
-  "pagina": 295,
+  "pagina": 316,
   "area": "ing",
   "mision": 4,
   "rol": "Taller",
   "titulo": "Inglés · Misión 4 · Taller"
  },
  {
+  "svg": "ing4_t6",
+  "pagina": 317,
+  "area": "ing",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 4 · Taller"
+ },
+ {
+  "svg": "ing4_t7",
+  "pagina": 318,
+  "area": "ing",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 4 · Taller"
+ },
+ {
+  "svg": "ing4_t8",
+  "pagina": 319,
+  "area": "ing",
+  "mision": 4,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 4 · Taller"
+ },
+ {
+  "svg": "ing4_i1",
+  "pagina": 315,
+  "area": "ing",
+  "mision": 4,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Inglés · Misión 4 · Entrenamiento ICFES"
+ },
+ {
   "svg": "ing4_i2",
-  "pagina": 296,
+  "pagina": 320,
   "area": "ing",
   "mision": 4,
   "rol": "Entrenamiento ICFES",
@@ -2369,7 +2561,7 @@
  },
  {
   "svg": "ing5_t1",
-  "pagina": 297,
+  "pagina": 321,
   "area": "ing",
   "mision": 5,
   "rol": "Taller",
@@ -2377,23 +2569,15 @@
  },
  {
   "svg": "ing5_t2",
-  "pagina": 298,
+  "pagina": 322,
   "area": "ing",
   "mision": 5,
   "rol": "Taller",
   "titulo": "Inglés · Misión 5 · Taller"
  },
  {
-  "svg": "ing5_i1",
-  "pagina": 299,
-  "area": "ing",
-  "mision": 5,
-  "rol": "Entrenamiento ICFES",
-  "titulo": "Inglés · Misión 5 · Entrenamiento ICFES"
- },
- {
   "svg": "ing5_t3",
-  "pagina": 300,
+  "pagina": 323,
   "area": "ing",
   "mision": 5,
   "rol": "Taller",
@@ -2401,7 +2585,7 @@
  },
  {
   "svg": "ing5_t4",
-  "pagina": 301,
+  "pagina": 324,
   "area": "ing",
   "mision": 5,
   "rol": "Taller",
@@ -2409,15 +2593,47 @@
  },
  {
   "svg": "ing5_t5",
-  "pagina": 302,
+  "pagina": 326,
   "area": "ing",
   "mision": 5,
   "rol": "Taller",
   "titulo": "Inglés · Misión 5 · Taller"
  },
  {
+  "svg": "ing5_t6",
+  "pagina": 327,
+  "area": "ing",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 5 · Taller"
+ },
+ {
+  "svg": "ing5_t7",
+  "pagina": 328,
+  "area": "ing",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 5 · Taller"
+ },
+ {
+  "svg": "ing5_t8",
+  "pagina": 329,
+  "area": "ing",
+  "mision": 5,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 5 · Taller"
+ },
+ {
+  "svg": "ing5_i1",
+  "pagina": 325,
+  "area": "ing",
+  "mision": 5,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Inglés · Misión 5 · Entrenamiento ICFES"
+ },
+ {
   "svg": "ing5_i2",
-  "pagina": 303,
+  "pagina": 330,
   "area": "ing",
   "mision": 5,
   "rol": "Entrenamiento ICFES",
@@ -2425,7 +2641,7 @@
  },
  {
   "svg": "ing6_t1",
-  "pagina": 304,
+  "pagina": 331,
   "area": "ing",
   "mision": 6,
   "rol": "Taller",
@@ -2433,23 +2649,15 @@
  },
  {
   "svg": "ing6_t2",
-  "pagina": 305,
+  "pagina": 332,
   "area": "ing",
   "mision": 6,
   "rol": "Taller",
   "titulo": "Inglés · Misión 6 · Taller"
  },
  {
-  "svg": "ing6_i1",
-  "pagina": 306,
-  "area": "ing",
-  "mision": 6,
-  "rol": "Entrenamiento ICFES",
-  "titulo": "Inglés · Misión 6 · Entrenamiento ICFES"
- },
- {
   "svg": "ing6_t3",
-  "pagina": 307,
+  "pagina": 333,
   "area": "ing",
   "mision": 6,
   "rol": "Taller",
@@ -2457,7 +2665,7 @@
  },
  {
   "svg": "ing6_t4",
-  "pagina": 308,
+  "pagina": 334,
   "area": "ing",
   "mision": 6,
   "rol": "Taller",
@@ -2465,15 +2673,79 @@
  },
  {
   "svg": "ing6_t5",
-  "pagina": 309,
+  "pagina": 335,
   "area": "ing",
   "mision": 6,
   "rol": "Taller",
   "titulo": "Inglés · Misión 6 · Taller"
  },
  {
+  "svg": "ing6_t6",
+  "pagina": 336,
+  "area": "ing",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 6 · Taller"
+ },
+ {
+  "svg": "ing6_t7",
+  "pagina": 338,
+  "area": "ing",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 6 · Taller"
+ },
+ {
+  "svg": "ing6_t8",
+  "pagina": 339,
+  "area": "ing",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 6 · Taller"
+ },
+ {
+  "svg": "ing6_t9",
+  "pagina": 340,
+  "area": "ing",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 6 · Taller"
+ },
+ {
+  "svg": "ing6_t10",
+  "pagina": 341,
+  "area": "ing",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 6 · Taller"
+ },
+ {
+  "svg": "ing6_t11",
+  "pagina": 342,
+  "area": "ing",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 6 · Taller"
+ },
+ {
+  "svg": "ing6_t12",
+  "pagina": 343,
+  "area": "ing",
+  "mision": 6,
+  "rol": "Taller",
+  "titulo": "Inglés · Misión 6 · Taller"
+ },
+ {
+  "svg": "ing6_i1",
+  "pagina": 337,
+  "area": "ing",
+  "mision": 6,
+  "rol": "Entrenamiento ICFES",
+  "titulo": "Inglés · Misión 6 · Entrenamiento ICFES"
+ },
+ {
   "svg": "ing6_i2",
-  "pagina": 310,
+  "pagina": 344,
   "area": "ing",
   "mision": 6,
   "rol": "Entrenamiento ICFES",

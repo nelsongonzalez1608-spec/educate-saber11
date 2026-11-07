@@ -503,58 +503,105 @@ Física,6 · ICFES,QA,"Multiplica, divide y lleva las unidades",Sigue la corrien
 Física,6 · ICFES,QB,La energía no desaparece: cambia de forma,"Posición 1, posición 2: ¿de dónde sale la luz?",Bombillo que se enciende un rato y se apaga · qué va en P
 Física,6 · ICFES,QC,¿Alcanzan los datos para esa conclusión?,Lo que cambió entre la cancha y el salón,Pelotas que rebotan distinto en la cancha y en el salón
 Física,6 · ICFES,QD,Cuando algo deja de cambiar: el equilibrio,Las dos mesetas de la curva,Curva de calentamiento de un sólido desconocido · qué sustancia
-Inglés,1,1,El verbo delata la palabra,Desarmo la descripción en cuatro piezas,Parte 1 · a person who repairs electrical machines · qué palabra
-Inglés,1,5,Cada pista tacha opciones,La palabra que le da la vuelta a la frase,Parte 1 · works helping people without being paid · qué palabra
-Inglés,1,7,Cada pista tacha opciones,El banco que se va vaciando,"Parte 1 · travels in a bus, car or plane but does not drive · qué palabra"
-Inglés,1,11,El verbo delata la palabra,"Borrow, read, return: lo que le pasa al libro",Parte 1 · a place where you can borrow academic books · qué palabra
-Inglés,1,13,El verbo delata la palabra,¿Quién le habla a quién en el salón?,Parte 1 · a group of students who discuss a topic · qué palabra
-Inglés,1,16,Quién me escribe y qué quiere,Lo que el mensaje me cuenta y lo que me pide,Parte 2 · aviso Your package is ready · dónde lo verías
-Inglés,1,18,Quién me escribe y qué quiere,La lista antes de salir para la cita,Parte 2 · aviso Bring your ID · dónde lo verías
-Inglés,1,19,¿Dónde estaría este aviso?,"Dos círculos, un solo lugar",Parte 2 · aviso Fasten your seat belt · dónde lo verías
-Inglés,1,20,Quién me escribe y qué quiere,"Si pasa esto, entonces pasa aquello",Parte 2 · aviso Your subscription will be canceled · dónde lo verías
-Inglés,1,21,¿Dónde estaría este aviso?,Los papeles que te piden en cada viaje,Parte 2 · aviso Immigration control · dónde lo verías
-Inglés,1 · ICFES,A,El verbo delata la palabra,Wear o carry: dos cajones,Parte 1 · Clothes · A person can carry things in one of these
+Inglés,1,1,El verbo delata la palabra,Desarmo la descripción en cuatro piezas,"Parte 1 · People · paso 2, leo el verbo: repairs"
+Inglés,1,2,Cada pista tacha opciones,Dos montones: personas y lugares,"Parte 1 · People · paso 1, ¿persona o lugar?: a place"
+Inglés,1,3,Cada pista tacha opciones,"Se parece al doctor, pero no es el doctor","Parte 1 · People · paso 3, la pista tacha: but is not"
+Inglés,1,4,El verbo delata la palabra,De un lugar a otro: quién maneja y quién cobra,"Parte 1 · People · paso 2, leo el verbo: drives"
+Inglés,1,5,Cada pista tacha opciones,La palabra que le da la vuelta a la frase,"Parte 1 · People · paso 3, la pista tacha: without"
+Inglés,1,6,El verbo delata la palabra,"De la obra a quien la hace: -er, -or, -ist, -ian","Parte 1 · People · paso 2, leo el verbo: creates"
+Inglés,1,7,Cada pista tacha opciones,El banco que se va vaciando,"Parte 1 · People · paso 4, tacho las usadas: but does not"
+Inglés,1,8,El verbo delata la palabra,Palabras de dos piezas y un falso amigo,"Parte 1 · School Life · paso 2, los verbos: listen, take notes"
+Inglés,1,9,Cada pista tacha opciones,El embudo: cada pista deja pasar menos palabras,"Parte 1 · School Life · paso 3, cada pista tacha: a room"
+Inglés,1,10,El verbo delata la palabra,Degree: ¿temperatura o diploma?,"Parte 1 · School Life · paso 2, leo el verbo: studies"
+Inglés,1,11,El verbo delata la palabra,"Borrow, read, return: lo que le pasa al libro","Parte 1 · School Life · paso 2, leo el verbo: borrow"
+Inglés,1,12,Cada pista tacha opciones,La balanza: la descripción ya trae un sinónimo,"Parte 1 · School Life · paso 3, la pista tacha: a test"
+Inglés,1,13,El verbo delata la palabra,¿Quién le habla a quién en el salón?,"Parte 1 · School Life · paso 2, leo el verbo: discuss"
+Inglés,1,14,Cada pista tacha opciones,El carné que me pide el portero,Parte 1 · School Life · pasos 3 y 4: card · la que sobra
+Inglés,1,15,¿Dónde estaría este aviso?,«Them» señala hacia atrás,"Parte 2 · aviso · paso 1, la palabra que señala: them"
+Inglés,1,16,Quién me escribe y qué quiere,Lo que el mensaje me cuenta y lo que me pide,"Parte 2 · aviso · paso 2, qué me pide: Your package"
+Inglés,1,17,¿Dónde estaría este aviso?,¿Esto pasa en la calle o en una pantalla?,"Parte 2 · aviso · paso 3, dónde pasa: comments, accounts"
+Inglés,1,18,Quién me escribe y qué quiere,La lista antes de salir para la cita,"Parte 2 · aviso · paso 2, qué me pide: Bring your ID"
+Inglés,1,19,¿Dónde estaría este aviso?,"Dos círculos, un solo lugar","Parte 2 · aviso · paso 1, la palabra rara: turbulence"
+Inglés,1,20,Quién me escribe y qué quiere,"Si pasa esto, entonces pasa aquello","Parte 2 · aviso · paso 2, quién me escribe: subscription"
+Inglés,1,21,¿Dónde estaría este aviso?,Los papeles que te piden en cada viaje,"Parte 2 · aviso · paso 4, cumple todas: Immigration control"
+Inglés,1 · ICFES,A,El verbo delata la palabra,"Primero la clase, después el verbo",2016-1 2.ª sesión · 87 · You wear it to know what time it is
 Inglés,1 · ICFES,B,Cada pista tacha opciones,"Tres pistas, tres tachones",Parte 1 · Transportation · public transport by road
 Inglés,1 · ICFES,C,¿Dónde estaría este aviso?,Lo que se toma y dónde se guarda,"Parte 2 · aviso Please, take the one you want to read"
 Inglés,1 · ICFES,D,Quién me escribe y qué quiere,"¿Me informa, me prohíbe o me vende?",Parte 2 · aviso New Toys
-Inglés,2,1,¿Qué me están pidiendo?,Pedido disfrazado de pregunta,Could you print these documents before the meeting? · respuesta natural
-Inglés,2,2,¿Qué me están pidiendo?,La llamada: quién llama y para qué,Llamada para confirmar interés en el servicio de internet · respuesta natural
-Inglés,2,3,¿Qué clase de pregunta me hacen?,La pregunta empieza por el verbo,Is this the line for the concert tickets? · respuesta natural
-Inglés,2,4,¿Qué me están pidiendo?,Me piden una opinión: posición y razón,Do you think we should add more details to the budget section? · respuesta natural
-Inglés,2,5,¿Qué clase de pregunta me hacen?,Enough: ¿alcanza o no alcanza?,Does this phone have enough memory for videos? · respuesta natural
-Inglés,2,6,El tiempo del verbo manda,Did pregunta por algo que ya pasó,Did you hear about Anna's new job? · respuesta natural
-Inglés,2,7,Reacciono a lo que me cuentan,El termómetro de cómo estoy,How are you feeling today? · respuesta natural
-Inglés,2,8,El tiempo del verbo manda,Last night: la marca del tiempo,Did you watch the new episode last night? · respuesta natural
-Inglés,2,9,El tiempo del verbo manda,Was o were: quién estaba haciendo qué,I saw you talking to Mark yesterday. What happened? · respuesta natural
-Inglés,2,10,Reacciono a lo que me cuentan,Me cuentan un consejo: ¿qué contesto?,The doctor said I should drink more water · reacción natural
+Inglés,2,1,¿Qué me están pidiendo?,Pedido disfrazado de pregunta,"Parte 3 · paso 2, qué quiere: Could you print…?"
+Inglés,2,2,¿Qué me están pidiendo?,La llamada: quién llama y para qué,"Parte 3 · paso 2, qué quiere quien llama: Internet service"
+Inglés,2,3,¿Qué clase de pregunta me hacen?,La pregunta empieza por el verbo,"Parte 3 · paso 1, qué clase de frase: Is this the line…?"
+Inglés,2,4,¿Qué me están pidiendo?,Me piden una opinión: posición y razón,"Parte 3 · paso 2, me piden opinión: Do you think we should…?"
+Inglés,2,5,¿Qué clase de pregunta me hacen?,Enough: ¿alcanza o no alcanza?,"Parte 3 · paso 1, qué clase de frase: Does this phone…?"
+Inglés,2,6,El tiempo del verbo manda,Did pregunta por algo que ya pasó,"Parte 3 · paso 3, el tiempo: Did you hear about…?"
+Inglés,2,7,Reacciono a lo que me cuentan,El termómetro de cómo estoy,"Parte 3 · paso 4, le contesto a él: How are you feeling today?"
+Inglés,2,8,El tiempo del verbo manda,Last night: la marca del tiempo,"Parte 3 · paso 3, el tiempo: … last night?"
+Inglés,2,9,El tiempo del verbo manda,Was o were: quién estaba haciendo qué,"Parte 3 · paso 3, el tiempo: What happened?"
+Inglés,2,10,Reacciono a lo que me cuentan,Me cuentan un consejo: ¿qué contesto?,"Parte 3 · paso 4, reacciono: The doctor said I should…"
 Inglés,2 · ICFES,A,¿Qué clase de pregunta me hacen?,How + una palabra: qué dato me piden,Parte 3 · How much is that umbrella?
 Inglés,2 · ICFES,B,¿Qué me están pidiendo?,Me ofrecen ayuda: acepto o la rechazo con amabilidad,"Parte 3 · Grandma, shall I hold those bags for you?"
 Inglés,2 · ICFES,C,El tiempo del verbo manda,Anoche llovió: ¿qué preguntaría yo?,Parte 3 · It rained a lot last night!
 Inglés,2 · ICFES,D,Reacciono a lo que me cuentan,Una queja fuerte: ¿la comparto?,Parte 3 · I can't eat a cold sandwich. It is horrible!
 Inglés,3,1,El reloj del texto,La línea de tiempo del concierto de Medellín,Karol G en Medellín · espacio 1 · came
-Inglés,3,2,La forma que cabe,"La tabla del verbo to be, llenada por mí",Karol G en Medellín · espacio 5 · were
-Inglés,3,3,El reloj del texto,El párrafo tiene un solo reloj: cuéntalo verbo por verbo,Karol G en Medellín · espacio 9 · thought
-Inglés,3,4,La forma que cabe,Las tres caras de cada verbo,Spider-Verse · espacio 13 · went
-Inglés,3,5,El reloj del texto,Dos vagones enganchados por and,Spider-Verse · espacio 15 · used
-Inglés,3,6,La preposición viene pegada,"En español no hace falta; en inglés, sí",AI in the Classroom · espacio 22 · search for
-Inglés,3,7,El conector dice la relación,La flecha entre las dos mitades,AI in the Classroom · espacio 25 · because
-Inglés,3,8,La preposición viene pegada,El puente entre technology y creativity,AI in the Classroom · espacio 27 · combined with
-Inglés,3,9,El conector dice la relación,Lo que viene después del conector: ¿trae verbo o no?,Public Protest and Social Change · espacio 36 · Despite
-Inglés,3,10,El conector dice la relación,Palabras que llegan en pareja,Public Protest and Social Change · espacio 38 · not only … but also
+Inglés,3,2,El reloj del texto,La noche contada en viñetas,Karol G en Medellín · espacio 2 · began
+Inglés,3,3,La forma que cabe,Tres lecturas en voz alta: el oído y la regla,Karol G en Medellín · espacio 3 · sang
+Inglés,3,4,El reloj del texto,El mismo verso con dos relojes,Karol G en Medellín · espacio 4 · knew
+Inglés,3,5,La forma que cabe,"La tabla del verbo to be, llenada por mí",Karol G en Medellín · espacio 5 · were
+Inglés,3,6,El reloj del texto,El contador de veces,Karol G en Medellín · espacio 6 · presented
+Inglés,3,7,El reloj del texto,La barra de tres horas: ¿ya se cerró?,Karol G en Medellín · espacio 7 · lasted
+Inglés,3,8,La forma que cabe,Tres puertas y un solo sujeto,Karol G en Medellín · espacio 8 · shared
+Inglés,3,9,El reloj del texto,El párrafo tiene un solo reloj: cuéntalo verbo por verbo,Karol G en Medellín · espacio 9 · thought
+Inglés,3,10,La forma que cabe,Una oración guardada dentro de otra,Karol G en Medellín · espacio 10 · was
+Inglés,3,11,El reloj del texto,El calendario: de 2023 a hoy,Spider-Verse · espacio 11 · was
+Inglés,3,12,La forma que cabe,La flecha de la acción: ¿quién estrena a quién?,Spider-Verse · espacio 12 · was released (opción A corregida)
+Inglés,3,13,La forma que cabe,Las tres caras de cada verbo,Spider-Verse · espacio 13 · went
+Inglés,3,14,El reloj del texto,La pregunta de control: ¿did o does?,Spider-Verse · espacio 14 · introduced
+Inglés,3,15,El reloj del texto,Dos vagones enganchados por and,Spider-Verse · espacio 15 · used
+Inglés,3,16,La forma que cabe,La lupa sobre la última letra del sujeto,Spider-Verse · espacio 16 · were
+Inglés,3,17,El reloj del texto,La flecha del «which»,Spider-Verse · espacio 17 · combined / combines
+Inglés,3,18,El reloj del texto,El sujeto con dos nombres entre comas,Spider-Verse · espacio 18 · dealt / deals
+Inglés,3,19,La forma que cabe,Los verbos que terminan en y,Spider-Verse · espacio 19 · tried / tries
+Inglés,3,20,El reloj del texto,Un hilo de tres cuentas,Spider-Verse · espacio 20 · left / leaves
+Inglés,3,21,La preposición viene pegada,¿Entre dos o en medio de muchos?,AI in the Classroom · espacio 21 · among
+Inglés,3,22,La preposición viene pegada,"En español no hace falta; en inglés, sí",AI in the Classroom · espacio 22 · search for
+Inglés,3,23,La preposición viene pegada,El imán de «depend»,AI in the Classroom · espacio 23 · depending on
+Inglés,3,24,La preposición viene pegada,Tres maneras de decir quién revisa,AI in the Classroom · espacio 24 · by / with / through
+Inglés,3,25,El conector dice la relación,La flecha entre las dos mitades,AI in the Classroom · espacio 25 · because
+Inglés,3,26,La preposición viene pegada,El espejo: la misma palabra a cada lado,AI in the Classroom · espacio 26 · step by step
+Inglés,3,27,La preposición viene pegada,El puente entre technology y creativity,AI in the Classroom · espacio 27 · combined with
+Inglés,3,28,La preposición viene pegada,¿A quién se pega: a la de antes o a la de después?,AI in the Classroom · espacio 28 · substitute for
+Inglés,3,29,La forma que cabe,Un verbo sin nada encima,AI in the Classroom · espacio 29 · to + verbo
+Inglés,3,30,La preposición viene pegada,¿Preparados para qué? La pregunta que contesta,AI in the Classroom · espacio 30 · prepared for
+Inglés,3,31,La preposición viene pegada,"Punto, superficie o recipiente: ¿cómo es el lugar?",Public Protest and Social Change · espacio 31 · in
+Inglés,3,32,La preposición viene pegada,"Cuando ninguna opción sirve, escribo yo la palabra",Public Protest and Social Change · espacio 32 · ninguna; va in
+Inglés,3,33,La preposición viene pegada,El dibujo del movimiento,Public Protest and Social Change · espacio 33 · across
+Inglés,3,34,El conector dice la relación,Quita el conector: ¿qué relación queda?,Public Protest and Social Change · espacio 34 · as / since / because
+Inglés,3,35,La preposición viene pegada,El mensaje viaja: ¿por un canal o se queda en un lugar?,Public Protest and Social Change · espacio 35 · through / on
+Inglés,3,36,El conector dice la relación,Lo que viene después del conector: ¿trae verbo o no?,Public Protest and Social Change · espacio 36 · Despite
+Inglés,3,37,La preposición viene pegada,La balanza de «instead of»,Public Protest and Social Change · espacio 37 · respond with
+Inglés,3,38,El conector dice la relación,Palabras que llegan en pareja,Public Protest and Social Change · espacio 38 · not only … but also
+Inglés,3,39,El conector dice la relación,¿Qué pregunta contesta la segunda idea?,Public Protest and Social Change · espacio 39 · since / but
+Inglés,3,40,La forma que cabe,El sándwich entre el artículo y el sustantivo,Public Protest and Social Change · espacio 40 · undeniable
 Inglés,3 · ICFES,1,El reloj del texto,Desde cuándo y hasta cuándo: el reloj del café,Coffee · well-known ___ the beginning of the 14th century · since
 Inglés,3 · ICFES,2,La forma que cabe,La oración al revés: Runge y la cafeína,Coffee · Caffeine was first ___ · described
 Inglés,3 · ICFES,3,La preposición viene pegada,El verbo que cambia de sentido con su partícula,Valentine's Day · the King found ___ · out
 Inglés,3 · ICFES,4,El conector dice la relación,La cuerda: ¿las dos ideas tiran juntas o en contra?,Coffee · ___ many people believe coffee is bad · While
-Inglés,4,1,La palabra ancla,La palabra ancla y sus vecinas,TWICE en Australia · cuántos conciertos en Sydney
-Inglés,4,2,Cada cifra tiene dueño,El calendario de TWICE: cada fecha con su evento,TWICE en Australia · cuándo empezó la venta general
-Inglés,4,3,"Es verdad, pero no responde",Dos preguntas a cada opción: ¿está en el texto? ¿responde?,TWICE en Australia · cuándo salió el álbum This Is For
-Inglés,4,4,Cada cifra tiene dueño,Cada número del texto con su etiqueta,TWICE en Australia · cuántos discos ha sacado
-Inglés,4,5,La palabra ancla,"Dos «primeras veces», dos países",TWICE en Australia · su primera vez en Estados Unidos
-Inglés,4,6,Lo dice con otras palabras,"Mismo lugar, otro nombre",Nairo y la Vuelta 2016 · dónde terminó la carrera
-Inglés,4,7,Lo dice con otras palabras,"Las palabras de la pregunta, buscadas con otro nombre",Nairo y la Vuelta 2016 · quién ganó el título general
-Inglés,4,8,Cada cifra tiene dueño,Dos colombianos en la línea de la Vuelta,Nairo y la Vuelta 2016 · en qué año ganó Luis Herrera
-Inglés,4,9,"Es verdad, pero no responde","El podio, escalón por escalón",Nairo y la Vuelta 2016 · quién llegó segundo
-Inglés,4,10,La palabra ancla,Lista de todos los nombres del texto,Nairo y la Vuelta 2016 · cuántos colombianos en el podio
+Inglés,4,1,La palabra ancla,La palabra ancla y sus vecinas,"Bloque 1, n.º 1 del libro · TWICE · paso 1, el ancla"
+Inglés,4,2,"Es verdad, pero no responde","Dos boletas, dos ciudades","Bloque 1, n.º 2 del libro · TWICE · paso 4, ¿responde?"
+Inglés,4,3,Lo dice con otras palabras,Desde todos los ángulos: dibujo el escenario,"Bloque 1, n.º 3 del libro · TWICE · paso 3, la frase vecina"
+Inglés,4,4,Cada cifra tiene dueño,El calendario de TWICE: cada fecha con su evento,"Bloque 1, n.º 4 del libro · TWICE · paso 2, cada fecha"
+Inglés,4,5,"Es verdad, pero no responde",Dos preguntas a cada opción: ¿está en el texto? ¿responde?,"Bloque 1, n.º 5 del libro · TWICE · paso 4, ¿responde?"
+Inglés,4,6,Cada cifra tiene dueño,Cada número del texto con su etiqueta,"Bloque 1, n.º 6 del libro · TWICE · paso 2, cada número"
+Inglés,4,7,La palabra ancla,"Dos «primeras veces», dos países","Bloque 1, n.º 7 del libro · TWICE · paso 1, el ancla disfrazada"
+Inglés,4,8,La palabra ancla,"Debut, debutar, debutó: el ancla cambia de forma","Bloque 1, n.º 8 del libro · TWICE · paso 1, el ancla cambia de forma"
+Inglés,4,9,Lo dice con otras palabras,"Mismo lugar, otro nombre","Bloque 2, n.º 1 del libro · Nairo · paso 4, otras palabras"
+Inglés,4,10,Lo dice con otras palabras,"Las palabras de la pregunta, buscadas con otro nombre","Bloque 2, n.º 2 del libro · Nairo · paso 4, otras palabras"
+Inglés,4,11,Cada cifra tiene dueño,21 = twenty-one: el número cambia de traje,"Bloque 2, n.º 3 del libro · Nairo · paso 2, cifras y letras"
+Inglés,4,12,Cada cifra tiene dueño,Dos colombianos en la línea de la Vuelta,"Bloque 2, n.º 4 del libro · Nairo · paso 2, cada año"
+Inglés,4,13,Lo dice con otras palabras,La camiseta del líder: una frase que dice otra cosa,"Bloque 2, n.º 5 del libro · Nairo · paso 3, la frase vecina"
+Inglés,4,14,"Es verdad, pero no responde","El podio, escalón por escalón","Bloque 2, n.º 6 del libro · Nairo · paso 4, ¿responde?"
+Inglés,4,15,La palabra ancla,Lista de todos los nombres del texto,"Bloque 2, n.º 7 del libro · Nairo · paso 1, el ancla y la lista"
+Inglés,4,16,Cada cifra tiene dueño,Aproximado no es inventado: la regla de los millones,"Bloque 2, n.º 8 del libro · Nairo · paso 2, aproximado"
 Inglés,4 · ICFES,1,La palabra ancla,Los títulos del texto y lo que es cada uno,James Salter's Days in Film · qué es Passionate Falsehoods
 Inglés,4 · ICFES,2,Lo dice con otras palabras,La razón dicha con otras palabras,My Artistic Adventure · por qué no consiguió pinturas al óleo
 Inglés,4 · ICFES,3,Cada cifra tiene dueño,"Tres fechas, tres dueños: la vida de Salter",James Salter's Days in Film · cuándo hizo cine
@@ -562,27 +609,47 @@ Inglés,4 · ICFES,4,"Es verdad, pero no responde",Cuatro nombres y un libro: qu
 Inglés,5,1,Lo que el texto deja entender,Quita una pieza y mira qué se cae,Why Photosynthesis Matters · B1 n.º 1 · de qué depende la vida humana
 Inglés,5,2,Lo que el texto deja entender,Sigue la energía de mano en mano,Why Photosynthesis Matters · B1 n.º 2 · de dónde sale la energía
 Inglés,5,3,Lo que el texto deja entender,Del árbol talado al clima de todos,Why Photosynthesis Matters · B1 n.º 3 · la tala: ¿un daño local?
-Inglés,5,4,La frase que dice más de lo que dice,«Foundation» es una palabra de albañil,Why Photosynthesis Matters · B1 n.º 5 · «the foundation of almost every ecosystem»
-Inglés,5,5,Dos cosas frente a frente,El termómetro del aire: respirable o tóxico,Why Photosynthesis Matters · B1 n.º 6 · la atmósfera de hoy frente a otra
-Inglés,5,6,Para qué lo pone el autor,La cabeza del lector antes y después del ejemplo,Why Photosynthesis Matters · B1 n.º 7 · la contaminación en las hojas de la ciudad
-Inglés,5,7,Para qué lo pone el autor,"La misma esquina, con y sin guitarra",The Power of Street Music · B2 n.º 1 · «a cracked sidewalk»
-Inglés,5,8,La frase que dice más de lo que dice,Parte la frase en dos y busca su pareja,"The Power of Street Music · B2 n.º 4 · «I am here, my story matters»"
-Inglés,5,9,Para qué lo pone el autor,Dos voces en la balanza y quién gana,The Power of Street Music · B2 n.º 7 · la queja por el ruido
-Inglés,5,10,Dos cosas frente a frente,"Dos sonidos, dos maneras de estar en la calle",The Power of Street Music · B2 n.º 8 · el ruido de la ciudad y el bolero
+Inglés,5,4,Dos cosas frente a frente,Dos marcos para el mismo cuadro,Why Photosynthesis Matters · B1 n.º 4 · «protecting our own future»
+Inglés,5,5,La frase que dice más de lo que dice,«Foundation» es una palabra de albañil,Why Photosynthesis Matters · B1 n.º 5 · «the foundation of… every ecosystem»
+Inglés,5,6,Dos cosas frente a frente,El termómetro del aire: respirable o tóxico,Why Photosynthesis Matters · B1 n.º 6 · la atmósfera de hoy frente a otra
+Inglés,5,7,Para qué lo pone el autor,La cabeza del lector antes y después del ejemplo,Why Photosynthesis Matters · B1 n.º 7 · las hojas de los árboles de la ciudad
+Inglés,5,8,Lo que el texto deja entender,Dónde se siembra cada solución,Why Photosynthesis Matters · B1 n.º 8 · «green roofs»
+Inglés,5,9,Para qué lo pone el autor,"La misma esquina, con y sin guitarra",The Power of Street Music · B2 n.º 1 · «a cracked sidewalk»
+Inglés,5,10,Lo que el texto deja entender,Cuadro por cuadro: los peatones,The Power of Street Music · B2 n.º 2 · de «hurry past» a sonreír
+Inglés,5,11,Dos cosas frente a frente,El arte con boleta y el arte de andén,The Power of Street Music · B2 n.º 3 · la calle frente a «theaters or museums»
+Inglés,5,12,La frase que dice más de lo que dice,Parte la frase en dos y busca su pareja,"The Power of Street Music · B2 n.º 4 · «I am here, my story matters»"
+Inglés,5,13,La frase que dice más de lo que dice,El silencio como personaje,The Power of Street Music · B2 n.º 5 · «unwilling to let silence…»
+Inglés,5,14,Para qué lo pone el autor,"Tres ciudades, un mismo árbol","The Power of Street Music · B2 n.º 6 · bolero, rap y tambores"
+Inglés,5,15,Para qué lo pone el autor,Dos voces en la balanza y quién gana,The Power of Street Music · B2 n.º 7 · la queja por el ruido
+Inglés,5,16,Dos cosas frente a frente,"Dos sonidos, dos maneras de estar en la calle",The Power of Street Music · B2 n.º 8 · el ruido de la ciudad y el bolero
 Inglés,5 · ICFES,QA,Lo que el texto deja entender,El reloj de Mark: ¿cada cuánto?,Swift Pizza and Sandwich House · qué se infiere de Mark
 Inglés,5 · ICFES,QB,Para qué lo pone el autor,La última línea delata el propósito,Jonathan's trip to Colombia · qué busca el autor
 Inglés,5 · ICFES,QC,La frase que dice más de lo que dice,Una pregunta que no espera respuesta,"My trip to Bogota · «If you die, will you enjoy it?»"
 Inglés,5 · ICFES,QD,Dos cosas frente a frente,Antes y después del espejo,What to wear? · por qué cambió su opinión
-Inglés,6,1,La línea de tiempo del verbo,El marcador clava el verbo en el tiempo,An Unexpected Adventure · B1 n.º 1 · «Two years ago» · went
-Inglés,6,2,La línea de tiempo del verbo,"Una acción larga, un golpe que la corta",An Unexpected Adventure · B1 n.º 3 · «While we ___ our tent»
-Inglés,6,3,La línea de tiempo del verbo,«Since» tiende un puente hasta hoy,"An Unexpected Adventure · B1 n.º 5 · «Since that day, I ___»"
-Inglés,6,4,La palabra de al lado manda la forma,Cada auxiliar llega con su pareja,An Unexpected Adventure · B1 n.º 6 · «I have already ___»
-Inglés,6,5,Palabras que andan juntas,Pon cada verbo en la oración y escucha si suena,Debating in Class · B2 n.º 2 · «Some debates ___ subjects»
-Inglés,6,6,Palabras que andan juntas,«Instead of» te da el contrario,Debating in Class · B2 n.º 4 · «___ evidence before speaking»
-Inglés,6,7,La palabra de al lado manda la forma,Encuentra el sujeto y cámbialo por «it» o «they»,Debating in Class · B2 n.º 7 · «debating ___ not only academic skills»
-Inglés,6,8,La palabra de al lado manda la forma,¿Quién rompe a quién?,A Late Visitor · B3 n.º 2 · «the silence of London ___» · voz pasiva
-Inglés,6,9,El párrafo entero decide,"Una oración, un solo verbo que manda","A Late Visitor · B3 n.º 6 · «Holmes rose without haste, ___»"
-Inglés,6,10,El párrafo entero decide,El censo de los verbos del relato,A Late Visitor · B3 n.º 8 · «Holmes already ___ the outline»
+Inglés,6,1,La línea de tiempo del verbo,El marcador clava el verbo en el tiempo,"An Unexpected Adventure · B1 n.º 1 · «Two years ago, my family and I ___»"
+Inglés,6,2,El párrafo entero decide,"El camino a la montaña, verbo por verbo",An Unexpected Adventure · B1 n.º 2 · «we ___ tired when we finally arrived»
+Inglés,6,3,La línea de tiempo del verbo,"Una acción larga, un golpe que la corta",An Unexpected Adventure · B1 n.º 3 · «While we ___ our tent»
+Inglés,6,4,La línea de tiempo del verbo,Los verbos vecinos confirman la nieve,An Unexpected Adventure · B1 n.º 4 · «it suddenly ___ to snow»
+Inglés,6,5,La línea de tiempo del verbo,«Since» tiende un puente hasta hoy,"An Unexpected Adventure · B1 n.º 5 · «Since that day, I ___»"
+Inglés,6,6,La palabra de al lado manda la forma,Cada auxiliar llega con su pareja,An Unexpected Adventure · B1 n.º 6 · «I have already ___»
+Inglés,6,7,El párrafo entero decide,La fecha de nacimiento del blog,An Unexpected Adventure · B1 n.º 7 · «and I ___ a blog»
+Inglés,6,8,La línea de tiempo del verbo,"Antes del viaje, yo no lo sabía","An Unexpected Adventure · B1 n.º 8 · «Honestly, I ___ never imagined»"
+Inglés,6,9,Palabras que andan juntas,La telaraña de «points of view»,Debating in Class · B2 n.º 1 · «students ___ different points of view»
+Inglés,6,10,Palabras que andan juntas,Pon cada verbo en la oración y escucha si suena,Debating in Class · B2 n.º 2 · «Some debates ___ subjects»
+Inglés,6,11,Palabras que andan juntas,El ascensor de «critical thinking»,Debating in Class · B2 n.º 3 · «to ___ critical thinking»
+Inglés,6,12,Palabras que andan juntas,«Instead of» te da el contrario,Debating in Class · B2 n.º 4 · «___ evidence before speaking»
+Inglés,6,13,La palabra de al lado manda la forma,El espejo de la misma oración,"Debating in Class · B2 n.º 5 · «Sometimes, students ___ nervous»"
+Inglés,6,14,El párrafo entero decide,Notas adhesivas: el tiempo de cada párrafo,Debating in Class · B2 n.º 6 · «Teachers ___ debates»
+Inglés,6,15,La palabra de al lado manda la forma,Encuentra el sujeto y cámbialo por «it» o «they»,Debating in Class · B2 n.º 7 · «debating ___ not only academic skills»
+Inglés,6,16,Palabras que andan juntas,El molde «___ + alguien + to + verbo»,Debating in Class · B2 n.º 8 · «These experiences ___ students to…»
+Inglés,6,17,La línea de tiempo del verbo,Casi medianoche en Baker Street,A Late Visitor · B3 n.º 1 · «when Sherlock Holmes ___ the fire»
+Inglés,6,18,La palabra de al lado manda la forma,¿Quién rompe a quién?,A Late Visitor · B3 n.º 2 · «the silence of London ___»
+Inglés,6,19,La palabra de al lado manda la forma,La nube de pensamientos: ¿una o muchas?,A Late Visitor · B3 n.º 3 · «my thoughts ___ constantly wandering»
+Inglés,6,20,La línea de tiempo del verbo,Pasos en la escalera: ¿cuándo suenan?,A Late Visitor · B3 n.º 4 · «hurried footsteps ___ on the stairs»
+Inglés,6,21,El párrafo entero decide,Los engranajes de «as»,A Late Visitor · B3 n.º 5 · «his hands trembled as he ___»
+Inglés,6,22,El párrafo entero decide,"Una oración, un solo verbo que manda","A Late Visitor · B3 n.º 6 · «Holmes rose without haste, ___»"
+Inglés,6,23,Palabras que andan juntas,Verbos que no viajan solos,A Late Visitor · B3 n.º 7 · «while Holmes ___ each detail»
+Inglés,6,24,El párrafo entero decide,El censo de los verbos del relato,A Late Visitor · B3 n.º 8 · «Holmes already ___ the outline»
 Inglés,6 · ICFES,QA,La línea de tiempo del verbo,Los relojes del párrafo,"History of paper · «At the time, people… ___ the way»"
 Inglés,6 · ICFES,QB,La palabra de al lado manda la forma,Mira la palabra que va justo antes del espacio,The Ethiopian wolf · «Some scientists have ___»
 Inglés,6 · ICFES,QC,Palabras que andan juntas,"Popular, ¿pero entre quiénes?",Coffee · «a popular medicine ___ Europeans»
