@@ -403,10 +403,10 @@ def portada_fis():
                  "flecha que nadie empuja, o energía que no sabes a dónde fue, todavía no has terminado.", _dib_fis,
                  [("Fuerzas, movimiento y energía", "Componente físico · mecánica clásica"),
                   ("El calor, la temperatura y los cambios de fase", "Componente físico · termodinámica"),
-                  ("", "Componente físico · electromagnetismo"),
-                  ("", "Componente físico · eventos ondulatorios"),
-                  ("", "Componente físico · mecánica clásica"),
-                  ("", "Componente físico · termodinámica")],
+                  ("Lo que mueve a las cargas", "Componente físico · electromagnetismo"),
+                  ("La fuente marca el ritmo", "Componente físico · eventos ondulatorios"),
+                  ("La energía que sube, corre y se escapa", "Componente físico · mecánica clásica"),
+                  ("La energía que se transforma", "Componente físico · termodinámica")],
                  "fecha · cómo llegué · cómo salí · una causa que encontré", "la causa:", "ap225_fis.svg",
                  iw=330, cajas=(EDU_AZUL, EDU_ROJO, EDU_ORO), x_clase_sub=740, x_puntaje=560, paso_puntaje=320)
 

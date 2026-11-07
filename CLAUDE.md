@@ -35,7 +35,7 @@ tres cuadernos al azar sin haber entrado a la clase.
 
 | Entregable | Listo | Total |
 |---|---|---|
-| Cuaderno combinado de las siete áreas | 224 | **313 páginas** |
+| Cuaderno combinado de las siete áreas | 267 | **313 páginas** |
 | Planeadores del docente (uno por área) | 2 | 7 |
 | Guías de clase proyectables (una por clase) | 8 | 56 |
 | Documento maestro de metodología | 0 | 1 |
@@ -354,7 +354,9 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
    `entregables/Biologia_completo_paginas_139_a_181.pdf`. ~~Química~~ — hecha el 7 nov (`qui1.py` …
    `qui6_icfes.py`, portada `ap182_qui`): `entregables/Quimica_completo_paginas_182_a_224.pdf`. 11 de sus 24
    preguntas ICFES salen del SIMULACRO II 2023 (Oficio): Nelson confirmó que son reales del ICFES.
-   Faltan Física (225–267), Inglés (268–310) y cierre (311–313).
+   ~~Física~~ — hecha el 7 nov (`fis1.py` … `fis6_icfes.py`, portada `ap225_fis`):
+   `entregables/Fisica_completo_paginas_225_a_267.pdf`. Los cuadernillos oficiales 2025 y 2026 de Ciencias
+   Naturales son las mismas 50 preguntas. Faltan Inglés (268–310) y cierre (311–313).
 4. Las 8 guías de clase de Matemáticas (con el motor de `clase_viva_lc.py`).
 5. Planeadores y guías de Sociales, Biología, Química, Física e Inglés.
 6. **Decisión de Cristian** sobre los nombres de políticos vivos, antes de imprimir.
