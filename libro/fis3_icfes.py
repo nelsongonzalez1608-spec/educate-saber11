@@ -155,8 +155,8 @@ def _tri(b, cx, top, s, flechas=None, nombres=True):
             sg = 1 if haciaq else -1
             ex, ey = p1[0] + sg * ux * L, p1[1] + sg * uy * L
             flecha(b, p1[0] + sg * ux * 15, p1[1] + sg * uy * 15, ex, ey, INK, sw=2.6, head=10)
-            b.append(T(ex + (24 if ex > p1[0] else -24), ey + (16 if ey > p1[1] else -6), lab, 12, INK,
-                       weight="700", anchor="start" if ex > p1[0] else "end", lh=14))
+            b.append(T(ex + (24 if ex > p1[0] else -24), ey + (16 if ey > p1[1] else -10), lab, 14, INK,
+                       weight="700", anchor="start" if ex > p1[0] else "end", lh=16))
     return p1, p2, p3
 
 
@@ -169,7 +169,7 @@ def datos_42(b, x, y, w):
     s = 112
     for k, L in enumerate("ABCD"):
         ox = x + k * (ow + 10)
-        cx = ox + ow / 2
+        cx = ox + ow / 2 + 18
         top = yy + 84
         p1, p2, p3 = (cx, top), (cx - 0.58 * s, top + s), (cx + 0.58 * s, top + s)
         f2 = ["Fuerza de", "2 sobre 1"]

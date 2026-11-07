@@ -75,7 +75,7 @@ def ii1(b, x, y, w, h):
 
 # ───────── QB · N.º 32 · el nadador y el farol ─────────
 def _farol(b, x, y):
-    b.append(line(x, y, x, y + 26, INK, 4))
+    b.append(line(x, y, x, y + 58, INK, 4))
     b.append(f'<circle cx="{x}" cy="{y - 8}" r="9" fill="{AMBER_BG}" stroke="{INK}" stroke-width="2"/>')
     for a in range(0, 360, 45):
         r = math.radians(a)
@@ -87,7 +87,7 @@ def _piscina(b, x, y, w, h, llena, titulo):
     b.append(T(x + 120, y + 14, [titulo], 15, INK, weight="700"))
     bx = x + 70
     b.append(rect(x, y + 80, 70, h - 80, "#6E7480", r=0))
-    _farol(b, x + 35, y + 14 + 40)
+    _farol(b, x + 35, y + 22)
     b.append(T(x + 2, y + 76, ["Farol"], 13, INK))
     if llena:
         b.append(rect(bx, y + 82, w - 70, h - 82, "#C9CED6", r=0))
@@ -101,12 +101,12 @@ def _piscina(b, x, y, w, h, llena, titulo):
     ox, oy = x + w - 60, y + h - 40
     b.append(f'<circle cx="{ox}" cy="{oy}" r="11" fill="white" stroke="{INK}" stroke-width="2.2"/>')
     b.append(T(ox, oy + 30, ["Nadador"], 13, INK, anchor="middle"))
-    fx, fy = x + 35, y + 46
+    fx, fy = x + 35, y + 14
     if not llena:
         flecha(b, fx + 10, fy + 6, ox - 10, oy - 6, INK, sw=2, head=9)
         b.append(T((fx + ox) / 2 + 10, (fy + oy) / 2 - 14, ["Rayo de luz"], 13, INK))
     else:
-        sx = ox - 46
+        sx = ox - 72
         sy = y + 82
         flecha(b, fx + 10, fy + 6, sx, sy, INK, sw=2, head=9)
         flecha(b, sx, sy, ox - 8, oy - 9, INK, sw=2, head=9)
@@ -149,7 +149,7 @@ PUNTOS_70 = ((0.24, 0.3, 0), (0.34, 0.24, 1), (0.44, 0.2, 0), (0.54, 0.24, 1), (
 
 
 def datos_70(b, x, y, w):
-    fw, fh = 620, 220
+    fw, fh = 620, 196
     fx = x + (w - fw) / 2
     b.append(rect(fx, y + 6, fw, fh, "white", r=0, stroke=INK, sw=2))
     b.append(rect(fx + 2, y + 8, fw - 4, 60, "#EEF0F4", r=0))
@@ -160,9 +160,9 @@ def datos_70(b, x, y, w):
         cx, cy = fx + fw * px + 40, y + 70 + (fh - 70) * py
         b.append(f'<ellipse cx="{cx:.1f}" cy="{cy:.1f}" rx="11" ry="6" fill="{INK if negro else "white"}" '
                  f'stroke="{INK}" stroke-width="1.8"/>')
-    b.append(f'<circle cx="{fx + fw - 50}" cy="{y + 176}" r="20" fill="white" stroke="{INK}" stroke-width="2"/>')
-    b.append(T(fx + fw - 50, y + 184, ["?"], 22, INK, weight="700", anchor="middle"))
-    b.append(T(fx + fw - 50, y + 216, ["estudiante"], 12, INK, anchor="middle"))
+    b.append(f'<circle cx="{fx + fw - 50}" cy="{y + 154}" r="20" fill="white" stroke="{INK}" stroke-width="2"/>')
+    b.append(T(fx + fw - 50, y + 162, ["?"], 22, INK, weight="700", anchor="middle"))
+    b.append(T(fx + fw - 50, y + 194, ["estudiante"], 12, INK, anchor="middle"))
     return pregunta(b, x, y + fh + 16, w, "Si el estudiante le pregunta a la profesora la razón por la cual en los puntos "
                                           "negros el sonido se escucha más fuerte que en los blancos, ¿cuál de las "
                                           "siguientes argumentaciones debe darle la profesora al estudiante?")
@@ -227,22 +227,24 @@ def datos_48(b, x, y, w):
         ox = x + k * (gw + 10)
         ylab, yt, xlab, xt = graf[L]
         letra(b, ox + 16, yy + 20, L, c)
-        gx, gy, ggw, ggh = ox + 92, yy + 24, gw - 112, 130
+        gx, gy, ggw, ggh = ox + 96, yy + 46, gw - 116, 124
         for i in range(4):
             py = gy + ggh - i / 3 * ggh
             px = gx + i / 3 * ggw
             b.append(line(gx, py, gx + ggw, py, LGRAY, 1.2))
             b.append(line(px, gy, px, gy + ggh, LGRAY, 1.2))
-            b.append(T(gx - 6, py + 4, [yt[i]], 11, INK, anchor="end"))
-            b.append(T(px, gy + ggh + 16, [xt[i]], 11, INK, anchor="middle"))
+            b.append(T(gx - 6, py + 5, [yt[i]], 13, INK, anchor="end"))
+            b.append(T(px, gy + ggh + 18, [xt[i]], 13, INK, anchor="middle"))
         b.append(line(gx, gy + ggh, gx + ggw + 8, gy + ggh, INK, 2))
         b.append(line(gx, gy - 8, gx, gy + ggh, INK, 2))
         b.append(line(gx, gy + ggh, gx + ggw, gy, INK, 1.8))
         for i in range(4):
             b.append(f'<circle cx="{gx + i / 3 * ggw:.1f}" cy="{gy + ggh - i / 3 * ggh:.1f}" r="4.5" fill="{INK}"/>')
-        b.append(T(gx + ggw / 2, gy + ggh + 36, [xlab], 11, INK, weight="700", anchor="middle"))
-        b.append(T(ox + 32, gy + ggh / 2, [ylab], 11, INK, weight="700", anchor="middle", rot=-90))
-    return yy + 24 + 130 + 44
+        b.append(T(gx + ggw / 2, gy + ggh + 40, [xlab], 13, INK, weight="700", anchor="middle"))
+        yl = ylab.replace(" del sonido", " del|sonido").split("|")
+        b.append(T(ox + 26 - (len(yl) - 1) * 8, gy + ggh / 2, yl, 13, INK, weight="700", anchor="middle",
+                   rot=-90, lh=16))
+    return yy + 46 + 124 + 50
 
 
 def ii4(b, x, y, w, h):
