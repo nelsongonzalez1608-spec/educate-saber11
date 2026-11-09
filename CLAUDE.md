@@ -36,8 +36,8 @@ tres cuadernos al azar sin haber entrado a la clase.
 | Entregable | Listo | Total |
 |---|---|---|
 | Cuaderno combinado de las siete áreas | 344 | **347 páginas** |
-| Planeadores del docente (uno por área) | 2 | 7 |
-| Guías de clase proyectables (una por clase) | 8 | 56 |
+| Planeadores del docente (uno por área) | 3 | 7 |
+| Guías de clase proyectables (una por clase) | 16 | 56 |
 | Documento maestro de metodología | 0 | 1 |
 | Reporte de los especialistas | 0 | 1 |
 | Informe de hallazgos del libro | 1 | 1 |
@@ -377,7 +377,7 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
    del ICFES. 15 preguntas del cuaderno salen de él con el membrete oficial (4 Mate, 1 LC, 8 Sociales M1–M2, 2 Física): pendiente que Nelson
    decida reemplazarlas. No usar el ASED como fuente de preguntas ICFES.
 4. Las 8 guías de clase de Matemáticas (con el motor de `clase_viva_lc.py`).
-5. Planeadores y guías de Sociales, Biología, Química, Física e Inglés.
+5. ~~Planeador y guías de Sociales~~ — hechos el 9 nov (`plan_soc.py`, `clase_viva_soc.py` con el motor general `clase_viva.py`). Faltan Biología, Química, Física e Inglés. Las guías se prueban con `node libro/verifica_guias.js <carpeta> <capturas>` (mira lo que se pinta: el 9 nov encontró que las de LC mostraban las claves del taller).
 6. **Decisión de Cristian** sobre los nombres de políticos vivos, antes de imprimir.
 7. Subir a la matriz los sellos y textos de Matemáticas (hoy figuran en cero) y las 48
    dinámicas nuevas.
