@@ -140,13 +140,19 @@ def main(out):
     imagenes(out, man)
     leer = lambda f: list(csv.DictReader(open(os.path.join(TAB, f), encoding="utf-8-sig")))
     h = leer("hallazgos.csv")
-    datos = dict(pags=[dict(n=x["pagina"], svg=x["svg"], rol=x["rol"], tit=x["titulo"]) for x in man],
+    datos = dict(pags=[dict(n=x["pagina"], svg=x["svg"], rol=x["rol"], tit=x["titulo"], m=x.get("mision"))
+                       for x in man],
                  mis={r["mision"]: dict(comp=r["componente"], est=r["estrategias"]) for r in leer("misiones.csv")},
                  hallazgos=[dict(n=int(x["n"]), area=_area(x), ubic=x["ubicacion"], pag=x["pagina_libro"],
                                  que=x["que_pasa"], efecto=x["efecto"], sev=x["severidad"], estado=x["estado"])
                             for x in h],
                  instrumentos=len(leer("instrumentos.csv")), icfes=len(leer("icfes.csv")),
                  docente=docente(out), descargas=descargas(out))
+    # de qué PDF de área sale cada página (para armar en la página PDF por misión, por página o completos)
+    import re as _re
+    datos["fuentes"] = [dict(f=d["f"], a=int(m.group(1)), b=int(m.group(2)))
+                        for d in datos["descargas"]
+                        for m in [_re.search(r"Cuaderno_\d\d_[A-Za-z]+_p(\d+)-(\d+)\.pdf$", d["f"])] if m]
     p = open(os.path.join(LIB, "visor_avance_plantilla.html"), encoding="utf-8").read()
     p = p.replace("__DATOS__", json.dumps(datos, ensure_ascii=False))
     p = p.replace("__FECHA__", datetime.date.today().strftime("%d/%m/%Y"))

@@ -88,7 +88,8 @@ tr:last-child td{border-bottom:0}
 .desc-fila b{font-weight:700}
 .desc-fila small{color:var(--suave);font:500 12px var(--num)}
 .aviso{font-size:14px;color:var(--suave);margin:0}
-#mensaje{min-height:1.4em;font-size:14px;color:var(--ok);margin:0}
+#mensaje{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:20;max-width:calc(100vw - 32px);font-size:14px;font-weight:700;color:var(--hoja);background:var(--tinta);padding:10px 16px;border-radius:999px;margin:0}
+#mensaje:empty{display:none}
 dialog{border:0;padding:0;background:transparent;max-width:min(980px,100vw);width:100%;max-height:100vh}
 dialog::backdrop{background:rgba(10,12,30,.82)}
 .visor{display:grid;gap:10px;padding:12px max(12px,env(safe-area-inset-left,0px));color:#fff}
@@ -98,6 +99,22 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
 .mando button{font:700 14px var(--texto);border-radius:8px;border:1.5px solid rgba(255,255,255,.6);background:transparent;color:#fff;padding:8px 14px;cursor:pointer}
 .mando button:focus-visible{outline:2px solid #fff}
 .nota{font-size:13px;color:var(--suave);margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip-a{font:700 14px var(--texto);border-radius:999px;border:1.5px solid var(--c,var(--linea));background:var(--hoja);color:var(--tinta);padding:8px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.chip-a i{width:10px;height:10px;border-radius:50%;background:var(--c,var(--tinta))}
+.chip-a[aria-pressed="true"]{background:var(--c,var(--tinta));color:#fff;border-color:var(--c,var(--tinta))}
+.chip-a[aria-pressed="true"] i{background:#fff}
+.chip-a:focus-visible{outline:2px solid var(--edu);outline-offset:2px}
+.panel-area{display:grid;gap:14px;padding:16px;background:var(--hoja);border:1.5px solid var(--c,var(--linea));border-radius:12px}
+.panel-area h3{font-size:20px;color:var(--c)}
+.grupo{display:grid;gap:8px}
+.grupo>strong{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--suave)}
+.paginero{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.paginero select{font:15px var(--texto);padding:8px 10px;border-radius:8px;border:1.5px solid var(--linea);background:var(--hoja);color:var(--tinta);max-width:100%}
+.boton.fuerte{background:var(--c,var(--tinta));border-color:var(--c,var(--tinta));color:#fff}
+.boton.mini-b{font-size:12px;padding:4px 10px}
+.leyenda button{all:unset;cursor:pointer;color:var(--suave)}
+.leyenda button:hover,.leyenda button:focus-visible{color:var(--tinta);text-decoration:underline}
 @media (prefers-reduced-motion:no-preference){.mini img{transition:transform .15s}.mini:hover img{transform:translateY(-2px)}}
 </style>
 
@@ -145,8 +162,11 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
   </section>
 
   <section class="vista" id="v-descargas" aria-label="Descargas" hidden>
-    <p class="aviso">Cada archivo pide una confirmación antes de guardarse. Los PDF del cuaderno van por área para que pesen poco.</p>
+    <p class="aviso">Escoge un área para ver solo sus documentos: el área completa, cada misión o una página suelta. «Todo el cuaderno» arma un solo PDF con todas las páginas hechas. Cada archivo pide una confirmación antes de guardarse. Los PDF son vectoriales, tamaño carta.</p>
     <p id="mensaje" role="status"></p>
+    <div class="chips" id="chips-areas" role="group" aria-label="Áreas"></div>
+    <div id="panel-area"></div>
+    <h2 style="font-size:20px">Otros documentos</h2>
     <div class="desc" id="desc"></div>
   </section>
 
@@ -160,11 +180,13 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
       <button id="ant" type="button">← Anterior</button>
       <p id="dlg-txt"></p>
       <button id="sig" type="button">Siguiente →</button>
+      <button id="dlg-pdf" type="button" hidden>Descargar esta página (PDF)</button>
       <button id="cerrar" type="button">Cerrar</button>
     </div>
   </div>
 </dialog>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script>
 const D = __DATOS__;
 const AREAS = [
@@ -197,14 +219,15 @@ document.getElementById("cifras").innerHTML = [
 const dlg = document.getElementById("dlg"), dimg = document.getElementById("dlg-img"), dtxt = document.getElementById("dlg-txt");
 let lista = [], pos = 0;
 function verLista(items, i) { lista = items; pos = i; pintar(); if (!dlg.open) dlg.showModal(); }
-function pintar() { const it = lista[pos]; dimg.src = it.src; dimg.alt = it.txt; dtxt.textContent = it.txt; }
+function pintar() { const it = lista[pos]; dimg.src = it.src; dimg.alt = it.txt; dtxt.textContent = it.txt;
+  const bp = document.getElementById("dlg-pdf"); bp.hidden = !it.n; bp.dataset.n = it.n || ""; }
 function mover(d) { const i = pos + d; if (i >= 0 && i < lista.length) { pos = i; pintar(); } }
 document.getElementById("ant").onclick = () => mover(-1);
 document.getElementById("sig").onclick = () => mover(1);
 document.getElementById("cerrar").onclick = () => dlg.close();
 dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
 document.addEventListener("keydown", e => { if (!dlg.open) return; if (e.key === "ArrowRight") mover(1); if (e.key === "ArrowLeft") mover(-1); });
-const listaCuaderno = hechas.map(n => ({src: imgPag(n), txt: `Página ${n} · ${porNum.get(n).tit}`}));
+const listaCuaderno = hechas.map(n => ({n, src: imgPag(n), txt: `Página ${n} · ${porNum.get(n).tit}`}));
 const abrirPag = n => verLista(listaCuaderno, hechas.indexOf(n));
 
 /* ---------- cuaderno ---------- */
@@ -219,12 +242,14 @@ for (let n = 1; n <= 347; n++) {
   if (ok) el.onclick = () => abrirPag(n); else el.disabled = true;
   mapa.appendChild(el);
 }
-document.getElementById("leyenda").innerHTML = AREAS.map(a => `<span style="--c:${a.c}"><i></i>${a.n}</span>`).join("");
+document.getElementById("leyenda").innerHTML = AREAS.map(a => `<span style="--c:${a.c}"><i></i><button type="button" data-ir="${a.k}">${a.n}</button></span>`).join("");
+document.getElementById("leyenda").addEventListener("click", e => { const b = e.target.closest("[data-ir]"); if (b) document.getElementById("area-" + b.dataset.ir)?.scrollIntoView({behavior: "smooth"}); });
 const mini = n => {
   const p = porNum.get(n);
   if (!p) return `<div class="mini falta"><div>${n}</div><span>pág. ${n}</span></div>`;
   return `<button class="mini" type="button" data-n="${n}"><img loading="lazy" src="${imgPag(n)}" alt="Página ${n}: ${esc(p.tit)}"><span>pág. ${n}</span></button>`;
 };
+const paginasMision = (a, m) => hechas.filter(n => n >= a.a && n <= a.b && porNum.get(n).m === m);
 const misionKey = (a, m) => ({m:`Misión ${m}`, lc:`LC Misión ${m}`, soc:`SOC Misión ${m}`, bio:`BIO Misión ${m}`, qui:`QUI Misión ${m}`, fis:`FIS Misión ${m}`, ing:`ING Misión ${m}`})[a.k];
 let html = "";
 for (const a of AREAS) {
@@ -234,16 +259,21 @@ for (const a of AREAS) {
     <div class="area-cab"><h2>${a.n}</h2><span class="rango">págs. ${a.a}–${a.b}</span>
       <span class="estado ${est[0]}">${est[1]}</span>
       <div class="barra" title="${hay} de ${tot}"><span style="--p:${hay/tot*100}%"></span></div>
-      <span class="rango">${hay}/${tot}</span></div>`;
-  if (tot === 43 && hay) {
+      <span class="rango">${hay}/${tot}</span>
+      ${hay ? `<button class="boton mini-b" type="button" data-area-pdf="${a.k}">PDF del área</button>
+      <a class="boton mini-b" href="#descargas/${a.k}">Todas sus descargas</a>` : ""}</div>`;
+  const conMision = hechas.some(n => n >= a.a && n <= a.b && porNum.get(n).m);
+  if (conMision) {
     html += `<div class="mision"><h3>Portada del área</h3><div class="tiras">${mini(a.a)}</div></div>`;
     for (let m = 1; m <= 6; m++) {
-      const base = a.a + 1 + (m - 1) * 7, info = D.mis[misionKey(a, m)] || {};
-      html += `<div class="mision"><h3>Misión ${m}${info.comp ? ` · <small>${esc(info.comp)}</small>` : ""}</h3>
+      const ns = paginasMision(a, m), info = D.mis[misionKey(a, m)] || {};
+      if (!ns.length) continue;
+      html += `<div class="mision"><h3>Misión ${m}${info.comp ? ` · <small>${esc(info.comp)}</small>` : ""}
+        <button class="boton mini-b" type="button" data-mis-pdf="${a.k}:${m}" style="margin-left:8px">PDF de la misión</button></h3>
         ${info.est ? `<small>Estrategias: ${esc(info.est)}</small>` : ""}
-        <div class="tiras">${ROL.map((r, i) => mini(base + i)).join("")}</div></div>`;
+        <div class="tiras">${ns.map(mini).join("")}</div></div>`;
     }
-  } else if (tot !== 43) {
+  } else if (tot !== 43 || !hay) {
     const ns = []; for (let n = a.a; n <= a.b; n++) ns.push(n);
     html += `<div class="sueltas">${ns.map(mini).join("")}</div>`;
   }
@@ -300,15 +330,17 @@ filtrar();
 /* ---------- descargas ---------- */
 let bajador = null;
 const msg = document.getElementById("mensaje");
+let avisoT;
+function aviso(t) { msg.textContent = t; if (dlg.open) dtxt.textContent = t; clearTimeout(avisoT); if (!/…$/.test(t)) avisoT = setTimeout(() => { msg.textContent = ""; }, 6000); }
 async function bajar(ruta, nombre) {
-  if (!bajador) { msg.textContent = "Las descargas no están disponibles en esta vista. Abre la página en claude.ai."; return; }
-  msg.textContent = `Preparando ${nombre}…`;
+  if (!bajador) { aviso("Las descargas no están disponibles en esta vista. Abre la página en claude.ai."); return; }
+  aviso(`Preparando ${nombre}…`);
   try {
     const r = await fetch(ruta); if (!r.ok) throw new Error("no se pudo leer el archivo");
     const res = await bajador.save({filename: nombre, data: await r.blob()});
-    msg.textContent = res.status === "saved" ? `Guardado: ${nombre}` : `Enviado: ${nombre}`;
+    aviso(res.status === "saved" ? `Guardado: ${nombre}` : `Enviado: ${nombre}`);
   } catch (e) {
-    msg.textContent = e && e.code === "declined" ? "Descarga cancelada." : `No se pudo descargar ${nombre}. Intenta de nuevo en un momento.`;
+    aviso(e && e.code === "declined" ? "Descarga cancelada." : `No se pudo descargar ${nombre}. Intenta de nuevo en un momento.`);
   }
 }
 function csvHallazgos() {
@@ -320,7 +352,81 @@ document.getElementById("h-csv").onclick = async () => {
   if (!bajador) { document.getElementById("h-cuenta").textContent = "Las descargas no están disponibles en esta vista."; return; }
   try { await bajador.save({filename: "EDUCATE_hallazgos.csv", data: csvHallazgos()}); } catch (e) {}
 };
-document.getElementById("desc").innerHTML = D.descargas.map(d => `<div class="desc-fila"><div><b>${esc(d.t)}</b><br><small>${esc(d.f.split("/").pop())} · ${d.mb} MB</small></div>
+/* PDF armados aquí mismo con pdf-lib, a partir del PDF de cada área */
+const fuenteDe = n => D.fuentes.find(f => n >= f.a && n <= f.b);
+const cacheF = new Map();
+async function cargarFuente(f) {
+  if (!cacheF.has(f.f)) cacheF.set(f.f, fetch(f.f).then(r => { if (!r.ok) throw new Error("no se pudo leer " + f.f); return r.arrayBuffer(); })
+    .then(b => PDFLib.PDFDocument.load(b)));
+  return cacheF.get(f.f);
+}
+async function armar(paginas, nombre) {
+  if (!bajador) { aviso("Las descargas no están disponibles en esta vista. Abre la página en claude.ai."); return; }
+  if (!window.PDFLib) { aviso("No cargó la herramienta para armar PDF. Recarga la página."); return; }
+  const ps = paginas.filter(n => fuenteDe(n));
+  if (!ps.length) { aviso("Esas páginas todavía no están hechas."); return; }
+  aviso(`Armando ${nombre} (${ps.length} página${ps.length > 1 ? "s" : ""})…`);
+  try {
+    const out = await PDFLib.PDFDocument.create();
+    out.setTitle(nombre.replace(/\.pdf$/, "")); out.setAuthor("EDUCATE · Para el Saber");
+    let i = 0;
+    while (i < ps.length) {
+      const f = fuenteDe(ps[i]); const grupo = [];
+      while (i < ps.length && fuenteDe(ps[i]) === f) { grupo.push(ps[i] - f.a); i++; }
+      const src = await cargarFuente(f);
+      (await out.copyPages(src, grupo)).forEach(pg => out.addPage(pg));
+    }
+    const bytes = await out.save({useObjectStreams: true});
+    const res = await bajador.save({filename: nombre, data: new Blob([bytes], {type: "application/pdf"})});
+    aviso(res.status === "saved" ? `Guardado: ${nombre}` : `Enviado: ${nombre}`);
+  } catch (e) {
+    aviso(e && e.code === "declined" ? "Descarga cancelada." : `No se pudo armar ${nombre}. Intenta de nuevo en un momento.`);
+  }
+}
+const nomArea = a => a.n.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]+/g, "");
+const pdfArea = a => { const f = D.fuentes.find(x => x.a === a.a); return f ? bajar(f.f, `EDUCATE_Cuaderno_${nomArea(a)}_p${a.a}-${a.b}.pdf`) : armar(rango(a.a, a.b), `EDUCATE_Cuaderno_${nomArea(a)}.pdf`); };
+const rango = (x, y) => Array.from({length: y - x + 1}, (_, i) => x + i);
+const pdfMision = (a, m) => { const ns = paginasMision(a, m); return armar(ns, `EDUCATE_${nomArea(a)}_Mision${m}_p${ns[0]}-${ns[ns.length - 1]}.pdf`); };
+const pdfPagina = n => armar([n], `EDUCATE_Cuaderno_pagina_${String(n).padStart(3, "0")}.pdf`);
+const pdfTodo = () => armar(hechas, `EDUCATE_Cuaderno_Saber11_completo_${hechas.length}_paginas.pdf`);
+
+let areaSel = "todo";
+function pintarChips() {
+  const items = [{k: "todo", n: "Todo el cuaderno", c: "#242478"}, ...AREAS.filter(a => hechas.some(n => n >= a.a && n <= a.b))];
+  document.getElementById("chips-areas").innerHTML = items.map(a => `<button class="chip-a" type="button" data-sel="${a.k}" aria-pressed="${a.k === areaSel}" style="--c:${a.c}"><i></i>${esc(a.n)}</button>`).join("");
+  const pa = document.getElementById("panel-area");
+  if (areaSel === "todo") {
+    const faltan = 347 - hechas.length;
+    pa.innerHTML = `<div class="panel-area" style="--c:#242478"><h3>Todo el cuaderno</h3>
+      <p class="nota">Un solo PDF con las ${hechas.length} páginas hechas, en orden.${faltan ? ` Faltan ${faltan} (${AREAS.filter(a => !rango(a.a, a.b).every(n => porNum.has(n))).map(a => a.n).join(", ")}).` : ""} Pesa unos ${Math.round(D.fuentes.reduce((s, f) => s + (D.descargas.find(d => d.f === f.f)?.mb || 0), 0))} MB: tarda un poco en armarse.</p>
+      <div class="fila"><button class="boton fuerte" type="button" data-todo="1">Descargar el cuaderno completo</button></div>
+      <div class="grupo"><strong>O por área</strong><div class="fila">${AREAS.filter(a => hechas.some(n => n >= a.a && n <= a.b)).map(a => `<button class="boton" type="button" style="--c:${a.c}" data-area-pdf="${a.k}">${esc(a.n)}</button>`).join("")}</div></div></div>`;
+    return;
+  }
+  const a = AREAS.find(x => x.k === areaSel), ns = hechas.filter(n => n >= a.a && n <= a.b);
+  const mis = [1,2,3,4,5,6].map(m => [m, paginasMision(a, m)]).filter(([, p]) => p.length);
+  const plan = D.docente.find(d => d.area === a.n)?.planeador;
+  pa.innerHTML = `<div class="panel-area" style="--c:${a.c}"><h3>${esc(a.n)} · págs. ${a.a}–${a.b}</h3>
+    <div class="fila"><button class="boton fuerte" type="button" data-area-pdf="${a.k}">Descargar ${esc(a.n)} completa (${ns.length} páginas)</button></div>
+    ${mis.length ? `<div class="grupo"><strong>Por misión</strong><div class="fila">${mis.map(([m, p]) => `<button class="boton" type="button" data-mis-pdf="${a.k}:${m}">Misión ${m} · págs. ${p[0]}–${p[p.length - 1]}</button>`).join("")}</div></div>` : ""}
+    <div class="grupo"><strong>Una página</strong><div class="paginero">
+      <select id="sel-pag" aria-label="Página">${ns.map(n => `<option value="${n}">Pág. ${n} · ${esc(porNum.get(n).tit)}</option>`).join("")}</select>
+      <button class="boton" type="button" id="b-pag">Descargar esa página</button>
+      <button class="boton" type="button" id="v-pag">Verla</button></div></div>
+    ${plan ? `<div class="grupo"><strong>Material del docente</strong><div class="fila"><button class="boton" type="button" data-bajar="${esc(plan.pdf)}">Planeador del docente (PDF)</button></div></div>` : ""}
+  </div>`;
+  document.getElementById("b-pag").onclick = () => pdfPagina(+document.getElementById("sel-pag").value);
+  document.getElementById("v-pag").onclick = () => abrirPag(+document.getElementById("sel-pag").value);
+}
+document.getElementById("chips-areas").addEventListener("click", e => { const b = e.target.closest("[data-sel]"); if (b) { areaSel = b.dataset.sel; history.replaceState(null, "", "#descargas" + (areaSel === "todo" ? "" : "/" + areaSel)); pintarChips(); } });
+document.addEventListener("click", e => {
+  const ap = e.target.closest("[data-area-pdf]"); if (ap) return pdfArea(AREAS.find(a => a.k === ap.dataset.areaPdf));
+  const mp = e.target.closest("[data-mis-pdf]"); if (mp) { const [k, m] = mp.dataset.misPdf.split(":"); return pdfMision(AREAS.find(a => a.k === k), +m); }
+  if (e.target.closest("[data-todo]")) return pdfTodo();
+  if (e.target.id === "dlg-pdf" && e.target.dataset.n) return pdfPagina(+e.target.dataset.n);
+});
+const enCuaderno = f => D.fuentes.some(x => x.f === f);
+document.getElementById("desc").innerHTML = D.descargas.filter(d => !enCuaderno(d.f)).map(d => `<div class="desc-fila"><div><b>${esc(d.t)}</b><br><small>${esc(d.f.split("/").pop())} · ${d.mb} MB</small></div>
   <button class="boton" type="button" data-bajar="${esc(d.f)}">Descargar</button></div>`).join("");
 document.addEventListener("click", e => { const b = e.target.closest("[data-bajar]"); if (b) bajar(b.dataset.bajar, b.dataset.bajar.split("/").pop()); });
 (async () => { try { bajador = await window.claude?.use?.("downloads"); } catch (e) { bajador = null; } })();
@@ -328,7 +434,8 @@ document.addEventListener("click", e => { const b = e.target.closest("[data-baja
 /* ---------- pestañas ---------- */
 const VISTAS = ["cuaderno","docente","hallazgos","descargas"];
 function mostrar() {
-  const h = location.hash.slice(1), v = VISTAS.includes(h) ? h : "cuaderno";
+  const [h, sub] = location.hash.slice(1).split("/"), v = VISTAS.includes(h) ? h : "cuaderno";
+  if (v === "descargas") { const k = sub && AREAS.some(a => a.k === sub) ? sub : (sub ? areaSel : "todo"); if (k !== areaSel || !document.getElementById("chips-areas").children.length) { areaSel = k; pintarChips(); } }
   VISTAS.forEach(x => { document.getElementById("v-" + x).hidden = x !== v; });
   document.querySelectorAll("nav.pestanas a").forEach(a => a.toggleAttribute("aria-current", a.getAttribute("href") === "#" + v));
   document.querySelectorAll("nav.pestanas a[aria-current]").forEach(a => a.setAttribute("aria-current", "page"));
