@@ -73,6 +73,11 @@ def docente(out):
         shutil.copy(f, os.path.join(out, "guias", os.path.basename(f)))
         n = os.path.basename(f)[:-5].replace("LC_", "").replace("_", " · ").replace("Clase", "Clase ").replace("Mision", "Misión ").replace("Devolucion", "Devolución")
         guias_lc.append(dict(f="guias/" + os.path.basename(f), t=n))
+    guias_soc = []
+    for f in sorted(glob.glob(os.path.join(ENT, "guias_sociales", "*.html"))):
+        shutil.copy(f, os.path.join(out, "guias", os.path.basename(f)))
+        n = os.path.basename(f)[:-5].replace("SOC_", "").replace("_", " · ").replace("Clase", "Clase ").replace("Mision", "Misión ").replace("Devolucion", "Devolución")
+        guias_soc.append(dict(f="guias/" + os.path.basename(f), t=n))
     pil = os.path.join(RAIZ, "piloto", "paquete_mision1_aprobado", "3_presentaciones")
     shutil.copy(os.path.join(pil, "Clase_viva_estudiantes.html"), os.path.join(out, "guias", "Piloto_Mate_M1_Clase_viva.html"))
     shutil.copy(os.path.join(pil, "Guia_del_encuentro_docente.html"), os.path.join(out, "guias", "Piloto_Guia_del_encuentro_docente.html"))
@@ -84,7 +89,8 @@ def docente(out):
              nota="Las 8 guías de clase del área están pendientes; abajo, las del piloto aprobado."),
         dict(area="Lectura Crítica", planeador=dict(pdf="descargas/Planeador_LecturaCritica.pdf",
              hojas=hojas("EDUCATE_Planeador_LecturaCritica.pdf", "plan_lc")), guias=guias_lc),
-        dict(area="Sociales y Ciudadanas", planeador=None, guias=[], guias_nota="pendientes (el cuaderno ya está completo)"),
+        dict(area="Sociales y Ciudadanas", planeador=dict(pdf="descargas/Planeador_Sociales.pdf",
+             hojas=hojas("EDUCATE_Planeador_Sociales.pdf", "plan_soc")), guias=guias_soc),
         dict(area="Biología", planeador=None, guias=[], guias_nota="pendientes (el cuaderno ya está completo)"),
         dict(area="Química", planeador=None, guias=[], guias_nota="pendientes (el cuaderno ya está completo)"),
         dict(area="Física", planeador=None, guias=[], guias_nota="pendientes (el cuaderno ya está completo)"),
@@ -113,6 +119,7 @@ def descargas(out):
               ("Ingles_completo_paginas_268_a_344.pdf", "Cuaderno_08_Ingles_p268-344.pdf"),
               ("EDUCATE_Planeador_Matematicas.pdf", "Planeador_Matematicas.pdf"),
               ("EDUCATE_Planeador_LecturaCritica.pdf", "Planeador_LecturaCritica.pdf"),
+              ("EDUCATE_Planeador_Sociales.pdf", "Planeador_Sociales.pdf"),
               ("EDUCATE_Informe_hallazgos.pdf", "Informe_hallazgos_6nov.pdf"),
               # la matriz .xlsx no se puede servir desde la página (solo PDF, imágenes, HTML…): queda en GitHub
               ("EDUCATE_Estado_del_proyecto.pdf", "Estado_del_proyecto_6nov.pdf"),
@@ -124,6 +131,9 @@ def descargas(out):
                "Cuaderno_03": "Cuaderno · Lectura Crítica (53–95)", "Cuaderno_04": "Cuaderno · Sociales y Ciudadanas (96–138)",
                "Cuaderno_05": "Cuaderno · Biología (139–181)", "Cuaderno_06": "Cuaderno · Química (182–224)", "Cuaderno_07": "Cuaderno · Física (225–267)", "Cuaderno_08": "Cuaderno · Inglés (268–344)", "Planeador_Matematicas": "Planeador del docente · Matemáticas",
                "Planeador_LecturaCritica": "Planeador del docente · Lectura Crítica",
+               "Planeador_Sociales": "Planeador del docente · Sociales y Ciudadanas",
+               "Guias_LecturaCritica": "Las 8 presentaciones de Lectura Crítica (.zip)",
+               "Guias_Sociales": "Las 8 presentaciones de Sociales y Ciudadanas (.zip)",
                "Informe_hallazgos_6nov": "Informe de hallazgos del libro (versión del 6 nov)",
                "Matriz_del_proyecto_6nov": "Matriz del proyecto (versión del 6 nov)",
                "Estado_del_proyecto_6nov": "Estado del proyecto (versión del 6 nov)", "Muestra_reunion": "Muestra para la reunión"}

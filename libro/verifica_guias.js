@@ -4,7 +4,8 @@
 //
 // Recorre cada guía diapositiva por diapositiva (tecla →) a 1600 × 900 y comprueba:
 //   · cero errores de JavaScript;
-//   · ninguna clave visible antes de revelarla: .clave, .aviso y la pista ocultos, ninguna
+//   · ninguna clave visible antes de revelarla (lo que se pinta, no solo el atributo hidden):
+//     .clave, .aviso y la pista ocultos, ninguna
 //     opción ICFES marcada (.op.ok) al llegar a la diapositiva;
 //   · nada se sale de ancho (la página no tiene scroll horizontal y ningún elemento de la
 //     diapositiva pasa el borde derecho del escenario);
@@ -34,7 +35,8 @@ const fs = require("fs"), path = require("path");
     for (let i = 0; i < n; i++) {
       const r = await page.evaluate(() => {
         const w = document.getElementById("wrap"), st = document.getElementById("stage");
-        const vis = el => !el.hidden && el.offsetParent !== null;
+        // visible = lo que de verdad se pinta: el atributo hidden no basta si el CSS le da display
+        const vis = el => el.offsetParent !== null && getComputedStyle(el).visibility !== "hidden";
         const out = {};
         out.claveVisible = [...w.querySelectorAll(".clave,.aviso,.note[id^=pista]")].filter(vis).length;
         out.opOk = w.querySelectorAll(".op.ok").length;
@@ -70,7 +72,7 @@ const fs = require("fs"), path = require("path");
         const k = await page.evaluate(() => {
           const b = document.querySelector("#wrap [data-showgrupo]"); b.click();
           const g = [...document.querySelectorAll(`#wrap [data-grupo="${b.dataset.showgrupo}"].clave`)];
-          return g.filter(x => !x.hidden).map(x => x.textContent.trim()[0]);
+          return g.filter(x => x.offsetParent !== null).map(x => x.textContent.trim()[0]);
         });
         if (k.length !== 2 || k.some(x => !/[A-D]/.test(x))) prob.push(`diap. ${d}: el bloque revela [${k}]`);
         if (shots && !shotBloque) { await page.screenshot({ path: path.join(shots, f.replace(".html", `_${d}_bloque.png`)) }); shotBloque = true; }
