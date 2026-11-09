@@ -852,3 +852,553 @@ RETOS = {
      "mayoría puede decidir esto?, ¿es eficaz y es legítima?, ¿qué pasa en lo político, lo social y "
      "lo ético? Cada integrante cierra con su frase: «Aunque la mayoría ___, la medida ___ porque ___»."),
 }
+
+
+# ─────────────────────────────── hojas ───────────────────────────────
+OUTP = OUT + "plan_soc_"
+
+
+def _cajas_hilo(b, y):
+    cajas = [("LIBRO", "tiene la pregunta", GRAY), ("CUADERNO", "tiene el andamiaje para resolverla", SOC),
+             ("PLANEADOR", "te dice qué hacer con los dos", "#1F4E8C"),
+             ("GUÍA", "pone ese plan en pantalla", VERDE)]
+    an = (CW - 3 * 26) / 4
+    for i, (t, s_, c) in enumerate(cajas):
+        x = M + i * (an + 26)
+        b.append(rect(x, y, an, 140, "white", r=18, stroke=c, sw=2.4))
+        b.append(rect(x + 14, y + 16, 5, 108, c, r=3))
+        b.append(T(x + an / 2 + 10, y + 58, [t], 26, c, weight="700", anchor="middle", ls=1.4))
+        for j, ln in enumerate(wrap_px(s_, 21, an - 56)):
+            b.append(T(x + an / 2 + 10, y + 94 + j * 28, [" ".join(ln)], 21, GRAY, anchor="middle"))
+        if i < 3:
+            b.append(T(x + an + 13, y + 82, ["›"], 34, "#A8B0BC", weight="700", anchor="middle"))
+    return y + 140
+
+
+def h1():
+    b = svg_open()
+    y = cabecera(b, "Sociales y Ciudadanas", "Planeador del área · las ocho clases",
+                 derecha="8", dsub="clases de 120 min", campos=True)
+    y = seccion(b, y, "Para qué existe este documento")
+    y = parrafo_j(b, M, y,
+        "La calidad de la clase no puede depender de qué profesor llegue ese sábado. Por eso el "
+        "método de EDUCATE no vive en el profesor: vive en el cuaderno del estudiante. Este "
+        "planeador no te pide saber historia de memoria; te dice qué hacer con el libro y con el "
+        "cuaderno en cada uno de los 120 minutos, y dónde termina lo fijo y empieza tu aporte.",
+        CW, 26) + 24
+    y = _cajas_hilo(b, y) + 30
+    y = nota(b, M, y, CW,
+        "Casi ninguna pregunta de Sociales se resuelve recordando una fecha. Se resuelve "
+        "preguntando quién gana, quién pierde y quién decide, y desde qué principio. Es el mapa de "
+        "actores que el estudiante encuentra en la portada del área. Un estudiante que acierta con "
+        "el instrumento vacío no aprendió la estrategia: adivinó, y en la prueba real no va a tener "
+        "a quién preguntarle.",
+        ORO, ORO_BG, ORO_LN, "El instrumento de pensamiento del área: el mapa de actores", 25) + 30
+    y = seccion(b, y, "El área en números")
+    na = sum(len(v) for v in AVISOS.values())
+    cif = [("43", "páginas del cuaderno\\ncon la portada", SOC), ("60", "preguntas del libro\\ncon su instrumento", SOC),
+           ("24", "preguntas oficiales\\ndel ICFES", VERDE), (str(len(SELLOS)), "sellos «aquí entra\\nel profe»", ORO),
+           (str(na), "avisos del libro\\nantes de entrar", ROJO)]
+    an2 = (CW - 4 * 18) / 5
+    for i, (v, l, c) in enumerate(cif):
+        x = M + i * (an2 + 18)
+        b.append(rect(x, y, an2, 140, "white", r=16, stroke=SOC_LN, sw=2))
+        b.append(rect(x + 14, y + 14, 5, 112, c, r=3))
+        b.append(T(x + 38, y + 64, [v], 50, c, weight="700"))
+        for j, ln in enumerate(l.split("\\n")):
+            b.append(T(x + 38, y + 98 + j * 26, [ln], 20, GRAY))
+    y += 140 + 30
+    y = seccion(b, y, "Las tres competencias que evalúa el ICFES en esta prueba")
+    comp = [("PS", "Pensamiento social", "usar conceptos de las ciencias sociales y de la "
+             "Constitución para entender un problema"),
+            ("IP", "Interpretación de perspectivas", "reconocer quién dice qué, desde dónde y con "
+             "qué intereses"),
+            ("PRS", "Pensamiento reflexivo y sistémico", "ver las dimensiones de un problema y los "
+             "efectos en cadena de una decisión")]
+    an3 = (CW - 2 * 18) / 3
+    alt3 = 52 + max(len(wrap_px(t + ": " + d, 22, an3 - 70)) for _, t, d in comp) * 31 + 20
+    for i, (cod, t, d) in enumerate(comp):
+        x = M + i * (an3 + 18)
+        b.append(rect(x, y, an3, alt3, SOC_BG, r=16, stroke=SOC_LN, sw=2))
+        b.append(rect(x + 14, y + 14, 5, alt3 - 28, SOC, r=3))
+        b.append(T(x + 40, y + 44, [cod], 26, SOC, weight="700"))
+        parrafo_j(b, x + 40, y + 54, t + ": " + d, an3 - 70, 22, INK, lh=31)
+    y += alt3 + 30
+    y = nota(b, M, y, CW,
+        "Cinco preguntas del libro tocan la política colombiana viva: dos de la misión 1 nombran al "
+        "presidente en ejercicio y tres de la misión 6 tratan de un familiar suyo investigado y de "
+        "un expresidente condenado en primera instancia. La misión 3 abre con el homenaje a un "
+        "senador asesinado en 2025. La decisión de la Gerencia está pendiente. Mientras tanto: no "
+        "agregas casos con nombres propios, se lee el argumento y no al personaje, y si el salón se "
+        "polariza, vuelves al renglón del texto.",
+        ROJO, ROJO_BG, ROJO_LN, "Antes de empezar el área", 23) + 28
+    y = nota(b, M, y, CW,
+        "No necesitas ser de Sociales. La segunda hoja de cada clase trae los cuatro conceptos que "
+        "tienes que poder explicar en dos minutos, y el cuaderno marca con un sello «Alto · aquí "
+        "entra el profe» las doce preguntas donde el estudiante no puede seguir sin ti. Lo demás lo "
+        "resuelve el mapa de actores: quién, qué derecho, qué efecto.",
+        VERDE, VERDE_BG, VERDE_LN, "Si Sociales no es tu fuerte", 23) + 28
+    y = seccion(b, y, "Lo que la coordinación revisa, sin haber entrado a la clase",
+        "Tres cuadernos al azar del grupo. No se mira si la respuesta está buena: se mira si el "
+        "instrumento está lleno. Marca tú mismo esta lista al terminar el sábado.")
+    rev = ["El instrumento de pensamiento está lleno en las diez preguntas, acertadas o no.",
+           "«Mi primera idea, antes de hacer nada» tiene algo escrito en todas las preguntas.",
+           "Los sellos «Alto · aquí entra el profe» tienen escrito «lo que explicó, en mis palabras».",
+           "Las dos caritas de la clase están marcadas y la clase está anotada en la portada del área."]
+    b.append(rect(M, y, CW, 34 + len(rev) * 50, "white", r=18, stroke=SOC_LN, sw=2))
+    b.append(rect(M + 14, y + 16, 5, 2 + len(rev) * 50, SOC, r=3))
+    yy = y + 34
+    for r_ in rev:
+        b.append(checkbox(M + 44, yy - 14, 13, SOC))
+        parrafo_j(b, M + 100, yy - 22, r_, CW - 150, 23, INK)
+        yy += 50
+    pie(b, 1)
+    svg_close(b, OUTP + "01.svg")
+
+
+def h2():
+    b = svg_open()
+    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo", derecha="43",
+                 dsub="páginas del cuaderno")
+    y = seccion(b, y, "Qué se ve en cada sábado",
+        "Seis clases de contenido, una por momento, y dos para el simulacro del área. El número "
+        "de clases es fijo: no se recorta aunque un momento quede largo.")
+    colx = [M, M + 120, M + 700, M + 1110, M + 1450]
+    y = encabezado_tabla(b, y, list(zip(colx, ["CLASE", "QUÉ SE TRABAJA", "ÉNFASIS",
+                                                "PARA EL PROFE", "ENTRENAMIENTO ICFES"])), 54)
+    y += 2
+    for n, (mis, tit, sub) in enumerate(CLASES, 1):
+        alto = 96
+        bg = "white" if mis else ORO_BG
+        ln = SOC_LN if mis else ORO_LN
+        c = SOC if mis else ORO
+        b.append(rect(M, y, CW, alto, bg, r=14, stroke=ln, sw=2))
+        b.append(rect(M + 12, y + 12, 5, alto - 24, c, r=3))
+        b.append(T(colx[0] + 44, y + 62, [str(n)], 42, c, weight="700", anchor="middle"))
+        b.append(T(colx[1] + 20, y + 44, [tit], 24, INK, weight="700"))
+        b.append(T(colx[1] + 20, y + 74, [sub], 20, GRAY, style="italic"))
+        if mis:
+            d = MISIONES[mis]
+            cod, de = d["competencia"].split(" · ")
+            b.append(T(colx[2] + 20, y + 44, [cod], 23, SOC, weight="700"))
+            b.append(T(colx[2] + 20, y + 74, [de], 19, GRAY))
+            ns, na = len(sellos_de(mis)), len(AVISOS.get(mis, []))
+            tx = {0: "sin sellos", 1: "1 sello"}.get(ns, f"{ns} sellos")
+            b.append(T(colx[3] + 20, y + 46, [f"{tx} · {na} avisos"], 22, INK, weight="700"))
+            b.append(T(colx[3] + 20, y + 76, ["para preparar antes"], 19, GRAY))
+            b.append(T(colx[4] + 20, y + 46, [f"{len(BANCO.get(mis, []))} preguntas oficiales"],
+                       22, VERDE, weight="700"))
+            b.append(T(colx[4] + 20, y + 76, [f"páginas {BASE[mis]+2} y {BASE[mis]+6}"], 19, GRAY))
+        else:
+            b.append(T(colx[2] + 20, y + 58, ["PS · IP · PRS"], 23, GRAY))
+            b.append(T(colx[3] + 20, y + 58, ["todo el área"], 22, GRAY))
+            b.append(T(colx[4] + 20, y + 58, ["24 preguntas ya resueltas"], 22, GRAY))
+        y += alto + 10
+    y += 24
+    y = seccion(b, y, "Las 24 estrategias del área, misión por misión",
+        "Son el vocabulario que el estudiante se lleva. Si al final del área puede nombrarlas y decir "
+        "para qué sirve cada una, el área cumplió, aunque falle preguntas.")
+    an = (CW - 2 * 18) / 3
+    alto = 0
+    for m in range(1, 7):
+        lins = sum(len(wrap_px(e, 21, an - 132)) for e in MISIONES[m]["estr"])
+        alto = max(alto, 98 + lins * 29 + 4 * 12)
+    for m in range(1, 7):
+        x = M + ((m - 1) % 3) * (an + 18)
+        yy0 = y + ((m - 1) // 3) * (alto + 18)
+        d = MISIONES[m]
+        b.append(rect(x, yy0, an, alto, SOC_BG, r=16, stroke=SOC_LN, sw=2))
+        b.append(rect(x + 14, yy0 + 14, 5, alto - 28, SOC, r=3))
+        b.append(T(x + 40, yy0 + 44, [f"Misión {m} · {d['comp']}"], 22, SOC, weight="700"))
+        b.append(T(x + 40, yy0 + 72, [f"páginas {d['pags']}"], 19, GRAY, style="italic"))
+        yy = yy0 + 92
+        for j, e in enumerate(d["estr"]):
+            c = COLS_MIS[m][j]
+            b.append(T(x + 40, yy + 21, [f"E{j+1}"], 18, c, weight="700"))
+            yy = parrafo_j(b, x + 92, yy - 1, e, an - 132, 21, INK, lh=29) + 12
+    pie(b, 2)
+    svg_close(b, OUTP + "02.svg")
+
+
+def hoja_momentos(parte):
+    desde, hasta = (0, 3) if parte == 1 else (3, 6)
+    b = svg_open()
+    y = cabecera(b, "Los 120 minutos", f"Momentos {desde+1} a {hasta} de los seis de una clase",
+                 derecha="120", dsub="minutos por clase")
+    y = seccion(b, y, "Distribución del tiempo · 120 minutos",
+        "El núcleo de cada momento es fijo. Tu aporte tiene su propio espacio al final de cada "
+        "bloque: va además de lo de arriba, no en vez de lo de arriba." if parte == 1 else
+        "Viene de la hoja anterior. La misma estructura en las ocho clases del área.")
+    y = barra_tiempo(b, y, FASES)
+    for i in range(desde, hasta):
+        y = bloque_momento(b, y, i + 1, FASES[i])
+    pie(b, 2 + parte)
+    svg_close(b, OUTP + f"{2 + parte:02d}.svg")
+
+
+def _paginas(mis):
+    base = BASE[mis]
+    return [base, base + 1, base + 3, base + 4, base + 5], [base + 2, base + 6]
+
+
+def hoja_clase(mis):
+    d = MISIONES[mis]
+    cols = COLS_MIS[mis]
+    b = svg_open()
+    l0, l1 = LIBRO[mis]
+    y = cabecera(b, f"Clase {mis}", f"Momento {mis} · {d['comp']} · cuaderno {d['pags']} · "
+                 f"libro {l0} a {l1}", derecha=f"{mis}", dsub="de 8 clases")
+    y = seccion(b, y, "Las cuatro estrategias del momento",
+        f"«{d['tema']}». El estudiante las ve rotuladas en cada pregunta de su cuaderno, con este "
+        "mismo color: nómbralas igual en voz alta.")
+    an = (CW - 3 * 16) / 4
+    alt = max(52 + len(wrap_px(e, 23, an - 60)) * 32 for e in d["estr"])
+    for i, e in enumerate(d["estr"]):
+        x = M + i * (an + 16)
+        b.append(rect(x, y, an, alt, "white", r=16, stroke=SOC_LN, sw=2))
+        b.append(rect(x + 14, y + 14, 5, alt - 28, cols[i], r=3))
+        b.append(T(x + 38, y + 40, [f"ESTRATEGIA {i+1} · {COMP_EST[mis][i]}"], 16, cols[i],
+                   weight="700", ls=1.3))
+        parrafo_j(b, x + 38, y + 50, e, an - 60, 23, INK, weight="700", lh=32)
+    y += alt + 26
+    y = nota(b, M, y, CW, d["instala"], ORO, ORO_BG, ORO_LN,
+             "Lo que tienes que instalar antes del taller", 24) + 22
+    # los sellos de esta misión
+    ss = sellos_de(mis)
+    if ss:
+        y = seccion(b, y, f"{'El sello' if len(ss) == 1 else f'Los {len(ss)} sellos'} de esta clase",
+            "En estas preguntas el cuaderno le dice al estudiante «alto, aquí entra el profe». El "
+            "concepto está explicado en la hoja siguiente.")
+        for s in ss:
+            _, _, pag, preg, saber, _, _ = s
+            lin = wrap_px(saber, 22, CW - 330)
+            h = max(58, 22 + len(lin) * 30)
+            b.append(rect(M, y, CW, h, ORO_BG, r=12, stroke=ORO_LN, sw=1.8))
+            b.append(rect(M + 10, y + 10, 4, h - 20, ORO, r=2))
+            b.append(T(M + 36, y + h / 2 + 8, [f"pág. {pag} · preg. {preg}"], 21, ORO, weight="700"))
+            parrafo_j(b, M + 290, y + (h - len(lin) * 30) / 2 - 4, saber, CW - 330, 22, INK, lh=30)
+            y += h + 6
+        y += 18
+    else:
+        y = nota(b, M, y, CW,
+            "Esta misión no tiene sellos «Alto · aquí entra el profe»: los conceptos que hacen falta "
+            "están en la hoja siguiente, en «Si Sociales no es tu fuerte».",
+            VERDE, VERDE_BG, VERDE_LN, "Sin sellos en esta clase", 22) + 24
+    # las diez preguntas
+    y = seccion(b, y, "Las diez preguntas del libro, su instrumento y su clave")
+    cx = [M, M + 80, M + 210, M + 560, M + 1240, W - M - 100]
+    y = encabezado_tabla(b, y, list(zip(cx, ["N.º", "PÁGINAS", "ESTRATEGIA", "INSTRUMENTO DE PENSAMIENTO",
+                                              "CONTEXTO", "CLAVE"])), 46)
+    t_pags, _ = _paginas(mis)
+    claves = CLAVES[mis]
+    for p, est, ins, ctx in TALLER.get(mis, []):
+        i_est = d["estr"].index(est) if est in d["estr"] else 0
+        c = cols[i_est]
+        l_ins = wrap_px(ins, 20, 640)
+        l_ctx = wrap_px(ctx, 19, 470)
+        l_est = wrap_px(est, 18, 270)
+        h = max(56, 18 + max(len(l_ins), len(l_ctx)) * 28, 22 + len(l_est) * 24 + 4)
+        b.append(rect(M, y, CW, h, SOC_BG if p <= 2 else "white", r=10, stroke=SOC_LN, sw=1.6))
+        b.append(rect(M + 9, y + 9, 4, h - 18, c, r=2))
+        b.append(T(cx[0] + 44, y + h / 2 + 9, [str(p)], 24, c, weight="700", anchor="middle"))
+        pc = t_pags[(p - 1) // 2]
+        b.append(T(cx[1] + 6, y + h / 2 - 3, [f"cuad. {pc}"], 17, INK, weight="700"))
+        b.append(T(cx[1] + 6, y + h / 2 + 19, [f"libro {_pag_libro(mis, p)}"], 17, GRAY))
+        b.append(T(cx[2] + 4, y + (h - len(l_est) * 24) / 2 + 17, [f"E{i_est+1}"], 18, c, weight="700"))
+        for j, ln in enumerate(l_est):
+            b.append(T(cx[2] + 44, y + (h - len(l_est) * 24) / 2 + 17 + j * 24, [" ".join(ln)], 18, GRAY))
+        parrafo_j(b, cx[3] + 14, y + (h - len(l_ins) * 28) / 2 - 4, ins, 640, 20, INK, lh=28)
+        parrafo_j(b, cx[4] + 14, y + (h - len(l_ctx) * 28) / 2 - 4, ctx, 470, 19, GRAY, lh=28)
+        b.append(rect(cx[5] + 18, y + h / 2 - 21, 60, 42, "white", r=10, stroke=c, sw=2))
+        b.append(T(cx[5] + 48, y + h / 2 + 9, [claves[p]], 24, c, weight="700", anchor="middle"))
+        y += h + 5
+    y += 22
+    av = AVISOS.get(mis, [])
+    y = seccion(b, y, "Lo que tienes que saber del libro antes de entrar",
+        "Salió de resolver las diez preguntas una por una. No se le esconde al estudiante.")
+    for preg, sev, que, hacer in av:
+        c, bg, ln = SEV[sev]
+        texto = que + "  →  " + hacer
+        lin = wrap_px(texto, 20, CW - 400)
+        h = max(62, 20 + len(lin) * 28)
+        b.append(rect(M, y, CW, h, bg, r=12, stroke=ln, sw=1.8))
+        b.append(rect(M + 10, y + 10, 4, h - 20, c, r=2))
+        b.append(T(M + 36, y + h / 2 - 4, [preg.upper()], 17, c, weight="700", ls=1))
+        chip(b, M + 36, y + h / 2 + 6, sev.upper(), c, size=13, pad=10, fill="white", txtc=c)
+        parrafo_j(b, M + 360, y + (h - len(lin) * 28) / 2 - 5, texto, CW - 400, 20, INK, lh=28)
+        y += h + 6
+    pie(b, 3 + mis * 2)
+    svg_close(b, OUTP + f"{3 + mis * 2:02d}.svg")
+
+
+# Página del libro de cada pregunta, leída de «la lees en tu libro, página N» del cuaderno.
+PAG_LIBRO = {
+ 1: [336, 337, 337, 337, 338, 338, 338, 338, 339, 339],
+ 2: [347, 347, 347, 348, 348, 348, 348, 349, 349, 349],
+ 3: [359, 359, 359, 359, 359, 360, 360, 361, 361, 361],
+ 4: [370, 371, 371, 372, 373, 373, 373, 373, 374, 374],
+ 5: [383, 383, 383, 384, 384, 385, 385, 385, 385, 386],
+ 6: [398, 399, 399, 399, 400, 400, 401, 401, 402, 402],
+}
+
+
+def _pag_libro(mis, p):
+    return PAG_LIBRO[mis][p - 1]
+
+
+def hoja_clase_b(mis):
+    d = MISIONES[mis]
+    b = svg_open()
+    y = cabecera(b, f"Clase {mis} · minuto a minuto", "El sábado, los conceptos y la evaluación",
+                 derecha="120", dsub="minutos")
+    t_pags, i_pags = _paginas(mis)
+    ins = {p: i for p, e, i, c in TALLER.get(mis, [])}
+    din = DINAMICAS[mis]
+    sel = ", ".join(str(s[3]) for s in sellos_de(mis))
+    caso, pista = ACTIVACION[mis]
+    concreto = [
+        f"Caso proyectado, sin contexto: «{caso}» Quién gana, quién pierde, quién decide. "
+        f"Dinámica E1 «{din[0][0]}» ({din[0][1]}'). Pista para el cierre del momento: {pista}.",
+        f"Pregunta modelo del libro, a la vista todo el momento. Manos alzadas antes de releer. "
+        f"La pregunta del momento: {PROBLEMATIZADORA[mis]} Se abre la página {t_pags[0]} solo en "
+        f"«mi primera idea».",
+        f"1-2 en pantalla (página {t_pags[0]}, «{ins.get(1, '—')}» y «{ins.get(2, '—')}»); 3-4, 5-6, "
+        f"7-8 y 9-10 en las páginas {t_pags[1]}, {t_pags[2]}, {t_pags[3]} y {t_pags[4]}. Entre "
+        f"bloques, las dinámicas E2, E3 y E4."
+        + (f" Sello en {'la pregunta' if ',' not in sel else 'las preguntas'} {sel}." if sel else ""),
+        f"Reto del corte: «{RETOS[mis][0]}». Equipos de tres; cada uno registra en SU tarjeta. La "
+        f"defensa nombra el actor, el derecho o el renglón.",
+        f"Entrenamiento ICFES, páginas {i_pags[0]} y {i_pags[1]}. Cuatro preguntas oficiales, en "
+        f"silencio y con reloj.",
+        f"Solo las falladas, con el actor o el principio que las resuelve. «Palabras que me "
+        f"frenaron», «lo que me llevo», carita de salida y la clase {mis} en la portada del área.",
+    ]
+    y = seccion(b, y, "El sábado, minuto a minuto",
+        "Las seis fases con el contenido de este momento puesto encima.")
+    reloj = 0
+    for (nom, mins, c, *_), txt in zip(FASES, concreto):
+        lin = wrap_px(txt, 21, CW - 440)
+        h = max(70, 24 + len(lin) * 29)
+        b.append(rect(M, y, CW, h, "white", r=14, stroke=SOC_LN, sw=1.8))
+        b.append(rect(M + 12, y + 12, 5, h - 24, c, r=3))
+        b.append(T(M + 40, y + h / 2 - 2, [f"{reloj:02d}'–{reloj+mins:02d}'"], 22, c, weight="700"))
+        b.append(T(M + 40, y + h / 2 + 26, [nom], 19, GRAY))
+        parrafo_j(b, M + 400, y + (h - len(lin) * 29) / 2 - 5, txt, CW - 440, 21, INK, lh=29)
+        reloj += mins
+        y += h + 6
+    y += 20
+    # Si Sociales no es tu fuerte
+    y = seccion(b, y, "Si Sociales no es tu fuerte",
+        "Lo que tienes que poder explicar en dos minutos, sin jerga. Si un estudiante sabe más que "
+        "tú de un tema, déjalo explicar y pide que señale en el caso de dónde lo saca.",
+        color=VERDE)
+    an = (CW - 18) / 2
+    items = NO_ES_TU_FUERTE[mis]
+    for fila in range(2):
+        par = items[fila * 2: fila * 2 + 2]
+        alto = max(66 + len(wrap_px(t, 20, an - 70)) * 28 for _, t in par) + 10
+        for k, (tit, txt) in enumerate(par):
+            x = M + k * (an + 18)
+            b.append(rect(x, y, an, alto, VERDE_BG, r=14, stroke=VERDE_LN, sw=1.8))
+            b.append(rect(x + 12, y + 12, 5, alto - 24, VERDE, r=3))
+            b.append(T(x + 38, y + 40, [tit], 21, VERDE, weight="700"))
+            parrafo_j(b, x + 38, y + 50, txt, an - 70, 20, INK, lh=28)
+        y += alto + 12
+    y += 16
+    # ICFES
+    banco = BANCO.get(mis, [])
+    y = seccion(b, y, "Las cuatro preguntas oficiales y su clave",
+        "Van con el membrete «Pregunta oficial ICFES · Saber 11», sin año. Claves verificadas "
+        "resolviendo cada pregunta.")
+    for k, (x4, est, ins_, ctx) in enumerate(INS_ICFES.get(mis, [])):
+        fila = banco[k] if k < len(banco) else {}
+        ctx_ = fila.get("contexto", "—")
+        i_est = d["estr"].index(est) if est in d["estr"] else 0
+        cc = COLS_MIS[mis][i_est]
+        l_c = wrap_px(ctx_, 20, 620, "700")
+        l_i = wrap_px(ins_, 19, 640)
+        h = max(62, 20 + max(len(l_c), len(l_i)) * 28)
+        b.append(rect(M, y, CW, h, "white", r=12, stroke=VERDE_LN, sw=1.8))
+        b.append(rect(M + 10, y + 10, 4, h - 20, cc, r=2))
+        b.append(T(M + 36, y + h / 2 - 3, [f"P{x4}"], 21, cc, weight="700"))
+        b.append(T(M + 36, y + h / 2 + 20, [f"pág. {i_pags[0] if x4 <= 2 else i_pags[1]}"], 16, GRAY))
+        b.append(T(M + 150, y + h / 2 + 8, [f"E{i_est+1} · {comp_icfes(mis, x4)}"], 18, cc, weight="700"))
+        parrafo_j(b, M + 290, y + (h - len(l_c) * 28) / 2 - 4, ctx_, 620, 20, INK, weight="700", lh=28)
+        parrafo_j(b, M + 940, y + (h - len(l_i) * 28) / 2 - 4, ins_, 640, 19, GRAY, style="italic", lh=28)
+        cl = fila.get("clave", "").strip()
+        b.append(rect(W - M - 96, y + h / 2 - 22, 64, 44, VERDE_BG, r=10, stroke=VERDE, sw=2))
+        b.append(T(W - M - 64, y + h / 2 + 10, [cl or "—"], 26, VERDE, weight="700", anchor="middle"))
+        y += h + 6
+    y += 22
+    y = seccion(b, y, "Después de la clase · tu registro",
+        "Se llena el mismo sábado, antes de salir. Esto no lo ve el estudiante.")
+    alto_reg = int(min(232, (2470 - y - 14) / 2))
+    registro_docente(b, y, alto=alto_reg, campos=[
+        ("¿Qué concepto hubo que explicar dos veces?", "y con qué ejemplo funcionó la segunda"),
+        ("¿A quién hay que volver la próxima clase?", "nombres, no «algunos»"),
+        ("¿Qué cuaderno quedó con el instrumento vacío?", "aunque haya acertado la respuesta"),
+        ("¿Dónde se polarizó el salón?", "y cómo volviste al caso; va al reporte")])
+    pie(b, 4 + mis * 2)
+    svg_close(b, OUTP + f"{4 + mis * 2:02d}.svg")
+
+
+def h17():
+    """Clases 7 y 8 · el simulacro del área y su devolución."""
+    b = svg_open()
+    y = cabecera(b, "Clases 7 y 8", "El simulacro del área y su devolución",
+                 derecha="24", dsub="preguntas del simulacro")
+    y = seccion(b, y, "Qué son estas dos clases",
+        "No traen contenido nuevo. Trabajan las 24 preguntas oficiales que el estudiante ya tiene en "
+        "su cuaderno, cuatro por momento, y que hasta ahora resolvió de a poco y con instrumento.")
+    dos = [("Clase 7 · el simulacro", ROJO, ROJO_BG, ROJO_LN,
+            "Condiciones de prueba, 90 minutos de reloj, en silencio",
+            ["Las 24 preguntas oficiales del área, seguidas, en el orden del cuaderno.",
+             "El estudiante SÍ puede escribir quién gana, quién pierde y quién decide al margen: en "
+             "la prueba real también puede, y es lo que entrenó.",
+             "No se responde ninguna duda, ni de conceptos.",
+             "Los últimos 30 minutos: cada uno cuenta sus aciertos por competencia (PS, IP, PRS)."]),
+           ("Clase 8 · la devolución", VERDE, VERDE_BG, VERDE_LN,
+            "Reparación con el instrumento de la primera vez",
+            ["Se eligen las cinco preguntas que más falló el grupo.",
+             "Cada estudiante compara lo que escribió al margen en el simulacro con el instrumento "
+             "de su hoja de entrenamiento.",
+             "La pregunta que gobierna la clase: ¿qué actor o qué principio viste esta vez que no "
+             "viste antes?",
+             "Al final, la portada del área: las ocho clases, las caritas y el puntaje."])]
+    an = (CW - 20) / 2
+    alto = 0
+    for _, _, _, _, _, pasos in dos:
+        alto = max(alto, 120 + sum(len(wrap_px(p_, 22, an - 110)) for p_ in pasos) * 31 + len(pasos) * 22)
+    for i, (tit, c, bg, ln, sub_, pasos) in enumerate(dos):
+        x = M + i * (an + 20)
+        b.append(rect(x, y, an, alto, bg, r=18, stroke=ln, sw=2.2))
+        b.append(rect(x + 14, y + 16, 5, alto - 32, c, r=3))
+        b.append(T(x + 40, y + 52, [tit], 27, c, weight="700"))
+        b.append(T(x + 40, y + 86, [sub_], 20, GRAY, style="italic"))
+        yy = y + 112
+        for p_ in pasos:
+            b.append(f'<circle cx="{x+52}" cy="{yy+12}" r="6" fill="{c}"/>')
+            yy = parrafo_j(b, x + 76, yy - 6, p_, an - 110, 22, INK, lh=31) + 22
+    y += alto + 30
+    y = nota(b, M, y, CW,
+        "El simulacro no se califica con nota. Se cuenta por competencia, y lo que importa es que el "
+        "estudiante vea en cuál se le va el puntaje. La competencia de cada pregunta sale de la "
+        "estrategia que entrena; es una clasificación de EDUCATE, no la oficial del ICFES, y sirve "
+        "para decidir el refuerzo, no para reportar.",
+        ORO, ORO_BG, ORO_LN, "Cómo se lee el resultado", 24) + 30
+    y = seccion(b, y, "Conteo por competencia",
+        "Llénalo con el grupo en el tablero al final de la clase 7. Debajo de cada una, las "
+        "preguntas que le tocan: misión y número.")
+    grupos = {"PS": [], "IP": [], "PRS": []}
+    for m in range(1, 7):
+        for k in range(1, 5):
+            grupos[comp_icfes(m, k)].append(f"M{m}·{k}")
+    an2 = (CW - 2 * 18) / 3
+    lineas = {c_: wrap_px("  ".join(v), 19, an2 - 80) for c_, v in grupos.items()}
+    alto2 = 168 + max(len(v) for v in lineas.values()) * 27
+    for i, cod in enumerate(("PS", "IP", "PRS")):
+        x = M + i * (an2 + 18)
+        b.append(rect(x, y, an2, alto2, "white", r=16, stroke=SOC_LN, sw=2))
+        b.append(rect(x + 14, y + 14, 5, alto2 - 28, SOC, r=3))
+        b.append(T(x + 40, y + 46, [f"{cod} · {len(grupos[cod])} preguntas"], 23, INK, weight="700"))
+        b.append(T(x + 40, y + 76, [COMP_NOM[cod].lower()], 19, GRAY, style="italic"))
+        for j, ln in enumerate(lineas[cod]):
+            b.append(T(x + 40, y + 108 + j * 27, [" ".join(ln)], 19, SOC, weight="700"))
+        yb = y + 108 + len(lineas[cod]) * 27 - 6
+        b.append(T(x + 40, yb + 20, ["aciertos del grupo"], 18, GRAY))
+        b.append(rect(x + 230, yb - 6, an2 - 270, 40, SOC_BG, r=10, stroke=SOC_LN, sw=1.8))
+    y += alto2 + 30
+    y = seccion(b, y, "Las cinco preguntas que se reparan en la clase 8")
+    cx = [M, M + 200, M + 560, M + 1160]
+    y = encabezado_tabla(b, y, list(zip(cx, ["N.º", "MOMENTO Y PÁGINA", "QUÉ HABÍA QUE VER EN EL CASO",
+                                              "QUÉ FALLÓ EL GRUPO"])))
+    for k in range(1, 6):
+        b.append(rect(M, y, CW, 76, "white", r=12, stroke=SOC_LN, sw=1.8))
+        b.append(rect(M + 10, y + 10, 4, 56, VERDE, r=2))
+        b.append(T(cx[0] + 54, y + 50, [str(k)], 26, VERDE, weight="700", anchor="middle"))
+        for xi, xf in [(cx[1] + 18, cx[2] - 20), (cx[2] + 18, cx[3] - 20), (cx[3] + 18, W - M - 30)]:
+            b.append(line(xi, y + 54, xf, y + 54, "#E6EAF0", 2))
+        y += 82
+    pie(b, 17)
+    svg_close(b, OUTP + "17.svg")
+
+
+def hoja_dinamicas(mis):
+    d = MISIONES[mis]
+    b = svg_open()
+    y = cabecera(b, f"Dinámicas · Misión {mis}",
+                 "Movimiento con sentido: el cuerpo ensaya lo que después hará la mente",
+                 derecha=f"{mis}", dsub="de 6 misiones")
+    y = nota(b, M, y, CW,
+        "La dinámica debe ser isomorfa a la estrategia: lo que hace el cuerpo tiene que ser el "
+        "mismo movimiento que después hará la mente frente al caso. Antes de usar una, responde "
+        "esto: ¿qué paso de la estrategia está ejercitando? Si no hay respuesta, es recreo, no clase.",
+        ORO, ORO_BG, ORO_LN, "La regla para aprobar cualquier dinámica", 24) + 26
+    for i, din in enumerate(DINAMICAS[mis]):
+        y = bloque_dinamica(b, y, i, din, d["estr"][i], COLS_MIS[mis][i])
+    bloque_reto(b, y + 6, mis, RETOS[mis])
+    pie(b, 17 + mis)
+    svg_close(b, OUTP + f"{17 + mis:02d}.svg")
+
+
+def h24():
+    b = svg_open()
+    total = sum(len(v) for v in AVISOS.values())
+    y = cabecera(b, "Cierre del área", "Los avisos del libro, juntos, y lo que hay que devolver",
+                 derecha=str(total), dsub="avisos del libro")
+    y = seccion(b, y, f"Los {total} avisos del libro, en una sola lista",
+        "Para repasarlos antes de empezar el área. Ninguno se le oculta al estudiante: si lo "
+        "detecta y lo escribe, aprendió más que el que marcó la opción esperada.")
+    cx = [M, M + 290, M + 430]
+    y = encabezado_tabla(b, y, list(zip(cx, ["DÓNDE", "SEVERIDAD", "QUÉ PASA"])), 46)
+    for m in range(1, 7):
+        for preg, sev, que, hacer in AVISOS.get(m, []):
+            c, bg, ln = SEV[sev]
+            lin = wrap_px(que, 18, CW - 470)
+            h = max(46, 14 + len(lin) * 24)
+            b.append(rect(M, y, CW, h, bg, r=10, stroke=ln, sw=1.6))
+            b.append(rect(M + 9, y + 8, 4, h - 16, c, r=2))
+            b.append(T(cx[0] + 30, y + h / 2 + 7, [f"M{m} · {preg}"], 18, INK, weight="700"))
+            chip(b, cx[1] + 6, y + h / 2 - 13, sev.upper(), c, size=12, pad=10, fill="white", txtc=c)
+            parrafo_j(b, cx[2] + 14, y + (h - len(lin) * 24) / 2 - 4, que, CW - 470, 18, INK, lh=24)
+            y += h + 4
+    y += 22
+    y = seccion(b, y, "Qué tienes que devolver al terminar el área")
+    dev = [("Los seis registros de clase", "con nombres, no «algunos»"),
+           ("El conteo por competencia del simulacro", "el dato que decide el refuerzo"),
+           ("Dónde se polarizó el salón", "para la decisión pendiente de la Gerencia"),
+           ("Los avisos nuevos que encuentres", "la lista se hizo resolviendo, y seguro falta alguno")]
+    for t, s_ in dev:
+        b.append(rect(M, y, CW, 64, "white", r=14, stroke=SOC_LN, sw=2))
+        b.append(rect(M + 14, y + 12, 5, 40, ORO, r=3))
+        b.append(checkbox(M + 42, y + 19, 13, SOC))
+        b.append(T(M + 100, y + 41, [t], 23, INK, weight="700"))
+        b.append(T(M + 760, y + 41, [s_], 21, GRAY))
+        y += 72
+    pie(b, 24)
+    svg_close(b, OUTP + "24.svg")
+
+
+def build():
+    h1(); h2()
+    hoja_momentos(1); hoja_momentos(2)
+    for m in range(1, 7):
+        hoja_clase(m); hoja_clase_b(m)
+    h17()
+    for m in range(1, 7):
+        hoja_dinamicas(m)
+    h24()
+    return [f"{OUTP}{i:02d}.svg" for i in range(1, TOTAL + 1)]
+
+
+PDF = "/home/user/educate-saber11/entregables/EDUCATE_Planeador_Sociales.pdf"
+
+if __name__ == "__main__":
+    import sys
+    import render
+    hojas = build()
+    print(len(hojas), "hojas del planeador de Sociales y Ciudadanas")
+    if "--pdf" in sys.argv:
+        render.unir(hojas, PDF)
+        n, sin = render.verifica(PDF, "PLANEADOR")
+        print(f"{PDF}: {n} páginas · sin pie: {sin or 'ninguna'}")
