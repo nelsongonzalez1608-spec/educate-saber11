@@ -630,54 +630,110 @@ atención y la EPS que responde por la sostenibilidad financiera.
 
 ## SOCIALES · MISIÓN 1 · páginas 99 y 103 (entrenamiento ICFES)
 
-Las cuatro preguntas vienen del compilado ASED, que tiene una ventaja sobre las otras
-fuentes: **trae impreso el proceso que cada pregunta evalúa**, así que no hay que
-deducir la competencia, que es justo lo que no se puede inventar. Las cuatro van con
-membrete **sin año**: el compilado no trae numeración de cuadernillo.
+Las cuatro preguntas vienen del compilado **ASED pre código 11**, capítulo 12 (Sociales y
+Competencias Ciudadanas). El compilado trae impreso el proceso que evalúa cada pregunta, así
+que la competencia no se dedujo. Van con membrete genérico, como todas.
 
-### Pregunta 1 · El testimonio de la mujer desplazada
-**Fuente del compilado:** Donny Meertens, *El racismo cotidiano en el banquillo*, 2008.
-**Proceso:** interpretación y análisis de perspectivas. **Clave: A.**
+⚠ **Aviso para la Gerencia (9 nov):** la presentación del ASED dice que sus preguntas fueron
+«concebidas específicamente» por la Corporación ASED: **no son del ICFES**. Estas cuatro
+llevan el membrete oficial y están en la lista de las que Nelson tiene que decidir si salen.
+Solo la 4 trae una referencia a un cuadernillo del ICFES (2018), sin verificar.
 
-> Me discriminan… por ser desplazada y por ser negra […] porque yo fui a muchas empresas
-> con la hoja de vida, cumplía con todo pero… «para Usted no hay trabajo». […] Cuando
-> llegamos a buscar la pieza no nos arrendaban por ser negros.
+**Sobre el texto:** las páginas de Sociales del ASED en Drive son imagen y no se pudieron
+leer como texto. Lo que va abajo es el texto que imprime el cuaderno; donde el cuaderno dice
+«resumido», el original del ASED es más largo y hay que cotejarlo antes de proyectar.
+
+### Pregunta 1 (página 99) · El testimonio de la mujer desplazada · clave **A**
+**Fuente:** compilado ASED, Sociales y Competencias Ciudadanas (cita a Donny Meertens, *El
+racismo cotidiano en el banquillo*, 2008). **Competencia:** interpretación y análisis de
+perspectivas. **Estrategia del cuaderno:** 1 · Quién dice qué y por qué.
+
+> Palabras de una mujer de la Costa Pacífica, desplazada en Bogotá:
+>
+> Me discriminan… por ser desplazada y por ser negra […] porque yo fui a muchas empresas con
+> la hoja de vida, cumplía con todo pero… «para Usted no hay trabajo». […] Cuando llegamos a
+> buscar la pieza no nos arrendaban por ser negros.
+
+**Pregunta:** Los tipos de discriminación que se hacen evidentes, en este caso, son:
+
+**Opciones:**
+A. Discriminación racial, por condición social y por lugar de procedencia.
+B. Discriminación sexual, por condición económica y por discapacidad.
+C. Discriminación racial, por creencias y por condiciones sociales.
+D. Discriminación social, por origen étnico y sexual.
+
+**Verificada resolviéndola:** «por ser negra» es racial; «por ser desplazada» es condición
+social; «de la Costa Pacífica, en Bogotá» es lugar de procedencia. La A trae los tres y
+ninguno más.
 
 **Lo que el profesor debe hacer notar**
 
 - La pregunta no se resuelve resumiendo: se resuelve **contando**. Ella nombra tres
-  motivos distintos —ser negra, ser desplazada, ser mujer de la Costa Pacífica— y la
-  opción correcta trae esos tres y ninguno más.
+  motivos distintos —ser negra, ser desplazada, venir de la Costa Pacífica— y la opción
+  correcta trae esos tres y ninguno más.
 - Tres opciones meten motivos que ella **nunca** nombró: creencias, discapacidad, sexo.
   Son formas de discriminación que existen, pero no están en este testimonio.
 - La regla general, que sirve para toda la prueba: **si una opción trae un elemento de
   más, se cae entera.** No importa que lo demás esté bien.
 
-### Pregunta 2 · Limitar, pero no suspender
-**Fuente:** Constitución Política de Colombia, artículo 213 (Estado de Conmoción
-Interior). **Proceso:** pensamiento reflexivo y sistémico. **Clave: D.**
+### Pregunta 2 (página 99) · Limitar, pero no suspender · clave **D**
+**Fuente:** compilado ASED, Sociales y Competencias Ciudadanas (sobre la Constitución
+Política, artículo 213). **Competencia:** pensamiento reflexivo y sistémico. **Estrategia del
+cuaderno:** 2 · El principio que hay detrás.
 
-> En caso de grave perturbación del orden público […] el Presidente de la República, con
-> la firma de todos los ministros, podrá declarar el Estado de Conmoción Interior. […]
-> Durante este período, el ejecutivo tiene la facultad de **limitar (más no suspender)**
-> algunos derechos y libertades ciudadanas.
+> Artículo 213 de la Constitución, resumido (el cuaderno lo imprime así):
+>
+> En caso de grave perturbación del orden público […] el Presidente de la República, con la
+> firma de todos los ministros, podrá declarar el Estado de Conmoción Interior. […] Durante
+> este período, el ejecutivo tiene la facultad de limitar (más no suspender) algunos derechos
+> y libertades ciudadanas.
+
+**Pregunta:** En el texto anterior se dice que el presidente puede «limitar» mas no
+«suspender» algunas libertades y derechos ciudadanos, porque de acuerdo con nuestra
+Constitución política, Colombia
+
+**Opciones:**
+A. es un país en el que las personas tienen aquellos derechos que se han ganado con su correcta conducta ciudadana.
+B. es un país muy conflictivo y se requiere mano dura para combatir el desorden.
+C. es un Estado presidencialista y el presidente puede gobernar como le parezca.
+D. es un Estado Social de Derecho y los derechos humanos son inherentes a la condición de persona.
+
+**Verificada resolviéndola:** si ni en conmoción interior se pueden quitar los derechos, no
+los dio el Estado ni se ganan con la conducta: vienen con la persona. Eso es lo que dice el
+artículo 1 (Estado Social de Derecho) y el 5 (derechos inalienables). Es la D.
 
 **Lo que el profesor debe hacer notar**
 
-- Toda la pregunta está en el paréntesis. **Limitar** es reducir el alcance de un
-  derecho por un tiempo y con control judicial; **suspender** es dejarlo sin efecto. La
-  Constitución de 1991 permite lo primero y prohíbe lo segundo, y esa frontera es
-  exactamente lo que el constituyente aprendió del estado de sitio permanente anterior.
+- Toda la pregunta está en el paréntesis. **Limitar** es reducir el alcance de un derecho
+  por un tiempo y con control judicial; **suspender** es dejarlo sin efecto. La
+  Constitución de 1991 permite lo primero y prohíbe lo segundo, y esa frontera es lo que
+  el constituyente aprendió del estado de sitio permanente anterior.
 - Vale la pena decirlo completo: durante la conmoción interior el decreto va a la Corte
   Constitucional, tiene plazo máximo y hay derechos que **no se tocan nunca** (vida,
   integridad personal, no desaparición, debido proceso).
+- Dos opciones describen a Colombia como un país («muy conflictivo», «presidencialista»),
+  no como un Estado. La pregunta es qué dice la Constitución que es Colombia.
 
-### Pregunta 3 · Los plebiscitos antes y después de 1991
-**Proceso:** pensamiento reflexivo y sistémico. **Clave: B.**
+### Pregunta 3 (página 103) · Los plebiscitos antes y después de 1991 · clave **B**
+**Fuente:** compilado ASED, Sociales y Competencias Ciudadanas. **Competencia:** pensamiento
+reflexivo y sistémico. **Estrategia del cuaderno:** 4 · Lo de antes explica lo de ahora.
 
 > Antes de la promulgación de nuestra actual constitución (1991), la realización de
-> plebiscitos era escasa porque, al no estar contemplado en la anterior constitución
-> (1886), se requería de complicadas reformas para poder realizarlos.
+> plebiscitos era escasa porque, al no estar contemplado en la anterior constitución (1886),
+> se requería de complicadas reformas para poder realizarlos.
+
+**Pregunta:** Este cambio en los dos tipos de democracia propuestos por estas dos
+constituciones (la de 1886 y la de 1991) puede interpretarse como el cambio entre
+
+**Opciones:**
+A. una democracia participativa a una democracia representativa.
+B. una democracia representativa a una democracia participativa.
+C. una democracia restringida a una democracia total.
+D. una democracia presidencialista a una democracia parlamentaria.
+
+**Verificada resolviéndola:** con 1886 decidían los elegidos (representativa); con 1991 el
+plebiscito queda contemplado y decide también el pueblo (participativa). El orden importa: de
+representativa a participativa. Es la B; la A es la misma pareja al revés.
 
 **Lo que el profesor debe hacer notar**
 
@@ -687,27 +743,45 @@ Interior). **Proceso:** pensamiento reflexivo y sistémico. **Clave: D.**
   participativa**: el ciudadano también decide directamente, por plebiscito, referendo,
   consulta popular, cabildo abierto, revocatoria del mandato. 1991 no reemplaza la
   primera: le **suma** la segunda.
+- La A y la B traen las mismas dos palabras en orden contrario: es la trampa del orden.
+  Que el estudiante diga en voz alta cuál era antes y cuál después.
 
-### Pregunta 4 · Quién ejerce control político
-**Fuente del compilado:** congresovisible.org, adaptado por el ICFES.
-**Proceso:** pensamiento social. **Clave: D.**
+### Pregunta 4 (página 103) · Quién ejerce control político · clave **D**
+**Fuente:** compilado ASED, Sociales y Competencias Ciudadanas (cita congresovisible.org,
+adaptado por el ICFES; el compilado la atribuye al cuadernillo ICFES 2018, p. 9, sin
+verificar). **Competencia:** pensamiento social. **Estrategia del cuaderno:** 2 · El
+principio que hay detrás.
 
-> Una de estas ramas cuenta con dos mecanismos: la citación a un debate de control
-> político […] y la moción de censura, un mecanismo a través del cual se reprocha la
-> actuación de uno o varios ministros, dando lugar a la separación de su cargo.
+> El enunciado, resumido (el cuaderno lo imprime así):
+>
+> Una de estas ramas cuenta con dos mecanismos: la citación a un debate de control político
+> […] y la moción de censura, un mecanismo a través del cual se reprocha la actuación de uno
+> o varios ministros, dando lugar a la separación de su cargo.
+
+**Pregunta:** De acuerdo con la Constitución política de Colombia, ¿cuál de las ramas del
+poder puede ejercer control político a través de citaciones y mociones de censura?
+
+**Opciones:**
+A. La Rama Electoral.
+B. La Rama Ejecutiva.
+C. La Rama Judicial.
+D. La Rama Legislativa.
+
+**Verificada resolviéndola:** citar a debate y censurar a un ministro son funciones del
+Congreso (artículos 114 y 135 de la Constitución). Es la D.
 
 **Lo que el profesor debe hacer notar**
 
 - Las dos palabras que delatan la respuesta son **debate** y **moción**: las dos son
-  vocabulario de un cuerpo colegiado que delibera y vota. Un juez no debate; un
-  ministro no se censura a sí mismo.
+  vocabulario de un cuerpo colegiado que delibera y vota. Un juez no debate; un ministro
+  no se censura a sí mismo.
 - Conviene dejar el reparto completo en el tablero, porque reaparece en toda el área:
   **legislativo** hace las leyes y controla al gobierno; **ejecutivo** gobierna y
   administra; **judicial** resuelve conflictos y juzga.
-- **Nota de auditoría:** el compilado cita esta pregunta como «Icfes (2018) Cuadernillo
-  de preguntas Saber 11º. Prueba de sociales y competencias ciudadanas, p. 9». Tener la
-  referencia **no es** haber verificado el cuadernillo, así que el membrete va sin año
-  igual. Queda anotada para cruzarla cuando se consiga el cuadernillo liberado.
+- La «Rama Electoral» no existe: la organización electoral es un órgano autónomo, pero las
+  ramas del poder público son tres (artículo 113).
+- **Nota de auditoría:** tener la referencia al cuadernillo 2018 **no es** haberlo
+  verificado. Queda anotada para cruzarla cuando se consiga el cuadernillo liberado.
 
 ### Nota sobre la cobertura de estrategias
 
@@ -1074,21 +1148,43 @@ mandar a imprimir. Está reportado como registro 31.
 
 ## SOCIALES · MISIÓN 2 · páginas 106 y 110 (entrenamiento ICFES)
 
-Las cuatro salen del compilado ASED, que trae impreso el proceso que evalúa cada pregunta.
-Van con membrete **sin año**.
+Las cuatro salen del compilado **ASED pre código 11**, que trae impreso el proceso que evalúa
+cada pregunta. Van con membrete genérico.
+
+⚠ **Aviso para la Gerencia (9 nov):** igual que en la Misión 1, son preguntas del ASED, que
+dice haberlas «concebido específicamente»: **no son del ICFES**. Están en la lista de las que
+Nelson tiene que decidir si salen. El texto es el que imprime el cuaderno (las páginas de
+Sociales del ASED en Drive son imagen y no se pudieron leer).
 
 ⚠ **Para auditar: el ASED reinicia la numeración en cada sección.** «Ítem 34» es una
 pregunta en Lectura Crítica y otra distinta en Sociales. Hay que anotar siempre la sección.
 
 ### Pregunta 1 (página 106) · Las dos razones del vegetarianismo · clave **B**
-**Proceso:** interpretación y análisis de perspectivas.
+**Fuente:** compilado ASED, capítulo 11 (recomendaciones), Sociales y Competencias
+Ciudadanas. **Competencia:** interpretación y análisis de perspectivas. **Estrategia del
+cuaderno:** 1 · En qué coinciden y en qué no.
 
-> **Primera persona:** consumir carne es nocivo para los humanos, porque el animal sufre en
-> el proceso y eso produce energías negativas que se transmiten al consumidor y perjudican
-> su salud.
+> Las dos opiniones, las dos a favor del vegetarianismo:
 >
-> **Segunda persona:** el consumo de productos de origen animal es un acto amoral, en la
-> medida en que resulta del abuso e insensibilidad del ser humano ante los demás seres vivos.
+> Primera persona: consumir carne es nocivo para los humanos, porque el animal sufre en el
+> proceso y eso produce energías negativas que se transmiten al consumidor y perjudican su
+> salud.
+>
+> Segunda persona: el consumo de productos de origen animal es un acto amoral, en la medida
+> en que resulta del abuso e insensibilidad del ser humano ante los demás seres vivos.
+
+**Pregunta:** Las dos personas están a favor del vegetarianismo. ¿Cuál de las siguientes
+afirmaciones sobre la relación entre las opiniones presentadas NO es correcta?
+
+**Opciones:**
+A. Son similares, porque ambas van en contra del consumo de carne.
+B. Son complementarias, porque ambas promueven el vegetarianismo cuando argumentan la obligación de proteger a los animales.
+C. Son diferentes, porque la primera aboga por la salud del ser humano y la segunda, por el bienestar de los animales.
+D. Son disímiles, porque la primera se centra en cómo el animal afecta al ser humano y la segunda, en cómo el ser humano afecta al animal.
+
+**Verificada resolviéndola:** A, C y D son ciertas. La B dice que **las dos** argumentan
+proteger a los animales, y la primera argumenta la salud de quien come. Es la que NO es
+correcta: B.
 
 **Lo que el profesor debe hacer notar**
 
@@ -1096,14 +1192,31 @@ pregunta en Lectura Crítica y otra distinta en Sociales. Hay que anotar siempre
   entrenarla de frente: se marcan las tres que SÍ son correctas y la que queda sin marcar
   es la respuesta. El instrumento lo hace por escrito.
 - La B atribuye a la primera persona algo que no dijo: ella no habla de **proteger a los
-  animales**, habla de **la salud de quien come**. Por eso es la afirmación que no es
-  correcta.
-- **Recurso para el profesor:** esta pregunta viene del capítulo de recomendaciones del
-  ASED y **ese mismo libro trae su solución paso a paso impresa**. Después de que el curso
-  la trabaje, vale la pena proyectarla: es el método oficial, explicado por el ICFES.
+  animales**, habla de **la salud de quien come**.
+- **Recurso para el profesor:** el mismo compilado trae la solución de esta pregunta paso a
+  paso. Después de que el curso la trabaje, vale la pena mostrarla como método (sin decir
+  que es «del ICFES»: es del ASED).
 
 ### Pregunta 2 (página 106) · Reformar la Constitución · clave **A**
-**Proceso:** pensamiento social.
+**Fuente:** compilado ASED, Sociales y Competencias Ciudadanas (sobre la Constitución
+Política, artículo 103). **Competencia:** pensamiento social. **Estrategia del cuaderno:**
+2 · El nombre exacto de la figura.
+
+> Uno de los principios de nuestra Constitución es que los derechos de los menores
+> «prevalecen sobre los derechos de los demás». Ante unos altos índices de delincuencia
+> juvenil, el nuevo presidente decide reformar la Constitución para modificar ese principio.
+
+**Pregunta:** El presidente puede hacerlo a través de alguno de los mecanismos de
+participación ciudadana que contempla la misma Constitución; este mecanismo debe ser
+
+**Opciones:**
+A. El referendo.
+B. El plebiscito.
+C. La consulta popular.
+D. El cabildo abierto.
+
+**Verificada resolviéndola:** de los mecanismos del artículo 103, el único que aprueba una
+reforma constitucional es el referendo (artículo 378). Es la A.
 
 **Lo que el profesor debe hacer notar**
 
@@ -1114,7 +1227,25 @@ pregunta en Lectura Crítica y otra distinta en Sociales. Hay que anotar siempre
   comunidad. Ninguno reforma la Constitución.
 
 ### Pregunta 3 (página 110) · Lo social y lo económico · clave **B**
-**Proceso:** pensamiento reflexivo y sistémico.
+**Fuente:** compilado ASED, Sociales y Competencias Ciudadanas. **Competencia:** pensamiento
+reflexivo y sistémico. **Estrategia del cuaderno:** 3 · Las dos caras de la misma medida.
+
+> Las políticas centradas en el crecimiento de la economía, con un total olvido de las
+> necesidades sociales, han tenido resultados deplorables tanto en el contexto social como
+> en el plano económico. En efecto, las políticas sociales influyen en los resultados
+> económicos.
+
+**Pregunta:** Que las políticas sociales influyen en los resultados económicos se nota cuando
+
+**Opciones:**
+A. Los salarios altos contraen el mercado interno.
+B. La salud preventiva aumenta la productividad.
+C. La capacidad laboral aumenta los costos.
+D. La automatización previene el desempleo.
+
+**Verificada resolviéndola:** la única pareja «política social → resultado económico» en
+ese orden y con un efecto de influencia (no de costo) es salud preventiva → productividad.
+Es la B.
 
 **Lo que el profesor debe hacer notar**
 
@@ -1128,7 +1259,27 @@ pregunta en Lectura Crítica y otra distinta en Sociales. Hay que anotar siempre
   desarrollarlo: gente que no se enferma, falta menos y produce más.
 
 ### Pregunta 4 (página 110) · La reforma a la justicia de 2012 · clave **C**
-**Proceso:** pensamiento reflexivo y sistémico.
+**Fuente:** compilado ASED, Sociales y Competencias Ciudadanas. **Competencia:** pensamiento
+reflexivo y sistémico. **Estrategia del cuaderno:** 4 · Qué queda en entredicho.
+
+> El caso, resumido (el cuaderno lo imprime así):
+>
+> En 2012 se debatió una reforma a la justicia que introducía la privatización de la
+> justicia, el aumento del período de los magistrados y ventajas a los congresistas. La
+> opinión nacional, especialmente por redes sociales, se levantó en contra y obligó a que el
+> propio Congreso y el presidente le quitaran su apoyo.
+
+**Pregunta:** Con la anterior situación se demostró que
+
+**Opciones:**
+A. El Congreso siempre crea leyes que no le favorecen a la gente.
+B. El presidente puede oponerse al Congreso cuando quiera.
+C. Los ciudadanos pueden revertir las leyes que no los favorecen.
+D. La opinión pública vale más que el Congreso y el presidente.
+
+**Verificada resolviéndola:** A («siempre»), B («cuando quiera») y D («vale más») afirman
+más de lo que un caso puede probar. La C describe lo que el caso muestra: la presión
+ciudadana tumbó una norma. Es la C.
 
 **Lo que el profesor debe hacer notar**
 
@@ -1139,6 +1290,9 @@ pregunta en Lectura Crítica y otra distinta en Sociales. Hay que anotar siempre
 - Lo que el caso sí demuestra, sin exagerar: que **una vez**, con suficiente presión
   pública, una reforma se cayó. De ahí no se sigue que siempre pase ni que la opinión
   pública mande sobre las instituciones.
+- Si un estudiante precisa que en 2012 no se hundió una «ley» sino un acto legislativo, y
+  que formalmente lo archivó el propio Congreso, tiene razón: se le reconoce, y se le
+  muestra que la C sigue siendo la única que no exagera.
 
 ### Nota sobre una pregunta que se descartó
 
@@ -1147,3 +1301,671 @@ Bogotá en 2014, y qué principio constitucional se afecta) encajaba perfecto co
 estrategia 4 y evalúa soberanía popular. **Lleva el nombre de un político vivo y, mientras
 la Gerencia no fije el criterio, no se usa.** Queda anotado porque el criterio pendiente ya
 nos está costando preguntas buenas.
+
+---
+
+---
+
+# SOCIALES Y CIUDADANAS · MISIONES 3 A 6 · entrenamiento ICFES
+
+Desde la Misión 3 las preguntas ICFES de Sociales salen de dos cuadernillos oficiales del
+Saber 11, aplicación **2016-1**, fotocopiados con su portada en el Drive de Nelson
+(«1. CUADERNILLOS ICFES»):
+
+- **Primera sesión**, cuadernillo AAM (encabezado «Saber 11 - 116 - B05R - AAM»), archivo
+  «2016-1 PRIMERA SESION.pdf». Misiones 3 y 4.
+- **Segunda sesión**, cuadernillo ABD (encabezado «Saber 11 - 116 - B10O - ABD · 2a. sesión»),
+  archivo «2016-2 SEGUNDA SESION.pdf» (el nombre dice 2016-2; la portada dice 2016-1).
+  Misiones 5 y 6.
+
+El texto de cada entrada se cotejó el 9 nov contra el cuadernillo. El cuaderno imprime
+completas estas preguntas (son cortas); aquí van para proyectarlas en la socialización y con
+lo que el profesor tiene que hacer notar. El membrete en pantalla y en papel es siempre
+«Pregunta oficial ICFES · Saber 11»; el cuadernillo y el ítem quedan en `tablero/icfes.csv`.
+
+## SOCIALES · MISIÓN 3 · páginas 113 y 117 (entrenamiento ICFES)
+
+### Pregunta 1 (página 113) · El gerente y el voto · clave **A**
+**Fuente:** cuadernillo Saber 11 2016-1, primera sesión (AAM), Sociales y Ciudadanas, ítem 74.
+**Competencia:** interpretación de perspectivas. **Estrategia del cuaderno:** 1 · Cada voz, su
+preocupación.
+
+> Durante la época electoral, el gerente de una empresa les dice a sus subalternos que deben
+> votar por el candidato de un determinado partido político, y que si no lo hacen, perderán
+> su trabajo. Un empleado afirma que esto es inapropiado.
+
+**Pregunta:** ¿Cuál es la frase que mejor apoya lo que dice el empleado?
+
+**Opciones:**
+A. Amenazar a la gente para que vote por un determinado partido es un abuso.
+B. Hablar de política siempre lleva a conflictos porque nadie se pone de acuerdo.
+C. La obligación de los superiores es ilustrar a los empleados en política.
+D. Los gerentes de las empresas no deberían interesarse en temas políticos.
+
+**Verificada resolviéndola:** lo que el empleado rechaza es la amenaza (votas así o pierdes
+el trabajo). La única frase que habla de eso es la A; la C apoya al gerente y la B y la D
+hablan de la política en general.
+
+**Lo que el profesor debe hacer notar**
+
+- La frase que apoya a alguien tiene que hablar **de lo que pasó**: aquí, una amenaza para
+  condicionar el voto. B y D se van a la política en general y no tocan la amenaza.
+- La D suena bien, pero apoya otra cosa: que el gerente no se interese en política. Lo
+  inapropiado no es que se interese, es que **obligue**.
+- Si alguien pregunta: el voto es secreto y libre (artículo 258 de la Constitución), y
+  presionar el voto de un subalterno es un delito electoral. No hace falta saberlo para
+  responder, pero ayuda a ver por qué la A es la frase justa.
+
+### Pregunta 2 (página 113) · La Ley Seca del Mundial · clave **B**
+**Fuente:** cuadernillo Saber 11 2016-1, primera sesión (AAM), Sociales y Ciudadanas, ítem 80.
+**Competencia:** pensamiento reflexivo y sistémico. **Estrategia del cuaderno:** 2 · Quién gana
+y quién paga.
+
+> Durante el primer partido de Colombia en el Mundial de Fútbol 2014 y después de este, se
+> presentaron en la ciudad de Bogotá episodios de violencia y alteración del orden público.
+> Por esto, para el momento del segundo partido, la Administración Distrital tomó la decisión
+> de decretar la Ley Seca.
+
+**Pregunta:** ¿Qué efectos NO esperados podría tener la solución dada por la Administración
+Distrital?
+
+**Opciones:**
+A. El ahorro de los hogares bogotanos en gastos como el licor, los parqueaderos y la alimentación.
+B. Las pérdidas económicas de los comerciantes de la ciudad en una ocasión que generalmente trae ganancias.
+C. El aumento de episodios de violencia urbana, accidentes de tránsito y alteración del orden público.
+D. Aceptación de la medida por toda la ciudadanía para evitar que se presenten hechos de violencia en la ciudad.
+
+**Verificada resolviéndola:** lo que se buscaba era menos violencia. Un efecto no buscado
+que sí puede salir de prohibir el licor ese día es que bares y tiendas, que esperaban vender
+en el partido, pierdan. Es la B.
+
+**Lo que el profesor debe hacer notar**
+
+- Primero se escribe **lo que se buscaba** (menos violencia) y después **a quién más le
+  cae** la medida. Los comerciantes no eran el blanco, pero pagan.
+- La C es lo contrario de lo que produce la medida: no sale de ella. La D dice «toda la
+  ciudadanía»: un absoluto que ningún decreto logra.
+- La A es la discutible: que los hogares ahorren tampoco se buscaba. Pero el enunciado
+  menciona parqueaderos y alimentación, que la Ley Seca no prohíbe; y el efecto que de
+  verdad le cae a alguien de manera directa es la pérdida del comerciante. Si un estudiante
+  defiende la A, pídele que diga por qué la Ley Seca le ahorraría a alguien el parqueadero.
+
+### Pregunta 3 (página 117) · La niña wayú · clave **B**
+**Fuente:** cuadernillo Saber 11 2016-1, primera sesión (AAM), Sociales y Ciudadanas, ítem 70.
+**Competencia:** pensamiento social. **Estrategia del cuaderno:** 3 · El derecho que se pone en
+tensión.
+
+> En el 2012, una niña de once años perteneciente a la comunidad indígena wayú declaró que
+> estaba embarazada y solicitó al Estado colombiano que se le practicara un aborto con el
+> argumento de que su padre la había violado y, por dictamen de la Corte Constitucional, en
+> esa situación es legítima la interrupción voluntaria del embarazo. La comunidad wayú se
+> opuso radicalmente a la solicitud de la niña porque el aborto es una práctica prohibida en
+> la legislación de este grupo indígena.
+
+**Pregunta:** En esta situación, ¿qué aspectos entran en conflicto?
+
+**Opciones:**
+A. El principio constitucional de la prohibición a cualquier tipo de discriminación étnica y la solicitud de la niña por igualdad de condiciones ante la ley.
+B. El principio constitucional del respeto por la autonomía de los grupos indígenas y la legitimidad de la solicitud de la niña wayú como ciudadana colombiana.
+C. El principio constitucional de la legitimidad del aborto en caso de abuso sexual y el respeto de la cultura wayú hacia los derechos de los niños.
+D. El principio constitucional que prohíbe la tortura y el dictamen de la Corte Constitucional que prohíbe la interrupción voluntaria del embarazo.
+
+**Verificada resolviéndola:** un lado es la comunidad, que se apoya en su autonomía
+(artículos 7 y 246); el otro es la niña, que se apoya en lo que la Corte reconoce a toda
+ciudadana. La B pone uno de cada lado. La D contradice el texto (la Corte lo permite).
+
+**Lo que el profesor debe hacer notar**
+
+- Un conflicto tiene **dos lados**. Se escribe qué defiende cada uno y en qué se apoya. La
+  opción correcta pone uno de cada lado.
+- La D cambia lo que dijo la Corte: el texto dice que la interrupción es **legítima** en
+  caso de violación. Una opción que contradice el texto se cae sin discutirla.
+- La A y la C juntan dos cosas que no chocan aquí (nadie discrimina a la niña por ser wayú;
+  la cultura wayú no se opone por los derechos de los niños).
+- Es un tema delicado: se trabaja como un choque de principios constitucionales, sin
+  pedirle a nadie su opinión sobre el aborto.
+
+### Pregunta 4 (página 117) · Retirar a los consumidores del barrio · clave **D**
+**Fuente:** cuadernillo Saber 11 2016-1, primera sesión (AAM), Sociales y Ciudadanas, ítem 90
+(el cuadernillo cita: «Adaptado de: eltiempo.com»). **Competencia:** pensamiento reflexivo y
+sistémico. **Estrategia del cuaderno:** 4 · El efecto que llega a otra parte.
+
+> En Bogotá existe un barrio en el que han venido concentrándose consumidores y vendedores de
+> drogas ilegales. Para mejorar la situación de este barrio, y de los consumidores de drogas
+> que a él acuden, la Alcaldía Mayor propuso retirar del barrio a todos los traficantes de
+> drogas, y a los consumidores. En segundo lugar, se han propuesto controles médicos para los
+> consumidores, los cuales incluirían programas de sustitución de sustancias.
+
+**Pregunta:** Si se decidiera implementar únicamente la primera solución, ¿qué impacto
+tendría en las personas que consumen drogas?
+
+**Opciones:**
+A. Positivo, pues ya no podrían comprar drogas a los traficantes y esta abstinencia forzosa los curaría.
+B. Negativo, pues se acabaría con la principal actividad económica del barrio y tendrían que trasladarse a otro.
+C. Positivo, pues gracias al apoyo médico podrían superar su problema de adicción a las drogas.
+D. Negativo, ya que encontrarían otros expendedores y su adicción continuaría sin ser tratada.
+
+**Verificada resolviéndola:** solo se aplica la primera solución (retirar). Sin la segunda
+(control médico), la adicción no se trata y el consumidor busca otro lugar donde comprar. Es
+la D. La C usa la segunda solución, que la pregunta excluye.
+
+**Lo que el profesor debe hacer notar**
+
+- La palabra que manda es **únicamente**: los controles médicos no cuentan. La C se cae
+  por eso, aunque suene a final feliz.
+- Hay que **seguir a las personas** un paso más allá del barrio: ¿a dónde van?, ¿qué pasa
+  con su adicción? El problema no desaparece: cambia de lugar.
+- La B habla del barrio, no de las personas que consumen, que es lo que se pregunta.
+- **Diferencia con el cuaderno:** la hoja dice «y a todos los consumidores»; el cuadernillo
+  dice «y a los consumidores». No cambia la clave; está registrada para corregir en la
+  próxima impresión.
+
+## SOCIALES · MISIÓN 4 · páginas 120 y 124 (entrenamiento ICFES)
+
+### Pregunta 1 (página 120) · Los desplazados y la ciudad · clave **C**
+**Fuente:** cuadernillo Saber 11 2016-1, primera sesión (AAM), Sociales y Ciudadanas, ítem 87.
+**Competencia:** pensamiento social. **Estrategia del cuaderno:** 3 · Lo que el hecho le hizo
+a la gente.
+
+> En la Ley 387 de 1997, donde se establecen disposiciones para prevenir el desplazamiento
+> forzado, se indica: «Es desplazado toda persona que se ha visto forzada a migrar dentro del
+> territorio nacional abandonando su localidad de residencia o actividades económicas
+> habituales, porque su vida, su integridad física, su seguridad o libertad personales han
+> sido vulneradas o se encuentran directamente amenazadas».
+
+**Pregunta:** A partir de esta definición, puede deducirse que la población desplazada de
+las zonas rurales tendría problemas para adaptarse a la vida urbana, porque
+
+**Opciones:**
+A. las jornadas de trabajo en la ciudad son más exigentes físicamente que las jornadas laborales en zonas rurales.
+B. la disponibilidad de alimentos es mucho menor en las zonas urbanas que en zonas rurales.
+C. los saberes culturales útiles para vivir en zonas rurales no son los mismos que se requieren para vivir en zonas urbanas.
+D. la seguridad en las zonas urbanas es más difícil de garantizar que en las zonas rurales.
+
+**Verificada resolviéndola:** la definición dice que el desplazado abandona sus «actividades
+económicas habituales». Lo que sabía hacer en el campo no le sirve igual en la ciudad: C. A,
+B y D afirman comparaciones que el texto no da y que no son ciertas en general.
+
+**Lo que el profesor debe hacer notar**
+
+- La ley explica **por qué se van**; la pregunta pide otra cosa: **por qué les cuesta
+  llegar**. El puente está en «actividades económicas habituales».
+- Ejercicio rápido: que el curso diga dos saberes de la vida en la vereda (sembrar, ordeñar,
+  leer el clima) y qué le pide la ciudad a cambio (transporte, trámites, un oficio urbano).
+- A, B y D son comparaciones campo-ciudad sin respaldo: en la ciudad no hay menos comida ni
+  jornadas más duras por definición.
+
+### Pregunta 2 (página 120) · La Canción de los dinosaurios · clave **A**
+**Fuente:** cuadernillo Saber 11 2016-1, primera sesión (AAM), Sociales y Ciudadanas, ítem 89.
+**Competencia:** pensamiento reflexivo y sistémico. **Estrategia del cuaderno:** 1 · Un hecho,
+varias dimensiones.
+**Formato:** verso
+
+> La siguiente es una estrofa de la Canción de los dinosaurios, compuesta e interpretada por el músico argentino Charlie García en 1985:
+>
+> «Los amigos del barrio pueden desaparecer
+> Los cantores de radio pueden desaparecer
+> Los que están en los diarios pueden desaparecer
+> La persona que amas puede desaparecer.
+> Los que están en el aire pueden desaparecer, en el aire.
+> Los que están en la calle pueden desaparecer, en la calle.
+> Los amigos del barrio pueden desaparecer,
+> Pero los dinosaurios van a desaparecer»
+
+**Pregunta:** Puede afirmarse que la letra de esta canción
+
+**Opciones:**
+A. tiene relación con la dictadura argentina, en tanto describe la persecución social y política característica de los regímenes dictatoriales.
+B. no tiene relación con la dictadura argentina, dado que el arte y la política son ámbitos independientes de la vida social.
+C. tiene relación con la época de la dictadura argentina, porque Charlie García tiene esa nacionalidad.
+D. no tiene relación con la dictadura, en tanto en este tipo de gobierno se respetan los derechos civiles y políticos.
+
+**Verificada resolviéndola:** Argentina vivió una dictadura entre 1976 y 1983, con miles de
+desaparecidos. La canción (1985) repite «pueden desaparecer» sobre gente común y anuncia que
+«los dinosaurios» —los viejos poderes— van a desaparecer. Es la A. La C acierta la relación
+pero por una razón que no prueba nada (la nacionalidad).
+
+**Lo que el profesor debe hacer notar**
+
+- Una canción también es un **documento de su época**: primero se ubica (año, país) y
+  después se juzga. Sin saber qué pasó en Argentina entre 1976 y 1983, la estrofa es solo
+  triste.
+- Lo que un profesor que no es del área necesita: en esa dictadura miles de personas
+  fueron secuestradas por el Estado y nunca aparecieron; por eso se les dice
+  «desaparecidos». La palabra que se repite en la canción es esa.
+- La C es la trampa fina: dice «sí tiene relación», pero la razón no sirve. En esta prueba
+  **la razón también se califica**.
+
+### Pregunta 3 (página 124) · La autopista en la ciénaga · clave **A**
+**Fuente:** cuadernillo Saber 11 2016-1, primera sesión (AAM), Sociales y Ciudadanas, ítem 83.
+**Competencia:** interpretación de perspectivas. **Estrategia del cuaderno:** 2 · Quién lo mira
+y desde dónde.
+
+> Con el propósito de fortalecer la economía nacional se discuten diferentes alternativas que
+> faciliten la comunicación por tierra con los grandes puertos comerciales del norte del país.
+> Con este fin, se consideró el transporte por el río Magdalena, la reorganización del sistema
+> ferroviario y finalmente se decidió la construcción de una autopista a través de terrenos de
+> ciénaga. El proyecto necesita una gran inversión para la infraestructura de la autopista,
+> para la reubicación de los habitantes de los terrenos y para el dragado de grandes
+> extensiones de la ciénaga. A pesar de los beneficios de esta propuesta, los opositores
+> señalan que esta generaría problemas irreparables.
+
+**Pregunta:** ¿Cuál de las siguientes opciones podría apoyar mejor la posición de los
+opositores?
+
+**Opciones:**
+A. El proyecto perjudica el ecosistema de la región de la ciénaga así como las formas de vida de las comunidades de la zona.
+B. La construcción de la autopista inevitablemente será usada por políticos y contratistas corruptos para robar dinero del país.
+C. La autopista facilitará el transporte de mercancía de contrabando generando un impacto negativo en la economía del país.
+D. El tráfico de la autopista hará más insegura la región con accidentes de tránsito y robos a vehículos privados y/o comerciales.
+
+**Verificada resolviéndola:** el texto dice qué hace el proyecto: draga la ciénaga y reubica
+a sus habitantes. «Irreparable» es lo que no se recupera: un ecosistema dragado y una
+comunidad sacada de su lugar. Es la A.
+
+**Lo que el profesor debe hacer notar**
+
+- El mejor argumento sale de **lo que el proyecto hace** (dragar, reubicar), no de lo que
+  uno sospecha que podría pasar. B, C y D son sospechas: corrupción, contrabando, robos.
+- «Inevitablemente», en la B, es una palabra absoluta: nadie puede probarla de antemano.
+- La palabra que amarra la respuesta es **irreparables**: ¿cuál de los cuatro daños no se
+  arregla después?
+
+### Pregunta 4 (página 124) · El origen de las guerrillas · clave **D**
+**Fuente:** cuadernillo Saber 11 2016-1, primera sesión (AAM), Sociales y Ciudadanas, ítem 81.
+**Competencia:** pensamiento reflexivo y sistémico. **Estrategia del cuaderno:** 4 · De dónde
+viene y hasta dónde llega.
+
+> Factores:
+>
+> 1. el auge del negocio del narcotráfico en el sur del país.
+>
+> 2. la difusión de las ideas que orientaron la Revolución cubana.
+>
+> 3. el asesinato de integrantes de la Unión Patriótica.
+>
+> 4. los problemas de distribución de la tierra en el sector rural.
+
+**Pregunta:** De los siguientes factores, ¿cuáles se relacionan, de manera directa, con el
+surgimiento de movimientos guerrilleros en Colombia en la década de los años 1960?
+
+**Opciones:**
+A. 2 y 3.
+B. 1 y 4.
+C. 1 y 3.
+D. 2 y 4.
+
+**Verificada resolviéndola:** una causa tiene que estar antes que su efecto. La Revolución
+cubana es de 1959 y el problema de la tierra viene de mucho antes; el auge del narcotráfico
+es de los años 70 y 80, y la Unión Patriótica nace en 1985. Quedan 2 y 4: D.
+
+**Lo que el profesor debe hacer notar**
+
+- Se resuelve **ordenando en el tiempo**: lo que llegó después no pudo hacer nacer a las
+  guerrillas de los años 60.
+- Fechas mínimas para el tablero: Revolución cubana, 1959; FARC y ELN, 1964; auge del
+  narcotráfico, finales de los 70; Unión Patriótica, 1985.
+- Los factores 1 y 3 sí tienen que ver con el conflicto armado, pero con **otra etapa**. No
+  son falsos: están fuera de su década. Eso es lo que la pregunta evalúa.
+
+## SOCIALES · MISIÓN 5 · páginas 127 y 131 (entrenamiento ICFES)
+
+### Pregunta 1 (página 127) · Pobreza y zonas de riesgo · clave **D**
+**Fuente:** cuadernillo Saber 11 2016-1, segunda sesión (ABD), Sociales y Ciudadanas, ítem 5.
+**Competencia:** pensamiento reflexivo y sistémico. **Estrategia del cuaderno:** 1 · El lugar
+explica el problema.
+
+> La pobreza puede entenderse como la privación de los recursos económicos para satisfacer las
+> necesidades básicas como alimentación, salud, educación y vivienda dignas y está,
+> generalmente, asociada con la carencia de capacidades para lograr una participación
+> satisfactoria en los procesos sociales, políticos, cívicos y culturales. Distintas
+> evidencias muestran que, debido a estas características, las poblaciones en condición de
+> pobreza son más vulnerables ante los desastres naturales.
+
+**Pregunta:** ¿Por cuál de las siguientes razones las poblaciones pobres tienden a instalarse
+en áreas de mayor riesgo de desastre natural?
+
+**Opciones:**
+A. Porque les permite estar cerca de sus lugares de trabajo y de sus familias.
+B. Porque allí tienen facilidades de acceso a servicios de educación y salud.
+C. Porque en esas áreas pueden tener contacto permanente con la naturaleza.
+D. Porque el valor del suelo en estas áreas está acorde con su poder adquisitivo.
+
+**Verificada resolviéndola:** el texto define la pobreza como falta de recursos económicos.
+La tierra en la ladera o en la orilla del río es barata justamente porque es riesgosa: es la
+que alcanzan a pagar. Es la D.
+
+**Lo que el profesor debe hacer notar**
+
+- La pregunta no pide qué tiene de bueno el lugar: pide **por qué terminan ahí**. La
+  respuesta sale de la definición que da el texto: falta de recursos económicos.
+- La B es lo contrario de lo que pasa: en las zonas de riesgo casi nunca hay buenos
+  servicios. La A y la C son razones que a veces existen, pero no explican el riesgo.
+- Conviene un ejemplo cercano: las laderas de las ciudades, las orillas de los ríos. El
+  suelo barato es barato por una razón.
+
+### Pregunta 2 (página 127) · Los caminos reales · clave **D**
+**Fuente:** cuadernillo Saber 11 2016-1, segunda sesión (ABD), Sociales y Ciudadanas, ítem 6.
+**Competencia:** interpretación de perspectivas. **Estrategia del cuaderno:** 2 · Ninguna voz
+se queda afuera.
+
+> La gobernación de un departamento tiene como proyecto recuperar los caminos reales de la
+> época colonial que recorren varios municipios. Se propone que estos sean el eje de la
+> promoción del departamento como destino turístico para caminantes y amantes de la
+> naturaleza. Algunos habitantes de la zona dudan acerca de los beneficios de este proyecto,
+> pues los caminos pasan por parte de sus tierras de cultivo y ganadería por tanto su
+> recuperación y aprovechamiento implicaría expropiar estas tierras. Mencionan también que en
+> los títulos de propiedad de sus tierras no hay nada que indique que una parte de sus
+> terrenos sea pública. Adicionalmente, no ven que el turismo sea beneficioso para ellos.
+
+**Pregunta:** ¿Qué aspectos de esta situación están en conflicto?
+
+**Opciones:**
+A. El interés de los gobernantes de desarrollar proyectos que beneficien a su región y el interés de los caminantes.
+B. La necesidad de proteger el medio ambiente y la naturaleza y la obligación de los gobernantes de proteger el patrimonio cultural.
+C. El desarrollo de la región como destino turístico y el incremento del poder político del gobernador.
+D. El desarrollo de una nueva fuente de ingresos para la región y una afectación en las tierras de los campesinos.
+
+**Verificada resolviéndola:** de un lado, la gobernación busca turismo (ingresos); del otro,
+los dueños de las tierras perderían parte de ellas. Es la D, la única que pone a los dos
+actores que el texto enfrenta.
+
+**Lo que el profesor debe hacer notar**
+
+- Un conflicto necesita **dos lados que choquen**. Gobernación y caminantes (A) quieren lo
+  mismo: no chocan.
+- La B junta dos cosas que nadie en el texto enfrenta. La C se inventa un interés del
+  gobernador que el texto no menciona.
+- Los campesinos son la voz que **no se puede dejar afuera**: son los que pierden.
+
+### Pregunta 3 (página 131) · Genovia, el tratado y los subsidios · clave **C**
+**Fuente:** cuadernillo Saber 11 2016-1, segunda sesión (ABD), Sociales y Ciudadanas, ítem 19.
+**Competencia:** pensamiento reflexivo y sistémico. **Estrategia del cuaderno:** 3 · Una
+medida, efectos en cadena.
+
+> Genovia, un país productor de alimentos, discute un tratado de libre comercio con un país
+> productor de zapatos y moda en general, Estasia. Esto haría que los zapatos y las prendas
+> de vestir sean más baratos en Genovia y que este a su vez pueda exportar materias primas
+> como algodón o lana. Los productores de materias primas en Genovia ven una posibilidad
+> enorme de crecimiento; sin embargo, en el país hay gremios productores de bienes de cuero
+> que están interesados en preservar su negocio que no podrían competir con los precios de
+> los productos importados.
+>
+> En Genovia se ha hecho una propuesta para mediar esta situación: firmar el tratado y, al
+> interior del país, otorgar subsidios para los productores nacionales.
+
+**Pregunta:** Esta propuesta de solución podría
+
+**Opciones:**
+A. ayudar a los productores extranjeros a vender aún más barato.
+B. perjudicar a los compradores de productos de cuero.
+C. ajustarse a los intereses de los productores de bienes en cuero.
+D. incentivar la libre competencia entre los productores nacionales de bienes de cuero.
+
+**Verificada resolviéndola:** el tratado deja a los productores de cuero sin poder competir;
+el subsidio existe para que sigan en el negocio. La propuesta se ajusta a sus intereses: C.
+
+**Lo que el profesor debe hacer notar**
+
+- Son **dos medidas en cadena**: firmar (gana el que exporta materias primas, pierde el
+  productor de cuero) y subsidiar (existe para compensar a quien perdió con la primera).
+- La A se equivoca de país: el subsidio es para los nacionales, no para los extranjeros.
+  La D dice lo contrario: un subsidio no incentiva la libre competencia, la amortigua.
+- Vocabulario mínimo: **tratado de libre comercio** = dos países bajan los impuestos a lo
+  que se compran; **subsidio** = el Estado paga una parte del costo de alguien.
+
+### Pregunta 4 (página 131) · La Real Audiencia y la encomienda · clave **B**
+**Fuente:** cuadernillo Saber 11 2016-1, segunda sesión (ABD), Sociales y Ciudadanas, ítem 18.
+**Competencia:** pensamiento social. **Estrategia del cuaderno:** 4 · Qué dice y qué busca
+quien habla.
+
+> Durante la Conquista de América, el «repartimiento» o «encomienda» consistió en el reparto
+> de indígenas entre los conquistadores para su servicio personal, como recompensa avalada por
+> la Corona por el éxito de sus campañas. Este sistema se convirtió en una vía segura para
+> alcanzar la riqueza y la posición social que los conquistadores venían a buscar al Nuevo
+> Mundo. Sin embargo, la Real Audiencia de Santa Fe de Bogotá, en 1557, estableció que
+> «Cualquier indio que se asentase y se alquilare con cualquiera persona para le servir (…)
+> que se le pague tres gramos de buen oro por jornal» y en 1560 prohibió el trabajo gratuito
+> de los indígenas.
+
+**Pregunta:** Estas medidas de la Real Audiencia podrían obedecer al propósito de
+
+**Opciones:**
+A. promover el ascenso social de los indígenas.
+B. disminuir el poder de los encomenderos.
+C. reconocer a los indígenas como iguales a los colonos.
+D. fortalecer a los encomenderos como administradores de los indígenas.
+
+**Verificada resolviéndola:** la encomienda era la vía de riqueza y poder del encomendero;
+obligar a pagar jornal y prohibir el trabajo gratuito le quita esa ventaja. La Corona, a
+través de la Audiencia, recorta el poder de los encomenderos: B.
+
+**Lo que el profesor debe hacer notar**
+
+- **Ayudar no es lo mismo que igualar.** Que la orden mejore algo para el indígena no dice
+  para qué se dio. La A y la C le atribuyen a la Corona un propósito de igualdad que el
+  texto no muestra.
+- El propósito de una norma se lee en **quién queda distinto**: el que más pierde es el
+  encomendero, que ya no tiene mano de obra gratis.
+- Lo que un profesor que no es del área necesita: la **Real Audiencia** era el tribunal y
+  gobierno de la Corona en la colonia; la Corona desconfiaba de que los encomenderos se
+  volvieran señores con poder propio.
+
+## SOCIALES · MISIÓN 6 · páginas 134 y 138 (entrenamiento ICFES)
+
+### Pregunta 1 (página 134) · La MANE y la reforma de 2011 · clave **C**
+**Fuente:** cuadernillo Saber 11 2016-1, segunda sesión (ABD), Sociales y Ciudadanas, ítem 22.
+**Competencia:** pensamiento reflexivo y sistémico. **Estrategia del cuaderno:** 1 · La mayoría
+y sus límites.
+
+> En el año 2011 el movimiento estudiantil colombiano se organizó a través de la Mesa Amplia
+> Nacional Estudiantil (MANE), con el fin de protestar en contra del proyecto de ley de
+> Reforma a la Educación Superior propuesto por el Gobierno nacional. Los estudiantes exigían
+> una discusión amplia y democrática del contenido de la reforma, la cual ya estaba siendo
+> discutida en el Congreso de la República. Ante las protestas, algunos sectores sociales
+> insistieron en que tales manifestaciones generaban inestabilidad y que las reclamaciones
+> debían tramitarse por las vías institucionales de representación democrática, tales como
+> el legislativo. Finalmente, y después de dos meses de movilizaciones, el Gobierno decidió
+> retirar el proyecto de ley y generar un proceso de socialización con la sociedad civil,
+> incluidos estudiantes, profesores y directivos universitarios, entre otros.
+
+**Pregunta:** De acuerdo con la situación descrita, ¿cuál de las siguientes opciones describe
+adecuadamente la relación entre los movimientos sociales y la democracia?
+
+**Opciones:**
+A. Los movimientos sociales derivan en protestas que generan un ambiente de inestabilidad y debilitan la democracia.
+B. Los movimientos sociales solo son democráticos cuando hacen uso de las vías institucionales de representación.
+C. Los movimientos sociales permiten canalizar y expresar demandas sociales y, por tanto, fortalecen la democracia.
+D. Los movimientos sociales son los únicos mecanismos de representación y participación en una democracia como la colombiana.
+
+**Verificada resolviéndola:** en el caso, la demanda pasó por la calle y terminó en una
+discusión abierta con la sociedad civil: la movilización canalizó una demanda y amplió la
+deliberación. Es la C. La A y la B repiten la postura de «algunos sectores»; la D es un
+absoluto («los únicos»).
+
+**Lo que el profesor debe hacer notar**
+
+- La democracia no es solo lo que decide la mayoría en el Congreso: **sigue el camino de
+  la demanda** de principio a fin (calle → Gobierno retira el proyecto → discusión con
+  todos).
+- La A y la B no son inventadas: son lo que dijeron «algunos sectores» en el texto. Pero la
+  pregunta pide qué muestra **la situación**, no qué opinaba un actor.
+- «Solo» (B) y «los únicos» (D) son palabras absolutas: se caen con un contraejemplo.
+
+### Pregunta 2 (página 134) · La Ley de Caducidad de Uruguay · clave **D**
+**Fuente:** cuadernillo Saber 11 2016-1, segunda sesión (ABD), Sociales y Ciudadanas, ítem 14.
+**Competencia:** interpretación de perspectivas. **Estrategia del cuaderno:** 4 · Quién lo
+dice y desde qué principio.
+
+> Después de la restitución de la democracia en Uruguay, se aprobó la Ley de Caducidad,
+> ratificada en dos referendos populares en 1989 y 2009, en la que se deja a decisión del
+> Gobierno cualquier investigación sobre crímenes cometidos en la dictadura. Hay tres
+> posiciones respecto a esta ley. Según la primera, algunos ciudadanos que aprobaron el
+> referendo consideran que es mejor no revivir los hechos dolorosos que se padecieron durante
+> la dictadura. La segunda: algunos familiares de víctimas que sí desean investigar estos,
+> pero consideran que esta ley, al otorgarle al Estado la facultad de investigar hechos
+> cometidos por sí mismo, es obstáculo a su derecho a la justicia y a la verdad, y puede
+> dejar impunes los hechos. Finalmente, la Corte Interamericana de Derechos Humanos (CIDH)
+> considera que la ley puede ser un impedimento para la obligación que tiene el Estado ante
+> las víctimas de investigar los hechos a solicitud de sus familiares, y que estos hechos
+> pueden quedar en el olvido.
+
+**Pregunta:** ¿Qué punto de consenso habría entre las partes?
+
+**Opciones:**
+A. Los ciudadanos que refrendaron la ley coinciden con la CIDH en que es necesario que no se revivan los hechos dolorosos de la dictadura.
+B. Los familiares de las víctimas y los ciudadanos que refrendaron están de acuerdo en que es decisión de la ciudadanía investigar o no los hechos de la dictadura.
+C. La CIDH está de acuerdo con los familiares de las víctimas en que el Estado uruguayo puede decidir qué casos de violaciones a los DH se pueden investigar.
+D. Los familiares de víctimas y la CIDH coinciden en que esta ley se convierte en un instrumento de perpetuación de la impunidad y olvido de los hechos.
+
+**Verificada resolviéndola:** familiares («puede dejar impunes los hechos») y CIDH («pueden
+quedar en el olvido») coinciden en que la ley lleva a impunidad y olvido. Es la D. La A pone
+a la CIDH del lado contrario; la C le atribuye a la CIDH y a los familiares justo lo que
+critican.
+
+**Lo que el profesor debe hacer notar**
+
+- Son **tres actores**: se escribe lo que piensa cada uno y se busca lo que comparten
+  **dos**. Un diagrama de tres círculos en el tablero lo resuelve a la vista.
+- Las palabras del texto que se tocan: «impunes» (familiares) y «olvido» (CIDH). La D usa
+  las dos.
+- El cuadernillo trae una errata en la primera posición («que aprobaron el referendo que
+  consideran»); aquí y en el cuaderno va corregida. No afecta la pregunta.
+
+### Pregunta 3 (página 138) · Eficiencia y equidad · clave **C**
+**Fuente:** cuadernillo Saber 11 2016-1, segunda sesión (ABD), Sociales y Ciudadanas, ítem 20.
+**Competencia:** pensamiento reflexivo y sistémico. **Estrategia del cuaderno:** 2 · Eficaz no
+es lo mismo que legítimo.
+
+> En el Plan Nacional de Desarrollo de Colombia de la década de los años 1990, se afirma lo
+> siguiente: «La eficiencia no puede ser antagónica con la equidad. Por tanto, en las
+> determinaciones públicas primarán siempre consideraciones para que el juego del mercado no
+> comprometa la equidad ni restrinja el acceso y la participación equitativa de los más
+> pobres».
+
+**Pregunta:** En este fragmento se adopta una postura crítica frente al modelo neoliberal,
+porque
+
+**Opciones:**
+A. se reconoce el papel central del Estado en la buena gestión y administración de los recursos públicos.
+B. se define el mercado como el principal mecanismo para distribuir eficientemente los beneficios del crecimiento económico.
+C. se afirma que, sin la intervención del Estado, no es posible garantizarle buenas condiciones de vida a toda la población.
+D. se señala implícitamente que la privatización de las empresas del Estado es un mecanismo eficiente para garantizar la equidad.
+
+**Verificada resolviéndola:** el neoliberalismo confía en que el mercado distribuya; la cita
+dice que las decisiones públicas tienen que vigilar al mercado para que no deje por fuera a
+los más pobres. Eso es decir que sin el Estado no hay equidad: C. B y D describen el modelo
+neoliberal, no su crítica; la A habla de gestión, no de equidad.
+
+**Lo que el profesor debe hacer notar**
+
+- **Parte la cita en dos**: eficiencia (lo que pide el mercado) y equidad (lo que el Estado
+  tiene que cuidar). La crítica está en «primarán siempre»: las decisiones públicas mandan
+  sobre el juego del mercado.
+- Lo que un profesor que no es del área necesita: **neoliberalismo** = la idea de que el
+  mercado reparte mejor que el Estado, con menos intervención y más privatización. B y D
+  son defensas de esa idea, no críticas.
+- La A es verdadera en general, pero no responde: la cita no habla de administrar bien,
+  habla de que nadie quede por fuera.
+
+### Pregunta 4 (página 138) · El toque de queda para menores · clave **A**
+**Fuente:** cuadernillo Saber 11 2016-1, segunda sesión (ABD), Sociales y Ciudadanas, ítem 2.
+**Competencia:** pensamiento reflexivo y sistémico. **Estrategia del cuaderno:** 3 · Lo
+político, lo social y lo ético.
+
+> En una ciudad del norte de Colombia, son recurrentes las quejas de la ciudadanía por la
+> presencia de niños, niñas y adolescentes circulando por las calles hasta avanzadas horas de
+> la noche. Las quejas también se relacionan con su presencia en bares y discotecas y con su
+> aparente venta y consumo de sustancias psicoactivas. Al respecto, las autoridades
+> policiales deciden establecer un toque de queda que va desde las 9 de la noche hasta las 6
+> de la mañana, los viernes, sábados y domingos.
+
+**Pregunta:** Esta medida
+
+**Opciones:**
+A. es positiva socialmente, porque disminuiría la exposición de los menores a diversos riesgos.
+B. es negativa políticamente, porque vulneraría los derechos fundamentales de los menores.
+C. es positiva económicamente, porque disminuiría la presencia policial a avanzadas horas de la noche.
+D. es negativa para la seguridad, porque incrementaría los índices de delincuencia común.
+
+**Verificada resolviéndola:** la queja es que los menores están expuestos a bares, drogas y
+la calle de noche; la medida los retira de esos riesgos. Etiqueta (social) y razón
+(exposición a riesgos) salen de la cadena del caso: A.
+
+**Lo que el profesor debe hacer notar**
+
+- Cada opción trae **una etiqueta y un «porque»**. Primero se sigue la cadena del caso
+  (motivo de la queja → medida → efecto) y solo después se miran las etiquetas.
+- La B es la que más se discute: un toque de queda sí restringe la libre circulación. Pero
+  restringir no es vulnerar: el Código de Infancia permite medidas de protección, y la
+  razón de la B no sale del caso. Si un estudiante la defiende, pídele que muestre en el
+  texto el derecho vulnerado.
+- La C y la D afirman efectos que el caso no permite deducir (una medida que la policía
+  tiene que hacer cumplir no reduce la presencia policial).
+
+---
+
+# SOCIALES Y CIUDADANAS · MISIÓN 6 · textos del taller (páginas 132 a 138)
+
+Pasado de `tablero/propuestas/soc6_textos.md` (6 nov). El cuaderno no imprime los textos
+largos de esta misión: el estudiante los lee en su libro (páginas 398 a 402). Aquí va lo que
+el profesor debe hacer notar en cada uno.
+
+## Lo que hay que trabajar en el taller · pregunta 1
+
+### Tres modelos para el salario de los congresistas (libro, página 398)
+
+El texto define tres modelos y después cuenta qué voz invocó cada uno. Dos cosas no cuadran
+y conviene decirlas en voz alta: el argumento que el texto le atribuye al modelo garantista
+(«una medida simbólica no resuelve la falta de control y sanción efectiva») no se sigue de su
+definición (los derechos como límites), y la opción C dice que el desarrollo sostenible
+integra lo «económico, social y político», cuando la definición dice «económico, justicia
+social y ambiental». La clave sigue siendo C, porque es la única que no reduce el problema a
+un solo criterio; pero un estudiante que dude de la C por eso leyó bien.
+
+## Lo que hay que trabajar en el taller · preguntas 2, 3 y 4
+
+### Constitución de 1991 y Bobbio (libro, página 399)
+
+El párrafo de Bobbio es una paráfrasis, no una cita textual. La idea que ordena las tres
+preguntas es la tensión entre la regla de la mayoría y los límites constitucionales: la
+legitimidad no la da solo el número de votos, sino también el respeto a las minorías y al
+pluralismo (artículo 1). En la 3, contar con los estudiantes las formas de participar del
+artículo 40 desarma la opción que reduce la participación a elegir representantes.
+
+## Lo que hay que trabajar en el taller · preguntas 5, 6 y 7
+
+### El Salvador y el «autoritarismo eficaz» (libro, página 400)
+
+El texto no trae fuente y es de opinión. En la 5 el enunciado habla de «los sectores que
+defienden el modelo», pero el texto no describe a ninguno: hay que leerlo como «en qué se
+apoya la legitimidad que se le atribuye». En la 6 hay dos opciones defendibles (B: división de
+poderes; C: pluralismo). La clave es B porque el propio texto dice que debilitar a la Asamblea
+y a la Corte «ha reducido los contrapesos institucionales que caracterizan a un sistema
+democrático»; si un estudiante defiende la C con el artículo 1, se reconoce el argumento.
+Sello del cuaderno: **división de poderes y pluralismo**, explicados en palabras simples. En la
+7, las tres opciones incorrectas confiesan su propia falla dentro de la opción: no premiar que
+el estudiante responda por eso; pedirle que diga qué consecuencia del texto le falta a cada
+una.
+
+## Lo que hay que trabajar en el taller · pregunta 8
+
+### La investigación al hijo del presidente (libro, página 401)
+
+Es un proceso judicial en curso: hablar siempre de «investigado» y «presunto», nunca de
+culpable. La pregunta no pide opinar sobre el caso sino reconocer dos perspectivas que chocan
+(afecta o no afecta la legitimidad del gobierno). El cuaderno no imprime nombres propios;
+queda pendiente la decisión de la Gerencia sobre nombres de políticos vivos.
+
+## Lo que hay que trabajar en el taller · preguntas 9 y 10
+
+### La condena a un expresidente (libro, páginas 401 y 402)
+
+El libro cuenta el fallo de **primera instancia** de julio de 2025. Antes de la clase, el
+profesor debe verificar en qué va el proceso: según información pública, la condena fue
+revocada en segunda instancia en octubre de 2025. Se trabaja la pregunta como análisis del
+texto, no como juicio sobre la persona, y se aclara a los estudiantes que una sentencia
+apelada puede cambiar. En la 10, la clave D gana porque nombra las tres dimensiones; la B
+sigue más de cerca el párrafo «en el plano sistémico» del texto. Vale la pena discutir con el
+grupo por qué decir «políticamente, socialmente y éticamente» no basta si lo que se dice en
+cada dimensión no sale del texto.

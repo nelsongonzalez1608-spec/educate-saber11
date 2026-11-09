@@ -374,7 +374,7 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
    pregunta ICFES con cualquier falla no se usa**; las 4 de M5 (Parte 6) tienen erratas y esperan su decisión.
    **Falta el cierre (345–347).**
    **ASED:** su presentación dice que sus ~700 preguntas fueron «concebidas específicamente» por la Corporación ASED: no son
-   del ICFES. 7 preguntas del cuaderno salen de él con el membrete oficial (4 Mate, 1 LC, 2 Física): pendiente que Nelson
+   del ICFES. 15 preguntas del cuaderno salen de él con el membrete oficial (4 Mate, 1 LC, 8 Sociales M1–M2, 2 Física): pendiente que Nelson
    decida reemplazarlas. No usar el ASED como fuente de preguntas ICFES.
 4. Las 8 guías de clase de Matemáticas (con el motor de `clase_viva_lc.py`).
 5. Planeadores y guías de Sociales, Biología, Química, Física e Inglés.

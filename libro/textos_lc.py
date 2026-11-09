@@ -7,7 +7,7 @@
    página p (pregunta k del entrenamiento)» y la 6 usa subtítulos «### Pregunta k (página p)».
    La misión 2 no repite el texto de Savater: lo remite a la misión 1.
 """
-import re
+import os, re
 
 FUENTE = "/home/claude/libro/TEXTOS_GUIA_DOCENTE.md"
 
@@ -95,7 +95,9 @@ def leer():
     # El poema de Gómez Jattin va completo en el cuaderno y el .md no lo transcribe:
     # se toma de los versos que imprime la hoja (lc1_icfes.datos_poema).
     v = out.get((1, 4))
-    if v is not None and not v["texto"]:
+    # lc1_icfes.py se perdió el 6 nov (RECUPERACION.md): sin él, la entrada queda sin texto
+    # y quien la use (clase_viva) puede reponer los versos desde otra fuente.
+    if v is not None and not v["texto"] and os.path.exists("/home/claude/libro/lc1_icfes.py"):
         fuente_py = open("/home/claude/libro/lc1_icfes.py", encoding="utf-8").read()
         m = re.search(r"versos = \[(.*?)\]", fuente_py, re.S)
         if m:
