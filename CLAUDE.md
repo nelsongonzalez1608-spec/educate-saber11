@@ -141,6 +141,12 @@ termines, dile qué quedó y qué tiene que decidir él.
 
 ## 3. Cómo se entrega
 
+**Imprenta (Nelson, 9 nov):** carta, **pegado como un libro**, doble cara, sangrado estándar de 3 mm con marcas
+de corte, CMYK y PDF/X al final. Los PDF actuales son vectoriales con fuentes incrustadas, pero tienen margen de
+0,76 cm (M = 70 de 2000), sin sangrado y en RGB. La versión de imprenta se arma aparte, al final: margen del lomo
+de unos 2 cm (izquierda en impares, derecha en pares), fondos que llegan al borde extendidos 3 mm. El logo de la
+página 1 está a 175 ppi: hace falta el logo en vector (Nelson lo busca).
+
 - Las hojas se generan en **SVG de 2000 × 2588** y se convierten a **PDF carta** con
   `render.py` (`rsvg-convert`).
 - **Revisa visualmente cada hoja renderizada antes de entregarla.** Los desbordes de texto no

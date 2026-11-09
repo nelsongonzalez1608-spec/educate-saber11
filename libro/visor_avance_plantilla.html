@@ -113,6 +113,16 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
 .paginero select{font:15px var(--texto);padding:8px 10px;border-radius:8px;border:1.5px solid var(--linea);background:var(--hoja);color:var(--tinta);max-width:100%}
 .boton.fuerte{background:var(--c,var(--tinta));border-color:var(--c,var(--tinta));color:#fff}
 .boton.mini-b{font-size:12px;padding:4px 10px}
+.guia-dlg{border:0;padding:0;margin:0;width:100vw;height:100vh;max-width:100vw;max-height:100vh;background:#0B0D1F}
+.guia-dlg[open]{display:grid;grid-template-rows:auto 1fr}
+.guia-barra{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px max(12px,env(safe-area-inset-left,0px));color:#fff;font-size:14px}
+.guia-barra b{flex:1 1 200px}
+.guia-barra button{font:700 14px var(--texto);border-radius:8px;border:1.5px solid rgba(255,255,255,.6);background:transparent;color:#fff;padding:6px 12px;cursor:pointer}
+.guia-dlg iframe{width:100%;height:100%;border:0;background:#fff}
+.guias{display:grid;gap:8px}
+#presentaciones{align-items:start}
+#presentaciones .bloque{align-content:start}
+.guia-fila{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;background:var(--hoja)}
 .leyenda button{all:unset;cursor:pointer;color:var(--suave)}
 .leyenda button:hover,.leyenda button:focus-visible{color:var(--tinta);text-decoration:underline}
 @media (prefers-reduced-motion:no-preference){.mini img{transition:transform .15s}.mini:hover img{transform:translateY(-2px)}}
@@ -122,13 +132,14 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
   <header class="cabeza">
     <span class="eyebrow">EDUCATE · Para el Saber</span>
     <h1>Cuaderno Saber 11 · cómo va</h1>
-    <p>Todo lo que se va construyendo: el cuaderno página por página, el material del docente, los hallazgos del libro y los archivos para descargar.</p>
+    <p>Todo lo que se va construyendo: el cuaderno página por página, el material del docente, las presentaciones de clase, los hallazgos del libro y los archivos para descargar.</p>
     <div class="cifras" id="cifras"></div>
   </header>
 
   <nav class="pestanas" aria-label="Secciones">
     <a href="#cuaderno">Cuaderno</a>
     <a href="#docente">Material del docente</a>
+    <a href="#presentaciones">Presentaciones</a>
     <a href="#hallazgos">Hallazgos</a>
     <a href="#descargas">Descargas</a>
   </nav>
@@ -143,8 +154,13 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
   </section>
 
   <section class="vista" id="v-docente" aria-label="Material del docente" hidden>
-    <p class="aviso">Por área: el planeador del docente (24 hojas) y las 8 guías de clase que se proyectan. El planeador se ve hoja por hoja aquí mismo; las guías se abren en otra pestaña y se manejan con las flechas del teclado (G abre la guía del profe).</p>
+    <p class="aviso">Por área: el planeador del docente (24 hojas) y las 8 guías de clase que se proyectan. El planeador se ve hoja por hoja aquí mismo; las guías se abren aquí mismo en pantalla completa (también en la pestaña Presentaciones).</p>
     <div class="docentes" id="docentes"></div>
+  </section>
+
+  <section class="vista" id="v-presentaciones" aria-label="Presentaciones" hidden>
+    <p class="aviso">Las guías de clase que se proyectan, una por clase. «Ver aquí» la abre en esta misma página: haz clic sobre ella y usa las flechas del teclado; G abre la guía del profe y T el cronómetro. Para proyectar en el salón, descárgala: es un solo archivo que se abre con doble clic y funciona sin internet.</p>
+    <div class="docentes" id="presentaciones"></div>
   </section>
 
   <section class="vista" id="v-hallazgos" aria-label="Hallazgos" hidden>
@@ -184,6 +200,11 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
       <button id="cerrar" type="button">Cerrar</button>
     </div>
   </div>
+</dialog>
+
+<dialog id="dlg-guia" class="guia-dlg" aria-label="Guía de clase">
+  <div class="guia-barra"><b id="guia-tit"></b><button type="button" id="guia-bajar">Descargar</button><button type="button" id="guia-cerrar">Cerrar</button></div>
+  <iframe id="guia-frame" title="Guía de clase"></iframe>
 </dialog>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
@@ -292,7 +313,7 @@ doc.innerHTML = D.docente.map((d, i) => {
          <button class="boton" type="button" data-bajar="${esc(d.planeador.pdf)}">Descargar PDF</button></div>`
     : `<p class="pendiente">Planeador: pendiente</p>`;
   const guias = d.guias.length
-    ? `<div class="fila">${d.guias.map(g => `<a class="boton" href="${esc(g.f)}" target="_blank" rel="noopener">${esc(g.t)}</a>`).join("")}</div>`
+    ? `<div class="fila">${d.guias.map(g => `<button class="boton" type="button" data-guia="${esc(g.f)}" data-tit="${esc(d.area + " · " + g.t)}">${esc(g.t)}</button>`).join("")}</div>`
     : `<p class="pendiente">Guías de clase: ${esc(d.guias_nota || "pendientes")}</p>`;
   return `<div class="bloque" style="--c:${a.c}"><h3>${esc(d.area)}</h3>${d.nota ? `<p>${esc(d.nota)}</p>` : ""}
     <strong style="font-size:13px">Planeador del docente</strong>${plan}
@@ -302,6 +323,28 @@ doc.addEventListener("click", e => {
   const b = e.target.closest("[data-plan]");
   if (b) { const d = D.docente[+b.dataset.plan]; verLista(d.planeador.hojas.map((s, i) => ({src: s, txt: `${d.area} · planeador · hoja ${i + 1} de ${d.planeador.hojas.length}`})), 0); }
 });
+
+/* ---------- presentaciones ---------- */
+document.getElementById("presentaciones").innerHTML = D.docente.map(d => {
+  const a = AREAS.find(x => x.n === d.area) || {c: "#242478"};
+  const filas = d.guias.length
+    ? `<div class="guias">${d.guias.map(g => `<div class="guia-fila"><span>${esc(g.t)}</span><span class="fila">
+        <button class="boton" type="button" data-guia="${esc(g.f)}" data-tit="${esc(d.area + " · " + g.t)}">Ver aquí</button>
+        <button class="boton" type="button" data-bajar="${esc(g.f)}">Descargar</button></span></div>`).join("")}</div>`
+    : `<p class="pendiente">${esc(d.guias_nota || "pendientes")}</p>`;
+  return `<div class="bloque" style="--c:${a.c}"><h3>${esc(d.area)}</h3>${d.nota ? `<p>${esc(d.nota)}</p>` : ""}${filas}</div>`;
+}).join("");
+const dGuia = document.getElementById("dlg-guia"), fGuia = document.getElementById("guia-frame");
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-guia]"); if (!g) return;
+  document.getElementById("guia-tit").textContent = g.dataset.tit;
+  document.getElementById("guia-bajar").dataset.f = g.dataset.guia;
+  fGuia.src = g.dataset.guia; dGuia.showModal(); setTimeout(() => fGuia.focus(), 300);
+});
+fGuia.addEventListener("load", () => fGuia.focus());
+document.getElementById("guia-cerrar").onclick = () => { dGuia.close(); };
+dGuia.addEventListener("close", () => { fGuia.src = "about:blank"; });
+document.getElementById("guia-bajar").onclick = e => bajar(e.target.dataset.f, e.target.dataset.f.split("/").pop());
 
 /* ---------- hallazgos ---------- */
 const H = D.hallazgos;
@@ -432,7 +475,7 @@ document.addEventListener("click", e => { const b = e.target.closest("[data-baja
 (async () => { try { bajador = await window.claude?.use?.("downloads"); } catch (e) { bajador = null; } })();
 
 /* ---------- pestañas ---------- */
-const VISTAS = ["cuaderno","docente","hallazgos","descargas"];
+const VISTAS = ["cuaderno","docente","presentaciones","hallazgos","descargas"];
 function mostrar() {
   const [h, sub] = location.hash.slice(1).split("/"), v = VISTAS.includes(h) ? h : "cuaderno";
   if (v === "descargas") { const k = sub && AREAS.some(a => a.k === sub) ? sub : (sub ? areaSel : "todo"); if (k !== areaSel || !document.getElementById("chips-areas").children.length) { areaSel = k; pintarChips(); } }
