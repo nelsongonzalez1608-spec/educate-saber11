@@ -347,7 +347,13 @@ def con_figura(sc, mis, k):
     marca = f"<p>{CV.E(textos_bio.MARCA)}</p>"
     if fig:
         assert marca in sc["html"], f"M{mis} P{k}: falta la marca de la figura"
-        sc["html"] = sc["html"].replace(marca, fig)
+        if (mis, k) in textos_bio.EN_OPCIONES:
+            ops = f'<div class="ops" id="icf{mis}{k}">'
+            assert ops in sc["html"]
+            sc["html"] = sc["html"].replace(marca, "").replace(
+                ops, f'<div class="opsfig">{fig}</div><div class="ops cuatro" id="icf{mis}{k}">')
+        else:
+            sc["html"] = sc["html"].replace(marca, fig)
     return sc
 
 
@@ -387,11 +393,11 @@ def rotulo(contexto, n=46):
     return t
 
 
-def escenas_simulacro(A):
+def escenas_simulacro(A, textos):
     sc7 = CV.escenas_clase7(A)
     sc7[0]["guia"]["apoyo"].append(
-        "Las 24 salen de los cuadernillos liberados del Saber 11 de 2016; ninguna del compilado ASED. En "
-        "pantalla y en el cuaderno van con el membrete «Pregunta Saber 11».")
+        "Ninguna de las 24 sale del compilado ASED. En pantalla y en el cuaderno van con el membrete "
+        "«Pregunta Saber 11»; la procedencia de cada una está en el tablero del proyecto.")
     por = {"UC": [], "EF": [], "IN": []}
     for m in range(1, 7):
         for k in range(1, 5):
@@ -403,7 +409,8 @@ def escenas_simulacro(A):
         "Como no hay el mismo número de preguntas en cada competencia, compara proporciones, no manos sueltas.",
         "En la prueba real Biología, Química y Física dan un solo puntaje de Ciencias Naturales.",
         "Anota los tres números: son el dato que la coordinación necesita para decidir el refuerzo."]
-    todas = [(m, k, rotulo(fila["contexto"])) for m in range(1, 7) for k, fila in enumerate(P.BANCO[m], 1)]
+    # el rótulo de cada botón es el título de la pregunta en TEXTOS_BIO.md: corto y sin repetirse
+    todas = [(m, k, rotulo(textos[(m, k)]["titulo"])) for m in range(1, 7) for k in range(1, 5)]
     sc8 = CV.escenas_clase8(A, todas)
     sc8[-1]["guia"]["apoyo"] = [a.replace("la franja de vocabulario completa",
                                           "la franja «Palabras que me frenaron» completa")
@@ -451,7 +458,7 @@ def construir(out=OUT):
                                f"Momento {mis} · {d['comp']} · páginas {d['pags']}", sc))
     A = area(1, P_ns, textos, taller)
     A.out = out
-    sc7, sc8 = escenas_simulacro(A)
+    sc7, sc8 = escenas_simulacro(A, textos)
     hechos.append(escribir(A, "BIO_Clase7_Simulacro.html", "Biología · Clase 7",
                            "Simulacro del área · 24 preguntas", sc7))
     hechos.append(escribir(A, "BIO_Clase8_Devolucion.html", "Biología · Clase 8",

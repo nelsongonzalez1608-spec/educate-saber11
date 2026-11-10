@@ -184,10 +184,10 @@ D. el monóxido de carbono destruye las moléculas de hemoglobina en la sangre.
 **Pregunta:** ¿Cuál gráfica representa mejor la frecuencia cardiaca en función del tiempo para ambas personas mientras hacen ejercicio?
 
 **Opciones:**
-A. La gráfica A.
-B. La gráfica B.
-C. La gráfica C.
-D. La gráfica D.
+A. Gráfica A
+B. Gráfica B
+C. Gráfica C
+D. Gráfica D
 
 **Verificada resolviéndola:** dos datos del texto: el ejercicio eleva el ritmo en los dos, y el deportista no lo sube tanto. En A las dos curvas suben y se estabilizan, y la del deportista va siempre por debajo (A). En B el deportista no sube nada; en C su frecuencia baja; D es la misma figura que A con las personas al revés.
 
@@ -308,10 +308,10 @@ D. Porque hay mayor exposición del agua a la luz.
 **Pregunta:** Al leer la información del contexto, un investigador piensa que si se emplean pectinasas durante la producción de vino de uva, la intensidad del color de un vino es mayor que la de un vino producido sin pectinasas. Si la hipótesis del investigador es cierta, ¿cuál de las siguientes gráficas muestra los resultados esperados por el investigador?
 
 **Opciones:**
-A. La gráfica A.
-B. La gráfica B.
-C. La gráfica C.
-D. La gráfica D.
+A. Gráfica A
+B. Gráfica B
+C. Gráfica C
+D. Gráfica D
 
 **Verificada resolviéndola:** la hipótesis compara dos vinos —con y sin pectinasas— en intensidad del color y no habla del tiempo: se representa con dos barras, y la de «con pectinasa» va más alta (B). En A va más baja; C y D ponen el tiempo en el eje horizontal, y en D la línea «sin pectinasa» queda por encima.
 

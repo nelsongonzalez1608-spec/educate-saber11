@@ -36,9 +36,10 @@ TINTA = "#1B1F27"; GRIS = "#5C6472"; LINEA = "#C9CFD8"; FONDO = "#F4F7F5"; ROJO 
 FUENTE_SVG = "font-family:'Source Sans 3','Segoe UI',system-ui,sans-serif"
 
 
-def _svg(w, h, cuerpo, alt):
+def _svg(w, h, cuerpo, alt, ancho=None):
+    tope = f";max-width:{ancho}px;margin:0 auto" if ancho else ""
     return (f'<figure class="fig"><svg viewBox="0 0 {w} {h}" role="img" aria-label="{E(alt)}" '
-            f'style="{FUENTE_SVG}">{cuerpo}</svg></figure>')
+            f'style="{FUENTE_SVG}{tope}">{cuerpo}</svg></figure>')
 
 
 def _t(x, y, txt, size=15, color=TINTA, anchor="start", bold=False, italic=False):
@@ -78,7 +79,7 @@ def fig_transporte():
     for px, py in ((-170, -76), (120, -82), (168, -26), (172, 34), (128, 96), (-168, 84)):
         c += _t(cx + px, cy + py, "Na⁺", 16, bold=True, anchor="middle")
     c += _t(cx, 236, "Ejemplo de célula animal (esquema del cuadernillo)", 13, GRIS, "middle", italic=True)
-    return tabla + _svg(460, 246, c, "Célula con cinco K⁺ y un Na⁺ adentro, y seis Na⁺ afuera")
+    return tabla + _svg(460, 246, c, "Célula con cinco K⁺ y un Na⁺ adentro, y seis Na⁺ afuera", ancho=340)
 
 
 def fig_sintesis():
@@ -108,7 +109,7 @@ def fig_sintesis():
     c += _t(ax + 18, ay + 5, "Aminoácido", 14, bold=True) + _t(ax + 18, ay + 32, "ARNt", 14, bold=True)
     c += _t(rx, ry + 60, "Traducción", 14, bold=True, anchor="middle")
     c += _t(380, 246, "Citoplasma", 13, GRIS, italic=True)
-    return _svg(720, 270, c, "Modelo de síntesis de proteínas: transcripción en el núcleo y traducción en el ribosoma")
+    return _svg(790, 270, c, "Modelo de síntesis de proteínas: transcripción en el núcleo y traducción en el ribosoma")
 
 
 def fig_cucarachas():
@@ -120,7 +121,7 @@ def fig_cucarachas():
 
 def fig_lh():
     import math
-    gx, gy, gw, gh = 60, 30, 520, 130
+    gx, gy, gw, gh = 60, 34, 520, 126
     c = (f'<line x1="{gx}" y1="{gy+gh}" x2="{gx+gw}" y2="{gy+gh}" stroke="{TINTA}" stroke-width="1.8"/>'
          f'<line x1="{gx}" y1="{gy}" x2="{gx}" y2="{gy+gh}" stroke="{TINTA}" stroke-width="1.8"/>')
     pts = " ".join(f"{gx+d*gw/28:.0f},{gy+gh-(18+85*math.exp(-((d-14)**2)/1.6)):.0f}" for d in range(29))
@@ -128,7 +129,7 @@ def fig_lh():
     for d in (1, 14, 28):
         c += _t(gx + d * gw / 28, gy + gh + 22, str(d), 14, anchor="middle")
     c += _t(gx + gw / 2, gy + gh + 44, "días del ciclo menstrual", 14, GRIS, "middle", italic=True)
-    c += _t(gx + 14 * gw / 28 + 14, gy + 10, "pico de hormona luteinizante (LH) → ovulación", 14, bold=True)
+    c += _t(gx + 14 * gw / 28, gy - 4, "pico de hormona luteinizante (LH) → ovulación", 14, bold=True, anchor="middle")
     c += _t(gx - 10, gy + gh / 2, "LH", 14, bold=True, anchor="end")
     return (_svg(600, 210, c, "Esquema: la hormona luteinizante tiene un pico hacia el día 14, que produce la ovulación")
             + '<p class="sub figcap">Esquema simplificado. El cuadernillo trae además las curvas de estrógeno y '
@@ -164,9 +165,9 @@ GRAF_FC = {"A": (((0, 85), (15, 135), (30, 143), (45, 148), (57, 152)),
 
 
 def _mini_fc(ox, oy, L):
-    pw, ph = 250, 150
+    pw, ph = 250, 116
     X = lambda t: ox + 50 + t / 80 * pw
-    Y = lambda f: oy + 20 + ph - (f - 55) / 120 * ph
+    Y = lambda f: oy + 34 + ph - (f - 55) / 120 * ph
     c = _t(ox + 10, oy + 16, f"Gráfica {L}", 15, bold=True)
     for f in (55, 95, 135, 175):
         c += f'<line x1="{X(0):.0f}" y1="{Y(f):.0f}" x2="{X(80):.0f}" y2="{Y(f):.0f}" stroke="#E3E8EF"/>'
@@ -197,8 +198,8 @@ def fig_frecuencia():
          + _t(218, 19, "Deportista", 14) +
          _t(340, 19, "eje vertical: frecuencia cardiaca (latidos por minuto)", 13, GRIS, italic=True))
     for k, L in enumerate("ABCD"):
-        c += _mini_fc((k % 2) * 330, 34 + (k // 2) * 225, L)
-    return _svg(660, 490, c, "Cuatro gráficas de frecuencia cardiaca contra tiempo, A a D, sedentario y deportista")
+        c += _mini_fc((k % 2) * 330, 30 + (k // 2) * 200, L)
+    return _svg(660, 432, c, "Cuatro gráficas de frecuencia cardiaca contra tiempo, A a D, sedentario y deportista")
 
 
 def fig_eutrofizacion():
@@ -278,9 +279,7 @@ def fig_vino():
             ("C", "lineas", ([(0, 0.6), (0.5, 0.6), (0.5, 0.0)], [(0, 0.64), (0.5, 0.64), (0.85, 0.3)])),
             ("D", "lineas", ([(0, 0.15), (0.85, 0.5)], [(0, 0.42), (0.85, 0.78)])))
     c = "".join(_mini_vino((k % 2) * 360, (k // 2) * 175, L, t, v) for k, (L, t, v) in enumerate(graf))
-    return (_svg(720, 345, c, "Cuatro gráficas de intensidad del color del vino con y sin pectinasa, A a D")
-            + '<p class="sub figcap">Redibujadas desde una fotocopia: la barra «con pectinasa» de la gráfica A '
-              'casi no se ve en el original.</p>')
+    return _svg(720, 345, c, "Cuatro gráficas de intensidad del color del vino con y sin pectinasa, A a D")
 
 
 def fig_ciclo():
@@ -291,19 +290,19 @@ def fig_ciclo():
         for j, l in enumerate(lineas):
             s += _t(x, y0 + j * 18, l, 14, anchor="middle")
         return s
-    L, R, top, bot = 150, 590, 60, 260
+    L, Mi, R, top, bot = 130, 430, 730, 60, 260
     c = nodo(L, top, "Células haploides (n)") + nodo(R, top, "Gametos: esperma (n)\ny óvulo (n)", ry=40)
-    c += nodo(R, bot, "Cigoto diploide (2n)") + nodo((L + R) / 2 + 30, bot, "Organismo multicelular\ndiploide (2n)", 132, 40)
+    c += nodo(R, bot, "Cigoto diploide (2n)") + nodo(Mi, bot, "Organismo multicelular\ndiploide (2n)", 128, 40)
     c += nodo(L, bot, "Células (2n)\nlínea germinal", 108, 40)
     c += _flecha(L + 120, top, R - 122, top) + _t((L + R) / 2, top - 12, "Haploide (n)", 15, anchor="middle")
     c += _flecha(R, top + 42, R, bot - 36) + _t(R + 12, (top + bot) / 2 + 5, "Fertilización", 15, bold=True)
-    c += _flecha(R - 120, bot, (L + R) / 2 + 164, bot) + _t((R - 120 + (L + R) / 2 + 164) / 2 + 2, bot - 46, "Mitosis", 15, anchor="middle", bold=True)
-    c += _flecha((L + R) / 2 - 104, bot, L + 110, bot)
-    c += _t(((L + R) / 2 - 104 + L + 110) / 2 + 4, bot - 64, "Formación de", 13, anchor="middle")
-    c += _t(((L + R) / 2 - 104 + L + 110) / 2 + 4, bot - 48, "células germinales", 13, anchor="middle")
+    c += _flecha(R - 120, bot, Mi + 130, bot) + _t((R - 120 + Mi + 130) / 2, bot - 48, "Mitosis", 15, anchor="middle", bold=True)
+    c += _flecha(Mi - 130, bot, L + 110, bot)
+    c += _t((Mi - 130 + L + 110) / 2, bot - 64, "Formación de", 13, anchor="middle")
+    c += _t((Mi - 130 + L + 110) / 2, bot - 48, "células germinales", 13, anchor="middle")
     c += _flecha(L, bot - 42, L, top + 36) + _t(L - 12, (top + bot) / 2 + 5, "Meiosis", 15, anchor="end", bold=True)
     c += _t((L + R) / 2, (top + bot) / 2 + 5, "Diploide (2n)", 15, anchor="middle")
-    return _svg(760, 310, c, "Ciclo de alternancia entre células haploides y diploides: meiosis, fertilización y mitosis")
+    return _svg(860, 310, c, "Ciclo de alternancia entre células haploides y diploides: meiosis, fertilización y mitosis")
 
 
 def fig_especies():
@@ -324,11 +323,16 @@ FIGURAS = {(1, 2): fig_transporte(), (1, 3): fig_sintesis(), (1, 4): fig_cucarac
            (4, 1): fig_vino(), (5, 1): fig_ciclo(),
            (6, 1): fig_especies(), (6, 2): fig_etileno()}
 
+# Preguntas cuyas opciones son gráficas: la figura va en la columna de las opciones (no en el panel del
+# texto, donde habría que desplazarse para ver las cuatro) y las opciones quedan en una sola fila.
+EN_OPCIONES = {(2, 4), (4, 1)}
+
 # Estilo de las figuras dentro del panel del texto (se agrega a la plantilla de la guía).
 CSS = """.fig{margin:12px 0}.fig svg{display:block;width:100%;max-width:760px;height:auto}
-.tabla{border-collapse:collapse;width:100%;table-layout:fixed;font-size:.9em}
-.tabla th,.tabla td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;overflow-wrap:anywhere}
+.tabla{border-collapse:collapse;width:100%;table-layout:fixed;font-size:.86em;line-height:1.35}
+.tabla th,.tabla td{border:1px solid var(--line);padding:5px 8px;vertical-align:top;overflow-wrap:anywhere}
 .tabla th{background:#F2F5F3;text-align:left}.figcap{font-size:.85em;font-style:italic}
+.ops.cuatro{grid-template-columns:repeat(4,1fr)}.opsfig svg{max-width:580px}
 """
 
 

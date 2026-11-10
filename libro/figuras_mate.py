@@ -143,7 +143,7 @@ def ganancias():
     g += poly(pts, c=ROJO, sw=2.6, close=False)
     for x, y in pts:
         g += poly([(x, y - 6), (x + 6, y), (x, y + 6), (x - 6, y)], ROJO, ROJO, 1)
-    return svg(780, 262, g, 270, "Ganancias mensuales de la empresa durante un año")
+    return svg(780, 262, g, 220, "Ganancias mensuales de la empresa durante un año")
 
 
 def arboles():
