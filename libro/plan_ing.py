@@ -41,6 +41,7 @@ de tablero/manifiesto_hojas.json: si el mapa de páginas cambia, el planeador lo
 import ast, csv, json, re
 from plan_piezas import *
 import plan_piezas as PZ
+import paginas as PG          # la numeración final del cuaderno (398 páginas, 10 nov): única fuente
 
 ING = "#1BA0A8"; ING_BG = "#E8F6F7"; ING_LN = "#B4DEE1"
 ING_T = "#12808A"          # el turquesa, oscurecido, para texto pequeño sobre blanco
@@ -131,9 +132,12 @@ CLASES = [
     (4, "Misión 4 · Parte 5", "lectura literal · 16 preguntas"),
     (5, "Misión 5 · Parte 6", "lectura inferencial · 16 preguntas"),
     (6, "Misión 6 · Parte 7", "texto con espacios · 24 preguntas"),
-    (None, "Simulacro del área", "en condiciones de prueba"),
-    (None, "Socialización del simulacro", "devolución, reparación y cierre del área"),
+    (None, "Simulacro del área", "la prueba que escoge EDUCATE"),
+    (None, "Socialización del simulacro", "en las hojas de simulacro del cuaderno"),
 ]
+AREA_PAGS = PG.rango_area("ing")                      # (313, 395): portada, seis misiones y simulacro
+SIMULACRO_PAGS = PG.paginas_simulacro("ing")          # [390 … 395]
+SIM = f"{SIMULACRO_PAGS[0]} a {SIMULACRO_PAGS[-1]}"
 
 TOTAL_PREG = {1: 21, 2: 10, 3: 40, 4: 16, 5: 16, 6: 24}
 LIBRO = {1: (414, 415), 2: (424, 425), 3: (435, 437), 4: (446, 448), 5: (456, 459), 6: (468, 470)}
@@ -332,6 +336,25 @@ REPARTO = {
 def ronda_de(clase):
     """La tarea que se revisa al comenzar esta clase: [(misión, tarjetas, rótulo)]."""
     return [(m, ns, rot) for m, r in REPARTO.items() for ns, c, rot in r["casa"] if c == clase]
+
+
+# Clases 7 y 8 (decisión de Nelson, 10 nov): el simulacro es una prueba que escoge EDUCATE y no está en
+# el cuaderno; la clase 8 socializa sus preguntas en las hojas de simulacro. C7 y C8: plan_simulacro.py.
+# La clase 8 abre con la ronda de claves de la última tarea (la de la Misión 6).
+import plan_simulacro as PS
+_R8 = ronda_de(8)
+C7, C8 = PS.datos("ing", conteo="familia de partes (palabras y avisos, gramática en el texto, lectura)", previo=(
+    f"Abre con la ronda de claves de la tarea de la Misión {_R8[0][0]} (tarjetas {nums(_R8[0][1])}): cinco "
+    f"minutos.") if _R8 else None, dinamica=dict(
+    nombre="La línea que manda", formato="en parejas",
+    pasos=["Parejas con la segunda pregunta asignada. B tapa las opciones con una hoja.",
+           "A copia la línea que manda y dice en español lo que dice.",
+           "B destapa una opción a la vez. A la acepta o la descarta diciendo la pista: la palabra de al "
+           "lado, el tiempo del verbo, el lugar o quién habla, un conector o un número.",
+           "Cambian de papel con la misma pregunta. Cada uno anota en su esquema lo que descartó y una "
+           "palabra nueva."],
+    entrena="Encontrar la pista antes de mirar las opciones, y descartar con una razón. Son «la línea que "
+            "manda», «la pista que manda» y «descarté» del esquema."))
 
 
 def destino(mis, n):
@@ -1008,7 +1031,7 @@ def h1():
     nc = sum(len(r["clase"]) for r in REPARTO.values())
     nr = sum(len(r["reto"]) for r in REPARTO.values())
     nk = sum(len(ns) for r in REPARTO.values() for ns, _, _ in r["casa"])
-    cif = [(str(p1 - p0 + 1), "páginas del cuaderno\\ncon la portada", ING),
+    cif = [(str(AREA_PAGS[1] - AREA_PAGS[0] + 1), "páginas del cuaderno\\ncon portada y simulacro", ING),
            ("127", "preguntas del libro,\\nuna tarjeta cada una", ING),
            (str(nc), "en clase,\\ndiez por misión", "#1F4E8C"), (str(nr), "en el reto\\ndel corte", MORADO),
            (str(nk), "para la casa,\\ncon ronda de claves", ORO), ("24", "preguntas tipo\\nSaber 11", ROJO)]
@@ -1076,8 +1099,8 @@ def h1():
 def h2():
     b = svg_open()
     p0, p1 = pags_mision(1)[0] - 1, pags_mision(6)[1]
-    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo", derecha=str(p1 - p0 + 1),
-                 dsub="páginas del cuaderno")
+    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo",
+                 derecha=str(AREA_PAGS[1] - AREA_PAGS[0] + 1), dsub=f"páginas · {AREA_PAGS[0]} a {AREA_PAGS[1]}")
     y = seccion(b, y, "Qué se ve en cada sábado y adónde va cada tarjeta",
         "Seis clases de contenido, una por misión, y dos para el simulacro del área. Cada misión es una parte "
         "del examen. El número de clases es fijo: no se recorta aunque una misión tenga 40 preguntas.")
@@ -1120,10 +1143,10 @@ def h2():
             b.append(T(colx[5] + 20, y + 76, [f"páginas {i1} y {i2}"], 18, GRAY))
         else:
             ron = ronda_de(8)
-            b.append(T(colx[2] + 20, y + 60, ["las 24 de entrenamiento" if n == 7 else "las cinco más falladas"],
+            b.append(T(colx[2] + 20, y + 60, ["condiciones de examen" if n == 7 else "6 por estudiante"],
                        21, GRAY))
             b.append(T(colx[4] + 20, y + 60, ["—" if n == 7 else f"ronda: tarea de la Misión {ron[0][0]}"], 21, GRAY))
-            b.append(T(colx[5] + 20, y + 60, ["90 min de prueba" if n == 7 else "reparar con el instrumento"],
+            b.append(T(colx[5] + 20, y + 60, ["no está en el cuaderno" if n == 7 else f"páginas {SIM}"],
                        21, GRAY))
         y += alto + 10
     y += 24
@@ -1452,91 +1475,11 @@ def hoja_clase_b(mis):
 
 
 def h17():
-    """Clases 7 y 8 · el simulacro del área y su devolución."""
+    """Clases 7 y 8 · el simulacro de EDUCATE y su socialización en el cuaderno (C7 y C8)."""
     b = svg_open()
-    y = cabecera(b, "Clases 7 y 8", "El simulacro del área y su devolución",
-                 derecha="24", dsub="preguntas del simulacro")
-    y = seccion(b, y, "Qué son estas dos clases",
-        "No traen contenido nuevo. Trabajan las 24 preguntas tipo Saber 11 que el estudiante ya tiene en su "
-        "cuaderno, cuatro por misión, y que hasta ahora resolvió de a poco y con instrumento.")
-    m6 = ronda_de(8)
-    dos = [("Clase 7 · el simulacro", ROJO, ROJO_BG, ROJO_LN,
-            "Condiciones de prueba, 90 minutos de reloj, en silencio",
-            ["Las 24 preguntas de entrenamiento del área, seguidas, en el orden del cuaderno.",
-             "El estudiante SÍ puede escribir al margen la pista que decide: en la prueba real también puede "
-             "rayar el cuadernillo, y es lo que entrenó.",
-             "No se responde ninguna duda, ni de vocabulario ni de pronunciación.",
-             "Los últimos 30 minutos: cada uno cuenta sus aciertos en las tres familias de partes del examen."]),
-           ("Clase 8 · la devolución", VERDE, VERDE_BG, VERDE_LN,
-            "Ronda de la última tarea y reparación con el instrumento",
-            [f"Abre con la ronda de claves de la tarea de la Misión {m6[0][0]} (tarjetas {nums(m6[0][1])}): cinco "
-             "minutos.",
-             "Se eligen las cinco preguntas del simulacro que más falló el grupo.",
-             "Cada estudiante compara lo que escribió al margen con el instrumento de su hoja de entrenamiento: "
-             "¿qué pista vio esta vez que antes no?",
-             "Al final, la portada del área: las ocho clases, las caritas y el puntaje."])]
-    an = (CW - 20) / 2
-    alto = 0
-    for _, _, _, _, _, pasos in dos:
-        alto = max(alto, 120 + sum(len(wrap_px(p_, 22, an - 110)) for p_ in pasos) * 31 + len(pasos) * 22)
-    for i, (tit, c, bg, ln, sub_, pasos) in enumerate(dos):
-        x = M + i * (an + 20)
-        b.append(rect(x, y, an, alto, bg, r=18, stroke=ln, sw=2.2))
-        b.append(rect(x + 14, y + 16, 5, alto - 32, c, r=3))
-        b.append(T(x + 40, y + 52, [tit], 27, c, weight="700"))
-        b.append(T(x + 40, y + 86, [sub_], 20, GRAY, style="italic"))
-        yy = y + 112
-        for p_ in pasos:
-            b.append(f'<circle cx="{x+52}" cy="{yy+12}" r="6" fill="{c}"/>')
-            yy = parrafo_j(b, x + 76, yy - 6, p_, an - 110, 22, INK, lh=31) + 22
-    y += alto + 30
-    y = nota(b, M, y, CW,
-        "El simulacro no se califica con nota. El examen de Inglés no se reporta por competencias sino por "
-        "partes y por nivel (A–, A1, A2, B1, B+); aquí se cuenta por tres familias de partes, ocho preguntas "
-        "cada una, para que el estudiante vea dónde se le va el puntaje y la coordinación decida el refuerzo.",
-        ORO, ORO_BG, ORO_LN, "Cómo se lee el resultado", 24) + 30
-    y = seccion(b, y, "Conteo por familia de partes",
-        "Llénalo con el grupo en el tablero al final de la clase 7. Debajo de cada una, las preguntas que le "
-        "tocan: misión y número.")
-    grupos = {"LP": [], "GT": [], "LE": []}
-    for m in range(1, 7):
-        for k in range(1, 5):
-            grupos[GRUPO_ICFES[m]].append(f"M{m}·{k}")
-    an2 = (CW - 2 * 18) / 3
-    lineas = {c_: wrap_px("  ".join(v), 19, an2 - 80, "700") for c_, v in grupos.items()}
-    alto2 = 168 + max(len(v) for v in lineas.values()) * 27
-    for i, cod in enumerate(("LP", "GT", "LE")):
-        x = M + i * (an2 + 18)
-        nom, sub_ = GRUPO_NOM[cod]
-        b.append(rect(x, y, an2, alto2, "white", r=16, stroke=ING_LN, sw=2))
-        b.append(rect(x + 14, y + 14, 5, alto2 - 28, ING, r=3))
-        b.append(T(x + 40, y + 46, [f"{nom} · {len(grupos[cod])}"], 23, INK, weight="700"))
-        b.append(T(x + 40, y + 76, [sub_], 19, GRAY, style="italic"))
-        for j, ln in enumerate(lineas[cod]):
-            b.append(T(x + 40, y + 108 + j * 27, [" ".join(ln)], 19, ING_T, weight="700"))
-        yb = y + 108 + len(lineas[cod]) * 27 - 6
-        b.append(T(x + 40, yb + 20, ["aciertos del grupo"], 18, GRAY))
-        b.append(rect(x + 230, yb - 6, an2 - 270, 40, ING_BG, r=10, stroke=ING_LN, sw=1.8))
-    y += alto2 + 30
-    y = seccion(b, y, "Las cinco preguntas que se reparan en la clase 8")
-    cx = [M, M + 200, M + 560, M + 1160]
-    y = encabezado_tabla(b, y, list(zip(cx, ["N.º", "MISIÓN Y PÁGINA", "QUÉ PISTA HABÍA QUE VER",
-                                              "QUÉ FALLÓ EL GRUPO"])))
-    for k in range(1, 6):
-        b.append(rect(M, y, CW, 76, "white", r=12, stroke=ING_LN, sw=1.8))
-        b.append(rect(M + 10, y + 10, 4, 56, VERDE, r=2))
-        b.append(T(cx[0] + 54, y + 50, [str(k)], 26, VERDE, weight="700", anchor="middle"))
-        for xi, xf in [(cx[1] + 18, cx[2] - 20), (cx[2] + 18, cx[3] - 20), (cx[3] + 18, W - M - 30)]:
-            b.append(line(xi, y + 54, xf, y + 54, "#E6EAF0", 2))
-        y += 82
-    y += 24
-    y = nota(b, M, y, CW,
-        "Cada una de las cinco se repara por escrito en una de las hojas de simulacro que van al final del área "
-        "en el cuaderno (tres esquemas por página: qué me piden, qué herramienta uso, qué opción tacho y con qué "
-        "razón). Si esas hojas todavía no están impresas, se repara en la hoja de entrenamiento de la misma "
-        "pregunta, al lado del instrumento de la primera vez. Si la más fallada es de la familia «Lectura», "
-        "pide que lean en voz alta la frase del texto que la decide antes de mirar las opciones.",
-        VERDE, VERDE_BG, VERDE_LN, "Dónde se repara", 23)
+    y = cabecera(b, "Clases 7 y 8", "El simulacro de EDUCATE y su socialización en el cuaderno",
+                 derecha=str(C8["preguntas_cuaderno"]), dsub="preguntas caben en el cuaderno")
+    y = PS.hoja(b, y, C7, C8, ING, ING_BG, ING_LN, seccion, nota)
     pie(b, 17)
     svg_close(b, OUTP + "17.svg")
     return y
@@ -1601,7 +1544,7 @@ def h24():
         y += 72
     y += 20
     y = nota(b, M, y, CW,
-        "Las cuatro preguntas de entrenamiento de la Misión 5 (páginas 325 y 330) traen erratas que EDUCATE "
+        f"Las cuatro preguntas de entrenamiento de la Misión 5 (páginas {pags_icfes(5)[0]} y {pags_icfes(5)[1]}) traen erratas que EDUCATE "
         "corrigió a mano; la dirección está decidiendo si se cambian. Mientras tanto se usan como están en el "
         "cuaderno. La pronunciación aproximada de las hojas de clase y las frases en inglés de las dinámicas y "
         "de las activaciones las escribió EDUCATE para este planeador: si algo te suena raro, anótalo y "

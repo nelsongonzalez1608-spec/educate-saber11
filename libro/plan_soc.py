@@ -280,7 +280,7 @@ AVISOS = {
       "Constitución dice limitar, no suspender (art. 214).",
       f"No la dejes pasar como dato: el cuaderno la marca y la página {PG.nueva(99)} enseña lo contrario."),
      ("preg. 4 a 6", "atención",
-      "El texto del Palacio de Justicia (1985) nombra al oficial que dirigió la retoma. No es un "
+      "El texto del Palacio de Justicia (1985) nombra al militar que dirigió la retoma. No es un "
       "político, pero entra en la conversación pendiente sobre nombres propios.",
       "El encuadre es la tensión entre la frase y los hechos. No se juzga a la persona en clase."),
      ("preg. 7", "atención",
@@ -710,7 +710,7 @@ DINAMICAS = {
       "el movimiento de las preguntas 2 y 8, y de la tercera del ICFES.",
       "Un círculo de cartón por equipo"),
      ("La frase contra los hechos", 6,
-      ["Se proyecta una frase oficial: «En este colegio todos participan en las decisiones».",
+      ["Se proyecta una frase institucional: «En este colegio todos participan en las decisiones».",
        "Cada equipo recibe cuatro tarjetas con hechos del año escolar.",
        "Pone cada hecho a un lado de la frase: CUADRA o NO CUADRA.",
        "Escribe qué deber queda en entredicho con los hechos que no cuadran."],
