@@ -35,9 +35,9 @@ tres cuadernos al azar sin haber entrado a la clase.
 
 | Entregable | Listo | Total |
 |---|---|---|
-| Cuaderno combinado de las siete áreas | 344 | **347 páginas** |
-| Planeadores del docente (uno por área) | 4 | 7 |
-| Guías de clase proyectables (una por clase) | 32 | 56 |
+| Cuaderno combinado de las siete áreas | 398 | **398 páginas** |
+| Planeadores del docente (uno por área) | 7 | 7 |
+| Guías de clase proyectables (una por clase) | 56 | 56 |
 | Documento maestro de metodología | 0 | 1 |
 | Reporte de los especialistas | 0 | 1 |
 | Informe de hallazgos del libro | 1 | 1 |
@@ -61,25 +61,33 @@ aprobado era de 270: **falta que Cristian apruebe la ampliación** (impresión y
   Reto en equipo **20** · Evaluación individual **20** · Cierre **10**.
   No cambiar este reparto: ya se cambió una vez por error y hubo que rehacerlo.
 
-### Mapa de páginas (exactamente 347, desde el 7 nov)
+### Mapa de páginas (exactamente 398, desde el 10 nov · estilo B «Bitácora»)
 
 | Páginas | Sección |
 |---|---|
-| 1–9 | Apertura |
-| 10–52 | Matemáticas (portada + 6 misiones) |
-| 53–95 | Lectura Crítica |
-| 96–138 | Sociales y Ciudadanas |
-| 139–181 | Biología |
-| 182–224 | Química |
-| 225–267 | Física |
-| 268–344 | Inglés (77 páginas: todas las preguntas del libro) |
-| 345–347 | Cierre post-prueba |
+| 1–6 | Apertura (`apertura_b.py`: `ap_b_1`…`ap_b_6`) |
+| 7–59 | Matemáticas (portada + 6 misiones + simulacro de 10) |
+| 60–112 | Lectura Crítica (43 + 10) |
+| 113–165 | Sociales y Ciudadanas (43 + 10) |
+| 166–214 | Biología (43 + 6) |
+| 215–263 | Química (43 + 6) |
+| 264–312 | Física (43 + 6) |
+| 313–395 | Inglés (77 + 6) |
+| 396–397 | Cierre post-prueba (`cierre_b.py`) |
+| 398 | Mensaje final («Lo que me diría hoy, al terminar») |
+
+**La numeración la manda `libro/paginas.py`** (escribe `tablero/mapa_paginas.json`, página vieja → nueva). Los
+módulos de misión guardan su numeración vieja en `build(pages=…)`: **solo se construyen con `construye.py`**,
+que traduce; `taller_base` falla si el pie no coincide con el manifiesto. `rehace_hojas.py` + `arma_pdf.py`
+(`armar()` y `partir()`) dan `entregables/Cuaderno_Saber11_completo_398_paginas.pdf` y `Cuaderno_0N_<área>_pA-B.pdf`;
+los PDF anteriores están en `entregables/anteriores/`. El simulacro se genera con `simulacro.py --cuaderno`.
+El diseño original (antes del estilo B) está en la rama `diseno-original-10nov`.
 
 Cada área son **43 páginas**: una portada y seis misiones de siete. **Excepto Inglés** (decisión de Nelson, 7 nov):
 trabaja **todas** las preguntas del libro (127: M1 21, M2 10, M3 40, M4 16, M5 16, M6 24), una tarjeta por pregunta con
 su instrumento propio; cada misión es una parte del examen (M1 Partes 1–2 … M6 Parte 7), la estrategia de la parte va en
 `tema=` y las tarjetas dicen «Subestrategia n» (`configurar(..., prefijo="Subestrategia", n_hojas=K)`). Nelson rechazó
-el formato de tablas («se ven como tablas»). Nelson acepta hasta 400 páginas en total; la ampliación a 347 la aprueba Cristian.
+el formato de tablas («se ven como tablas»). Nelson acepta hasta 400 páginas en total; **la ampliación a 398 la aprueba Cristian.**
 
 Colores de área: Matemáticas `#1F4E8C` · Lectura Crítica `#A82424` · Sociales `#C9821B` ·
 Biología `#30843C` (verde hoja) · Química `#0F7A68` (verde esmeralda) · Física `#5C7A1E` (verde oliva) ·
@@ -377,7 +385,7 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
    informar a la editorial». Las ICFES salen del cuadernillo oficial 2024, del 2016-1 y del SIM II 2023 Inglés
    (`fuente_icfes/SIM_II_2023_OFICIO_INGLES.pdf`; repite ítems del 2024: SIM 230–237 y 446–454). Regla de Nelson: **una
    pregunta ICFES con cualquier falla no se usa**; las 4 de M5 (Parte 6) tienen erratas y esperan su decisión.
-   **Falta el cierre (345–347).**
+   ~~El cierre~~ — hecho el 10 nov (396–398).
    **ASED:** su presentación dice que sus ~700 preguntas fueron «concebidas específicamente» por la Corporación ASED: no son
    del ICFES. 15 preguntas del cuaderno salen de él con el membrete oficial (4 Mate, 1 LC, 8 Sociales M1–M2, 2 Física): pendiente que Nelson
    decida reemplazarlas. No usar el ASED como fuente de preguntas ICFES.
