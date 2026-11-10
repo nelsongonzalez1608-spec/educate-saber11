@@ -64,7 +64,8 @@ def revisar(ruta):
     m_arch = re.match(r"(?:.*/)?[a-z]+(\d)_[ti]\d+\.svg$", ruta)
     if m_arch:
         textos = ["".join(t.itertext()) for t in raiz.iter(NS + "text")]
-        vistas = {int(x) for t in textos for x in re.findall(r"MISI[ÓO]N (\d)\b", t.upper())}
+        # «MISIÓN 3» (pie) y «/ MISIÓN 03» (cabecera de la bitácora, 10 nov)
+        vistas = {int(x) for t in textos for x in re.findall(r"MISI[ÓO]N 0?(\d)\b", t.upper())}
         if vistas and vistas != {int(m_arch.group(1))}:
             fallas.append(f"la hoja dice misión {sorted(vistas)} y el archivo es de la misión "
                           f"{m_arch.group(1)}: se construyó con la configuración de otro módulo")

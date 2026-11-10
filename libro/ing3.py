@@ -204,15 +204,17 @@ def idea_texto(b, x, y, w, c):
 
 
 def correccion(b, x, y, w, txt):
-    """Corrección EDUCATE: qué está mal en el libro y qué hacer, sin dar la clave."""
+    """Corrección EDUCATE: qué está mal en el libro y qué hacer, sin dar la clave.
+    Estilo B · Bitácora (10 nov): recuadro a mano y rótulo en Space Mono; mismo alto."""
+    import bitacora as BT
     rotulo = "CORRECCIÓN EDUCATE"
     svg, yy = TJ(x + 30, y + 44, txt, w - 56, 17, INK, lh=25)
     h = yy - y + 14
-    b.append(rect(x, y, w, h, CORR_BG, r=12))
-    b.append(rect(x, y, 8, h, CORR, r=4))
-    rot(b, x + 30, y + 28, rotulo, CORR, size=14)
-    pista(b, x + 30 + tw(rotulo, 14, "700") + 1.5 * len(rotulo) + 14, y + 28,
-          "el libro tiene un problema en este espacio", size=14)
+    b.append(BT.wob_rect(x, y, w, h, CORR, 2.2, fill=CORR_BG, seed=int(y) + 5, amp=1.0))
+    wr = BT.twf(rotulo, 14, BT.MONO, "700")
+    b.append(BT.resaltador(x + 30, y + 12, wr, 20, BT.FOSFO, seed=int(y)))
+    b.append(BT.TX(x + 30, y + 28, rotulo, 14, CORR, BT.MONO, "700"))
+    pista(b, x + 30 + wr + 18, y + 28, "el libro tiene un problema en este espacio", size=14)
     b.append(svg)
     return y + h
 

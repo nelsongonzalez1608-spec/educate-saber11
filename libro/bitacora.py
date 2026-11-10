@@ -177,7 +177,7 @@ def flechita(x1, y1, x2, y2, c, sw=2.6, bend=0.25, head=11, seed=3):
         t = i / 20
         px = (1 - t) ** 2 * x1 + 2 * (1 - t) * t * cx + t ** 2 * x2
         py = (1 - t) ** 2 * y1 + 2 * (1 - t) * t * cy + t ** 2 * y2
-        pts.append((px + rnd.uniform(-.8, .8), py + rnd.uniform(-.8, .8)))
+        pts.append((px + rnd.uniform(-.4, .4), py + rnd.uniform(-.4, .4)))
     g = [_trazo(pts, c, sw)]
     ang = math.atan2(y2 - cy, x2 - cx)
     for s in (-1, 1):
