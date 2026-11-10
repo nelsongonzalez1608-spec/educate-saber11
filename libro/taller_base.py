@@ -435,11 +435,39 @@ def membrete(b, x, y, txt=None):
     fuente)."""
     txt = MEMBRETE
     c = A["color"]
-    w = tw(txt, 19, "700") + 48
-    b.append(rect(x, y, w, 44, "white", r=10, stroke=c, sw=2.2))
-    b.append(rect(x, y, 8, 44, c, r=4))
-    b.append(T(x + 30, y + 29, [txt], 19, c, weight="700"))
+    w = BT.twf(txt, 17, BT.MONO, "700") + 40
+    b.append(rect(x, y, w, 40, "white", r=4, stroke=c, sw=2.4))         # sello de doble borde
+    b.append(rect(x + 5, y + 5, w - 10, 30, "none", r=2, stroke=c, sw=1.2))
+    b.append(BT.TX(x + 20, y + 26, txt, 17, c, BT.MONO, "700"))
     return w
+
+
+def boya(cx, cy, r, c):
+    """Aro salvavidas de trazo, en el color del área (insignia de la pregunta para entrenar)."""
+    g = [f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{c}" stroke-width="4.2"/>']
+    for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+        g.append(line(cx + dx * (r + 5), cy + dy * (r + 5), cx + dx * (r - 5), cy + dy * (r - 5), c, 4.2))
+    return "".join(g)
+
+
+def encabezado_icfes(b, y, est, comp=None):
+    """Insignia (boya en un círculo a mano), «Pregunta para entrenar» con resaltador menta, el
+    membrete «Pregunta Saber 11» como sello, el sello de la estrategia y «mi primera idea».
+    Lo usan tarjeta_icfes() y rehace_hojas.py."""
+    c = A["color"]
+    b.append(BT.wob_circle(M + 62, y + 56, 38, c, 2.8, seed=int(y)))
+    b.append(boya(M + 62, y + 56, 15, c))
+    t1 = "Pregunta para entrenar"
+    w1 = BT.twf(t1, 30, BT.SHA, "800")
+    b.append(BT.resaltador(M + 118, y + 20, w1, 30, BT.FOSFO_2, seed=int(y) + 3))
+    b.append(BT.TX(M + 118, y + 46, t1, 30, BT.TINTA_B, BT.SHA, "800"))
+    membrete(b, M + 118, y + 62)
+    chip_estrategia(b, M + 1275, y + 26, est,
+                    prefijo="entrena la " + A.get("prefijo", "Estrategia").lower(), derecha=True)
+    if comp:
+        b.append(BT.TX(M + 1275, y + 100, f"COMPETENCIA · {comp.upper()}", 14, GRAY, BT.MONO,
+                       anchor="end"))
+    _primera_idea(b, y, M + 1460, "Mi primera idea:")
 
 
 def opciones(b, x, y, w, ops, size=19):
@@ -459,17 +487,8 @@ def tarjeta_icfes(b, y, q, n):
     """q = dict(est, comp, f=membrete, e=enunciado, o=[4 opciones], datos=fn, inst=fn).
     datos(b, x, y, w) dibuja el texto o la figura y devuelve dónde terminó."""
     est = q["est"]
-    c = _marco_tarjeta(b, y)
-    b.append(rect(M + 28, y + 22, 60, 60, c, r=12))
-    b.append(buoy(M + 58, y + 52, 15))
-    b.append(T(M + 112, y + 44, ["Pregunta para entrenar"], 24, c, weight="700"))
-    membrete(b, M + 112, y + 58, q.get("f") or MEMBRETE)
-    chip_estrategia(b, M + 1275, y + 30, est,
-                    prefijo="entrena la " + A.get("prefijo", "Estrategia").lower(), derecha=True)
-    if q.get("comp"):
-        b.append(T(M + 1275, y + 92, [f"competencia · {q['comp']}"], 15, GRAY, style="italic",
-                   anchor="end"))
-    _primera_idea(b, y, M + 1460, "Mi primera idea:")
+    _marco_tarjeta(b, y)
+    encabezado_icfes(b, y, est, q.get("comp"))
     ix, iy = M + 30, y + 118
     svg, yy = TJ(ix, iy, q["e"], IW - 20, 20, INK, lh=28)
     b.append(svg)
@@ -489,17 +508,33 @@ def tarjeta_icfes(b, y, q, n):
 def franja_vocab(b):
     c = A["color"]
     y = VOCAB_Y
-    b.append(rect(M, y, CW, VOCAB_H, "white", r=20, stroke=c, sw=2.4))
-    b.append(rect(M, y, 8, VOCAB_H, c, r=4))
-    b.append(T(M + 34, y + 30, ["PALABRAS QUE ME FRENARON"], 15, c, weight="700", ls=2))
-    b.append(T(M + 361, y + 30, ["no la busques todavía: adivínala por el contexto y "
-                                 "confírmala en clase"], 15, GRAY, style="italic"))
+    b.append(BT.wob_rect(M, y, CW, VOCAB_H, BT.TINTA_B, 2.6, fill="white", seed=77))
+    t = "PALABRAS QUE ME FRENARON"
+    wt = BT.twf(t, 15, BT.MONO, "700")
+    b.append(BT.resaltador(M + 34, y + 16, wt, 22, BT.FOSFO_2, seed=78))
+    b.append(BT.TX(M + 34, y + 33, t, 15, BT.TINTA_B, BT.MONO, "700"))
+    b.append(T(M + 34 + wt + 26, y + 33, ["no la busques todavía: adivínala por el contexto y "
+                                         "confírmala en clase"], 15, GRAY, style="italic"))
     b.append(T(M + 34, y + 90, ["la palabra"], 15, GRAY, style="italic"))
     b.append(T(M + 34, y + 140, ["lo que creo que significa"], 15, GRAY, style="italic"))
     for i in range(5):
         x = M + 239 + i * 320
         for yy in (y + 60, y + 112):
-            b.append(rect(x, yy, 307, 42, "#F5F6FA", r=10, stroke="#E2E6EE", sw=1.6))
+            b.append(rect(x, yy, 307, 42, "white", r=4, stroke=BT.CASILLA, sw=1.6))
+    b.append(BT.estrellita(W - M - 40, y + 30, 11, c))
+
+
+def footer(body, pag, color, texto="Cuaderno de trabajo · Saber 11"):
+    """Pie de la bitácora (bitacora.pie_b): sin línea horizontal. Reemplaza a lib.footer para
+    todo lo que importe taller_base."""
+    BT.pie_b(body, pag, color, texto)
+
+
+def hoja_nueva():
+    """svg_open() + la cuadrícula de puntos de la bitácora."""
+    b = svg_open()
+    BT.fondo_puntos(b)
+    return b
 
 
 # ───────── hojas completas ─────────
@@ -512,7 +547,7 @@ def hoja_taller(nombre, pag, hoja, qa, qb, vocab=True, cierre=None):
     qb=None deja una sola pregunta; entonces `cierre(b, y, h)` dibuja lo que va en el
     segundo bloque (p. ej. el cierre de la misión) entre y y y + h."""
     set_bloque(vocab)
-    b = svg_open()
+    b = hoja_nueva()
     nh = A.get("n_hojas", 5)
     if qb is None:
         cabecera(b, f"Prueba de Campo · hoja {hoja} de {nh} · pregunta {qa['n']}")
@@ -534,7 +569,7 @@ def hoja_taller(nombre, pag, hoja, qa, qb, vocab=True, cierre=None):
 def hoja_icfes(nombre, pag, qa, qb, vocab=True):
     """Una hoja de entrenamiento: dos preguntas Saber 11, cada una con su instrumento."""
     set_bloque(vocab)
-    b = svg_open()
+    b = hoja_nueva()
     e = sorted({qa["est"], qb["est"]})
     ests = " y ".join(str(x) for x in e)
     cabecera(b, f"Entrenamiento ICFES · entrena las {A.get('prefijo', 'Estrategia').lower()}{'s' if len(e) > 1 else ''} "
