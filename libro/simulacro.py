@@ -8,7 +8,8 @@ que servir para CUALQUIER pregunta del área (Nelson, 10 nov: «estaba un poco c
 
 Por qué cambió (ver tablero/propuestas/simulacro_analisis.md): la v1 dibujaba UN tipo de pregunta
 por área (Química: reacciones; Sociales: voces en conflicto; Inglés: el hueco de una frase). Con
-170 preguntas reales clasificadas, la v1 servía de verdad para el 30-45 % de ellas.
+181 preguntas reales clasificadas, la v1 servía de verdad para 36 (20 %), a medias para 75 y no
+servía para 70.
 
 Forma de la v2 · un esquema base del área + su caja de herramientas (camino «a» del análisis):
 
@@ -451,12 +452,6 @@ def ic_energia(x, y):
         + rect(x + 26, y + 24, 8, 8, C["soft"], r=1, stroke=C["c"], sw=1.6)
 
 
-def ic_onda(x, y):
-    return f'<path d="M {x + 1},{y + 17} Q {x + 5},{y + 3} {x + 9},{y + 17} Q {x + 13},{y + 31} {x + 17},{y + 17} ' \
-           f'Q {x + 21},{y + 3} {x + 25},{y + 17} Q {x + 29},{y + 31} {x + 33},{y + 17}" fill="none" ' \
-           f'stroke="{C["c"]}" stroke-width="2"/>'
-
-
 def ic_hueco(x, y):
     return _p((x + 1, y + 20), (x + 8, y + 20), c=LN_C) + rect(x + 11, y + 10, 13, 14, C["soft"], r=2, stroke=C["c"],
                                                                sw=1.8) + _p((x + 27, y + 20), (x + 34, y + 20), c=LN_C)
@@ -533,7 +528,7 @@ V2 = {
         izq="magnitudes",
         centro="DIBUJO EL SISTEMA", fondo="puntos",
         herr=[("fuerzas y vectores", ic_fuerzas), ("energía por tramos", ic_energia),
-              ("ejes y curva", ic_ejes), ("rayo, onda o circuito", ic_onda)],
+              ("ejes y curva", ic_ejes), ("control y prueba", ic_control)],
         der="ley"),
     "ing": dict(
         pide=["la palabra que va", "dónde o quién", "qué responder", "qué dice o deja entender"],
@@ -594,7 +589,7 @@ def fila_a(b, cfg, x, y, w):
         b.append(line(xx, y2 + 4, xx + 200, y2 + 4, LN_W, 1.8)); xx += 216
         xx += check(b, xx, y2, "aumenta", 16) + 16
         xx += check(b, xx, y2, "disminuye", 16) + 16
-        t2 = ", entonces"
+        t2 = "entonces"
         b.append(T(xx, y2, [t2], 17, INK)); xx += tw(t2, 17) + 10
         b.append(line(xx, y2 + 4, x + w, y2 + 4, LN_W, 1.8))
         return
@@ -694,7 +689,7 @@ def centro(b, cfg, x, y, w, h):
             b.append(line(xl + 8, gy, xl + wl - 8, gy, C["soft"], 0.9, cap="butt")); gy += 26
     elif f == "puntos":
         for gx in range(int(xl + 22), int(xl + wl - 8), 28):
-            for gy in range(int(y + 56), int(y + h - 8), 28):
+            for gy in range(int(y + 72), int(y + h - 8), 28):
                 b.append(f'<circle cx="{gx}" cy="{gy}" r="1.8" fill="{C["ln"]}"/>')
     elif f == "renglones":
         renglones(b, xl + 18, y + 92, wl - 36, int((h - 92 - 12) // STEP) + 1)
