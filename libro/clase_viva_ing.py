@@ -84,8 +84,6 @@ LEADS = {
        "entero decide qué va en cada espacio.",
 }
 
-COMPETENCIAS = [(P.GRUPO_NOM[c][0], P.GRUPO_NOM[c][1], col) for c, col in
-                (("LP", "var(--m2)"), ("GT", "var(--m4)"), ("LE", "var(--m6)"))]
 
 UI = dict(
     portada_decir=["«Libro abierto, cuaderno cerrado, lápiz. Hoy nadie traduce palabra por palabra: hoy "
@@ -117,26 +115,6 @@ UI = dict(
     icfes_decir=["Durante la evaluación no se proyecta nada: las preguntas están en el cuaderno. Esta "
                  "diapositiva es para el cierre, cuando se socializan las falladas.",
                  "«¿Qué pista escribiste en el instrumento antes de mirar las opciones?»"],
-    c7_h1="Hoy nadie les va a decir si acertaron",
-    c7_lead=("Veinticuatro preguntas tipo Saber 11, seguidas, como en la prueba. Lo único que llevan es lo "
-             "que entrenaron: buscar la pista que decide antes de mirar las opciones."),
-    c7_decir=["«Pueden escribir al margen: en la prueba real también pueden rayar el cuadernillo, y es lo "
-              "que entrenamos.»"],
-    c7_reglas=["En silencio y en filas individuales.", "No se responde ninguna duda, ni de vocabulario.",
-               "Las dudas se escriben en el margen.", "Primero la pista, después la letra."],
-    c7_apoyo_reglas=["Anota quién va directo a las opciones sin escribir nada: es el dato más útil del "
-                     "simulacro, más que el puntaje."],
-    c7_competencias=COMPETENCIAS,
-    c7_apoyo_conteo=[],
-    c8_h1="La pista que viste esta vez",
-    c8_lead=("Hoy no hay texto nuevo. Hoy ponemos tu instrumento de hace semanas al lado de lo que escribiste "
-             "en el simulacro."),
-    c8_apoyo_elegir=["Si dudas entre dos, quédate con la de la familia de partes que más manos tuvo en el "
-                     "conteo de la clase 7."],
-    c8_h2="¿Qué pista viste esta vez que antes no?",
-    c8_decir=["«Pongan las dos hojas una al lado de la otra. ¿Qué escribieron distinto en el instrumento?»"],
-    c8_apoyo=["Si nadie escribió distinto, la subestrategia no se instaló todavía: anótalo en el registro para "
-              "el reporte de los especialistas."],
 )
 
 PROHIBIDOS = ["Petro", "Uribe", "Duque", "Santos", "Benedetti", "Pastrana", "Gaviria", "Samper",
@@ -681,35 +659,13 @@ def escenas_contenido(A, mis):
     return sc
 
 
-def rotulo(t, n=46):
-    return t if len(t) <= n else t[:n - 1].rsplit(" ", 1)[0].rstrip(" ,(·") + "…"
-
 
 def escenas_simulacro(A, textos):
-    sc7 = CV.escenas_clase7(A)
-    sc7[0]["guia"]["apoyo"].append(
-        "Ninguna de las 24 sale del compilado ASED. En pantalla y en el cuaderno van con el membrete «Pregunta "
-        "Saber 11». Las cuatro de la Misión 5 tienen el texto con erratas corregidas por EDUCATE; pendiente de "
-        "decisión.")
-    por = {"LP": [], "GT": [], "LE": []}
-    for m in range(1, 7):
-        for k in range(1, 5):
-            por[P.GRUPO_ICFES[m]].append(f"M{m}·P{k}")
-    sc7[2]["guia"]["apoyo"] = [
-        "El examen de Inglés no se reporta por competencias sino por partes y por nivel (A–, A1, A2, B1, B+). Aquí "
-        "se cuenta por tres familias de partes, ocho preguntas cada una:",
-        *[f"{P.GRUPO_NOM[c][0]} ({P.GRUPO_NOM[c][1]}): {', '.join(v)}." for c, v in por.items()],
-        "Anota los tres números: son el dato que la coordinación necesita para decidir el refuerzo."]
-    for x in sc7:
-        x["html"] = (x["html"].replace("Conteo por competencia", "Conteo por familia de partes")
-                     .replace("preguntas de cada competencia", "preguntas de cada familia de partes"))
-    todas = [(m, k, rotulo(textos[(m, k)]["titulo"])) for m in range(1, 7) for k in range(1, 5)]
-    sc8 = CV.escenas_clase8(A, todas)
-    sc8.insert(1, dict(esc_ronda(A, 8), m=None))
-    sc8[-1]["html"] = sc8[-1]["html"].replace("Veinticuatro estrategias", "Veinticuatro subestrategias")
-    sc8[-1]["guia"]["apoyo"] = [x.replace("la franja de vocabulario completa", "la franja de vocabulario completa "
-                                          "y las hojas de simulacro del final del área") for x in sc8[-1]["guia"]["apoyo"]]
-    return sc7, sc8
+    """Clases 7 y 8 (decisión de Nelson, 10 nov): salen del motor con plan_ing.C7 y C8. La clase 8
+    abre con la ronda de claves de la tarea de la Misión 6 (plan_ing.ronda_de(8)), dentro de la
+    activación: sus 5 minutos se descuentan de los 15."""
+    antes = [esc_ronda(A, 8)] if P.ronda_de(8) else []
+    return CV.escenas_clase7(A), CV.escenas_clase8(A, antes=antes)
 
 
 # ─────────────────────────────── escribir ───────────────────────────────
@@ -767,8 +723,8 @@ def construir(out=OUT):
     A = area(1, P_ns, textos)
     A.out = out
     sc7, sc8 = escenas_simulacro(A, textos)
-    hechos.append(escribir(A, "ING_Clase7_Simulacro.html", "Inglés · Clase 7", "Simulacro del área · 24 preguntas", sc7))
-    hechos.append(escribir(A, "ING_Clase8_Devolucion.html", "Inglés · Clase 8", "Devolución y cierre del área", sc8))
+    hechos.append(escribir(A, "ING_Clase7_Simulacro.html", "Inglés · Clase 7", CV.subtitulos_simulacro(A)[0], sc7))
+    hechos.append(escribir(A, "ING_Clase8_Devolucion.html", "Inglés · Clase 8", CV.subtitulos_simulacro(A)[1], sc8))
     return hechos
 
 

@@ -75,12 +75,6 @@ LEADS = {
 # ─────────────── la redacción de pantalla y de la guía, para Sociales ───────────────
 # Reemplaza las claves de clase_viva.TEXTOS_UI marcadas «propio de LC». Las que dependen de la
 # misión se completan en ui(mis).
-COMPETENCIAS = [("PS · pensamiento social", "conceptos, derechos y principios", "var(--m2)"),
-                ("IP · interpretación y análisis de perspectivas", "quién dice qué y desde dónde",
-                 "var(--m4)"),
-                ("PRS · pensamiento reflexivo y sistémico", "dimensiones, efectos y contextos",
-                 "var(--m6)")]
-
 UI = dict(
     portada_decir=["«Libro abierto, cuaderno cerrado, lápiz. Hoy no les voy a preguntar qué "
                    "opinan: les voy a preguntar qué dice el caso.»"],
@@ -124,29 +118,6 @@ UI = dict(
                  "diapositiva es para el cierre, cuando se socializan las falladas.",
                  "«¿Qué escribiste en el instrumento antes de mirar las opciones? ¿Quién dice qué, y "
                  "desde dónde?»"],
-    # clase 7
-    c7_h1="Hoy nadie les va a decir si acertaron",
-    c7_lead=("Veinticuatro preguntas, seguidas, como en la prueba. Lo único que llevan es lo que "
-             "entrenaron: escribir quién, qué principio o qué efecto antes de mirar las opciones."),
-    c7_decir=["«Pueden escribir en el cuaderno y al margen: en la prueba real también pueden rayar "
-              "el cuadernillo, y es lo que entrenamos.»"],
-    c7_reglas=["En silencio y en filas individuales.", "No se responde ninguna duda, ni de vocabulario.",
-               "Las dudas se escriben en el margen.",
-               "Primero el instrumento —actores, principio o efecto—, después la opción."],
-    c7_apoyo_reglas=["Anota quién va directo a las opciones sin escribir nada en el instrumento: es "
-                     "el dato más útil del simulacro, más que el puntaje."],
-    c7_competencias=COMPETENCIAS,
-    # clase 8
-    c8_h1="Lo que escribiste esta vez",
-    c8_lead=("Hoy no hay caso nuevo. Hoy vamos a poner tu instrumento de hace seis semanas al lado "
-             "del de hoy."),
-    c8_apoyo_elegir=["Si dudas entre dos, quédate con la de la competencia que más manos tuvo en el "
-                     "conteo de la clase 7."],
-    c8_h2="¿Qué actor, qué principio o qué efecto viste esta vez que antes no?",
-    c8_decir=["«Pongan las dos hojas una al lado de la otra. ¿Qué escribieron distinto en el "
-              "instrumento?»"],
-    c8_apoyo=["Si nadie escribió distinto, la estrategia no se instaló todavía: anótalo en el "
-              "registro para el reporte de los especialistas."],
 )
 
 # ───────────── los avisos del libro: cuáles salen en pantalla (al revelar) ─────────────
@@ -162,7 +133,7 @@ PROYECTAR = {
     (2, "preg. 6"): ("preg. 6", "media",
         "La opción D dice que la Conmoción Interior permite suspender los derechos humanos. Es "
         "falso: la Constitución permite limitar algunos, nunca suspenderlos (art. 214). Compruébalo "
-        "en tu página 99."),
+        "en tu página 116."),       # la 99 del cuaderno de 347 (paginas.nueva(99))
     (2, "preg. 7"): ("preg. 7", "atención",
         "La ley colombiana reconoce a los animales como seres sintientes (Ley 1774 de 2016), no "
         "como titulares de derechos. Si lo objetaste, tienes razón; la clave no cambia."),
@@ -228,9 +199,10 @@ CORRIGE = [
     # el «no suspender» está en el art. 214, numeral 2 (el 213 define la Conmoción Interior)
     ("El artículo 213 dice limitar, más no suspender.",
      "El artículo 214 dice limitar, mas no suspender."),
-    # nombre propio del oficial: la guía no lo repite (decisión pendiente de la Gerencia)
+    # nombre propio del militar: la guía no lo repite (decisión pendiente de la Gerencia). «militar» y
+    # no «oficial», como en el planeador: en el HTML no va la palabra «oficial» (regla del membrete).
     ("El coronel Luis Alfonso Plazas Vega comandó la operación. Fue condenado y después absuelto.",
-     "El oficial que comandó la retoma fue condenado y después absuelto (el libro lo nombra; la "
+     "El militar que comandó la retoma fue condenado y después absuelto (el libro lo nombra; la "
      "guía no lo repite)."),
     # meta-texto del .md que no se proyecta
     (" (el cuaderno lo imprime así)", ""),
@@ -253,9 +225,17 @@ def _tabla(m):
                     for f in filas if len(f) == ncol)
 
 
+def pag_vieja(t):
+    """Las notas del .md citan páginas del cuaderno en la numeración vieja (Sociales 96–138):
+    pasan a la de 398 páginas. Las del libro (336 en adelante) no caen en ese rango."""
+    import paginas as PG
+    return re.sub(r"(p[áa]ginas? )(\d+)", lambda m: m.group(1) + (str(PG.nueva(int(m.group(2))))
+                  if 96 <= int(m.group(2)) <= 138 else m.group(2)), t)
+
+
 def limpia_nota(t):
     """Las notas del .md llegan con viñetas y tablas aplanadas en una línea: se vuelven prosa."""
-    t = corrige(t)
+    t = pag_vieja(corrige(t))
     t = re.sub(r"\|[^\n]*\|-{3,}\|[^\n]*\|", _tabla, t)
     t = re.sub(r"(?<=[.:])\s+-\s+", " ", t)
     t = re.sub(r"(^|\s)>\s+", " ", t).strip()          # citas «>» del .md
@@ -423,14 +403,6 @@ def apoyo_portada(mis, general):
     return out
 
 
-def conteo_competencias():
-    """Qué preguntas del simulacro son de cada competencia (clasificación del planeador)."""
-    por = {"PS": [], "IP": [], "PRS": []}
-    for mis in range(1, 7):
-        for k in range(1, 5):
-            por[P.comp_icfes(mis, k)].append(f"M{mis}·P{k}")
-    return por
-
 
 def escenas_contenido(A, mis, general):
     sc = CV.escenas_clase(A, mis)
@@ -449,38 +421,10 @@ def escenas_contenido(A, mis, general):
     return sc
 
 
-def rotulo(contexto, n=46):
-    """Rótulo de la clase 8: el motor corta en 46 caracteres; aquí se corta por « · » o por
-    palabra, para que ningún botón quede con media palabra."""
-    partes = contexto.split(" · ")
-    t = partes[0]
-    if len(partes) > 1 and len(t) + 3 + len(partes[1]) <= n:
-        t += " · " + partes[1]
-    if len(t) > n:
-        t = t[:n - 1].rsplit(" ", 1)[0].rstrip(" ,(") + "…"
-    return t
-
 
 def escenas_simulacro(A):
-    sc7 = CV.escenas_clase7(A)
-    sc7[0]["guia"]["apoyo"].append(
-        "Ocho de las 24 (las de las misiones 1 y 2) salen del compilado ASED, no del ICFES: se "
-        "presentan como preguntas tipo Saber 11.")
-    por = conteo_competencias()
-    sc7[2]["guia"]["apoyo"] = [
-        "La competencia de cada pregunta es la de la estrategia que entrena, según el planeador: es "
-        "la clasificación de EDUCATE, no la oficial del ICFES.",
-        *[f"{n} ({len(por[n.split(' · ')[0]])} preguntas): {', '.join(por[n.split(' · ')[0]])}."
-          for n, _, _ in COMPETENCIAS],
-        "Como no hay el mismo número de preguntas en cada competencia, compara proporciones, no "
-        "manos sueltas.",
-        "Anota los tres números: son el dato que la coordinación necesita para decidir el refuerzo."]
-    todas = [(m, k, rotulo(fila["contexto"])) for m in range(1, 7) for k, fila in enumerate(P.BANCO[m], 1)]
-    sc8 = CV.escenas_clase8(A, todas)
-    sc8[-1]["guia"]["apoyo"] = [a.replace("la franja de vocabulario completa",
-                                          "la franja «Palabras que me frenaron» completa")
-                                for a in sc8[-1]["guia"]["apoyo"]]
-    return sc7, sc8
+    """Clases 7 y 8 (decisión de Nelson, 10 nov): salen del motor con plan_soc.C7 y C8."""
+    return CV.escenas_clase7(A), CV.escenas_clase8(A)
 
 
 # ─────────────────────────────── escribir ───────────────────────────────
@@ -488,6 +432,9 @@ def revisar_nombres(html, archivo):
     hay = [n for n in PROHIBIDOS if re.search(r"\b" + re.escape(n) + r"\b", html)]
     if hay:
         raise SystemExit(f"{archivo}: trae nombres que no pueden salir: {hay}")
+    malo = [t for t in ("oficial", "preguntas reales del ICFES") if re.search(re.escape(t), html, re.I)]
+    if malo:
+        raise SystemExit(f"{archivo}: dice {malo}; el membrete es «Pregunta Saber 11»")
 
 
 def escribir(A, archivo, titulo, sub, sc):
@@ -523,9 +470,9 @@ def construir(out=OUT):
     A.out = out
     sc7, sc8 = escenas_simulacro(A)
     hechos.append(escribir(A, "SOC_Clase7_Simulacro.html", "Sociales y Ciudadanas · Clase 7",
-                           "Simulacro del área · 24 preguntas", sc7))
+                           CV.subtitulos_simulacro(A)[0], sc7))
     hechos.append(escribir(A, "SOC_Clase8_Devolucion.html", "Sociales y Ciudadanas · Clase 8",
-                           "Devolución y cierre del área", sc8))
+                           CV.subtitulos_simulacro(A)[1], sc8))
     return hechos
 
 

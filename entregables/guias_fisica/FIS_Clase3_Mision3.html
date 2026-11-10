@@ -96,6 +96,27 @@ p{margin:.35em 0 .6em}
 .gbox ul{margin:0;padding-left:1.1em}.gbox li{margin:.35em 0}
 .gbox.como{background:#F6F7F9}.gbox.como h4{color:var(--muted)}
 .gbox.apoyo{background:#FDF6EA;border-color:#EAD9B4}.gbox.apoyo h4{color:var(--oro)}
+.examen{background:var(--paper);border:1px solid var(--line);border-left:8px solid var(--area);border-radius:22px;padding:clamp(16px,2.4vw,40px);margin-top:clamp(12px,1.6vw,24px);text-align:center}
+.relojxl{font-family:var(--display);font-weight:800;font-size:clamp(96px,17vw,280px);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.relojxl.over{color:var(--area)}
+.exhoras{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 36px;color:var(--muted);font-size:1.15em;margin-top:10px}
+.exhoras b{color:var(--ink);font-variant-numeric:tabular-nums}
+.nbig{font-family:var(--display);font-weight:800;font-size:clamp(40px,4vw,64px);line-height:1;color:var(--accent,var(--area))}
+.asig{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:8px 0}
+.asig .k{width:2em;height:2em;border-radius:50%;display:grid;place-items:center;color:#fff;font-family:var(--display);font-weight:800;flex:none}
+.asig label{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--muted)}
+.asig label.w{flex:1;min-width:min(100%,260px)}
+.campo{font:inherit;font-size:1.1em;font-weight:700;color:var(--ink);border:none;border-bottom:2px dashed var(--faint);background:transparent;padding:4px 6px;min-width:0;flex:1;outline:none}
+.campo.n{width:4.5em;flex:none;text-align:center}
+.campo:focus{border-bottom-color:var(--area)}
+.nums1{border:1.5px solid var(--line);border-radius:999px;padding:3px 14px;background:var(--paper);font-weight:600;color:var(--muted)}
+.nums1 b{color:var(--ink)}
+.pides{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:1.08em}
+.pide{display:inline-flex;align-items:center;gap:8px}
+.chk{display:inline-block;width:20px;height:20px;border:2px solid var(--area);border-radius:4px;background:#fff;flex:none}
+.herrs{display:grid;gap:clamp(12px,1.4vw,22px);grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.herr{display:flex;align-items:center;gap:14px;background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--area);border-radius:16px;padding:14px 18px;font-size:1.12em}
+.herr svg{flex:none}
 [hidden]{display:none!important}
 .fig{margin:12px 0}.fig svg{display:block;width:100%;max-width:760px;height:auto}
 .tabla{border-collapse:collapse;width:100%;table-layout:fixed;font-size:.86em;line-height:1.35;margin:0 auto}
@@ -164,6 +185,39 @@ function toggleTimer(){
   if(tOn) tick = setInterval(function(){ tLeft--; paintClock(); }, 1000);
   paintClock();
 }
+// cronómetro de la prueba (clase 7): aparte del de la barra, no se reinicia al cambiar de diapositiva
+var EX = {base:0, left:0, on:false, t:null, ini:null};
+function hhmm(d){ return d.getHours() + ":" + (d.getMinutes()<10?"0":"") + d.getMinutes(); }
+function exPaint(){
+  var box = wrap.querySelector("[data-examen]"); if(!box) return;
+  if(!EX.base){ EX.base = +box.dataset.examen; EX.left = EX.base*60; }
+  var s = Math.abs(EX.left), mm = Math.floor(s/60), ss = s%60;
+  var n = box.querySelector("[data-exnum]");
+  n.textContent = (EX.left<0?"+":"") + mm + ":" + (ss<10?"0":"") + ss;
+  n.classList.toggle("over", EX.left<0);
+  box.querySelector("[data-exini]").textContent = EX.ini ? hhmm(EX.ini) : "—";
+  box.querySelector("[data-exfin]").textContent = EX.on ? hhmm(new Date(Date.now() + EX.left*1000)) : (EX.ini ? "en pausa" : "—");
+  var p = box.querySelector('[data-ex="play"]');
+  p.textContent = EX.on ? "Pausar" : (EX.ini ? "Seguir" : "Iniciar la prueba");
+}
+function exToggle(){
+  if(!EX.base) exPaint();
+  EX.on = !EX.on;
+  if(EX.t){ clearInterval(EX.t); EX.t = null; }
+  if(EX.on){ if(!EX.ini) EX.ini = new Date(); EX.t = setInterval(function(){ EX.left--; exPaint(); }, 1000); }
+  exPaint();
+}
+function exReset(){
+  if(EX.ini && !window.confirm("¿Volver a poner el cronómetro de la prueba en cero?")) return;
+  if(EX.t){ clearInterval(EX.t); EX.t = null; }
+  EX.on = false; EX.ini = null; EX.left = EX.base*60; exPaint();
+}
+// casillas que llena el profe (clase 8): se guardan mientras la página esté abierta
+var CAMPOS = {};
+function pintaCampos(){
+  [].forEach.call(wrap.querySelectorAll("[data-campo]"), function(x){ x.value = CAMPOS[x.dataset.campo] || ""; });
+  [].forEach.call(wrap.querySelectorAll("[data-eco]"), function(x){ x.textContent = CAMPOS[x.dataset.eco] || "—"; });
+}
 function guiaHTML(g){
   if(!g) return '<p class="sub">Sin notas para esta diapositiva.</p>';
   var h = '<div class="gbox"><h4>Objetivo</h4><p>'+esc(g.obj)+'</p></div>';
@@ -203,9 +257,18 @@ function go(n){
   [].forEach.call(wrap.querySelectorAll("[data-pick]"), function(b){
     b.setAttribute("aria-pressed", elegidas.indexOf(b.textContent)>=0 ? "true" : "false"); });
   pintaElegidas();
+  pintaCampos();
+  exPaint();
+  $("#clock").style.visibility = wrap.querySelector("[data-examen]") ? "hidden" : "";   // la prueba tiene su reloj
 }
+wrap.addEventListener("input", function(e){
+  var x = e.target; if(!x.dataset || !x.dataset.campo) return;
+  CAMPOS[x.dataset.campo] = x.value;
+});
 wrap.addEventListener("click", function(e){
   var b = e.target.closest("button"); if(!b) return;
+  if(b.dataset.ex==="play") exToggle();
+  if(b.dataset.ex==="reset") exReset();
   if(b.dataset.show){ var t = document.getElementById(b.dataset.show); if(t) t.hidden = !t.hidden; }
   if(b.dataset.showgrupo){
     var g = wrap.querySelectorAll('[data-grupo="'+b.dataset.showgrupo+'"]'), abrir = g.length && g[0].hidden;
@@ -238,13 +301,13 @@ $("#gbtn").addEventListener("click", function(){ setGuia(!$("#guia").classList.c
 $("#gclose").addEventListener("click", function(){ setGuia(false); });
 $("#scrim").addEventListener("click", function(){ setGuia(false); });
 document.addEventListener("keydown", function(e){
-  var t = e.target.tagName; if(t==="INPUT"||t==="TEXTAREA") return;
+  var t = e.target.tagName; if(t==="INPUT"||t==="TEXTAREA"||e.target.isContentEditable) return;
   if(e.key==="ArrowRight"||e.key==="PageDown"||e.key===" "){ go(i+1); e.preventDefault(); }
   else if(e.key==="ArrowLeft"||e.key==="PageUp"){ go(i-1); e.preventDefault(); }
   else if(e.key==="Home"){ go(0); e.preventDefault(); }
   else if(e.key==="End"){ go(SC.length-1); e.preventDefault(); }
   else if(e.key==="g"||e.key==="G"){ setGuia(!$("#guia").classList.contains("open")); }
-  else if(e.key==="t"||e.key==="T"){ toggleTimer(); }
+  else if(e.key==="t"||e.key==="T"){ if(wrap.querySelector("[data-examen]")) exToggle(); else toggleTimer(); }
   else if(e.key==="Escape"){ setGuia(false); }
 });
 go(0);

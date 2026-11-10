@@ -61,8 +61,29 @@ CONTRATO CON EL PLANEADOR (lo que el motor lee de `A.P`; son los nombres de plan
                  motor usa s[1], s[3] y s[4]. Puede ser [].
   P.BANCO        {mis: [4 dicts con "clave" y "contexto"]} = filas de tablero/icfes.csv del
                  área en el orden QA–QD. Si el área no lo tiene, `Area(banco=…)`.
+  P.C7, P.C8     las clases 7 y 8 (decisión de Nelson, 10 nov): plan_simulacro.datos() en seis áreas y
+                 plan_lc.C7/C8 en Lectura Crítica. Se usan C7: titulo, sub, donde, tiempos (3 × (nombre,
+                 minutos, texto), 10·90·20), pasos, no_hace, cuaderno y, si están, que_es, registra,
+                 al_final, conteo. C8: titulo, sub, paginas (o rango), esquema [(pieza, texto)],
+                 reparto (escoge, asigna, regla), dinamica (forma de DINAMICAS), fases (6 textos),
+                 no_hace y, si están, formato, revisa, alcance. La caja de herramientas y los «me piden»
+                 salen de simulacro.V2[Area.sim].
   Si plan_soc no tiene alguno, se le pasa a Area un objeto con ese atributo
   (types.SimpleNamespace) en vez del módulo.
+
+LAS CLASES 7 Y 8 (escenas_clase7, escenas_clase8)
+─────────────────────────────────────────────────
+  Clase 7 · 4 diapositivas: portada · condiciones de examen · el cronómetro grande de la prueba
+            (aparte del de la barra: sigue corriendo al cambiar de diapositiva; T lo pausa) · cómo
+            anotar en el cuaderno las tres preguntas para socializar. No proyecta preguntas ni claves.
+  Clase 8 · 9 diapositivas con las seis fases (15·20·35·20·20·10): portada · el reparto «3 que escojo
+            y 3 que asigna el profe» · activación con casillas donde el profe escribe las tres más
+            falladas (se conservan mientras la página esté abierta y reaparecen en las siguientes) ·
+            el profe modela la más fallada, pieza por pieza del esquema · la caja de herramientas del
+            área dibujada como en el cuaderno · desarrollo · la dinámica del área · evaluación ·
+            cierre. Sirve con cualquier simulacro. `escenas_clase8(A, antes=[…])` mete escenas al
+            comienzo de la activación (Inglés: la ronda de claves de la tarea) y les descuenta el tiempo.
+  Barra de las dos clases: subtitulos_simulacro(A).
 
 LO QUE NO SALE DEL PLANEADOR (va en Area)
 ──────────────────────────────────────────
@@ -95,7 +116,8 @@ PARA SOCIALES, ADEMÁS
 
 VERIFICAR
 ─────────
-  python3 prueba_clase_viva_lc.py <carpeta>   → las 8 de LC, iguales a las entregadas
+  python3 prueba_clase_viva_lc.py <carpeta>   → las 8 de LC; compara las clases 1–6 con
+                                                 libro/fuente_guias_lc/ (copia de las entregadas)
   node verifica_guias.js <carpeta> [capturas]  → JS sin errores, ninguna clave visible antes
                                                  de revelar, nada fuera de ancho, la clave
                                                  revelada es la de data-k
@@ -172,31 +194,7 @@ TEXTOS_UI = dict(
     icfes_decir=["Durante la evaluación no se proyecta nada: las preguntas están en el cuaderno. Esta "
                  "diapositiva es para el cierre, cuando se socializan las falladas.",
                  "«¿Qué subrayaste en el texto antes de mirar las opciones?»"],
-    # clase 7 (propio de LC: subrayar y CL/SG/RE)
-    c7_h1="Hoy nadie les va a decir si acertaron",
-    c7_lead=("Veinticuatro preguntas Saber 11, seguidas, como en la prueba. Lo único que llevan es "
-             "lo que entrenaron: marcar el texto antes de marcar la opción."),
-    c7_decir=["«Pueden subrayar: en la prueba real también pueden, y es lo que entrenamos.»"],
-    c7_reglas=["En silencio y en filas individuales.", "No se responde ninguna duda, ni de vocabulario.",
-               "Las dudas se escriben en el margen.", "Se marca el texto, después la opción."],
-    c7_apoyo_reglas=["Anota quién va directo a las opciones sin tocar el texto: es el dato más útil del "
-                     "simulacro, más que el puntaje."],
-    c7_competencias=[("CL · contenidos locales", "qué dice", "var(--m1)"),
-                     ("SG · sentido global", "cómo se arma", "var(--m2)"),
-                     ("RE · reflexionar y evaluar", "qué quiere y si se sostiene", "var(--m5)")],
-    c7_apoyo_conteo=["En Lectura Crítica casi siempre es RE, porque es la única que no se responde "
-                     "buscando: hay que juzgar.",
-                     "Anota los tres números: son el dato que la coordinación necesita para decidir el "
-                     "refuerzo."],
-    # clase 8 (propio de LC)
-    c8_h1="Lo que subrayaste esta vez",
-    c8_lead=("Hoy no hay texto nuevo. Hoy vamos a mirar tu letra de hace seis semanas al lado de la "
-             "de hoy."),
-    c8_apoyo_elegir=["Si dudas entre dos, quédate con la de RE: es la que más puntaje cuesta."],
-    c8_h2="¿Qué subrayaste esta vez que no subrayaste antes?",
-    c8_decir=["«Pongan las dos hojas una al lado de la otra. ¿Qué cambió en el subrayado?»"],
-    c8_apoyo=["Si nadie subrayó distinto, la estrategia no se instaló todavía: anótalo en el registro "
-              "para el reporte de los especialistas."],
+    # Las clases 7 y 8 ya no usan TEXTOS_UI: todo sale de P.C7 y P.C8 (decisión de Nelson, 10 nov).
 )
 
 
@@ -206,7 +204,7 @@ class Area:
     def __init__(self, nombre, prefijo, fuerte, color, P, claves_libro, preguntas_icfes,
                  textos, out, advertencias=None, taller=None, saberes=None, activacion=None,
                  titulos=None, leads=None, est_col=None, colores=None, textos_ui=None,
-                 banco=None, apoyo_fuerte=None):
+                 banco=None, apoyo_fuerte=None, sim=None):
         self.nombre, self.prefijo, self.fuerte, self.color = nombre, prefijo, fuerte, color
         self.P, self.claves_libro, self.preguntas_icfes = P, claves_libro, preguntas_icfes
         self.textos, self.out = textos, out
@@ -220,6 +218,12 @@ class Area:
         self.banco = banco or (lambda mis: P.BANCO[mis])
         # «lo que necesitas saber si Lectura Crítica no es tu área» (portada)
         self.apoyo_fuerte = apoyo_fuerte or f"{nombre} no es tu área"
+        # clave del área en simulacro.py (la caja de herramientas de la hoja de simulacro)
+        self.sim = sim or SIM_CLAVE.get(nombre)
+
+
+SIM_CLAVE = {"Matemáticas": "mate", "Lectura Crítica": "lc", "Sociales y Ciudadanas": "soc",
+             "Biología": "bio", "Química": "qui", "Física": "fis", "Inglés": "ing"}
 
 
 COL = {1: "var(--m1)", 2: "var(--m2)", 3: "var(--m3)", 4: "var(--m4)", 5: "var(--m5)", 6: "var(--m6)"}
@@ -439,81 +443,319 @@ def esc_cierre(A, mis):
 
 
 # ─────────────────────────────── las dos clases del simulacro ───────────────────────────────
+# Decisión de Nelson (10 nov): el simulacro ya no proyecta las 24 preguntas de entrenamiento.
+#   Clase 7 · el estudiante presenta el simulacro de EDUCATE (cuadernillo o PTD, fuera del cuaderno).
+#             La guía conduce la prueba: portada, condiciones de examen, un cronómetro grande y, al
+#             final, cómo anotar en el cuaderno las preguntas que cada uno quiere socializar.
+#   Clase 8 · la socialización en las hojas de simulacro del cuaderno, con las seis fases aprobadas.
+# Todo sale de A.P.C7 y A.P.C8 (plan_simulacro.datos() o, en Lectura Crítica, plan_lc.C7/C8) y de la
+# caja de herramientas de simulacro.py. No se proyecta ninguna pregunta ni ninguna clave: las preguntas
+# más falladas no se conocen de antemano, y la clase 8 trae casillas para que el profe las escriba.
+def _rango_sim(A):
+    C8 = A.P.C8
+    if C8.get("rango"):
+        return C8["rango"]
+    p = C8["paginas"]
+    return f"{p[0]} a {p[-1]}"
+
+
+def _sin_prefijo(t):
+    """«Clase 7 · el simulacro de EDUCATE» → «El simulacro de EDUCATE»."""
+    t = re.sub(r"^Clase \d\s*·\s*", "", t)
+    return t[:1].upper() + t[1:]
+
+
+def _primera_frase(t):
+    return re.split(r"(?<=[.!?»])\s+(?=[A-ZÁÉÍÓÚÑ«])", t.strip(), maxsplit=1)[0]
+
+
+def subtitulos_simulacro(A):
+    """El subtítulo de la barra superior de las clases 7 y 8."""
+    return ("Simulacro de EDUCATE · cuadernillo o PTD, fuera del cuaderno",
+            f"Socialización del simulacro · hojas de simulacro, páginas {_rango_sim(A)}")
+
+
+def caja_herramientas(A):
+    """Las cuatro herramientas de la hoja de simulacro del área, con el mismo dibujito y el mismo
+    rótulo que trae el cuaderno (simulacro.py, V2[área]["herr"]), y los cuatro «me piden»."""
+    import simulacro as SIM
+    SIM.colores(SIM.AREA[A.sim]["area"])
+    v = SIM.V2[A.sim]
+    cajas = "".join(
+        f'<div class="herr"><span class="chk"></span>'
+        f'<svg viewBox="-3 -3 40 42" width="60" height="63" aria-hidden="true">{ic(0, 0)}</svg>'
+        f'<b>{E(lab)}</b></div>' for lab, ic in v["herr"])
+    pide = "".join(f'<span class="pide"><span class="chk"></span>{E(p)}</span>' for p in v["pide"])
+    return cajas, pide, [lab for lab, _ in v["herr"]], list(v["pide"])
+
+
+def _asignadas_eco():
+    return "".join(f'<span class="nums1">Asignada {k} · n.º <b data-eco="asig{k}">—</b></span>'
+                   for k in (1, 2, 3))
+
+
 def escenas_clase7(A):
-    u = A.ui
+    C7, C8 = A.P.C7, A.P.C8
+    sim = _rango_sim(A)
+    t_antes, t_prueba, t_anoto = C7["tiempos"]
+    assert sum(t[1] for t in C7["tiempos"]) == 120, "la clase 7 tiene que sumar 120 minutos"
+    reloj = "".join(f'<div class="step" style="--accent:{c}"><div class="k">{m}\'</div>'
+                    f'<div><b>{E(n)}</b></div></div>'
+                    for (n, m, _), c in zip(C7["tiempos"], ("var(--m2)", "var(--area)", "var(--m6)")))
+    # 1 · portada
     sc = [dict(m=None, html=(
         '<div class="logo-xl"><img src="__LOGO__" alt="EDUCATE · Para el Saber"></div>'
         f'<div class="eyebrow"><span class="tag">Clase 7 de 8</span><span class="kicker">{E(A.nombre)} '
-        f'· simulacro del área</span></div><h1>{E(u["c7_h1"])}</h1>'
-        f'<p class="lead">{E(u["c7_lead"])}</p>'),
-        guia=dict(obj="Que el simulacro se viva en condiciones de prueba.", decir=list(u["c7_decir"]),
-                  apoyo=["Las 24 preguntas son las de las seis franjas de entrenamiento del cuaderno. "
-                         "No se proyectan: cada uno trabaja en su cuaderno."]))]
-    reglas = "".join(f"<li>{E(r)}</li>" for r in u["c7_reglas"])
-    sc.append(dict(m=None, min=90, html=(
-        '<div class="eyebrow"><span class="min" style="--accent:var(--m5)">90 minutos</span>'
-        '<span class="kicker">Inicia el cronómetro con T</span></div><h2>Las reglas del simulacro</h2>'
-        '<div class="grid c2 mt"><div class="card edge" style="--accent:var(--m5)"><ol class="pasos">'
-        f'{reglas}</ol></div><div class="card big edge" style="--accent:var(--area)">'
-        f'<p class="lead">{E(u["regla_lead"])}</p></div></div>'),
-        guia=dict(obj="Medir sin acompañamiento.", decir=["No intervengas en los 90 minutos."],
-                  apoyo=list(u["c7_apoyo_reglas"]))))
-    tallas = "".join(
-        f'<div class="card edge" style="--accent:{c}"><h3>{n}</h3><p class="sub">{d}</p>'
-        f'<div class="ctl"><button class="btn tally" data-tally="c7{n[:2]}">+1 <span class="n" '
-        f'id="c7{n[:2]}">0</span></button><button class="btn" data-reset="c7{n[:2]}">↺</button></div></div>'
-        for n, d, c in u["c7_competencias"])
-    ncomp = len(u["c7_competencias"])
-    sc.append(dict(m=None, min=30, html=(
-        '<div class="eyebrow"><span class="min" style="--accent:var(--m6)">Últimos 30 minutos</span>'
-        '<span class="kicker">Conteo por competencia</span></div><h2>¿Dónde se nos fue el puntaje?</h2>'
-        f'<div class="grid c3 mt">{tallas}</div><p class="sub mt">Cuenta las manos de quienes '
-        'fallaron preguntas de cada competencia.</p>'),
-        guia=dict(obj=f"Que el grupo vea en cuál de las {['', 'una', 'dos', 'tres', 'cuatro'][ncomp]} "
-                      "competencias se le va el puntaje.",
-                  decir=["«No es una nota: es un mapa de dónde hay que invertir las semanas que "
-                         "quedan.»"], apoyo=list(u["c7_apoyo_conteo"]))))
+        f'· simulacro del área</span></div><h1>{E(_sin_prefijo(C7["titulo"]))}</h1>'
+        f'<p class="lead">{E(C7["sub"])}.</p>'
+        f'<div class="grid c3 mt">'
+        f'<div class="card edge" style="--accent:var(--m1)"><h3>La prueba</h3><p class="sub">{E(C7["donde"])}</p></div>'
+        f'<div class="card edge" style="--accent:var(--m4)"><h3>Tu cuaderno</h3>'
+        f'<p class="sub">Cerrado durante la prueba. Al final se abre en las hojas de simulacro, páginas {E(sim)}.</p></div>'
+        f'<div class="card edge" style="--accent:var(--m6)"><h3>Hoy</h3><div class="grid" style="gap:8px">{reloj}</div></div>'
+        f'</div>'),
+        guia=dict(obj="Que el simulacro se viva en condiciones de examen, y que cada uno salga con tres "
+                      "preguntas anotadas para socializar en la clase 8.",
+                  decir=[C7.get("que_es") or C7["donde"]],
+                  como=C7["no_hace"],
+                  apoyo=["Esta guía no trae preguntas ni claves: el simulacro lo escoge EDUCATE y sirve "
+                         "cualquiera. Ten a la mano el cuadernillo (o el acceso a la PTD) y las hojas de "
+                         "respuestas antes de que entren.",
+                         "El cronómetro de la prueba está en la tercera diapositiva: es aparte del de la "
+                         "barra y sigue corriendo aunque cambies de diapositiva."]))]
+    # 2 · las condiciones de examen
+    pasos = "".join(f"<li>{E(p)}</li>" for p in C7["pasos"])
+    sc.append(dict(m=None, min=t_antes[1], html=(
+        f'<div class="eyebrow"><span class="min" style="--accent:var(--m2)">{E(t_antes[0])} · {t_antes[1]} min</span>'
+        f'<span class="kicker">Condiciones de examen</span></div>'
+        f'<h2>Como en la prueba de verdad</h2>'
+        f'<div class="grid c2 mt"><div class="card edge" style="--accent:var(--m2)"><ol class="pasos">{pasos}</ol></div>'
+        f'<div class="card big edge" style="--accent:var(--area)"><h3>Antes de empezar</h3>'
+        f'<p>{E(t_antes[2])}</p></div></div>'),
+        guia=dict(obj="Que las condiciones queden dichas una vez, antes de abrir el cuadernillo.",
+                  decir=[t_antes[2], "«Durante la prueba no respondo dudas, ni de vocabulario. Si una "
+                         "pregunta les parece mal hecha, márquenla al margen y sigan.»"],
+                  como=C7["no_hace"],
+                  apoyo=["Qué registras tú (esto no lo ve el estudiante):"] + list(C7.get("registra", [])))))
+    # 3 · el cronómetro grande de la prueba (aparte del de la barra: no se reinicia al cambiar)
+    sc.append(dict(m=None, html=(
+        f'<div class="eyebrow"><span class="min" style="--accent:var(--area)">{E(t_prueba[0])} · {t_prueba[1]} min</span>'
+        f'<span class="kicker">En silencio y de corrido</span></div>'
+        f'<div class="examen" data-examen="{t_prueba[1]}">'
+        f'<div class="relojxl" data-exnum>{t_prueba[1]}:00</div>'
+        f'<div class="exhoras"><span>Empieza <b data-exini>—</b></span><span>Termina <b data-exfin>—</b></span></div>'
+        f'<div class="ctl" style="justify-content:center">'
+        f'<button class="btn solid" data-ex="play">Iniciar la prueba</button>'
+        f'<button class="btn" data-ex="reset" aria-label="Reiniciar la prueba">↺</button></div></div>'
+        f'<p class="sub" style="text-align:center">{E(t_prueba[2])}</p>'),
+        guia=dict(obj="Medir sin acompañamiento.",
+                  decir=["Inicia el cronómetro cuando todos tengan el cuadernillo cerrado frente a ellos y "
+                         "escribe en el tablero la hora de inicio y la de cierre que aparecen aquí.",
+                         "No intervengas en los " + str(t_prueba[1]) + " minutos."],
+                  como=C7["no_hace"],
+                  apoyo=["Este cronómetro sigue corriendo aunque pases de diapositiva o abras la guía; "
+                         "la tecla T lo pausa. ↺ lo vuelve a poner en " + str(t_prueba[1]) + " minutos.",
+                         "Cuando llega a cero sigue contando en rojo, con un «+», el tiempo de más."] +
+                        list(C7.get("registra", []))[:2])))
+    # 4 · lo que anoto para socializar
+    if C7.get("al_final"):
+        lead_a, resto_a = C7["al_final"], t_anoto[2]
+    else:                                   # Lectura Crítica no trae «al_final»
+        lead_a = _primera_frase(t_anoto[2])
+        resto_a = t_anoto[2][len(lead_a):].strip()
+    sc.append(dict(m=None, min=t_anoto[1], html=(
+        f'<div class="eyebrow"><span class="min" style="--accent:var(--m6)">{E(t_anoto[0])} · {t_anoto[1]} min</span>'
+        f'<span class="kicker">Cuaderno abierto en las páginas {E(sim)}</span></div>'
+        f'<h2>Tres preguntas que quiero socializar</h2>'
+        f'<div class="grid c2 mt"><div class="card big edge" style="--accent:var(--m6)">'
+        f'<p class="lead">{E(lead_a)}</p>'
+        f'<p>{E(resto_a)}</p></div>'
+        f'<div class="card edge" style="--accent:var(--m4)"><h3>En el membrete de cada esquema</h3>'
+        f'<ol class="pasos"><li>El <b>n.º</b> de la pregunta en el simulacro.</li>'
+        f'<li>Marca <b>«la escogí yo»</b>.</li><li>En <b>«Marqué»</b>, la letra que marcaste.</li>'
+        f'<li><b>«Era»</b> queda vacío hasta la clase 8.</li></ol></div></div>'),
+        guia=dict(obj="Que cada uno llegue a la clase 8 con sus tres preguntas escogidas.",
+                  decir=[t_anoto[2], "«No tienen que saber cuál era la respuesta: anoten la que dudaron, la "
+                         "que creen que fallaron o la que acertaron sin saber por qué.»"],
+                  como=C7["no_hace"],
+                  apoyo=[C7["cuaderno"]] + [r for r in C7.get("registra", [])[2:]] +
+                        ["En la semana, saca de las hojas de respuestas las tres preguntas más falladas: son "
+                         "las que asignas en la clase 8."])))
     return sc
 
 
-def escenas_clase8(A, todas):
-    """La devolución: el profe escoge las cinco más falladas de las 24 y se reparan."""
-    u = A.ui
-    lista = "".join(
-        f'<button class="btn pick" data-pick="{i}">M{m}·P{k} · {E(t[:46])}</button>'
-        for i, (m, k, t) in enumerate(todas))
+def escenas_clase8(A, antes=()):
+    """La socialización en las hojas de simulacro del cuaderno, con las seis fases (A.P.FASES) y lo
+    que trae A.P.C8. `antes`: escenas que van al comienzo de la activación (Inglés: la ronda de
+    claves de la última tarea); su tiempo se descuenta de la activación."""
+    C7, C8 = A.P.C7, A.P.C8
+    F = A.P.FASES
+    assert [f[1] for f in F] == [15, 20, 35, 20, 20, 10], "el reparto aprobado es 15·20·35·20·20·10"
+    sim = _rango_sim(A)
+    rep = C8["reparto"]
+    fases = C8["fases"]
+    cajas, pide, herr, pides = caja_herramientas(A)
+    nom_d, min_d, pasos_d, entrena_d, material_d = C8["dinamica"]
+    conteo = C7.get("conteo")
+
+    def g(i, obj, apoyo=(), decir=None):
+        return dict(obj=obj, decir=[fases[i]] + list(decir or []), como=C8["no_hace"] if i in (1, 2) else "",
+                    apoyo=list(apoyo))
+
+    filas = "".join(
+        f'<div class="step" style="--accent:{COL[i+1]}"><div class="k">{i+1}</div>'
+        f'<div><b>{E(f[0])}</b><span class="sub"> · {f[1]} min</span></div></div>' for i, f in enumerate(F))
     sc = [dict(m=None, html=(
         '<div class="logo-xl"><img src="__LOGO__" alt="EDUCATE · Para el Saber"></div>'
         f'<div class="eyebrow"><span class="tag">Clase 8 de 8</span><span class="kicker">{E(A.nombre)} '
-        f'· devolución y cierre del área</span></div><h1>{E(u["c8_h1"])}</h1>'
-        f'<p class="lead">{E(u["c8_lead"])}</p>'),
-        guia=dict(obj="Reparar, no repetir.", decir=["«Saquen el cuaderno abierto en el simulacro "
-                  "y en la hoja de taller de la misma estrategia.»"], apoyo=[
-                  "El contraste entre las dos hojas es el cierre del área. No hay que explicarlo: "
-                  "hay que señalarlo."]))]
+        f'· socialización del simulacro</span></div><h1>{E(_sin_prefijo(C8["titulo"]))}</h1>'
+        f'<p class="lead">{E(C8["sub"])}. Seis preguntas por estudiante: '
+        f'{rep["escoge"]} que escoges tú y {rep["asigna"]} que asigna el profe.</p>'
+        f'<div class="grid c3 mt">'
+        f'<div class="card edge" style="--accent:var(--m1)"><h3>Tu cuaderno</h3>'
+        f'<p class="sub">Hojas de simulacro, páginas {E(sim)}. Un esquema por pregunta.</p></div>'
+        f'<div class="card edge" style="--accent:var(--m4)"><h3>Lo que traes</h3>'
+        f'<p class="sub">Las {rep["escoge"]} preguntas que anotaste al final de la clase 7.</p></div>'
+        f'<div class="card edge" style="--accent:var(--m6)"><h3>Hoy</h3>'
+        f'<p class="sub">120 minutos · 6 momentos · la opción se marca al final</p></div></div>'),
+        guia=dict(obj="Reparar, no repetir: socializar en el cuaderno las preguntas del simulacro que "
+                      "cada uno escogió y las que más falló el grupo.",
+                  decir=["«Cuaderno abierto en las hojas de simulacro, en los esquemas donde anotaron sus "
+                         "tres preguntas.»"],
+                  como=C8["no_hace"],
+                  apoyo=["Antes de la clase: saca de las hojas de respuestas del simulacro las tres "
+                         "preguntas más falladas. Esta guía sirve para cualquier simulacro: no trae las "
+                         "preguntas; tú las escribes en la diapositiva de la activación.",
+                         C8.get("alcance") or ""]))]
+    sc[0]["guia"]["apoyo"] = [x for x in sc[0]["guia"]["apoyo"] if x]
+    # 2 · seis momentos y el reparto
     sc.append(dict(m=None, html=(
-        '<div class="eyebrow"><span class="kicker">Escoge las cinco más falladas</span></div>'
-        '<h2>Las cinco preguntas que vamos a reparar</h2><div class="picks mt">' + lista + '</div>'
-        '<p class="sub mt">Toca cinco. Se guardan mientras la página esté abierta.</p>'),
-        guia=dict(obj="Elegir con el conteo de la clase 7, no con lo que a ti te parece interesante.",
-                  decir=["Usa los tres números del conteo por competencia."] if len(u["c7_competencias"]) == 3
-                  else ["Usa los números del conteo por competencia."],
-                  apoyo=list(u["c8_apoyo_elegir"]))))
-    sc.append(dict(m=None, html=(
-        '<div class="eyebrow"><span class="kicker">Una por una</span></div>'
-        f'<h2>{E(u["c8_h2"])}</h2><div id="elegidas" class="grid c2 mt"></div>'),
-        guia=dict(obj="Que cada estudiante vea su propio avance escrito.", decir=list(u["c8_decir"]),
-                  apoyo=list(u["c8_apoyo"]))))
-    ests = "".join(f'<div class="step" style="--accent:{COL[m]}"><div class="k">M{m}</div>'
-                   f'<div><b>{E(" · ".join(A.P.MISIONES[m]["estr"]))}</b></div></div>' for m in range(1, 7))
-    sc.append(dict(m=None, html=(
-        '<div class="eyebrow"><span class="kicker">Cierre del área</span></div>'
-        '<h2>Veinticuatro estrategias que ya son tuyas</h2>'
-        f'<div class="grid" style="gap:10px;margin-top:16px">{ests}</div>'),
-        guia=dict(obj="Que el estudiante nombre las estrategias que se lleva.", decir=[
-            "«Si al final pueden nombrarlas y decir para qué sirve cada una, el área cumplió, "
-            "aunque fallen preguntas.»"], apoyo=["Termina con la página de cierre del cuaderno y "
-                                                 "la franja de vocabulario completa."])))
+        f'<div class="eyebrow"><span class="kicker">Así vamos a trabajar</span></div>'
+        f'<h2>Seis preguntas: {rep["escoge"]} que escojo y {rep["asigna"]} que asigna el profe</h2>'
+        f'<div class="grid c2 mt"><div class="grid" style="gap:10px">{filas}</div>'
+        f'<div class="grid" style="gap:14px">'
+        f'<div class="grid c2" style="gap:12px">'
+        f'<div class="card edge" style="--accent:var(--m4)"><div class="nbig">{rep["escoge"]}</div>'
+        f'<p><b>que escojo yo</b>: las que anoté al final de la clase 7.</p></div>'
+        f'<div class="card edge" style="--accent:var(--area)"><div class="nbig">{rep["asigna"]}</div>'
+        f'<p><b>que asigna el profe</b>: las que más falló el grupo.</p></div></div>'
+        f'<div class="card big edge" style="--accent:var(--m3)"><h3>La regla</h3>'
+        f'<p>{E(rep["regla"])}</p></div></div></div>'),
+        guia=dict(obj="Que el reparto quede claro antes de abrir un solo esquema.",
+                  decir=[rep["regla"]],
+                  apoyo=[C8.get("revisa") or "Un esquema con la opción marcada y el resto en blanco no "
+                         "cuenta como socializado."])))
+    # 3 · activación: las más falladas (las escribe el profe) — más lo que el área haga antes
+    mins_antes = sum(e.get("min") or 0 for e in antes)
+    sc += [dict(e, m=0) for e in antes]
+    filas_a = "".join(
+        f'<div class="asig"><span class="k" style="background:{COL[k+1]}">{k}</span>'
+        f'<label>n.º <input class="campo n" data-campo="asig{k}" inputmode="numeric" autocomplete="off" '
+        f'aria-label="Número de la asignada {k}"></label>'
+        f'<label class="w">qué pedía <input class="campo" data-campo="pide{k}" autocomplete="off" '
+        f'aria-label="Qué pedía la asignada {k}"></label></div>' for k in (1, 2, 3))
+    cont = (f'<div class="asig"><label class="w">Aciertos por {E(conteo)} '
+            f'<input class="campo" data-campo="conteo" autocomplete="off" aria-label="Aciertos por {E(conteo)}">'
+            f'</label></div>') if conteo else ""
+    sc.append(dict(m=0, min=(15 - mins_antes) if antes else None, html=(
+        f'<div class="eyebrow"><span class="min" style="--accent:var(--m1)">Activación</span>'
+        f'<span class="kicker">Las escribe el profe · el grupo las copia</span></div>'
+        f'<h2>Las tres que más falló el grupo</h2>'
+        f'<p class="lead">Escribe cada número en un esquema libre y marca <b>«me la asignaron»</b>.</p>'
+        f'<div class="card edge mt" style="--accent:var(--m1)">{filas_a}{cont}</div>'
+        f'<div class="note" style="--accent:var(--m1)"><b>Cómo proyectarlas:</b> si tienes el cuadernillo '
+        f'o la PTD en pantalla, ábrelo en otra ventana con la pregunta y vuelve a esta guía (Alt+Tab). '
+        f'Si no, basta con el número y lo que pedía: el enunciado lo tiene cada uno en su cuadernillo.</div>'),
+        guia=g(0, "Que el resultado se devuelva sin notas y que cada uno sepa cuáles son sus tres asignadas.",
+               apoyo=["Las casillas se llenan con el teclado y se quedan mientras la página esté abierta: los "
+                      "números reaparecen en las diapositivas siguientes.",
+                      "No escribas aquí la clave de ninguna: «Era» se llena después de razonar la pregunta."])))
+    # 4 · problematizadora: el profe modela la más fallada, pieza por pieza
+    piezas = "".join(
+        f'<div class="step" style="--accent:var(--m2)"><div class="k">{k}</div>'
+        f'<div><b>{E(p)}</b><span class="sub"> · {E(t)}</span></div></div>'
+        for k, (p, t) in enumerate(C8["esquema"], 1))
+    sc.append(dict(m=1, html=(
+        f'<div class="eyebrow"><span class="min" style="--accent:var(--m2)">Pregunta problematizadora</span>'
+        f'<span class="kicker">El profe modela · todos llenan con él</span></div>'
+        f'<h2>La más fallada, n.º <span data-eco="asig1">—</span>, pieza por pieza</h2>'
+        f'<p class="lead">En voz alta y en el tablero. Cada uno la llena en su esquema al mismo tiempo.</p>'
+        f'<div class="grid mt{" c2" if len(C8["esquema"]) > 6 else ""}" style="gap:8px">{piezas}</div>'),
+        guia=g(1, "Que el grupo vea al profe llenar un esquema completo antes de hacerlo solo.",
+               apoyo=["Piensa en voz alta, también cuando dudas: el estudiante necesita ver cómo se decide "
+                      "qué le piden y qué herramienta se usa, no solo la respuesta.",
+                      "La opción se marca al final, después del tacho con razón. Si alguien dice la letra "
+                      "antes, pregúntale qué pieza del esquema la sostiene."])))
+    # 5 · la caja de herramientas del área, dibujada como en el cuaderno
+    sc.append(dict(m=1, html=(
+        f'<div class="eyebrow"><span class="min" style="--accent:var(--m2)">Pregunta problematizadora</span>'
+        f'<span class="kicker">La caja de herramientas de {E(A.nombre)}</span></div>'
+        f'<h2>Escoge la herramienta según lo que te piden</h2>'
+        f'<div class="card edge mt" style="--accent:var(--m2)"><h3>Me piden…</h3>'
+        f'<div class="pides">{pide}</div></div>'
+        f'<div class="herrs mt">{cajas}</div>'
+        f'<p class="sub mt">En el esquema, marca la que usaste y razona con ella en el espacio libre. '
+        f'Ninguna es obligatoria: la que sirve depende de la pregunta.</p>'),
+        guia=g(1, "Que el estudiante sepa que la caja tiene cuatro herramientas y que escoger una es parte "
+                  "de resolver.",
+               decir=[f"Muestra cada herramienta con la pregunta modelada: «¿cuál de estas me sirvió aquí, "
+                      f"y por qué no las otras?»"],
+               apoyo=["La caja de herramientas de la hoja de simulacro del área: " + ", ".join(herr) + ".",
+                      "Los cuatro tipos de tarea de la fila «Me piden»: " + ", ".join(pides) + "."])))
+    # 6 · desarrollo guiado: cada uno sus esquemas
+    sc.append(dict(m=2, html=(
+        f'<div class="eyebrow"><span class="min" style="--accent:var(--m3)">Desarrollo guiado</span>'
+        f'<span class="kicker">Cada uno en su cuaderno · páginas {E(sim)}</span></div>'
+        f'<h2>Tus esquemas, uno por pregunta</h2>'
+        f'<p class="lead">{E(_primera_frase(fases[2]))}</p>'
+        f'<div class="grid c2 mt"><div class="card edge" style="--accent:var(--m3)"><h3>En cada esquema</h3>'
+        f'<ol class="pasos"><li>Lo que me piden.</li><li>La herramienta que uso, y razono con ella.</li>'
+        f'<li>Tacho con razón cada opción que descarto.</li><li>Solo al final, la opción.</li></ol></div>'
+        f'<div class="card big edge" style="--accent:var(--area)"><p class="lead">Un esquema con la letra '
+        f'marcada y el resto en blanco no cuenta como socializado.</p></div></div>'
+        f'<div class="nums mt">{_asignadas_eco()}</div>'),
+        guia=g(2, "Que cada uno llene sus esquemas con el andamiaje completo, no solo la letra.",
+               apoyo=[C8.get("revisa") or "Lo que revisas: «me piden», la herramienta y el tacho con razón."])))
+    # 7 · reto en equipo: la dinámica de socialización del área
+    lis = "".join(f"<li>{E(p)}</li>" for p in pasos_d)
+    sc.append(dict(m=3, min=min_d, html=(
+        f'<div class="eyebrow"><span class="min" style="--accent:var(--m4)">Reto en equipo · {min_d} min</span>'
+        f'<span class="kicker">{E(C8.get("formato", "en equipos"))} · cada uno responde en su esquema</span></div>'
+        f'<h2>{E(nom_d)}</h2>'
+        f'<div class="grid c2 mt"><div class="card edge" style="--accent:var(--m4)"><h3>Cómo se hace</h3>'
+        f'<ol class="pasos">{lis}</ol></div>'
+        f'<div class="card"><h3>Qué vas a necesitar</h3><p>{E(material_d)}</p>'
+        f'<h3 class="mt">Las asignadas</h3><div class="nums">{_asignadas_eco()}</div></div></div>'),
+        guia=g(3, "Que la discusión sea compartida y el registro individual.",
+               apoyo=["Qué pieza del esquema entrena: " + entrena_d,
+                      "La regla para aprobar cualquier dinámica: si no puedes decir qué paso del esquema "
+                      "está ejercitando, es recreo, no clase.",
+                      "Si un equipo llena un solo esquema para todos, no cuenta: cada uno escribe en el suyo."])))
+    # 8 · evaluación individual
+    sc.append(dict(m=4, html=(
+        f'<div class="eyebrow"><span class="min" style="--accent:var(--m5)">Evaluación individual</span>'
+        f'<span class="kicker">En silencio · sin ayuda</span></div>'
+        f'<h2>Solo, como en la prueba</h2>'
+        f'<div class="card big edge mt" style="--accent:var(--m5)"><p class="lead">{E(_primera_frase(fases[4]))}</p>'
+        f'<p class="sub">El salvavidas: dónde me perdí y la pista que no vi.</p></div>'
+        f'<div class="nums mt">{_asignadas_eco()}</div>'),
+        guia=g(4, "Tener un dato individual de cómo quedó la estrategia, sin la ayuda del grupo.",
+               apoyo=["No respondas dudas en estos 20 minutos: lo que no sepa, va al salvavidas."])))
+    # 9 · cierre
+    sc.append(dict(m=5, html=(
+        f'<div class="eyebrow"><span class="min" style="--accent:var(--m6)">Cierre</span>'
+        f'<span class="kicker">El cierre del área</span></div>'
+        f'<h2>¿Qué pista no viste en el simulacro y hoy sí ves?</h2>'
+        f'<div class="grid c2 mt"><div class="card big edge" style="--accent:var(--m6)"><h3>Antes de salir</h3>'
+        f'<p class="lead">{E(fases[5])}</p></div>'
+        f'<div class="card edge" style="--accent:var(--m4)"><h3>Lo que me llevo</h3>'
+        f'<p>Una frase por esquema, que te sirva en el examen de verdad. No la copia de la respuesta: '
+        f'lo que vas a hacer distinto la próxima vez.</p></div></div>'),
+        guia=g(5, "Que el estudiante se lleve por escrito lo que va a hacer distinto en la prueba real.",
+               apoyo=[C8.get("alcance") or "",
+                      "Si nadie escribió algo distinto de la respuesta en «lo que me llevo», la estrategia no "
+                      "se instaló todavía: anótalo en el registro para el reporte de los especialistas."])))
+    sc[-1]["guia"]["apoyo"] = [x for x in sc[-1]["guia"]["apoyo"] if x]
     return sc
 
 
@@ -570,14 +812,14 @@ def construir(A, misiones=range(1, 7), simulacro=True):
                    sc, f"{A.nombre} · Clase {mis}"))
         hechos.append((f, len(sc)))
     if simulacro:
-        todas = [(m, k, fila["contexto"]) for m in range(1, 7) for k, fila in enumerate(A.banco(m), 1)]
-        sc7, sc8 = escenas_clase7(A), escenas_clase8(A, todas)
+        sc7, sc8 = escenas_clase7(A), escenas_clase8(A)
+        s7, s8 = subtitulos_simulacro(A)
         f7 = os.path.join(A.out, f"{A.prefijo}_Clase7_Simulacro.html")
-        open(f7, "w", encoding="utf-8").write(pagina(A, f"{A.nombre} · Clase 7",
-             "Simulacro del área · 24 preguntas", sc7, f"{A.nombre} · Clase 7"))
+        open(f7, "w", encoding="utf-8").write(pagina(A, f"{A.nombre} · Clase 7", s7, sc7,
+                                                     f"{A.nombre} · Clase 7"))
         f8 = os.path.join(A.out, f"{A.prefijo}_Clase8_Devolucion.html")
-        open(f8, "w", encoding="utf-8").write(pagina(A, f"{A.nombre} · Clase 8",
-             "Devolución y cierre del área", sc8, f"{A.nombre} · Clase 8"))
+        open(f8, "w", encoding="utf-8").write(pagina(A, f"{A.nombre} · Clase 8", s8, sc8,
+                                                     f"{A.nombre} · Clase 8"))
         hechos += [(f7, len(sc7)), (f8, len(sc8))]
     for f, n in hechos:
         print(f"{os.path.basename(f):34s} {n:2d} diapositivas · {os.path.getsize(f)//1024} KB")
@@ -681,6 +923,27 @@ p{margin:.35em 0 .6em}
 .gbox ul{margin:0;padding-left:1.1em}.gbox li{margin:.35em 0}
 .gbox.como{background:#F6F7F9}.gbox.como h4{color:var(--muted)}
 .gbox.apoyo{background:#FDF6EA;border-color:#EAD9B4}.gbox.apoyo h4{color:var(--oro)}
+.examen{background:var(--paper);border:1px solid var(--line);border-left:8px solid var(--area);border-radius:22px;padding:clamp(16px,2.4vw,40px);margin-top:clamp(12px,1.6vw,24px);text-align:center}
+.relojxl{font-family:var(--display);font-weight:800;font-size:clamp(96px,17vw,280px);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.relojxl.over{color:var(--area)}
+.exhoras{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 36px;color:var(--muted);font-size:1.15em;margin-top:10px}
+.exhoras b{color:var(--ink);font-variant-numeric:tabular-nums}
+.nbig{font-family:var(--display);font-weight:800;font-size:clamp(40px,4vw,64px);line-height:1;color:var(--accent,var(--area))}
+.asig{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:8px 0}
+.asig .k{width:2em;height:2em;border-radius:50%;display:grid;place-items:center;color:#fff;font-family:var(--display);font-weight:800;flex:none}
+.asig label{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--muted)}
+.asig label.w{flex:1;min-width:min(100%,260px)}
+.campo{font:inherit;font-size:1.1em;font-weight:700;color:var(--ink);border:none;border-bottom:2px dashed var(--faint);background:transparent;padding:4px 6px;min-width:0;flex:1;outline:none}
+.campo.n{width:4.5em;flex:none;text-align:center}
+.campo:focus{border-bottom-color:var(--area)}
+.nums1{border:1.5px solid var(--line);border-radius:999px;padding:3px 14px;background:var(--paper);font-weight:600;color:var(--muted)}
+.nums1 b{color:var(--ink)}
+.pides{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:1.08em}
+.pide{display:inline-flex;align-items:center;gap:8px}
+.chk{display:inline-block;width:20px;height:20px;border:2px solid var(--area);border-radius:4px;background:#fff;flex:none}
+.herrs{display:grid;gap:clamp(12px,1.4vw,22px);grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.herr{display:flex;align-items:center;gap:14px;background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--area);border-radius:16px;padding:14px 18px;font-size:1.12em}
+.herr svg{flex:none}
 </style>
 </head>
 <body>
@@ -740,6 +1003,39 @@ function toggleTimer(){
   if(tOn) tick = setInterval(function(){ tLeft--; paintClock(); }, 1000);
   paintClock();
 }
+// cronómetro de la prueba (clase 7): aparte del de la barra, no se reinicia al cambiar de diapositiva
+var EX = {base:0, left:0, on:false, t:null, ini:null};
+function hhmm(d){ return d.getHours() + ":" + (d.getMinutes()<10?"0":"") + d.getMinutes(); }
+function exPaint(){
+  var box = wrap.querySelector("[data-examen]"); if(!box) return;
+  if(!EX.base){ EX.base = +box.dataset.examen; EX.left = EX.base*60; }
+  var s = Math.abs(EX.left), mm = Math.floor(s/60), ss = s%60;
+  var n = box.querySelector("[data-exnum]");
+  n.textContent = (EX.left<0?"+":"") + mm + ":" + (ss<10?"0":"") + ss;
+  n.classList.toggle("over", EX.left<0);
+  box.querySelector("[data-exini]").textContent = EX.ini ? hhmm(EX.ini) : "—";
+  box.querySelector("[data-exfin]").textContent = EX.on ? hhmm(new Date(Date.now() + EX.left*1000)) : (EX.ini ? "en pausa" : "—");
+  var p = box.querySelector('[data-ex="play"]');
+  p.textContent = EX.on ? "Pausar" : (EX.ini ? "Seguir" : "Iniciar la prueba");
+}
+function exToggle(){
+  if(!EX.base) exPaint();
+  EX.on = !EX.on;
+  if(EX.t){ clearInterval(EX.t); EX.t = null; }
+  if(EX.on){ if(!EX.ini) EX.ini = new Date(); EX.t = setInterval(function(){ EX.left--; exPaint(); }, 1000); }
+  exPaint();
+}
+function exReset(){
+  if(EX.ini && !window.confirm("¿Volver a poner el cronómetro de la prueba en cero?")) return;
+  if(EX.t){ clearInterval(EX.t); EX.t = null; }
+  EX.on = false; EX.ini = null; EX.left = EX.base*60; exPaint();
+}
+// casillas que llena el profe (clase 8): se guardan mientras la página esté abierta
+var CAMPOS = {};
+function pintaCampos(){
+  [].forEach.call(wrap.querySelectorAll("[data-campo]"), function(x){ x.value = CAMPOS[x.dataset.campo] || ""; });
+  [].forEach.call(wrap.querySelectorAll("[data-eco]"), function(x){ x.textContent = CAMPOS[x.dataset.eco] || "—"; });
+}
 function guiaHTML(g){
   if(!g) return '<p class="sub">Sin notas para esta diapositiva.</p>';
   var h = '<div class="gbox"><h4>Objetivo</h4><p>'+esc(g.obj)+'</p></div>';
@@ -779,9 +1075,18 @@ function go(n){
   [].forEach.call(wrap.querySelectorAll("[data-pick]"), function(b){
     b.setAttribute("aria-pressed", elegidas.indexOf(b.textContent)>=0 ? "true" : "false"); });
   pintaElegidas();
+  pintaCampos();
+  exPaint();
+  $("#clock").style.visibility = wrap.querySelector("[data-examen]") ? "hidden" : "";   // la prueba tiene su reloj
 }
+wrap.addEventListener("input", function(e){
+  var x = e.target; if(!x.dataset || !x.dataset.campo) return;
+  CAMPOS[x.dataset.campo] = x.value;
+});
 wrap.addEventListener("click", function(e){
   var b = e.target.closest("button"); if(!b) return;
+  if(b.dataset.ex==="play") exToggle();
+  if(b.dataset.ex==="reset") exReset();
   if(b.dataset.show){ var t = document.getElementById(b.dataset.show); if(t) t.hidden = !t.hidden; }
   if(b.dataset.showgrupo){
     var g = wrap.querySelectorAll('[data-grupo="'+b.dataset.showgrupo+'"]'), abrir = g.length && g[0].hidden;
@@ -814,13 +1119,13 @@ $("#gbtn").addEventListener("click", function(){ setGuia(!$("#guia").classList.c
 $("#gclose").addEventListener("click", function(){ setGuia(false); });
 $("#scrim").addEventListener("click", function(){ setGuia(false); });
 document.addEventListener("keydown", function(e){
-  var t = e.target.tagName; if(t==="INPUT"||t==="TEXTAREA") return;
+  var t = e.target.tagName; if(t==="INPUT"||t==="TEXTAREA"||e.target.isContentEditable) return;
   if(e.key==="ArrowRight"||e.key==="PageDown"||e.key===" "){ go(i+1); e.preventDefault(); }
   else if(e.key==="ArrowLeft"||e.key==="PageUp"){ go(i-1); e.preventDefault(); }
   else if(e.key==="Home"){ go(0); e.preventDefault(); }
   else if(e.key==="End"){ go(SC.length-1); e.preventDefault(); }
   else if(e.key==="g"||e.key==="G"){ setGuia(!$("#guia").classList.contains("open")); }
-  else if(e.key==="t"||e.key==="T"){ toggleTimer(); }
+  else if(e.key==="t"||e.key==="T"){ if(wrap.querySelector("[data-examen]")) exToggle(); else toggleTimer(); }
   else if(e.key==="Escape"){ setGuia(false); }
 });
 go(0);

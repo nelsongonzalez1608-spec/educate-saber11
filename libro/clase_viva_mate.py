@@ -26,9 +26,8 @@ verifica_guias.js las manejen igual:
 De dónde sale cada cosa:
   · plan_mate.py (sin tocarlo): FASES, MISIONES, TALLER, INS_ICFES, BANCO, AVISOS, DINAMICAS y
     RETOS. Las dinámicas y los retos son los del planeador, en su orden.
-  · tablero/misiones.csv: el número de cada estrategia en el cuaderno. En la Misión 6 el
-    planeador numera distinto (E1 = «Juzgar el procedimiento») que el cuaderno (E1 = «Todos los
-    casos que cuentan»): la guía usa el número del cuaderno, que es lo que ve el estudiante.
+  · tablero/misiones.csv: el número de cada estrategia en el cuaderno. Desde el 10 nov el planeador
+    usa el mismo orden en las seis misiones (también en la 6): verificar() lo comprueba.
   · el cuaderno (páginas 11–52): página del libro de cada pregunta y la instrucción de cada
     instrumento (LEAD, copiada del PDF entregado).
   · lo escrito aquí: las claves del taller (CLAVE) y el camino a cada una (SOL), resueltas una por
@@ -804,12 +803,10 @@ def planeador():
     ns.AVISOS = {}
     ns.SELLOS = []
     ns.BANCO = P.BANCO
+    ns.C7, ns.C8 = P.C7, P.C8              # clases 7 y 8 (plan_simulacro.py)
     return ns
 
 
-COMPONENTES = [("Numérico-variacional", "momentos 1 y 2 · 8 preguntas", "var(--m2)"),
-               ("Espacial-métrico", "momentos 3 y 4 · 8 preguntas", "var(--m4)"),
-               ("Aleatorio", "momentos 5 y 6 · 8 preguntas", "var(--m6)")]
 
 UI = dict(
     portada_decir=["«Libro abierto, cuaderno cerrado, lápiz. Esfero no: hoy vamos a equivocarnos por "
@@ -835,27 +832,6 @@ UI = dict(
                 "Si un equipo entrega una sola hoja para los tres, el reto no cuenta. La discusión es "
                 "compartida; el registro es individual.",
                 "Cierra señalando en qué se parecían los razonamientos y en qué no."],
-    c7_h1="Hoy nadie les va a decir si acertaron",
-    c7_lead=("Veinticuatro preguntas tipo Saber 11, seguidas, como en la prueba: las de las seis franjas de "
-             "entrenamiento. Lo único que llevan es lo que entrenaron: la cuenta en el papel antes de "
-             "marcar."),
-    c7_decir=["«Tapen con una hoja la columna del instrumento: hoy trabajan sin andamiaje, como en la prueba "
-              "real. Pueden hacer cuentas en el margen.»"],
-    c7_reglas=["En silencio y en filas individuales.", "No se responde ninguna duda, ni de vocabulario.",
-               "Las dudas se escriben en el margen.", "La columna del instrumento queda tapada.",
-               "Cada cuenta se escribe al margen antes de marcar."],
-    c7_apoyo_reglas=["Anota quién marca sin escribir ninguna cuenta: es el dato más útil del simulacro, más "
-                     "que el puntaje."],
-    c7_competencias=COMPONENTES,
-    c8_h1="Lo que escribiste esta vez",
-    c8_lead=("Hoy no hay pregunta nueva. Hoy vamos a poner tu instrumento de hace seis semanas al lado de lo "
-             "que escribiste en el simulacro."),
-    c8_apoyo_elegir=["Si dudas entre dos, quédate con la del componente que más manos tuvo en el conteo de la "
-                     "clase 7."],
-    c8_h2="¿Qué cuenta hiciste esta vez que antes no hiciste?",
-    c8_decir=["«Pongan las dos hojas una al lado de la otra. ¿Qué escribieron distinto?»"],
-    c8_apoyo=["Si nadie escribió distinto, la estrategia no se instaló todavía: anótalo en el registro para el "
-              "reporte de los especialistas."],
 )
 
 
@@ -893,10 +869,6 @@ def apoyo_portada(mis):
            "Ojo con esto: " + d["ojo"]]
     for preg, sev, que, hacer in P.AVISOS.get(mis, []):
         out.append(f"Aviso del libro, {preg} ({sev}): {que} Qué haces: {hacer}")
-    if mis == 6:
-        out.append("Ojo con la numeración: el planeador impreso llama E1 a «Juzgar el procedimiento»; en el "
-                   "cuaderno del estudiante es la estrategia 3. Esta guía usa siempre el número del cuaderno, "
-                   "que es el que ven ellos.")
     out.append("Lo que tienes que poder explicar hoy en dos minutos, sin jerga. Si un estudiante lo sabe "
                "mejor que tú, déjalo explicar y pide que lo muestre con un número:")
     out += FUERTE_MIS[mis]
@@ -1085,30 +1057,9 @@ def escenas_contenido(mis):
 
 
 def escenas_simulacro():
+    """Clases 7 y 8 (decisión de Nelson, 10 nov): salen del motor con plan_mate.C7 y C8."""
     A = area(2)
-    sc7 = CV.escenas_clase7(A)
-    ased = [f"M{m}·P{k}" for m in range(1, 7) for k, f in enumerate(P.BANCO[m], 1) if "ASED" in f.get("fuente", "")]
-    sc7[0]["guia"]["apoyo"].append(
-        f"⚑ {len(ased)} de las 24 ({', '.join(ased)}) salen del compilado ASED, no del ICFES. Nelson decide si "
-        "se reemplazan antes de imprimir.")
-    sc7[2]["html"] = (sc7[2]["html"].replace("Conteo por competencia", "Conteo por componente")
-                      .replace("preguntas de cada competencia", "preguntas de cada componente"))
-    sc7[2]["guia"]["obj"] = "Que el grupo vea en cuál de los tres componentes se le va el puntaje."
-    sc7[2]["guia"]["apoyo"] = [
-        "Se cuenta por componente, como dice el planeador: numérico-variacional (franjas de los momentos 1 y "
-        "2), espacial-métrico (3 y 4) y aleatorio (5 y 6). Ocho preguntas en cada uno.",
-        "Cada estudiante cuenta sus aciertos por componente y los escribe en la portada del área; tú cuentas "
-        "las manos de quienes fallaron más de la mitad en cada uno.",
-        "Anota los tres números: son el dato que la coordinación necesita para decidir el refuerzo."]
-    todas = [(m, k, re.split(r" · ", f["contexto"])[0][:46]) for m in range(1, 7) for k, f in enumerate(P.BANCO[m], 1)]
-    sc8 = CV.escenas_clase8(A, todas)
-    sc8[1]["guia"]["decir"] = ["Usa los tres números del conteo por componente de la clase 7."]
-    sc8[1]["guia"]["apoyo"].append("Cada pregunta se repara con el instrumento con el que se trabajó la primera "
-                                   "vez: el estudiante tiene que volver a esa página de su cuaderno (franjas de "
-                                   "entrenamiento: páginas 13, 17, 20, 24, 27, 31, 34, 38, 41, 45, 48 y 52).")
-    sc8[-1]["guia"]["apoyo"] = [a.replace("la franja de vocabulario completa",
-                                          "la franja «Palabras que me frenaron» completa") for a in sc8[-1]["guia"]["apoyo"]]
-    return A, sc7, sc8
+    return A, CV.escenas_clase7(A), CV.escenas_clase8(A)
 
 
 # ─────────────────────────────── escribir ───────────────────────────────
@@ -1143,6 +1094,8 @@ def revisar(html, archivo):
     hay = [n for n in PROHIBIDOS if re.search(r"\b" + re.escape(n) + r"\b", html)]
     if hay:
         raise SystemExit(f"{archivo}: trae nombres que no pueden salir: {hay}")
+    if re.search(r"preguntas reales del ICFES", html, re.I):
+        raise SystemExit(f"{archivo}: dice «preguntas reales del ICFES»; el membrete es «Pregunta Saber 11»")
     if re.search(r"oficial", html, re.I):
         raise SystemExit(f"{archivo}: dice «oficial»: " + re.search(r".{60}oficial.{60}", html, re.I | re.S).group(0))
 
@@ -1193,6 +1146,11 @@ def verificar():
         for p, e, i, c in P.TALLER[m]:
             if e not in ESTR[m]:
                 malas.append(f"M{m} P{p}: estrategia {e} no está en el cuaderno")
+        if list(P.MISIONES[m]["estr"]) != ESTR[m]:
+            malas.append(f"M{m}: el planeador ordena las estrategias {P.MISIONES[m]['estr']} y el cuaderno {ESTR[m]}")
+        for i, din in enumerate(P.DINAMICAS[m]):          # la dinámica i entrena la estrategia i
+            if ESTR[m][i] not in P.MISIONES[m]["estr"][i:i + 1]:
+                malas.append(f"M{m}: la dinámica «{din[0]}» no cae en la estrategia {i + 1}")
     if malas:
         raise SystemExit("No coincide:\n  " + "\n  ".join(malas))
 
@@ -1208,13 +1166,14 @@ def construir(out=OUT):
                                f"Momento {mis} · {d['comp']} · páginas {d['pags']}", sc, out))
     A, sc7, sc8 = escenas_simulacro()
     hechos.append(escribir(A, "MAT_Clase7_Simulacro.html", f"{NOMBRE} · Clase 7",
-                           "Simulacro del área · 24 preguntas", sc7, out))
+                           CV.subtitulos_simulacro(A)[0], sc7, out))
     hechos.append(escribir(A, "MAT_Clase8_Devolucion.html", f"{NOMBRE} · Clase 8",
-                           "Devolución y cierre del área", sc8, out))
-    with zipfile.ZipFile(ZIP, "w", zipfile.ZIP_DEFLATED) as z:
-        for f in hechos:
-            z.write(f, os.path.basename(f))
-    print("zip:", os.path.relpath(ZIP, AQUI), f"{os.path.getsize(ZIP)//1024} KB")
+                           CV.subtitulos_simulacro(A)[1], sc8, out))
+    if os.path.realpath(out) == os.path.realpath(OUT):      # el .zip solo se arma con las entregadas
+        with zipfile.ZipFile(ZIP, "w", zipfile.ZIP_DEFLATED) as z:
+            for f in hechos:
+                z.write(f, os.path.basename(f))
+        print("zip:", os.path.relpath(ZIP, AQUI), f"{os.path.getsize(ZIP)//1024} KB")
     return hechos
 
 

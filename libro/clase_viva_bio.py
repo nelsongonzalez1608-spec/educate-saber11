@@ -76,10 +76,6 @@ LEADS = {
 }
 
 # ─────────────── la redacción de pantalla y de la guía, para Biología ───────────────
-COMPETENCIAS = [("UC · uso comprensivo del conocimiento científico", "conceptos y modelos de la biología",
-                 "var(--m2)"),
-                ("EF · explicación de fenómenos", "por qué pasa, eslabón por eslabón", "var(--m4)"),
-                ("IN · indagación", "preguntas, controles y conclusiones", "var(--m6)")]
 
 UI = dict(
     portada_decir=["«Libro abierto, cuaderno cerrado, lápiz. Hoy no les voy a preguntar qué saben de "
@@ -120,27 +116,6 @@ UI = dict(
     icfes_decir=["Durante la evaluación no se proyecta nada: las preguntas están en el cuaderno. Esta "
                  "diapositiva es para el cierre, cuando se socializan las falladas.",
                  "«¿Qué escribiste en el instrumento antes de mirar las opciones? ¿Qué dato lo decide?»"],
-    c7_h1="Hoy nadie les va a decir si acertaron",
-    c7_lead=("Veinticuatro preguntas tipo Saber 11, seguidas, como en la prueba. Lo único que llevan es "
-             "lo que entrenaron: escribir el dato y su comparación antes de mirar las opciones."),
-    c7_decir=["«Pueden escribir al margen: en la prueba real también pueden rayar el cuadernillo, y es "
-              "lo que entrenamos.»"],
-    c7_reglas=["En silencio y en filas individuales.", "No se responde ninguna duda, ni de vocabulario.",
-               "Las dudas se escriben en el margen.",
-               "Primero el dato y su comparación, después la opción."],
-    c7_apoyo_reglas=["Anota quién va directo a las opciones sin escribir nada: es el dato más útil del "
-                     "simulacro, más que el puntaje."],
-    c7_competencias=COMPETENCIAS,
-    c8_h1="Lo que escribiste esta vez",
-    c8_lead=("Hoy no hay pregunta nueva. Hoy vamos a poner tu instrumento de hace seis semanas al lado "
-             "del de hoy."),
-    c8_apoyo_elegir=["Si dudas entre dos, quédate con la de la competencia que más manos tuvo en el "
-                     "conteo de la clase 7."],
-    c8_h2="¿Qué dato o qué comparación viste esta vez que antes no?",
-    c8_decir=["«Pongan las dos hojas una al lado de la otra. ¿Qué escribieron distinto en el "
-              "instrumento?»"],
-    c8_apoyo=["Si nadie escribió distinto, la estrategia no se instaló todavía: anótalo en el registro "
-              "para el reporte de los especialistas."],
 )
 
 # ───────────── los avisos del libro que salen en pantalla (al revelar las claves) ─────────────
@@ -383,39 +358,10 @@ def escenas_contenido(A, mis, general):
     return sc
 
 
-def rotulo(contexto, n=46):
-    partes = contexto.split(" · ")
-    t = partes[0]
-    if len(partes) > 1 and len(t) + 3 + len(partes[1]) <= n:
-        t += " · " + partes[1]
-    if len(t) > n:
-        t = t[:n - 1].rsplit(" ", 1)[0].rstrip(" ,(") + "…"
-    return t
-
 
 def escenas_simulacro(A, textos):
-    sc7 = CV.escenas_clase7(A)
-    sc7[0]["guia"]["apoyo"].append(
-        "Ninguna de las 24 sale del compilado ASED. En pantalla y en el cuaderno van con el membrete "
-        "«Pregunta Saber 11»; la procedencia de cada una está en el tablero del proyecto.")
-    por = {"UC": [], "EF": [], "IN": []}
-    for m in range(1, 7):
-        for k in range(1, 5):
-            por[P.comp_icfes(m, k)].append(f"M{m}·P{k}")
-    sc7[2]["guia"]["apoyo"] = [
-        "La competencia de cada pregunta es la que le pone el cuaderno en su hoja de entrenamiento: es la "
-        "clasificación de EDUCATE, sirve para decidir el refuerzo.",
-        *[f"{n} ({len(por[n[:2]])} preguntas): {', '.join(por[n[:2]])}." for n, _, _ in COMPETENCIAS],
-        "Como no hay el mismo número de preguntas en cada competencia, compara proporciones, no manos sueltas.",
-        "En la prueba real Biología, Química y Física dan un solo puntaje de Ciencias Naturales.",
-        "Anota los tres números: son el dato que la coordinación necesita para decidir el refuerzo."]
-    # el rótulo de cada botón es el título de la pregunta en TEXTOS_BIO.md: corto y sin repetirse
-    todas = [(m, k, rotulo(textos[(m, k)]["titulo"])) for m in range(1, 7) for k in range(1, 5)]
-    sc8 = CV.escenas_clase8(A, todas)
-    sc8[-1]["guia"]["apoyo"] = [a.replace("la franja de vocabulario completa",
-                                          "la franja «Palabras que me frenaron» completa")
-                                for a in sc8[-1]["guia"]["apoyo"]]
-    return sc7, sc8
+    """Clases 7 y 8 (decisión de Nelson, 10 nov): salen del motor con plan_bio.C7 y C8."""
+    return CV.escenas_clase7(A), CV.escenas_clase8(A)
 
 
 # ─────────────────────────────── escribir ───────────────────────────────
@@ -460,9 +406,9 @@ def construir(out=OUT):
     A.out = out
     sc7, sc8 = escenas_simulacro(A, textos)
     hechos.append(escribir(A, "BIO_Clase7_Simulacro.html", "Biología · Clase 7",
-                           "Simulacro del área · 24 preguntas", sc7))
+                           CV.subtitulos_simulacro(A)[0], sc7))
     hechos.append(escribir(A, "BIO_Clase8_Devolucion.html", "Biología · Clase 8",
-                           "Devolución y cierre del área", sc8))
+                           CV.subtitulos_simulacro(A)[1], sc8))
     return hechos
 
 
