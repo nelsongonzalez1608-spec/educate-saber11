@@ -48,10 +48,11 @@ def _svg(w, h, cuerpo, alt, ancho=None):
             f'style="{FUENTE_SVG}{tope}">{cuerpo}</svg></figure>')
 
 
-def _t(x, y, txt, size=15, color=TINTA, anchor="start", bold=False, italic=False, rot=None):
+def _t(x, y, txt, size=15, color=TINTA, anchor="start", bold=False, italic=False, rot=None, halo=False):
     tr = f' transform="rotate({rot} {x:.1f} {y:.1f})"' if rot is not None else ""
+    h = ' stroke="white" stroke-width="4" paint-order="stroke" stroke-linejoin="round"' if halo else ""
     return (f'<text x="{x:.1f}" y="{y:.1f}" font-size="{size}" fill="{color}" text-anchor="{anchor}"'
-            f'{" font-weight=\"700\"" if bold else ""}{" font-style=\"italic\"" if italic else ""}{tr}>'
+            f'{" font-weight=\"700\"" if bold else ""}{" font-style=\"italic\"" if italic else ""}{tr}{h}>'
             f'{E(txt)}</text>')
 
 
@@ -329,10 +330,11 @@ def _triangulo(cx, top, s, flechas=None, nombres=True):
             ex, ey = p1[0] + sg * ux * L, p1[1] + sg * uy * L
             c += _flecha(p1[0] + sg * ux * 15, p1[1] + sg * uy * 15, ex, ey, TINTA, 2.6, 10)
             der = ex > p1[0]
-            tx = ex + (10 if der else -10)
-            ty = ey + (16 if ey > p1[1] else -18)
+            abajo = ey > p1[1]
+            tx = ex + (14 if der else -14)
+            ty = ey + (2 if abajo else -20)
             for j, ln in enumerate(lab):
-                c += _t(tx, ty + j * 15, ln, 12, anchor="start" if der else "end", bold=True)
+                c += _t(tx, ty + j * 16, ln, 14, anchor="start" if der else "end", bold=True, halo=True)
     return c
 
 
@@ -342,18 +344,18 @@ def fig_triangulo():
 
 
 def fig_triangulos():
-    s = 100
+    s = 112
     f2, f3 = ["Fuerza de", "2 sobre 1"], ["Fuerza de", "3 sobre 1"]
     conf = {"A": ((False, f2), (True, f3)), "B": ((True, f2), (False, f3)),
             "C": ((False, f2), (False, f3)), "D": ((True, f2), (True, f3))}
     c = ""
     for k, L in enumerate("ABCD"):
-        ox, oy = (k % 2) * 300, (k // 2) * 200
-        cx, top = ox + 150, oy + 66
+        ox, oy = (k % 2) * 300, (k // 2) * 225
+        cx, top = ox + 150, oy + 80
         p2, p3 = (cx - 0.58 * s, top + s), (cx + 0.58 * s, top + s)
         (h2, l2), (h3, l3) = conf[L]
         c += _letra(ox + 18, oy + 20, L) + _triangulo(cx, top, s, flechas=((p2, h2, l2), (p3, h3, l3)), nombres=False)
-    return _svg(600, 400, c, "Cuatro figuras, A a D, con las fuerzas de las cargas 2 y 3 sobre la carga 1", ancho=600)
+    return _svg(600, 445, c, "Cuatro figuras, A a D, con las fuerzas de las cargas 2 y 3 sobre la carga 1", ancho=500)
 
 
 # ───────────────────── Misión 3 · P3 · el campo de dos esferas y la carga −q ─────────────────────
@@ -421,7 +423,7 @@ def fig_dipolos():
     for k, L in enumerate("ABCD"):
         ox, oy = (k % 2) * 270, (k // 2) * 215
         c += _letra(ox + 16, oy + 18, L) + _dipolo(ox + 140, oy + 112, 0.76, flecha_q=dirs[L])
-    return _svg(540, 430, c, "Cuatro figuras, A a D, con la dirección en que se movería la carga −q", ancho=560)
+    return _svg(540, 430, c, "Cuatro figuras, A a D, con la dirección en que se movería la carga −q", ancho=450)
 
 
 # ───────────────────── Misión 3 · P4 · dos esferas metálicas ─────────────────────
@@ -545,7 +547,7 @@ def fig_graficas_sonido():
         partes = ylab.replace(" del sonido", " del|sonido").split("|")
         for j, p in enumerate(partes):
             c += _t(ox + 36 + j * 16 - (len(partes) - 1) * 8, gy + gh / 2, p, 13, anchor="middle", bold=True, rot=-90)
-    return _svg(580, 425, c, "Cuatro gráficas, A a D, de velocidad del sonido y temperatura", ancho=580)
+    return _svg(580, 425, c, "Cuatro gráficas, A a D, de velocidad del sonido y temperatura", ancho=510)
 
 
 # ───────────────────── Misión 5 · P1 · rampa y tabla de momentos ─────────────────────
@@ -558,13 +560,15 @@ def fig_rampa():
     c += _c(rx + 14, ry + 6, 14, "white", TINTA, 2.2) + _c(rx + 404, ry + 116, 12, "white", TINTA, 2.2)
     c += _t(rx + 36, ry + 10, "Pelota 1 · masa = 5 kg", 15) + _t(rx + 330, ry + 96, "Pelota 2", 15)
     c += _t(rx - 12, ry + 80, "1,5 m", 15, anchor="end")
-    svg = _svg(540, 160, c, "Rampa de 1,5 m: la pelota 1, de 5 kg, baja y choca con la pelota 2 en reposo", ancho=540)
-    tabla = _tabla(["Lanzamiento", "Pelota 1 · antes", "Pelota 1 · después", "Masa pelota 2 (kg)",
+    return _svg(540, 160, c, "Rampa de 1,5 m: la pelota 1, de 5 kg, baja y choca con la pelota 2 en reposo", ancho=500)
+
+
+def tabla_momentos():
+    return _tabla(["Lanzamiento", "Pelota 1 · antes", "Pelota 1 · después", "Masa pelota 2 (kg)",
                     "Pelota 2 · antes", "Pelota 2 · después"],
                    (("I", "27,10", "18,05", "1", "0", "9,00"), ("II", "27,10", "6,50", "3", "0", "20,60"),
                     ("III", "27,10", "0,00", "5", "0", "27,10"), ("IV", "27,10", "−4,50", "7", "0", "31,60")),
                    nota="Momentos en kg·m/s.")
-    return svg + tabla
 
 
 # ───────────────────── Misión 5 · P2 · la piñata ─────────────────────
@@ -622,34 +626,37 @@ def fig_circuito5():
 
 
 # ───────────────────── Misión 6 · P2 · tabla de dispositivos y circuito con P ─────────────────────
-def fig_condensador():
-    tabla = _tabla(["Nombre", "Función"],
+def tabla_dispositivos():
+    return _tabla(["Nombre", "Función"],
                    (("Resistencia", "Generar una resistencia al paso de corriente"),
                     ("Condensador", "Almacenar energía eléctrica"), ("Cable", "Conducir corriente eléctrica"),
                     ("Interruptor", "Desviar o interrumpir el curso de la corriente")), ancho=560)
-    L, R, top, bot = 70, 550, 40, 160
+
+
+def fig_circuito_p():
+    L, R, top, bot = 92, 572, 40, 160
     c = _l(L, top, L + 120, top) + _c(L + 140, top, 18, "#FFF4C8", TINTA, 2)
-    c += _t(L + 140, top - 26, "bombillo", 14, anchor="middle")
+    c += _t(L + 140, top - 26, "bombillo", 17, anchor="middle")
     c += _l(L + 158, top, L + 240, top) + _r(L + 240, top - 16, 120, 32, "white", TINTA, 2)
     c += _t(L + 300, top + 6, "P", 17, anchor="middle", bold=True)
     c += _l(L + 360, top, R, top) + _l(R, top, R, bot) + _l(R, bot, L + 120, bot)
     c += _c(L + 120, bot, 6, "white", TINTA, 2) + _l(L + 120, bot, L + 72, bot + 22, TINTA, 2.6)
     c += _c(L + 64, bot - 28, 6, "white", TINTA, 2) + _c(L + 64, bot + 26, 6, "white", TINTA, 2)
-    c += _t(L + 84, bot - 36, "2", 15, bold=True) + _t(L + 82, bot + 44, "1", 15, bold=True)
-    c += _t(L + 132, bot + 24, "interruptor", 14)
+    c += _t(L + 84, bot - 36, "2", 18, bold=True) + _t(L + 82, bot + 46, "1", 18, bold=True)
+    c += _t(L + 132, bot + 24, "interruptor", 17)
     c += _l(L, top, L, bot - 28) + _l(L, bot - 28, L + 58, bot - 28) + _l(L, bot - 28, L, bot + 60)
     c += _l(L - 18, bot + 60, L + 18, bot + 60, TINTA, 3) + _l(L - 10, bot + 72, L + 10, bot + 72, TINTA, 3)
     c += _l(L, bot + 72, L, bot + 90) + _l(L, bot + 90, L + 64, bot + 90) + _l(L + 64, bot + 90, L + 64, bot + 32)
-    c += _t(L - 26, bot + 72, "fuente", 14, anchor="end")
-    return tabla + _svg(600, 268, c, "Circuito con fuente, interruptor de dos posiciones, bombillo y el punto P",
-                        ancho=560)
+    c += _t(L - 26, bot + 72, "fuente", 17, anchor="end")
+    return _svg(600, 262, c, "Circuito con fuente, interruptor de dos posiciones, bombillo y el punto P",
+                ancho=450)
 
 
 # ───────────────────── Misión 6 · P3 · pelotas que rebotan ─────────────────────
 def fig_rebote():
     c = ""
     for k, (lab, alto, piso, r_) in enumerate((("tenis", 1.0, "césped", 10), ("baloncesto", 1.5, "asfalto", 22))):
-        bx, base = 20 + k * 230, 236
+        bx, base = 20 + k * 230, 266
         c += _r(bx, base, 180, 16, "#C9D7B8" if k == 0 else "#B8BCC4", TINTA, 1.4)
         c += _t(bx + 90, base + 38, piso, 14, anchor="middle")
         tope = base - alto / 1.6 * 180
@@ -657,8 +664,8 @@ def fig_rebote():
         c += _t(bx + 132, (base + tope) / 2, f"{alto:.1f} m".replace(".", ","), 14)
         c += _c(bx + 60, tope - r_ - 4, r_, "white", TINTA, 2) + _t(bx + 60, tope - 2 * r_ - 14, lab, 14, anchor="middle")
     c += _t(20, 18, "Las dos se lanzan desde 2,0 m; la figura muestra la altura del rebote.", 13, GRIS, italic=True)
-    return _svg(450, 290, c, "La pelota de tenis rebota 1,0 m sobre césped y la de baloncesto 1,5 m sobre asfalto",
-                ancho=450)
+    return _svg(450, 320, c, "La pelota de tenis rebota 1,0 m sobre césped y la de baloncesto 1,5 m sobre asfalto",
+                ancho=400)
 
 
 # ───────────────────── Misión 6 · P4 · curva de calentamiento ─────────────────────
@@ -676,18 +683,25 @@ def fig_curva():
     c += _t(gx + 330, Y(125), "Gas", 14, bold=True)
     c += _t(28, gy + gh / 2, "Temperatura (°C)", 14, GRIS, "middle", italic=True, rot=-90)
     c += _t(gx + gw / 2, gy + gh + 28, "Tiempo", 14, GRIS, "middle")
-    svg = _svg(520, 270, c, "Curva de calentamiento con dos tramos planos, a 0 y a 100 grados", ancho=520)
-    tabla = _tabla(["Sustancia", "Fusión (°C)", "Ebullición (°C)"],
-                   (("Benceno", "6", "80"), ("Agua", "0", "100"), ("Acetonitrilo", "−45", "82"),
-                    ("2-butanol", "−115", "100")), ancho=460)
-    return svg + tabla
+    return _svg(520, 270, c, "Curva de calentamiento con dos tramos planos, a 0 y a 100 grados", ancho=520)
+
+
+def tabla_sustancias():
+    return _tabla(["Sustancia", "Fusión (°C)", "Ebullición (°C)"],
+                  (("Benceno", "6", "80"), ("Agua", "0", "100"), ("Acetonitrilo", "−45", "82"),
+                   ("2-butanol", "−115", "100")), ancho=460)
 
 
 FIGURAS = {(1, 2): fig_ep(), (2, 3): fig_vaso(), (2, 4): fig_altura(),
            (3, 1): fig_resistencias(), (3, 2): fig_triangulo(), (3, 3): fig_dipolo(), (3, 4): fig_esferas(),
            (4, 2): fig_piscinas(), (4, 3): fig_parlantes(), (4, 4): fig_tabla_sonido(),
            (5, 1): fig_rampa(), (5, 2): fig_pinata(), (5, 4): fig_tubo(),
-           (6, 1): fig_circuito5(), (6, 2): fig_condensador(), (6, 3): fig_rebote(), (6, 4): fig_curva()}
+           (6, 1): fig_circuito5(), (6, 2): tabla_dispositivos(), (6, 3): fig_rebote(), (6, 4): fig_curva()}
+
+# Lo que va en la columna de la derecha, encima del enunciado, cuando el panel del texto no alcanza
+# sin desplazarse y las opciones son cortas: la tabla de momentos, el circuito con P (el cuadernillo
+# dice «el circuito de la derecha») y la tabla de las sustancias.
+FIG_DERECHA = {(5, 1): tabla_momentos(), (6, 2): fig_circuito_p(), (6, 4): tabla_sustancias()}
 
 # Preguntas cuyas opciones son dibujos: los cuatro van en la columna de las opciones (no en el panel
 # del texto, donde habría que desplazarse) y las opciones quedan en una sola fila.
@@ -699,7 +713,8 @@ CSS = """.fig{margin:12px 0}.fig svg{display:block;width:100%;max-width:760px;he
 .tabla{border-collapse:collapse;width:100%;table-layout:fixed;font-size:.86em;line-height:1.35;margin:0 auto}
 .tabla th,.tabla td{border:1px solid var(--line);padding:5px 8px;vertical-align:top;overflow-wrap:anywhere}
 .tabla th{background:#F2F4EE;text-align:left}.fig figcaption{font-size:.85em;font-style:italic;color:var(--muted)}
-.ops.cuatro{grid-template-columns:repeat(4,1fr)}.opsfig{background:var(--paper);border:1px solid var(--line);
+.ops.cuatro{grid-template-columns:repeat(4,1fr)}.ops.cuatro .op{padding:8px 10px;gap:8px;font-size:.92em;align-items:center}
+.derfig .fig{margin:0 0 10px}.opsfig{background:var(--paper);border:1px solid var(--line);
 border-radius:14px;padding:8px 10px;margin-top:10px}.opsfig .fig{margin:0}
 """
 

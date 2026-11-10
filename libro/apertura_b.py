@@ -18,7 +18,7 @@ Nelson lo apruebe) está marcado con «# TEXTO NUEVO» en este archivo:
   · las hojas de hoy ya no tienen «cuadrícula», «paso a paso» ni «piensa en esto»: donde la
     apertura vieja los nombraba, ahora dice «el instrumento»;
   · «la hoja 4 / la hoja 5» → «la página 3» (metas y tablero quedan en la misma página);
-  · «Así se lee una hoja» explica la hoja de verdad (una miniatura de la página 151);
+  · «Así se lee una hoja» explica la hoja de verdad (una miniatura de la página 178, antes 151);
   · un momento = una clase de contenido (CLAUDE.md § 1); antes decía que un momento no cabía en
     una clase.
 El sello «Primero el andamiaje, después la respuesta» de la portada lo propuso Claude.
@@ -40,12 +40,13 @@ PSI = "#5B3E96"
 
 # Numeración que tendrá el cuaderno cuando entre esta apertura (paso final aparte). Es el «mapa final
 # de páginas (propuesto)» de tablero/decisiones.csv (10 nov): cada área con portada, 6 misiones y su
-# simulacro al final; cierre de 2 páginas; 397 en total. Si el mapa cambia, se cambia aquí.
+# simulacro al final; cierre de 2 páginas y la última cara con el mensaje final (398, Nelson 10 nov):
+# 398 en total. Es el de libro/paginas.py; si el mapa cambia, se cambia allá y aquí.
 N_AP = 6
 P_METAS = 3
 MAPA = [("Apertura", "1–6", None), ("Matemáticas", "7–59", 0), ("Lectura Crítica", "60–112", 1),
         ("Sociales y Ciudadanas", "113–165", 2), ("Biología", "166–214", 3), ("Química", "215–263", 4),
-        ("Física", "264–312", 5), ("Inglés", "313–395", 6), ("Cierre", "396–397", None)]
+        ("Física", "264–312", 5), ("Inglés", "313–395", 6), ("Cierre", "396–398", None)]
 
 
 def indice():
@@ -489,7 +490,7 @@ def metas():
 
 
 # ═════════════════════════════ 4 · ASÍ SE LEE UNA HOJA + LA ORGANIZACIÓN ═════════════════════════════
-HOJA_MUESTRA = "bio2_t4"        # página 151 (la de la propuesta de estilos)
+HOJA_MUESTRA = "bio2_t4"        # página 178 (antes 151: la de la propuesta de estilos)
 
 
 def _anidar(ruta, x, y, w):

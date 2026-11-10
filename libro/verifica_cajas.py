@@ -29,7 +29,9 @@ TOL = 1.0
 HOJAS = ("m[0-9]*_[ti][0-9].svg", "lc[0-9]*_[ti][0-9].svg", "soc[0-9]*_[ti][0-9].svg",
          "bio[0-9]*_[ti][0-9].svg", "qui[0-9]*_[ti][0-9].svg", "fis[0-9]*_[ti][0-9].svg",
          "ing[0-9]*_[ti][0-9].svg", "ing[0-9]*_t[0-9][0-9].svg",
-         "prueba_*.svg")
+         "prueba_*.svg",
+         # armado final (10 nov): simulacro de cada área, apertura nueva y cierre
+         "sim_[a-z]*_[0-9][0-9].svg", "ap_b_[0-9].svg", "cierre_b_[0-9].svg")
 
 
 def _tag(e):

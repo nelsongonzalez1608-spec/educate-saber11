@@ -31,6 +31,7 @@ Física e Inglés: 3 hojas (6 páginas, 18 preguntas). Ver HOJAS.
 
     hoja(clave, p, ruta, n_hojas=None)   dibuja la página p (1 … 2·n_hojas) del simulacro de un área
     python3 simulacro.py          genera libro/sim_muestra_<área>.svg (una por área) y el PDF de muestras
+    python3 simulacro.py --cuaderno   las 54 hojas del cuaderno: libro/sim_<área>_NN.svg con su página real
 
 La versión 1 está en simulacro_v1.py (sus muestras: sim_v1_muestra_<área>.svg).
 
@@ -867,8 +868,9 @@ def esquema(b, clave, a, y, h, n=1):
     columna_cierre(b, xr, yb - 12, W - M - 30 - xr, y + h - 26 - yb + 12)
 
 
-def hoja(clave, p, ruta, n_hojas=None):
-    """Página p (1 … 2·n_hojas) del simulacro del área. n_hojas: el del área (HOJAS) si no se pasa."""
+def hoja(clave, p, ruta, n_hojas=None, pag=None):
+    """Página p (1 … 2·n_hojas) del simulacro del área. n_hojas: el del área (HOJAS) si no se pasa.
+    pag = número de página del cuaderno para el pie (si no se pasa, «S<p>»: solo para muestras)."""
     a = AREA[clave]
     n_hojas = n_hojas or HOJAS[clave]
     assert 1 <= p <= 2 * n_hojas, f"{clave}: la página {p} no existe (son {2 * n_hojas})"
@@ -880,14 +882,32 @@ def hoja(clave, p, ruta, n_hojas=None):
     h = (fondo - y - 2 * g) / 3
     for i in range(3):
         esquema(b, clave, a, y + i * (h + g), h, n=3 * p - 2 + i)
-    BT.pie_b(b, f"S{p}", C["c"], texto=f"{a['area']} · Simulacro · hoja {(p + 1) // 2} de {n_hojas}")
+    BT.pie_b(b, pag if pag is not None else f"S{p}", C["c"],
+             texto=f"{a['area']} · Simulacro · hoja {(p + 1) // 2} de {n_hojas}")
     svg_close(b, ruta)
     return ruta
 
 
 ORDEN = ["mate", "lc", "soc", "bio", "qui", "fis", "ing"]
 
-if __name__ == "__main__":
+
+def cuaderno(claves=ORDEN):
+    """Las hojas del cuaderno (armado final, 10 nov): libro/sim_<área>_NN.svg, NN = 01 … 2·n_hojas,
+    cada una con su página real (paginas.paginas_simulacro), al final de cada área."""
+    import paginas
+    rutas = []
+    for cl in claves:
+        pags = paginas.paginas_simulacro(cl)
+        assert len(pags) == 2 * HOJAS[cl], f"{cl}: {len(pags)} páginas en el mapa y {2 * HOJAS[cl]} en HOJAS"
+        for p, pag in enumerate(pags, 1):
+            rutas.append(hoja(cl, p, OUT + f"sim_{cl}_{p:02d}.svg", pag=pag))
+    return rutas
+
+
+if __name__ == "__main__" and "--cuaderno" in sys.argv:
+    rutas = cuaderno([a for a in sys.argv[1:] if a != "--cuaderno"] or ORDEN)
+    print(len(rutas), "hojas de simulacro:", os.path.basename(rutas[0]), "…", os.path.basename(rutas[-1]))
+elif __name__ == "__main__":
     import render
     claves = sys.argv[1:] or ORDEN
     rutas = [hoja(cl, 1, OUT + f"sim_muestra_{cl}.svg") for cl in claves]

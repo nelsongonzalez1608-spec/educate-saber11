@@ -74,7 +74,7 @@ const fs = require("fs"), path = require("path");
           const g = [...document.querySelectorAll(`#wrap [data-grupo="${b.dataset.showgrupo}"].clave`)];
           return g.filter(x => x.offsetParent !== null).map(x => x.textContent.trim()[0]);
         });
-        if (k.length !== 2 || k.some(x => !/[A-D]/.test(x))) prob.push(`diap. ${d}: el bloque revela [${k}]`);
+        if (k.length !== 2 || k.some(x => !/[A-H]/.test(x))) prob.push(`diap. ${d}: el bloque revela [${k}]`);
         if (shots && !shotBloque) { await page.screenshot({ path: path.join(shots, f.replace(".html", `_${d}_bloque.png`)) }); shotBloque = true; }
         await page.evaluate(() => document.querySelector("#wrap [data-showgrupo]").click());
       }

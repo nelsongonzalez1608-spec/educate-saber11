@@ -813,9 +813,9 @@ DINAMICAS = {
       "que el paso se detiene cuando las temperaturas se igualan. Es el movimiento de las preguntas 1, "
       "6 y 8, y de la primera del entrenamiento (el aire caliente del globo).",
       "Ninguno"),
-     ("El mismo calor para más agua", 6,
-      ["Dos equipos: uno de dos estudiantes y otro de cuatro. Cada uno es una porción igual de agua y "
-       "empieza agachado: 20 grados.",
+     ("El mismo calor para más masa", 6,
+      ["Dos equipos: uno de dos estudiantes y otro de cuatro. Cada uno es una porción igual del mismo "
+       "material y empieza agachado: 20 grados.",
        "Cada equipo recibe ocho fichas de calor; cada ficha sube un grado a quien la recibe, y por cada "
        "grado se estira un poco.",
        "Reparten por igual y el grupo compara: ¿qué equipo subió más grados por persona?",
