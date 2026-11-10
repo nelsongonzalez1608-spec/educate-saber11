@@ -28,7 +28,7 @@ Lo que hace este módulo además de llenar el Area:
      `revisar_nombres()` falla si aparece alguno. Los casos del libro que los traen se nombran
      sin ellos y remiten al libro.
   5. Las ICFES de las misiones 1 y 2 salen del compilado ASED: su guía del profe dice
-     «Pendiente: confirmar fuente (ASED)».
+     «Fuente: compilado ASED (no es del ICFES)».
   6. `[hidden]{display:none!important}`: en la plantilla, `.clave{display:flex}` le gana al
      atributo hidden y la clave del libro se ve antes de revelarla (pasa en las guías de LC
      entregadas). Aquí se agrega la regla del piloto aprobado; clase_viva.py no se toca.
@@ -335,10 +335,8 @@ def textos_icfes(icfes, avisos_icfes):
             v["texto"], v["verso"] = a_verso(v["texto"]), True
         v["notas"] = [limpia_nota(n) for n in v["notas"]] + avisos_icfes.get((mis, k), [])
         if "ASED" in v.get("fuente", ""):
-            v["notas"].insert(0, "⚑ Pendiente: confirmar fuente (ASED). Esta pregunta sale del "
-                                 "compilado ASED, que dice haber concebido sus preguntas: no es de "
-                                 "un cuadernillo del ICFES. Nelson decide si se reemplaza; mientras "
-                                 "tanto, no la presentes como «del ICFES».")
+            v["notas"].insert(0, "Fuente: compilado ASED (no es del ICFES). Preséntala como "
+                                 "pregunta tipo Saber 11, no como «del ICFES».")
         out[(mis, k)] = v
     return out
 
@@ -466,8 +464,8 @@ def rotulo(contexto, n=46):
 def escenas_simulacro(A):
     sc7 = CV.escenas_clase7(A)
     sc7[0]["guia"]["apoyo"].append(
-        "Ocho de las 24 (las de las misiones 1 y 2) salen del compilado ASED. ⚑ Pendiente: confirmar "
-        "fuente (ASED). Nelson decide si se reemplazan antes de imprimir.")
+        "Ocho de las 24 (las de las misiones 1 y 2) salen del compilado ASED, no del ICFES: se "
+        "presentan como preguntas tipo Saber 11.")
     por = conteo_competencias()
     sc7[2]["guia"]["apoyo"] = [
         "La competencia de cada pregunta es la de la estrategia que entrena, según el planeador: es "

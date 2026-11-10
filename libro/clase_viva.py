@@ -426,7 +426,7 @@ def esc_cierre(A, mis):
                    f'<div><b>{E(e)}</b></div></div>' for i, e in enumerate(d["estr"]))
     h = (f'<div class="eyebrow"><span class="min" style="--accent:var(--m6)">Cierre</span>'
          f'<span class="kicker">La pregunta de siempre</span></div>'
-         f'<h2>¿En qué se parecía la pregunta del ICFES a la de tu libro?</h2>'
+         f'<h2>¿En qué se parecía la pregunta Saber 11 a la de tu libro?</h2>'
          f'<div class="grid c2 mt"><div class="grid" style="gap:10px">{ests}</div>'
          f'<div class="card big edge" style="--accent:var(--m6)"><h3>Antes de salir</h3>'
          f'<ol class="pasos"><li>La palabra nueva del día, en la franja de vocabulario, con tus '
