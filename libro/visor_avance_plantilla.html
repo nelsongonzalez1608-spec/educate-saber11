@@ -171,7 +171,8 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
       <label for="f-sev">Severidad<select id="f-sev"></select></label>
       <label for="f-est">Estado<select id="f-est"></select></label>
       <label for="f-q">Buscar<input id="f-q" type="search" placeholder="pregunta, palabra, página…"></label>
-      <button class="boton" id="h-csv" type="button">Descargar esta lista (.csv)</button>
+      <button class="boton" id="h-xlsx" type="button">Descargar la matriz (Excel)</button>
+      <button class="boton mini-b" id="h-csv" type="button">.csv</button>
     </div>
     <p class="nota" id="h-cuenta"></p>
     <div class="tabla-caja"><table><thead><tr><th>N.º</th><th>Área</th><th>Dónde</th><th>Qué pasa</th><th>Qué significa</th><th>Severidad</th><th>Estado</th></tr></thead><tbody id="h-filas"></tbody></table></div>
@@ -208,6 +209,7 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
 </dialog>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
 <script>
 const D = __DATOS__;
 const AREAS = [
@@ -409,6 +411,67 @@ function csvHallazgos() {
 document.getElementById("h-csv").onclick = async () => {
   if (!bajador) { document.getElementById("h-cuenta").textContent = "Las descargas no están disponibles en esta vista."; return; }
   try { await bajador.save({filename: "EDUCATE_hallazgos.csv", data: csvHallazgos()}); } catch (e) {}
+};
+/* La matriz de hallazgos en Excel: hoja «Resumen», hoja «Hallazgos» (la lista filtrada) y una hoja por área */
+const SEV_COLOR = {Alta: "FFF4C7C3", Media: "FFFFE3B3", Baja: "FFD6E6F7", "Atención": "FFE9EAF0"};
+const AREA_COLOR = Object.fromEntries(AREAS.map(a => [a.n, "FF" + a.c.slice(1).toUpperCase()]));
+async function xlsxHallazgos(lista) {
+  const wb = new ExcelJS.Workbook();
+  wb.creator = "EDUCATE · Para el Saber"; wb.created = new Date();
+  const borde = {style: "thin", color: {argb: "FFD0D4E0"}};
+  const encabezar = (ws, color) => {
+    const r = ws.getRow(1); r.height = 30;
+    r.eachCell(c => { c.font = {bold: true, color: {argb: "FFFFFFFF"}, name: "Calibri", size: 11};
+      c.fill = {type: "pattern", pattern: "solid", fgColor: {argb: color || "FF242478"}};
+      c.alignment = {vertical: "middle", horizontal: "center", wrapText: true}; });
+    ws.views = [{state: "frozen", ySplit: 1}];
+  };
+  const COLS = [{header: "N.º", key: "n", width: 7}, {header: "Área", key: "area", width: 16},
+    {header: "Dónde", key: "ubic", width: 34}, {header: "Página del libro", key: "pag", width: 11},
+    {header: "Qué pasa", key: "que", width: 64}, {header: "Qué significa / qué se hizo", key: "efecto", width: 52},
+    {header: "Severidad", key: "sev", width: 12}, {header: "Estado", key: "estado", width: 26}];
+  const hoja = (nombre, filas, color) => {
+    const ws = wb.addWorksheet(nombre.slice(0, 31), {properties: {tabColor: {argb: color || "FF242478"}}, pageSetup: {orientation: "landscape", fitToPage: true, fitToWidth: 1, fitToHeight: 0, paperSize: 1}});
+    ws.columns = COLS;
+    filas.forEach(h => ws.addRow({n: h.n, area: h.area, ubic: h.ubic, pag: h.pag && h.pag !== "—" ? h.pag : "", que: h.que, efecto: h.efecto, sev: h.sev, estado: h.estado}));
+    encabezar(ws, color);
+    ws.autoFilter = {from: "A1", to: "H1"};
+    ws.eachRow((r, i) => { if (i === 1) return;
+      r.eachCell({includeEmpty: true}, c => { c.alignment = {vertical: "top", wrapText: true}; c.border = {top: borde, bottom: borde, left: borde, right: borde}; c.font = {name: "Calibri", size: 10}; });
+      const sv = r.getCell("sev"); if (SEV_COLOR[sv.value]) { sv.fill = {type: "pattern", pattern: "solid", fgColor: {argb: SEV_COLOR[sv.value]}}; sv.font = {name: "Calibri", size: 10, bold: true}; }
+      r.getCell("n").alignment = {vertical: "top", horizontal: "center"};
+      if (i % 2 === 0) ["area", "ubic", "pag", "que", "efecto", "estado"].forEach(k => { r.getCell(k).fill = {type: "pattern", pattern: "solid", fgColor: {argb: "FFF7F8FB"}}; });
+    });
+    ws.headerFooter.oddFooter = "&LEDUCATE · Hallazgos del cuaderno Saber 11&RPágina &P de &N";
+    return ws;
+  };
+  // Resumen
+  const SEVS = ["Alta", "Media", "Baja", "Atención"];
+  const res = wb.addWorksheet("Resumen", {properties: {tabColor: {argb: "FF242478"}}});
+  res.columns = [{header: "Área", key: "a", width: 26}, ...SEVS.map(s => ({header: s, key: s, width: 12})), {header: "Total", key: "t", width: 10}];
+  const ORDEN = [...AREAS.map(a => a.n), "Nuestro (el cuaderno)", "Banco ICFES", "Fuentes y libro"];
+  const areas = [...new Set(lista.map(h => h.area))].sort((x, y) => (ORDEN.indexOf(x) + 99 * (ORDEN.indexOf(x) < 0)) - (ORDEN.indexOf(y) + 99 * (ORDEN.indexOf(y) < 0)));
+  areas.forEach(a => { const f = lista.filter(h => h.area === a); const row = {a, t: f.length}; SEVS.forEach(s => row[s] = f.filter(h => h.sev === s).length); res.addRow(row); });
+  const tot = {a: "Total", t: lista.length}; SEVS.forEach(s => tot[s] = lista.filter(h => h.sev === s).length); res.addRow(tot);
+  encabezar(res);
+  res.eachRow((r, i) => { if (i === 1) return; r.eachCell({includeEmpty: true}, c => { c.border = {top: borde, bottom: borde, left: borde, right: borde}; c.alignment = {horizontal: c.col === 1 ? "left" : "center"}; });
+    if (i === res.rowCount) r.font = {bold: true}; const ac = AREA_COLOR[r.getCell(1).value]; if (ac) r.getCell(1).font = {bold: true, color: {argb: ac}}; });
+  SEVS.forEach((s, k) => { const c = res.getRow(1).getCell(k + 2); c.fill = {type: "pattern", pattern: "solid", fgColor: {argb: SEV_COLOR[s]}}; c.font = {bold: true, color: {argb: "FF1B1E3A"}}; });
+  res.addRow([]); res.addRow(["Generado el " + new Date().toLocaleDateString("es-CO") + " desde el tablero del proyecto. «Atención» es algo que no requiere corrección pero conviene saber."]);
+  hoja("Hallazgos", lista);
+  areas.forEach(a => hoja(a, lista.filter(h => h.area === a), AREA_COLOR[a]));
+  return new Blob([await wb.xlsx.writeBuffer()], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+}
+document.getElementById("h-xlsx").onclick = async () => {
+  if (!bajador) { aviso("Las descargas no están disponibles en esta vista. Abre la página en claude.ai."); return; }
+  if (!window.ExcelJS) { aviso("No cargó la herramienta para armar el Excel. Recarga la página."); return; }
+  aviso("Armando la matriz de hallazgos…");
+  try {
+    const filtrada = visibles.length !== H.length;
+    const nombre = `EDUCATE_Matriz_hallazgos${filtrada ? "_filtrada" : ""}.xlsx`;
+    const res = await bajador.save({filename: nombre, data: await xlsxHallazgos(visibles)});
+    aviso(res.status === "saved" ? `Guardado: ${nombre}` : `Enviado: ${nombre}`);
+  } catch (e) { aviso(e && e.code === "declined" ? "Descarga cancelada." : "No se pudo armar la matriz. Intenta de nuevo."); }
 };
 /* PDF armados aquí mismo con pdf-lib, a partir del PDF de cada área */
 const fuenteDe = n => D.fuentes.find(f => n >= f.a && n <= f.b);

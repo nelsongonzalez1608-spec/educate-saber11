@@ -46,13 +46,39 @@ def imagenes(out, pags):
             os.remove(png)
 
 
+_AREA_VERIFICADA = None
+_SIGLA = {"MAT": "Matemáticas", "LC": "Lectura Crítica", "SOC": "Sociales y Ciudadanas", "BIO": "Biología",
+          "QUI": "Química", "FIS": "Física", "ING": "Inglés"}
+
+
 def _area(x):
-    """Área de un hallazgo: por cómo empieza su ubicación o, si no lo dice, por la página del libro."""
+    """Área de un hallazgo. Primero la que verificó el informe para la editorial (informe_editorial_datos.py,
+    10 nov); si no está, por cómo empieza la ubicación; si tampoco, por la página del libro."""
     import re
+    global _AREA_VERIFICADA
+    if _AREA_VERIFICADA is None:
+        try:
+            src = open(os.path.join(LIB, "informe_editorial_datos.py"), encoding="utf-8").read()
+            _AREA_VERIFICADA = {int(n): _SIGLA.get(a, a) for n, a in re.findall(r'\bh\(\s*(\d+)\s*,\s*"([^"]+)"', src)}
+        except OSError:
+            _AREA_VERIFICADA = {}
+    try:
+        n = int(x["n"])
+    except (KeyError, ValueError):
+        n = None
+    if n in _AREA_VERIFICADA:
+        return _AREA_VERIFICADA[n]
+    # filas sin área en la ubicación, revisadas a mano por su bloque en el tablero (10 nov)
+    A_MANO = {81: "Sociales y Ciudadanas", 82: "Sociales y Ciudadanas", 199: "Química", 200: "Química",
+              211: "Química", 212: "Química", 213: "Química", 251: "Física", 258: "Física"}
+    if n in A_MANO:
+        return A_MANO[n]
     u = x["ubicacion"]
-    for k, a in (("Biolog", "Biología"), ("Sociales", "Sociales y Ciudadanas"), ("SOC", "Sociales y Ciudadanas"),
-                 ("Lectura", "Lectura Crítica"), ("LC", "Lectura Crítica"), ("Matem", "Matemáticas"),
-                 ("Nuestro", "Nuestro (el cuaderno)"), ("Banco", "Banco ICFES"), ("Reservas", "Banco ICFES")):
+    for k, a in (("Nuestro", "Nuestro (el cuaderno)"), ("Banco", "Banco ICFES"), ("Reservas", "Banco ICFES"),
+                 ("Hojas de simulacro", "Nuestro (el cuaderno)"), ("Fuentes", "Fuentes y libro"),
+                 ("Inglés", "Inglés"), ("Química", "Química"), ("Física", "Física"), ("Biolog", "Biología"),
+                 ("Sociales", "Sociales y Ciudadanas"), ("SOC", "Sociales y Ciudadanas"),
+                 ("Lectura", "Lectura Crítica"), ("LC ", "Lectura Crítica"), ("Matem", "Matemáticas")):
         if u.startswith(k) or (" " + k) in u:
             return a
     m = re.search(r"\d+", x["pagina_libro"] or "")
@@ -60,7 +86,8 @@ def _area(x):
     if p and 265 <= p <= 335: return "Matemáticas"
     if p and 60 <= p <= 135: return "Biología"
     if p and p < 60: return "Lectura Crítica"
-    return "Sociales y Ciudadanas"   # 340–410 y las dos filas del ICFES de la M5, revisadas a mano
+    if p and 340 <= p <= 410: return "Sociales y Ciudadanas"
+    return "Sin área"
 
 
 def docente(out):
