@@ -6,10 +6,11 @@ Se usan en la clase 7 (el estudiante presenta el simulacro del área) y en la cl
 el estudiante socializa en el cuaderno las preguntas que escoge o que le asignan. Cada esquema sirve
 para CUALQUIER pregunta del área.
 
-Formato (aclaración de Nelson, 10 nov): 3 esquemas por página, 1 pregunta por esquema; 5 hojas a doble
-cara = 10 páginas por área = 30 preguntas.
+Formato (Nelson, 10 nov): 3 esquemas por página, 1 pregunta por esquema, hojas a doble cara.
+Matemáticas, Lectura Crítica y Sociales: 5 hojas (10 páginas, 30 preguntas); Biología, Química,
+Física e Inglés: 3 hojas (6 páginas, 18 preguntas). Ver HOJAS.
 
-    hoja(clave, k, ruta)          dibuja la página k (1–10) del simulacro de un área
+    hoja(clave, p, ruta, n_hojas=None)   dibuja la página p (1 … 2·n_hojas) del simulacro de un área
     python3 simulacro.py          genera libro/sim_muestra_<área>.svg (una por área) y el PDF de muestras
 
 Categorías oficiales: Guía de orientación Saber 11.° 2026-2 (Icfes, 17 mar 2026) y documentos
@@ -130,7 +131,8 @@ def flecha(b, x1, y1, x2, y2, sw=3):
 
 
 # ───────── cabecera de la página: diario + membrete del simulacro ─────────
-def cabecera(b, a, k, n_pag=10):
+def cabecera(b, a, p, n_hojas):
+    """p = página dentro del simulacro del área (1 … 2·n_hojas); cada hoja tiene dos caras."""
     c = C["c"]
     b.append(rect(0, 0, W, 180, C["bg"], r=0))
     b.append(rect(0, 180, W, 6, c, r=0))
@@ -138,7 +140,9 @@ def cabecera(b, a, k, n_pag=10):
     b.append(T(M + 230, 78, [f"{a['area'].upper()} · SIMULACRO"], 24, c, weight="700", ls=3))
     b.append(T(M + 230, 116, ["Clase 7: lo presento · Clase 8: socializo las preguntas que escojo "
                               "o que me asignan"], 22, GRAY))
-    b.append(T(M + 230, 150, [f"Simulacro · página {k} de {n_pag} · 3 preguntas por página"], 20, GRAY,
+    hoja_, cara = (p + 1) // 2, 2 - p % 2
+    b.append(T(M + 230, 150, [f"Simulacro · hoja {hoja_} de {n_hojas} · cara {cara} de 2 · "
+                              f"preguntas {3 * p - 2} a {3 * p} de {6 * n_hojas}"], 20, GRAY,
                style="italic"))
     b.append(T(W - M - 640, 78, ["Sábado ____ de ____________"], 24, INK))
     b.append(T(W - M - 640, 130, ["Llego:"], 22, GRAY))
@@ -333,27 +337,25 @@ def esq_soc(b, x, y, w, h):
     """La situación en el centro; tres voces alrededor (quién, qué busca); desde dónde pregunta."""
     c = C["c"]
     wm = 800
-    cx, cy = x + wm / 2, y + h / 2 + 6
-    # la situación
-    rx_, ry_ = 190, 92
-    b.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{rx_}" ry="{ry_}" fill="{C["bg"]}" stroke="{c}" '
-             f'stroke-width="2.4"/>')
-    b.append(T(cx, cy - 46, ["LA SITUACIÓN"], 15, c, weight="700", anchor="middle", ls=1.5))
-    renglones(b, cx - 150, cy + 4, 300, 2, step=44)
-    # tres voces
-    vw, vh = 290, 140
-    voces = [(x, y, "VOZ 1"), (x + wm - vw, y, "VOZ 2"), (x + (wm - vw) / 2 - 220, y + h - vh, "VOZ 3")]
-    voces[2] = (x, y + h - vh, "VOZ 3")
-    for vx, vy, tt in voces:
+    cx, cy = x + wm / 2, y + h / 2
+    vw, vh = 250, 128
+    voces = [(x, y, "VOZ 1"), (x + wm - vw, y, "VOZ 2"), (x, y + h - vh, "VOZ 3")]
+    for vx, vy, tt in voces:      # los hilos van debajo de todo
         b.append(f'<line x1="{vx + vw / 2}" y1="{vy + vh / 2}" x2="{cx}" y2="{cy}" stroke="{C["ln"]}" '
                  f'stroke-width="2.4" stroke-dasharray="7,7"/>')
     for vx, vy, tt in voces:
-        b.append(rect(vx, vy, vw, vh, "white", r=40, stroke=c, sw=2.2))
-        rotulo(b, vx + 24, vy + 30, tt)
-        b.append(T(vx + 24, vy + 74, ["quién:"], 16, GRAY))
-        b.append(line(vx + 24 + tw("quién:", 16) + 8, vy + 78, vx + vw - 24, vy + 78, LN_W, 1.8))
-        b.append(T(vx + 24, vy + 118, ["qué busca:"], 16, GRAY))
-        b.append(line(vx + 24 + tw("qué busca:", 16) + 8, vy + 122, vx + vw - 24, vy + 122, LN_W, 1.8))
+        b.append(rect(vx, vy, vw, vh, "white", r=36, stroke=c, sw=2.2))
+        rotulo(b, vx + 24, vy + 28, tt)
+        b.append(T(vx + 24, vy + 70, ["quién:"], 16, GRAY))
+        b.append(line(vx + 24 + tw("quién:", 16) + 8, vy + 74, vx + vw - 22, vy + 74, LN_W, 1.8))
+        b.append(T(vx + 24, vy + 112, ["qué busca:"], 16, GRAY))
+        b.append(line(vx + 24 + tw("qué busca:", 16) + 8, vy + 116, vx + vw - 22, vy + 116, LN_W, 1.8))
+    # la situación, en el centro y encima de los hilos
+    rx_, ry_ = 140, 78
+    b.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{rx_}" ry="{ry_}" fill="{C["bg"]}" stroke="{c}" '
+             f'stroke-width="2.4"/>')
+    b.append(T(cx, cy - 36, ["LA SITUACIÓN"], 15, c, weight="700", anchor="middle", ls=1.5))
+    renglones(b, cx - 104, cy + 6, 208, 2, step=44)
     # cuarta esquina: ¿quién gana y quién paga?
     gx, gy = x + wm - vw, y + h - vh
     b.append(rect(gx, gy, vw, vh, C["bg"], r=14))
@@ -380,7 +382,7 @@ def esq_bio(b, x, y, w, h):
         b.append(rect(xs, y, wch, 36, "white", r=18, stroke=C["ln"], sw=2))
         b.append(T(xs + wch / 2, y + 24, [e], 17, INK, anchor="middle"))
         if i < len(escalas) - 1:
-            b.append(T(xs + wch + 11, y + 25, ["›"], 22, C["ln"], weight="700", anchor="middle"))
+            b.append(T(xs + wch + 11, y + 25, ["›"], 22, C["c"], weight="700", anchor="middle"))
         xs += wch + 22
     pista(b, xs + 6, y + 24, "encierro una")
     y1 = y + 60
@@ -393,9 +395,16 @@ def esq_bio(b, x, y, w, h):
     for i, (t, hnt) in enumerate(tit):
         xi = x + i * (wc + g)
         hi = hh if i < 2 else hh - 112
-        caja(b, xi, y1, wc, hi, t, hnt, fill="white" if i != 1 else C["bg"])
+        caja(b, xi, y1, wc, hi, t, hnt, fill="white" if i != 1 else C["bg"],
+             n=2 if i == 1 else None)
         if i < 2:
             flecha(b, xi + wc + 4, y1 + hh / 2, xi + wc + g - 6, y1 + hh / 2)
+    # en la caja de los datos: unos ejes para dibujar la gráfica o la tabla en pequeño
+    xd = x + wc + g
+    ya = y1 + hh - 150
+    b.append(line(xd + 40, ya, xd + 40, y1 + hh - 30, c, 2.2))
+    b.append(line(xd + 40, y1 + hh - 30, xd + wc - 24, y1 + hh - 30, c, 2.2))
+    b.append(T(xd + 50, ya + 4, ["si hay gráfica, la dibujo en pequeño"], 15, GRAY, style="italic"))
     xi = x + 2 * (wc + g)
     yb = y1 + hh - 96
     b.append(rect(xi, yb, wc, 96, "white", r=14, stroke=C["ln"], sw=2.2, dash="8,6"))
@@ -419,7 +428,7 @@ def esq_qui(b, x, y, w, h):
     for i, (t, hnt) in enumerate((("ANTES", "sustancias, estado, cantidad"),
                                   ("DESPUÉS", "qué quedó, en qué estado"))):
         bx = x + 14 + i * (w - wb - 28)
-        b.append(beaker(bx, y + 22, wb, hb - 22, c, C["bg"] if i == 0 else "white"))
+        b.append(beaker(bx, y + 22, wb, hb - 22, c, "white"))
         rotulo(b, bx + 22, y + 58, t)
         pista(b, bx + 22 + tw(t, 15, "700") + 1.5 * len(t) + 12, y + 58, hnt)
         renglones(b, bx + 22, y + 116, wb - 44, 2)
@@ -438,20 +447,22 @@ def esq_qui(b, x, y, w, h):
     b.append(rect(x, y2, wl, h2, "white", r=14, stroke=C["ln"], sw=2.2))
     rotulo(b, x + 18, y2 + 28, "LO QUE SE CONSERVA")
     pista(b, x + 214, y2 + 28, "cuento átomos o masa a cada lado")
-    # balanza
+    # balanza: sobre cada platillo se escribe lo que se cuenta
     bx = x + wl / 2
-    by = y2 + 50
-    b.append(line(bx, by, bx, y2 + h2 - 18, C["ln"], 3))
-    b.append(line(bx - 90, y2 + h2 - 18, bx + 90, y2 + h2 - 18, C["ln"], 3))
-    b.append(line(bx - 230, by + 14, bx + 230, by + 14, c, 3))
-    b.append(f'<circle cx="{bx}" cy="{by + 14}" r="6" fill="{c}"/>')
-    for s in (-1, 1):
-        px = bx + s * 230
-        b.append(line(px, by + 14, px - s * 0, by + 40, c, 2))
-        b.append(f'<path d="M {px - 110},{by + 40} L {px + 110},{by + 40} Q {px},{by + 96} {px - 110},{by + 40} Z" '
+    by = y2 + 48
+    arm, pw = 190, 120
+    b.append(line(bx, by, bx, y2 + h2 - 16, C["ln"], 3))
+    b.append(line(bx - 60, y2 + h2 - 16, bx + 60, y2 + h2 - 16, C["ln"], 3))
+    b.append(line(bx - arm, by, bx + arm, by, c, 3))
+    b.append(f'<circle cx="{bx}" cy="{by}" r="6" fill="{c}"/>')
+    py = by + 70
+    for s_, lab in ((-1, "antes"), (1, "después")):
+        px = bx + s_ * arm
+        b.append(line(px, by, px, py - 40, C["ln"], 2))          # el gancho no cruza el renglón
+        b.append(f'<path d="M {px - pw},{py} L {px + pw},{py} Q {px},{py + 34} {px - pw},{py} Z" '
                  f'fill="{C["bg"]}" stroke="{c}" stroke-width="2.2"/>')
-    b.append(T(bx - 230, by + 118, ["lado de antes"], 15, GRAY, style="italic", anchor="middle"))
-    b.append(T(bx + 230, by + 118, ["lado de después"], 15, GRAY, style="italic", anchor="middle"))
+        b.append(line(px - pw + 14, py - 8, px + pw - 14, py - 8, LN_W, 1.8))
+        b.append(T(px, py + 42, [lab], 15, GRAY, style="italic", anchor="middle"))
     xr = x + wl + 30
     caja(b, xr, y2, w - wl - 30, h2, "LA PROPIEDAD QUE DECIDE", "densidad, solubilidad, punto de ebullición…",
          acento=True)
@@ -489,7 +500,7 @@ def esq_fis(b, x, y, w, h):
     h3 = h - (y3 - y)
     b.append(rect(xr, y3, wr, h3, "white", r=14, stroke=c, sw=2.2, dash="8,6"))
     rotulo(b, xr + 18, y3 + 30, "PREDIGO ANTES DE MIRAR LAS OPCIONES")
-    yy = y3 + 70
+    yy = y3 + 64
     t1 = "Si"
     b.append(T(xr + 18, yy, [t1], 17, INK))
     xx = xr + 18 + tw(t1, 17) + 10
@@ -552,6 +563,10 @@ def esq_ing(b, x, y, w, h):
         xx += wl_ + 30
 
 
+# Hojas a doble cara por área (Nelson, 10 nov): 5 hojas = 10 páginas = 30 preguntas;
+# 3 hojas = 6 páginas = 18 preguntas.
+HOJAS = dict(mate=5, lc=5, soc=5, bio=3, qui=3, fis=3, ing=3)
+
 ESQUEMA = dict(mate=esq_mate, lc=esq_lc, soc=esq_soc, bio=esq_bio, qui=esq_qui, fis=esq_fis, ing=esq_ing)
 
 
@@ -581,17 +596,20 @@ def esquema(b, clave, a, y, h):
     columna_cierre(b, xr, yb - 12, W - M - 30 - xr, hb2 + 12)
 
 
-def hoja(clave, k, ruta, n_pag=10):
+def hoja(clave, p, ruta, n_hojas=None):
+    """Página p (1 … 2·n_hojas) del simulacro del área. n_hojas: el del área (HOJAS) si no se pasa."""
     a = AREA[clave]
+    n_hojas = n_hojas or HOJAS[clave]
+    assert 1 <= p <= 2 * n_hojas, f"{clave}: la página {p} no existe (son {2 * n_hojas})"
     colores(a["area"])
     b = svg_open()
-    y = cabecera(b, a, k, n_pag) + 22
+    y = cabecera(b, a, p, n_hojas) + 22
     fondo = H_PAGE - 90 - 26 - 24
     g = 22
     h = (fondo - y - 2 * g) / 3
     for i in range(3):
         esquema(b, clave, a, y + i * (h + g), h)
-    footer(b, f"S{k}", C["c"], texto=f"{a['area']} · Simulacro · página {k} de {n_pag}")
+    footer(b, f"S{p}", C["c"], texto=f"{a['area']} · Simulacro · hoja {(p + 1) // 2} de {n_hojas}")
     svg_close(b, ruta)
     return ruta
 
