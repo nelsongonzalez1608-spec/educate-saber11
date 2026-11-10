@@ -9,10 +9,33 @@ Lo propio del área: donde Matemáticas tiene la cuadrícula, Lectura Crítica t
 TEXTO MARCADO — el subrayado y la pregunta escrita al margen. Y tiene dos deudas que
 Matemáticas no tiene registradas: 18 sellos «aquí entra el profe» y 21 textos que el
 cuaderno no imprime completos y el docente tiene que proyectar.
+
+DE DÓNDE SALEN LOS DATOS (reconstrucción del 10 nov; los módulos lc1…lc6 y matriz.py se perdieron
+el 6 nov, RECUPERACION.md):
+    TALLER, INS_ICFES   tablero/instrumentos.csv            (extrae_instrumentos.filas())
+    BANCO               tablero/icfes.csv                   (clave y contexto de las 24 Saber 11)
+    SELLOS, TEXTOS      libro/matriz.py, mínimo, copiado de la matriz entregada (.xlsx), en
+                        numeración VIEJA; se imprime traducida con pag_cuaderno()
+    PAGINAS, BASE       tablero/manifiesto_hojas.json       (numeración de 398 páginas: LC 60–112)
+Las páginas del LIBRO del estudiante no cambian con la numeración del cuaderno.
+
+Para las guías (clase_viva*.py), con los mismos nombres de plan_soc.py:
+    FASES  CLASES  BASE  PAGINAS  MISIONES  AVISOS  TALLER  INS_ICFES  BANCO  SELLOS  TEXTOS
+    DINAMICAS  RETOS  y  C7, C8  (las clases del simulacro, decisión de Nelson del 10 nov).
+
+    python3 plan_lc.py          → libro/plan_lc_01.svg … plan_lc_24.svg
+    python3 plan_lc.py --pdf    → además entregables/EDUCATE_Planeador_LecturaCritica.pdf
 """
 import csv
+import json
+import os
+import re
 from plan_piezas import *
 import plan_piezas as PZ
+
+AQUI = os.path.dirname(os.path.realpath(__file__))
+RAIZ = os.path.dirname(AQUI)
+TABLERO = os.path.join(RAIZ, "tablero")
 
 LC = "#A82424"; LC_BG = "#FBEFEF"; LC_LN = "#E6C4C4"
 TOTAL = 24
@@ -83,21 +106,52 @@ FASES = [
      "Cuaderno: franja de vocabulario, «lo que me llevo», carita de salida y casilla de la portada."),
 ]
 
-CLASES = [
-    (1, "Momento 1 · Componente semántico", "páginas 54 a 60 del cuaderno"),
-    (2, "Momento 2 · Componente semántico", "páginas 61 a 67 del cuaderno"),
-    (3, "Momento 3 · Componente sintáctico", "páginas 68 a 74 del cuaderno"),
-    (4, "Momento 4 · Componente sintáctico", "páginas 75 a 81 del cuaderno"),
-    (5, "Momento 5 · Componente pragmático", "páginas 82 a 88 del cuaderno"),
-    (6, "Momento 6 · Pragmático · cierre del área", "páginas 89 a 95 del cuaderno"),
-    (None, "Simulacro del área", "las 6 franjas de simulacro, en condiciones de prueba"),
-    (None, "Socialización del simulacro", "devolución, reparación y cierre del área"),
+# ───────────── las páginas del cuaderno, del manifiesto (numeración de 398) ─────────────
+def _paginas_manifiesto():
+    """{misión: {"taller": [5 páginas], "icfes": [2 páginas]}}, la portada y el simulacro del área."""
+    with open(os.path.join(TABLERO, "manifiesto_hojas.json"), encoding="utf-8") as f:
+        man = [x for x in json.load(f) if x["area"] == "lc"]
+    pags, portada, sim = {}, None, []
+    for x in man:
+        if x["rol"] == "Taller":
+            pags.setdefault(x["mision"], {"taller": [], "icfes": []})["taller"].append(x["pagina"])
+        elif x["rol"] == "Entrenamiento ICFES":
+            pags.setdefault(x["mision"], {"taller": [], "icfes": []})["icfes"].append(x["pagina"])
+        elif x["rol"] == "Portada de área":
+            portada = x["pagina"]
+        elif x["rol"] == "Simulacro":
+            sim.append(x["pagina"])
+    for m, d in pags.items():
+        assert len(d["taller"]) == 5 and len(d["icfes"]) == 2, f"misión {m}: {d}"
+    assert sorted(pags) == [1, 2, 3, 4, 5, 6] and len(sim) == 10, "el manifiesto de LC no cuadra"
+    return pags, portada, sorted(sim)
+
+
+PAGINAS, PORTADA, SIMULACRO = _paginas_manifiesto()
+BASE = {m: min(d["taller"] + d["icfes"]) for m, d in PAGINAS.items()}      # 61, 68, … 96
+FIN = {m: max(d["taller"] + d["icfes"]) for m, d in PAGINAS.items()}
+PAGS_AREA = (PORTADA, SIMULACRO[-1])                                       # (60, 112)
+N_PAGS_AREA = PAGS_AREA[1] - PAGS_AREA[0] + 1                              # 53
+SIM_PAGS = f"{SIMULACRO[0]} a {SIMULACRO[-1]}"                             # «103 a 112»
+
+
+def pag_cuaderno(txt):
+    """Traduce una cita de páginas del cuaderno en numeración vieja («56 y 60», «82 a 87») a la
+    de 398 páginas. Solo para lo que viene de matriz.py: las páginas del libro no se tocan."""
+    import paginas
+    return re.sub(r"\d+", lambda m: str(paginas.nueva(int(m.group()))), str(txt))
+
+
+CLASES = [(m, f"Momento {m} · " + ("Componente " + c.lower() if m < 6 else c),
+           f"páginas {BASE[m]} a {FIN[m]} del cuaderno")
+          for m, c in [(1, "Semántico"), (2, "Semántico"), (3, "Sintáctico"), (4, "Sintáctico"),
+                       (5, "Pragmático"), (6, "Pragmático · cierre del área")]] + [
+    (None, "Simulacro del área", "el que aplica EDUCATE · cuadernillo o PTD, fuera del cuaderno"),
+    (None, "Socialización del simulacro", f"páginas {SIM_PAGS} del cuaderno · hojas de simulacro"),
 ]
 
-BASE = {1: 54, 2: 61, 3: 68, 4: 75, 5: 82, 6: 89}
-
 MISIONES = {
- 1: dict(comp="Semántico", pags="54 a 60", competencia="CL · identificar contenidos locales",
+ 1: dict(comp="Semántico", pags=f"{BASE[1]} a {FIN[1]}", competencia="CL · identificar contenidos locales",
    estr=["La palabra exacta", "Para qué está ahí", "Lo que no se dice", "La idea que sostiene"],
    instala="Que el significado de una palabra lo fija la frase donde está, no el diccionario. "
            "Es la operación que el ICFES evalúa una y otra vez y la que el estudiante cree que "
@@ -107,7 +161,7 @@ MISIONES = {
    cierre="El entrenamiento ICFES de este momento usa el mismo fragmento de Savater que la "
           "misión 2, a propósito: el estudiante tiene que ver que un texto aguanta preguntas "
           "de distinto tipo."),
- 2: dict(comp="Semántico", pags="61 a 67", competencia="SG · comprender el sentido global",
+ 2: dict(comp="Semántico", pags=f"{BASE[2]} a {FIN[2]}", competencia="SG · comprender el sentido global",
    estr=["Qué hace este párrafo", "La crítica que no se ve", "Para qué lo escribió",
          "Cómo se enlazan"],
    instala="La diferencia entre lo que un párrafo DICE y lo que un párrafo HACE. Un párrafo "
@@ -117,7 +171,7 @@ MISIONES = {
        "tablero una vez, con una frase del propio salón, antes de la pregunta 8.",
    cierre="Esta misión introduce la caricatura como texto discontinuo. Se lee por planos, del "
           "frente al fondo, y eso hay que mostrarlo señalando con el dedo en la proyección."),
- 3: dict(comp="Sintáctico", pags="68 a 74", competencia="SG · comprender el sentido global",
+ 3: dict(comp="Sintáctico", pags=f"{BASE[3]} a {FIN[3]}", competencia="SG · comprender el sentido global",
    estr=["La bisagra del texto", "El juicio que no se dice", "La pieza que remata",
          "El detalle que lo delata"],
    instala="Qué es una bisagra: el punto donde el texto gira. Un texto de tres párrafos tiene "
@@ -126,7 +180,7 @@ MISIONES = {
        "Es la operación más difícil del área y la que más se evalúa en el componente.",
    cierre="Dos preguntas de esta misión, la 4 y la 5, preguntan casi lo mismo. Está anotado "
           "como hallazgo: si el grupo lo nota, dales la razón y pide que escriban la diferencia."),
- 4: dict(comp="Sintáctico", pags="75 a 81", competencia="SG y CL · estructura y datos locales",
+ 4: dict(comp="Sintáctico", pags=f"{BASE[4]} a {FIN[4]}", competencia="SG y CL · estructura y datos locales",
    estr=["La señal de tránsito", "Lo que puedo señalar con el dedo", "Qué pieza es esta",
          "La forma delata el propósito"],
    instala="Los conectores como señales de tránsito: «es tal… que» apunta hacia adelante, «en "
@@ -136,7 +190,7 @@ MISIONES = {
        "pisos, no en línea. Hay que proyectarlos: en el cuaderno van recortados.",
    cierre="«Lo que puedo señalar con el dedo» es la estrategia que más rinde en la prueba: "
           "cuando cada opción trae una cifra, la respuesta está impresa en el texto."),
- 5: dict(comp="Pragmático", pags="82 a 88", competencia="RE · reflexionar y evaluar",
+ 5: dict(comp="Pragmático", pags=f"{BASE[5]} a {FIN[5]}", competencia="RE · reflexionar y evaluar",
    estr=["Qué quiere que yo haga", "Quién habla y desde dónde", "Lo que dice y lo que muestra",
          "La idea detrás de la imagen"],
    instala="Que todo texto viene de alguien que quiere algo. Identificar la intención no es "
@@ -146,7 +200,7 @@ MISIONES = {
        "la clase es sobre el procedimiento argumentativo, no sobre el personaje.",
    cierre="Citar a una autoridad explica y respalda, pero no demuestra. Esa distinción es el "
           "corazón de la pregunta 8 y vale para todo lo que el estudiante lea después."),
- 6: dict(comp="Pragmático · cierre del área", pags="89 a 95",
+ 6: dict(comp="Pragmático · cierre del área", pags=f"{BASE[6]} a {FIN[6]}",
    competencia="RE · reflexionar y evaluar",
    estr=["Una sola línea: qué defiende", "Qué se cae si quito esto",
          "Dice una cosa y hace la contraria", "Cómo llega el texto hasta ahí"],
@@ -235,7 +289,7 @@ def _instrumentos():
 
 def _banco():
     """El CSV rotula las misiones de dos formas: «LC Misión 1» y «LC M3»."""
-    with open("/home/claude/tablero/icfes.csv", encoding="utf-8-sig") as f:
+    with open(os.path.join(TABLERO, "icfes.csv"), encoding="utf-8-sig") as f:
         r = list(csv.DictReader(f))
     out = {}
     for x in r:
@@ -249,9 +303,12 @@ def _banco():
 
 
 def _de_matriz(nombre):
-    """SELLOS y TEXTOS viven en matriz.py y los lee el planeador sin copiarlos."""
+    """SELLOS y TEXTOS viven en matriz.py y los lee el planeador sin copiarlos (con ast: solo
+    literales). Busca primero en OUT (prueba_clase_viva_lc.py deja allí uno provisional) y si no
+    hay, el de libro/."""
     import ast
-    tree = ast.parse(open(OUT + "matriz.py").read())
+    ruta = OUT + "matriz.py" if os.path.exists(OUT + "matriz.py") else os.path.join(AQUI, "matriz.py")
+    tree = ast.parse(open(ruta, encoding="utf-8").read())
     for n in tree.body:
         if isinstance(n, ast.Assign) and getattr(n.targets[0], "id", "") == nombre:
             fuera = []
@@ -512,6 +569,81 @@ RETOS = {
 }
 
 
+# ─────────────────── clases 7 y 8 · el simulacro (Nelson, 10 nov) ───────────────────
+# El simulacro ya no repite las 24 preguntas de entrenamiento. En la clase 7 el estudiante presenta
+# el simulacro del área que aplique EDUCATE (cuadernillo o PTD), fuera del cuaderno, y al final anota
+# qué preguntas quiere socializar. En la clase 8 se socializan en las hojas de simulacro del cuaderno
+# (rol «Simulacro» del manifiesto, páginas SIM_PAGS), con el esquema de libro/simulacro.py.
+# Estructuras limpias para las guías: textos cortos, sin dibujo; las listas van en orden de clase.
+C7 = dict(
+    titulo="Clase 7 · el simulacro",
+    sub="Condiciones de prueba, en silencio y con reloj",
+    donde="Fuera del cuaderno: el simulacro del área que aplique EDUCATE, en cuadernillo o en PTD.",
+    tiempos=[("Antes de empezar", 10, "Reglas de la prueba, cuadernillo u hoja de respuestas (o el "
+              "ingreso a la PTD) y el cuaderno cerrado debajo del puesto."),
+             ("El simulacro", 90, "En silencio, de corrido. Se puede subrayar y escribir al margen del "
+              "cuadernillo: en la prueba real también se puede, y es lo que se entrenó."),
+             ("Lo que quiero socializar", 20, f"Se abre el cuaderno en la página {SIMULACRO[0]}. Cada uno "
+              "anota en el membrete de un esquema el número de cada pregunta que quiere socializar, "
+              "marca «la escogí yo» y escribe en «Marqué» la letra que marcó.")],
+    pasos=["El simulacro es el que aplica EDUCATE: no se arma con las preguntas de entrenamiento del "
+           "cuaderno, que el estudiante ya resolvió.",
+           "No se responde ninguna duda, ni de vocabulario, y no se dice ninguna clave.",
+           f"Al final, en las hojas de simulacro (páginas {SIM_PAGS}), cada uno anota hasta tres "
+           "preguntas que quiere socializar: el número y la letra que marcó. «Era» queda vacío.",
+           "Se recogen las hojas de respuesta (o se cierra la PTD): de ahí sale la lista de las "
+           "preguntas más falladas para la clase 8."],
+    no_hace="No corrige, no adelanta claves y no comenta el simulacro: todo eso es la clase 8.",
+    cuaderno=f"Hojas de simulacro, páginas {SIM_PAGS}: solo el membrete (n.º, «la escogí yo», «Marqué»).",
+)
+
+# El esquema de la hoja de simulacro de Lectura Crítica, en el orden en que se llena (simulacro.py, v2).
+ESQUEMA_SIM = [
+    ("Membrete", "n.º, la escogí o me la asignaron, qué marqué y cuál era, nivel, proceso, texto y "
+                 "estrategia"),
+    ("Me piden", "qué dice, cómo se arma, qué supone o qué tan válido es; y el texto en una frase mía"),
+    ("La evidencia", "la frase exacta copiada, o la parte de la imagen, con su párrafo o línea"),
+    ("Mi lectura", "el razonamiento, con una herramienta: subrayo, mapa de párrafos, tesis o imagen"),
+    ("Las trampas", "N no lo dice · O dice otra cosa · E exagera o generaliza · R no responde"),
+    ("Tacho con razón", "una razón por cada opción descartada, con la letra de su trampa"),
+    ("Salvavidas", "me perdí en… y la pista que no vi"),
+    ("Lo que me llevo", "una frase que me sirva en el examen de verdad"),
+]
+
+C8 = dict(
+    titulo="Clase 8 · la socialización",
+    sub=f"En las hojas de simulacro del cuaderno, páginas {SIM_PAGS}",
+    paginas=list(SIMULACRO),
+    esquema=ESQUEMA_SIM,
+    reparto=dict(escoge=3, asigna=3,
+                 regla="El estudiante trae de la clase 7 las que escogió; el profe asigna las tres que "
+                       "más falló el grupo. Si una escogida coincide con una asignada, cuenta una vez y "
+                       "el estudiante escoge otra."),
+    dinamica=("La evidencia primero", 20,
+              ["Equipos de tres. Cada equipo recibe una de las preguntas asignadas.",
+               "Nadie dice la letra: primero se lee en voz alta el renglón que la sostiene (la evidencia).",
+               "Después, cada opción descartada se tacha diciendo su trampa: N, O, E o R.",
+               "El equipo expone en un minuto; el grupo solo acepta la letra si el renglón la sostiene."],
+              "Señalar la evidencia antes de responder y descartar con una razón, que es el movimiento "
+              "de «Del texto a la evidencia», el esquema de la hoja.",
+              "Proyector con la pregunta · las hojas de simulacro"),
+    # Las seis fases aprobadas (15·20·35·20·20·10), con lo que se hace en la clase 8.
+    fases=["El profe proyecta la lista de las más falladas por el grupo y nombra las tres asignadas. "
+           "Cada uno revisa lo que anotó en la clase 7.",
+           "El profe modela la más fallada y todos la llenan en un esquema libre de su hoja de simulacro: "
+           "me piden, la evidencia, las trampas y el tacho, en voz alta y en pantalla.",
+           "Cada uno llena sus esquemas: las otras dos asignadas y las que escogió. El profe circula y "
+           "pide el renglón antes que la letra.",
+           "Dinámica «La evidencia primero» con las asignadas, en equipos de tres.",
+           "Cada uno termina solo sus escogidas y llena el salvavidas de cada esquema: dónde se perdió "
+           "y qué pista no vio.",
+           "«Lo que me llevo» de cada esquema, el puntaje en «Mi puntaje en Lectura Crítica» de la "
+           f"portada (página {PORTADA}) y la carita de salida de la clase 8."],
+    no_hace="No resuelve todas las preguntas del simulacro ni dicta las claves en lista: se socializa "
+            "la que tiene esquema, con su evidencia.",
+)
+
+
 # ─────────────────────────────── hojas ───────────────────────────────
 def h1():
     b = svg_open()
@@ -549,8 +681,9 @@ def h1():
     y = seccion(b, y, "El área en números",
         "Lo que ya está construido y verificado. Lectura Crítica es el área con más material "
         "registrado para el profe: por eso este planeador trae, clase por clase, lo que hay que "
-        "instalar y lo que hay que proyectar.")
-    cif = [("43", "páginas del cuaderno\\ncon la portada", LC), ("60", "preguntas del libro\\ncon su andamiaje", LC),
+        f"instalar y lo que hay que proyectar. Al final del área, las páginas {SIM_PAGS} son las "
+        "hojas de simulacro: ahí se socializa en la clase 8 el simulacro que aplica EDUCATE en la 7.")
+    cif = [(str(N_PAGS_AREA), f"páginas del cuaderno\\n{PAGS_AREA[0]} a {PAGS_AREA[1]}, con el simulacro", LC), ("60", "preguntas del libro\\ncon su andamiaje", LC),
            ("24", "preguntas Saber 11\\npara entrenar", VERDE), ("18", "sellos «aquí entra\\nel profe»", ORO),
            ("21", "textos para\\nproyectar completos", "#1F4E8C")]
     an2 = (CW - 4 * 18) / 5
@@ -608,11 +741,12 @@ def h1():
 
 def h2():
     b = svg_open()
-    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo", derecha="43",
+    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo", derecha=str(N_PAGS_AREA),
                  dsub="páginas del cuaderno")
     y = seccion(b, y, "Qué se ve en cada sábado",
-        "Seis clases de contenido, una por momento, y dos para el simulacro del área. El número "
-        "de clases es fijo: no se recorta aunque un momento quede largo.")
+        "Seis clases de contenido, una por momento, y dos para el simulacro: en la 7 se presenta el "
+        "simulacro que aplica EDUCATE, fuera del cuaderno; en la 8 se socializa en las hojas de "
+        "simulacro del cuaderno. El número de clases es fijo: no se recorta aunque un momento quede largo.")
     colx = [M, M + 120, M + 690, M + 1000, M + 1420]
     y = encabezado_tabla(b, y, list(zip(colx, ["CLASE", "QUÉ SE TRABAJA", "COMPETENCIA",
                                                 "PARA EL PROFE", "ENTRENAMIENTO ICFES"])), 54)
@@ -637,9 +771,16 @@ def h2():
                        22, VERDE, weight="700"))
             b.append(T(colx[4] + 20, y + 76, ["sin año verificado"], 19, GRAY))
         else:
+            siete = n == 7
             b.append(T(colx[2] + 20, y + 58, ["CL · SG · RE"], 23, GRAY))
-            b.append(T(colx[3] + 20, y + 58, ["todo el área"], 22, GRAY))
-            b.append(T(colx[4] + 20, y + 58, ["24 preguntas ya resueltas"], 22, GRAY))
+            b.append(T(colx[3] + 20, y + 46, ["aplica y cuida el reloj" if siete else
+                                              "asigna las más falladas"], 22, INK, weight="700"))
+            b.append(T(colx[3] + 20, y + 76, ["no responde dudas" if siete else
+                                              "el estudiante escoge otras"], 19, GRAY))
+            b.append(T(colx[4] + 20, y + 46, ["no repite las 24" if siete else
+                                              f"{len(SIMULACRO) * 3} esquemas"], 22, GRAY, weight="700"))
+            b.append(T(colx[4] + 20, y + 76, ["son del entrenamiento" if siete else
+                                              "para socializar"], 19, GRAY))
         y += alto + 10
     y += 24
 
@@ -722,7 +863,7 @@ def hoja_clase(mis):
             h = max(64, 24 + len(lin) * 32)
             b.append(rect(M, y, CW, h, ORO_BG, r=12, stroke=ORO_LN, sw=1.8))
             b.append(rect(M + 10, y + 10, 4, h - 20, ORO, r=2))
-            b.append(T(M + 36, y + h / 2 + 8, [f"pág. {pag} · preg. {preg}"], 21, ORO, weight="700"))
+            b.append(T(M + 36, y + h / 2 + 8, [f"pág. {pag_cuaderno(pag)} · preg. {preg}"], 21, ORO, weight="700"))
             parrafo_j(b, M + 290, y + (h - len(lin) * 32) / 2 - 4, saber, CW - 330, 23, INK, lh=32)
             y += h + 6
         y += 20
@@ -777,9 +918,7 @@ def hoja_clase_b(mis):
     y = cabecera(b, f"Clase {mis} · minuto a minuto", "El sábado, los textos y la evaluación",
                  derecha="120", dsub="minutos")
 
-    base = BASE[mis]
-    t_pags = [base, base + 1, base + 3, base + 4, base + 5]
-    i_pags = [base + 2, base + 6]
+    t_pags, i_pags = PAGINAS[mis]["taller"], PAGINAS[mis]["icfes"]
     ins = {p: i for p, e, i, c in TALLER.get(mis, [])}
     din = DINAMICAS[mis]
     concreto = [
@@ -828,7 +967,7 @@ def hoja_clase_b(mis):
             h = max(74, 46 + len(l2) * 26, 30 + len(l3) * 27)
             b.append(rect(M, y, CW, h, bg, r=12, stroke=ln, sw=1.8))
             b.append(rect(M + 10, y + 10, 4, h - 20, c, r=2))
-            b.append(T(M + 36, y + 34, [f"pág. {pags}"], 19, c, weight="700"))
+            b.append(T(M + 36, y + 34, [f"pág. {pag_cuaderno(pags)}"], 19, c, weight="700"))
             b.append(T(M + 190, y + 34, [texto], 22, INK, weight="700"))
             parrafo_j(b, M + 190, y + 40, linea2, CW - 620, 19, GRAY, lh=26)
             parrafo_j(b, W - M - 430, y + (h - len(l3) * 27) / 2 - 4, limpia(nota_), 400, 20,
@@ -839,8 +978,8 @@ def hoja_clase_b(mis):
     # ICFES
     banco = BANCO.get(mis, [])
     y = seccion(b, y, "Las cuatro preguntas Saber 11",
-        "Van sin año y sin «oficial»: el membrete dice «Pregunta Saber 11» y nada más (regla 7, "
-        "Nelson 10 nov).")
+        "En la hoja de entrenamiento cada una lleva el membrete «Pregunta Saber 11», sin año ni "
+        "cuadernillo (regla 7, Nelson 10 nov). La clave va aquí, nunca en la hoja del estudiante.")
     for k, (x4, est, ins_, ctx) in enumerate(INS_ICFES.get(mis, [])):
         fila = banco[k] if k < len(banco) else {}
         ctx_ = fila.get("contexto", "—")
@@ -872,74 +1011,87 @@ def hoja_clase_b(mis):
 
 
 def h17():
-    """Clases 7 y 8 · el simulacro del área y su devolución."""
+    """Clases 7 y 8 · el simulacro que aplica EDUCATE y su socialización en el cuaderno (C7, C8)."""
     b = svg_open()
-    y = cabecera(b, "Clases 7 y 8", "El simulacro del área y su devolución",
-                 derecha="24", dsub="preguntas del simulacro")
+    y = cabecera(b, "Clases 7 y 8", "El simulacro del área y su socialización",
+                 derecha=str(len(SIMULACRO)), dsub=f"páginas de simulacro · {SIM_PAGS}")
     y = seccion(b, y, "Qué son estas dos clases",
-        "No traen contenido nuevo. Trabajan las seis franjas de simulacro que el estudiante ya "
-        "tiene en su cuaderno, una por momento, y que hasta ahora resolvió de a poco.")
-    dos = [("Clase 7 · el simulacro", ROJO, ROJO_BG, ROJO_LN,
-            "Condiciones de prueba, 90 minutos de reloj, en silencio",
-            ["Las 24 preguntas Saber 11 del área, seguidas, con los textos completos.",
-             "El estudiante SÍ puede subrayar: en la prueba real también puede, y es lo que entrenó.",
-             "No se responde ninguna duda, ni de vocabulario.",
-             "Los últimos 30 minutos: cada uno cuenta sus aciertos por competencia (CL, SG, RE)."]),
-           ("Clase 8 · la devolución", VERDE, VERDE_BG, VERDE_LN,
-            "Reparación con el texto marcado de la primera vez",
-            ["Se eligen las cinco preguntas que más falló el grupo.",
-             "Cada estudiante compara el subrayado del simulacro con el de su hoja de taller.",
-             "La pregunta que gobierna la clase: ¿qué subrayaste esta vez que no subrayaste antes?",
-             "Al final, la página de cierre del cuaderno y la franja de vocabulario completa."])]
+        "No traen contenido nuevo ni repiten las 24 preguntas de entrenamiento, que el estudiante ya "
+        "resolvió. En la 7 presenta el simulacro del área que aplica EDUCATE; en la 8 lo socializa en "
+        "su cuaderno, pregunta por pregunta, con la evidencia en la mano.")
+    reloj7 = " · ".join(f"{m}' {n.lower()}" for n, m, _ in C7["tiempos"])
+    dos = [(dict(C7, sub=reloj7), ROJO, ROJO_BG, ROJO_LN, C7["pasos"] + [C7["no_hace"]]),
+           (C8, VERDE, VERDE_BG, VERDE_LN,
+            [C8["reparto"]["regla"],
+             f"Cada pregunta se socializa en un esquema de las hojas de simulacro (páginas {SIM_PAGS}): "
+             "tres por página, treinta en total.",
+             "La pregunta que gobierna la clase: ¿qué renglón del texto sostiene la respuesta, y qué "
+             "trampa tenía cada opción que descarté?"])]
     an = (CW - 20) / 2
     alto = 0
-    for _, _, _, _, _, pasos in dos:
-        alto = max(alto, 120 + sum(len(wrap_px(p_, 22, an - 110)) for p_ in pasos) * 31 + len(pasos) * 22)
-    for i, (tit, c, bg, ln, sub_, pasos) in enumerate(dos):
+    for _, _, _, _, pasos in dos:
+        alto = max(alto, 120 + sum(len(wrap_px(p_, 21, an - 110)) for p_ in pasos) * 29 + len(pasos) * 16)
+    for i, (d, c, bg, ln, pasos) in enumerate(dos):
         x = M + i * (an + 20)
         b.append(rect(x, y, an, alto, bg, r=18, stroke=ln, sw=2.2))
         b.append(rect(x + 14, y + 16, 5, alto - 32, c, r=3))
-        b.append(T(x + 40, y + 52, [tit], 27, c, weight="700"))
-        b.append(T(x + 40, y + 86, [sub_], 20, GRAY, style="italic"))
+        b.append(T(x + 40, y + 52, [d["titulo"]], 27, c, weight="700"))
+        b.append(T(x + 40, y + 86, [d["sub"]], 20, GRAY, style="italic"))
         yy = y + 112
         for p_ in pasos:
             b.append(f'<circle cx="{x+52}" cy="{yy+12}" r="6" fill="{c}"/>')
-            yy = parrafo_j(b, x + 76, yy - 6, p_, an - 110, 22, INK, lh=31) + 22
-    y += alto + 34
+            yy = parrafo_j(b, x + 76, yy - 6, p_, an - 110, 21, INK, lh=29) + 16
+    y += alto + 30
 
-    y = nota(b, M, y, CW,
-        "El simulacro no se califica con nota. Se cuenta por competencia: contenidos locales, "
-        "sentido global y reflexión. Lo que importa es que el estudiante vea en cuál de las tres "
-        "se le va el puntaje. En Lectura Crítica casi siempre es la tercera, porque es la única "
-        "que no se responde buscando: hay que juzgar.",
-        ORO, ORO_BG, ORO_LN, "Cómo se lee el resultado", 25) + 34
+    # clase 8: las seis fases aprobadas
+    y = seccion(b, y, "Clase 8 · minuto a minuto",
+        "Las seis fases aprobadas, con la socialización puesta encima. " + C8["no_hace"])
+    reloj = 0
+    for (nom, mins, c, *_), txt in zip(FASES, C8["fases"]):
+        lin = wrap_px(txt, 21, CW - 480)
+        h = max(64, 22 + len(lin) * 29)
+        b.append(rect(M, y, CW, h, "white", r=14, stroke=LC_LN, sw=1.8))
+        b.append(rect(M + 12, y + 12, 5, h - 24, c, r=3))
+        b.append(T(M + 40, y + h / 2 - 2, [f"{reloj:02d}'–{reloj+mins:02d}'"], 22, c, weight="700"))
+        b.append(T(M + 40, y + h / 2 + 24, [nom], 18, GRAY))
+        parrafo_j(b, M + 440, y + (h - len(lin) * 29) / 2 - 5, txt, CW - 480, 21, INK, lh=29)
+        reloj += mins
+        y += h + 6
+    y += 22
 
-    y = seccion(b, y, "Conteo por competencia",
-        "Llénalo con el grupo en el tablero al final de la clase 7.")
-    comp = [("CL · contenidos locales", "qué dice"), ("SG · sentido global", "cómo se arma"),
-            ("RE · reflexionar y evaluar", "qué quiere y si se sostiene")]
-    an2 = (CW - 2 * 18) / 3
-    for i, (nom, de) in enumerate(comp):
-        x = M + i * (an2 + 18)
-        b.append(rect(x, y, an2, 200, "white", r=16, stroke=LC_LN, sw=2))
-        b.append(rect(x + 14, y + 14, 5, 172, LC, r=3))
-        b.append(T(x + 40, y + 46, [nom], 23, INK, weight="700"))
-        b.append(T(x + 40, y + 76, [de], 20, GRAY, style="italic"))
-        b.append(T(x + 40, y + 120, ["aciertos del grupo"], 19, GRAY))
-        b.append(rect(x + 40, y + 132, an2 - 80, 50, LC_BG, r=12, stroke=LC_LN, sw=1.8))
-    y += 200 + 34
+    # el esquema de la hoja de simulacro
+    y = seccion(b, y, f"El esquema de la hoja de simulacro · páginas {SIM_PAGS}",
+        "Uno por pregunta, en este orden. Sirve para cualquier pregunta del área: el estudiante marca "
+        "qué le piden y escoge la herramienta.")
+    an4 = (CW - 3 * 14) / 4
+    alt4 = max(52 + len(wrap_px(d_, 19, an4 - 56)) * 26 for _, d_ in ESQUEMA_SIM) + 10
+    for k, (t_, d_) in enumerate(ESQUEMA_SIM):
+        x = M + (k % 4) * (an4 + 14)
+        yy = y + (k // 4) * (alt4 + 12)
+        b.append(rect(x, yy, an4, alt4, LC_BG if k % 2 == 0 else "white", r=14, stroke=LC_LN, sw=1.8))
+        b.append(rect(x + 10, yy + 10, 4, alt4 - 20, LC, r=2))
+        b.append(T(x + 32, yy + 36, [f"{k+1} · {t_.upper()}"], 17, LC, weight="700", ls=1.2))
+        parrafo_j(b, x + 32, yy + 44, d_, an4 - 56, 19, INK, lh=26)
+    y += 2 * alt4 + 12 + 30
 
-    y = seccion(b, y, "Las cinco preguntas que se reparan en la clase 8")
-    cx = [M, M + 200, M + 560, M + 1160]
-    y = encabezado_tabla(b, y, list(zip(cx, ["N.º", "MOMENTO Y PÁGINA", "QUÉ HABÍA QUE SUBRAYAR",
-                                              "QUÉ FALLÓ EL GRUPO"])))
-    for k in range(1, 6):
-        b.append(rect(M, y, CW, 80, "white", r=12, stroke=LC_LN, sw=1.8))
-        b.append(rect(M + 10, y + 10, 4, 60, VERDE, r=2))
-        b.append(T(cx[0] + 54, y + 52, [str(k)], 26, VERDE, weight="700", anchor="middle"))
+    # la dinámica de socialización
+    # bloque_dinamica rotula la tarjeta «E1» (estrategia 1 de la misión); aquí no es de una misión,
+    # así que su chip dice «C8». Mismo ancho de chip: dos caracteres de 19 px.
+    n0 = len(b)
+    y = bloque_dinamica(b, y, 0, C8["dinamica"], "Del texto a la evidencia", VERDE)
+    b[n0:] = [e.replace(">E1<", ">C8<") for e in b[n0:]]
+
+    # el registro del profe: las tres asignadas (lo llena antes de la clase 8)
+    cx = [M, M + 190, M + 520, M + 1180]
+    y = encabezado_tabla(b, y + 4, list(zip(cx, ["ASIGNADA", "N.º EN EL SIMULACRO", "QUÉ PEDÍA",
+                                                   "QUÉ FALLÓ EL GRUPO"])), 50)
+    for k in range(1, C8["reparto"]["asigna"] + 1):
+        b.append(rect(M, y, CW, 54, "white", r=12, stroke=LC_LN, sw=1.8))
+        b.append(rect(M + 10, y + 10, 4, 34, VERDE, r=2))
+        b.append(T(cx[0] + 60, y + 37, [str(k)], 24, VERDE, weight="700", anchor="middle"))
         for xi, xf in [(cx[1] + 18, cx[2] - 20), (cx[2] + 18, cx[3] - 20), (cx[3] + 18, W - M - 30)]:
-            b.append(line(xi, y + 56, xf, y + 56, "#E6EAF0", 2))
-        y += 86
+            b.append(line(xi, y + 40, xf, y + 40, "#E6EAF0", 2))
+        y += 60
     pie(b, 17)
     svg_close(b, OUT + "plan_lc_17.svg")
 
@@ -987,7 +1139,7 @@ def h24():
     y += 26
     y = seccion(b, y, "Qué tienes que devolver al terminar el área")
     dev = [("Los seis registros de clase", "con nombres, no «algunos»"),
-           ("El conteo por competencia del simulacro", "el dato que decide el refuerzo"),
+           ("Las preguntas más falladas del simulacro", "las que asignaste en la clase 8 y cómo quedaron"),
            ("Las franjas de vocabulario", "tres cuadernos al azar, fotografiados"),
            ("Los avisos nuevos que encuentres", "la lista se construyó resolviendo, y seguro falta alguno")]
     for t, s_ in dev:
@@ -1013,5 +1165,14 @@ def build():
     return [f"plan_lc_{i:02d}" for i in range(1, TOTAL + 1)]
 
 
+PDF = os.path.join(RAIZ, "entregables", "EDUCATE_Planeador_LecturaCritica.pdf")
+
 if __name__ == "__main__":
-    print(len(build()), "hojas del planeador de Lectura Crítica")
+    import sys
+    hojas = build()
+    print(len(hojas), "hojas del planeador de Lectura Crítica")
+    if "--pdf" in sys.argv:
+        import render
+        render.unir([OUT + h + ".svg" for h in hojas], PDF)
+        n, sin = render.verifica(PDF, "PLANEADOR")
+        print(f"{PDF}: {n} páginas · sin pie: {sin or 'ninguna'}")

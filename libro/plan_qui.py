@@ -8,7 +8,7 @@ acotado en cada uno y un banco de dinámicas isomorfas a las estrategias. Usa el
 plan_piezas.py sin cambiarlo; el dibujo de las hojas es el de plan_bio.py (que no se toca).
 
 Lo propio del área: donde Biología tiene el dato y su comparación, Química tiene LA PARTÍCULA Y SU
-UNIDAD de la portada del área (página 182): qué se observó, qué se midió y con qué unidad, y qué
+UNIDAD de la portada del área (página 215 del cuaderno de 398): qué se observó, qué se midió y con qué unidad, y qué
 hacen las partículas. Once sellos «Alto · aquí entra el profe» (todos del taller; la Misión 2 no
 tiene) y cuatro claves del libro que el profe tiene que saber defender o discutir (M3 P9, M5 P10,
 M6 P5 y P6).
@@ -35,6 +35,7 @@ preguntas de entrenamiento se llaman «preguntas tipo Saber 11».
 import ast, csv, re
 from plan_piezas import *
 import plan_piezas as PZ
+import paginas as PG          # la numeración final del cuaderno (398 páginas, 10 nov): única fuente
 
 QUI = "#0F7A68"; QUI_BG = "#E9F4F1"; QUI_LN = "#B5DAD1"
 TOTAL = 24
@@ -120,18 +121,47 @@ FASES = [
      "Cuaderno: «Palabras que me frenaron», «lo que me llevo», carita de salida y portada del área."),
 ]
 
+# Páginas del cuaderno. Los módulos de misión siguen en la numeración vieja (mapa de 347); lo
+# impreso va en la de 398 (portada, seis misiones y, al final, las hojas de simulacro).
+# paginas.nueva() traduce: si la numeración cambia, basta volver a construir.
+BASE_VIEJA = {1: 183, 2: 190, 3: 197, 4: 204, 5: 211, 6: 218}
+BASE = {m: PG.nueva(b) for m, b in BASE_VIEJA.items()}
+PORTADA = PG.nueva(182)
+AREA_PAGS = PG.rango_area("qui")
+SIMULACRO_PAGS = PG.paginas_simulacro("qui")
+SIM = f"{SIMULACRO_PAGS[0]} a {SIMULACRO_PAGS[-1]}"
+
+
+def _pags(m):
+    return f"{BASE[m]} a {BASE[m] + 6}"
+
+
 CLASES = [
-    (1, "Momento 1 · Aspectos analíticos de sustancias", "páginas 183 a 189 del cuaderno"),
-    (2, "Momento 2 · Aspectos fisicoquímicos de sustancias", "páginas 190 a 196 del cuaderno"),
-    (3, "Momento 3 · Aspectos analíticos de mezclas", "páginas 197 a 203 del cuaderno"),
-    (4, "Momento 4 · Aspectos fisicoquímicos de mezclas", "páginas 204 a 210 del cuaderno"),
-    (5, "Momento 5 · Entorno químico · el carbono", "páginas 211 a 217 del cuaderno"),
-    (6, "Momento 6 · Entorno químico · cierre del área", "páginas 218 a 224 del cuaderno"),
-    (None, "Simulacro del área", "las 24 preguntas tipo Saber 11, en condiciones de prueba"),
-    (None, "Socialización del simulacro", "devolución, reparación y cierre del área"),
+    (1, "Momento 1 · Aspectos analíticos de sustancias", f"páginas {_pags(1)} del cuaderno"),
+    (2, "Momento 2 · Aspectos fisicoquímicos de sustancias", f"páginas {_pags(2)} del cuaderno"),
+    (3, "Momento 3 · Aspectos analíticos de mezclas", f"páginas {_pags(3)} del cuaderno"),
+    (4, "Momento 4 · Aspectos fisicoquímicos de mezclas", f"páginas {_pags(4)} del cuaderno"),
+    (5, "Momento 5 · Entorno químico · el carbono", f"páginas {_pags(5)} del cuaderno"),
+    (6, "Momento 6 · Entorno químico · cierre del área", f"páginas {_pags(6)} del cuaderno"),
+    (None, "Simulacro del área", "el simulacro que aplica EDUCATE, en condiciones de examen"),
+    (None, "Socialización del simulacro", f"hojas de simulacro del cuaderno, páginas {SIM}"),
 ]
 
-BASE = {1: 183, 2: 190, 3: 197, 4: 204, 5: 211, 6: 218}
+# Clases 7 y 8 (decisión de Nelson, 10 nov): el simulacro es una prueba que escoge EDUCATE y no está en
+# el cuaderno; la clase 8 socializa sus preguntas en las hojas de simulacro. C7 y C8: plan_simulacro.py.
+import plan_simulacro as PS
+C7, C8 = PS.datos("qui", conteo="competencia (UC, EF, IN)", dinamica=dict(
+    nombre="Del vaso al número", formato="en equipos de tres",
+    pasos=["Equipos de tres con la segunda pregunta asignada. Cada integrante toma un nivel: lo que se "
+           "ve, las partículas, o el símbolo y el número.",
+           "El primero dice qué pasa en el vaso; el segundo lo dibuja con partículas; el tercero lo "
+           "escribe con símbolos y hace la cuenta con unidades.",
+           "Si un nivel no cuadra con el otro (átomos que aparecen, masa que no da), el equipo vuelve al "
+           "nivel anterior.",
+           "Cada uno llena SU esquema con los tres niveles, marca «lo que decide» y tacha con razón."],
+    entrena="Pasar de lo que se ve a las partículas y al número sin saltarse un nivel. Son «¿en qué "
+            "nivel está la pregunta?», las sustancias y «lo que decide» del esquema."))
+
 LIBRO = {1: (140, 142), 2: (150, 152), 3: (160, 162), 4: (170, 173), 5: (182, 185), 6: (193, 196)}
 # Página del libro de cada pregunta: «la lees en tu libro, página N» (Q[n]["pag"] de quiN.py).
 PAG_LIBRO = {
@@ -149,7 +179,7 @@ COMP_NOM = {"UC": "Uso comprensivo del conocimiento científico", "EF": "Explica
 _COD = {"uso comprensivo": "UC", "explicación de fenómenos": "EF", "indagación": "IN"}
 
 MISIONES = {
- 1: dict(comp="Aspectos analíticos de sustancias", pags="183 a 189",
+ 1: dict(comp="Aspectos analíticos de sustancias", pags=_pags(1),
    tema="Disolver, separar y reaccionar",
    competencia="UC · partículas, cuentas y propiedades",
    estr=["La regla de tres con sus unidades", "La propiedad que la delata",
@@ -164,7 +194,7 @@ MISIONES = {
    cierre="La estrategia 4 —lo que la reacción necesita— tiene una sola pregunta en el taller (la 10) y "
           "una en el entrenamiento. Dale a la dinámica el tiempo completo: la colina de la energía de "
           "activación vuelve en la misión 6, con las reacciones que calientan."),
- 2: dict(comp="Aspectos fisicoquímicos de sustancias", pags="190 a 196",
+ 2: dict(comp="Aspectos fisicoquímicos de sustancias", pags=_pags(2),
    tema="El calor, los cambios de estado y la densidad",
    competencia="EF · calor, estados y densidad",
    estr=["Donde la temperatura se queda quieta", "El calor, tramo por tramo",
@@ -179,7 +209,7 @@ MISIONES = {
    cierre="Las preguntas 2 y 4 hacen la misma cuenta de dos tramos (m · c · ΔT más m · L). Usa la "
           "segunda para que la hagan solos, con las unidades escritas en cada paso: J/(g·°C) por g por "
           "°C da julios."),
- 3: dict(comp="Aspectos analíticos de mezclas", pags="197 a 203",
+ 3: dict(comp="Aspectos analíticos de mezclas", pags=_pags(3),
    tema="Mezclar no es transformar",
    competencia="IN · variables y evidencia",
    estr=["Cambia una sola cosa a la vez", "Clasifica por lo que se observa",
@@ -194,7 +224,7 @@ MISIONES = {
    cierre="El libro dice que la misión trabajó «sin recurrir a cambios químicos», pero la tableta "
           "efervescente de las preguntas 2 a 4 es una reacción (ácido cítrico más bicarbonato, que "
           "suelta CO₂). Dilo: mezclar no es transformar, pero en esos vasos sí hubo una transformación."),
- 4: dict(comp="Aspectos fisicoquímicos de mezclas", pags="204 a 210",
+ 4: dict(comp="Aspectos fisicoquímicos de mezclas", pags=_pags(4),
    tema="Cada propiedad física separa algo",
    competencia="EF · propiedades que separan",
    estr=["Compara en igualdad de condiciones", "¿Se hunde, flota o queda suspendido?",
@@ -210,7 +240,7 @@ MISIONES = {
    cierre="Las preguntas 8 a 10 son de minería artesanal: separar sin agua ni químicos. Buen cierre para "
           "decir que cada propiedad física es una herramienta: el imán, el tamiz, la bandeja que vibra y "
           "el viento."),
- 5: dict(comp="Entorno químico", pags="211 a 217",
+ 5: dict(comp="Entorno químico", pags=_pags(5),
    tema="El carbono en el tanque, en el vaso y en la bolsa",
    competencia="EF · estructura, átomos y emisiones",
    estr=["Del grupo funcional a la propiedad", "Los átomos no se pierden: se cuentan",
@@ -226,7 +256,7 @@ MISIONES = {
    cierre="La B es clave una sola vez y en las preguntas 2, 6 y 10 la correcta es la más larga. No "
           "enseñes el truco: exige el instrumento —el grupo marcado, los átomos contados— antes de "
           "mirar las opciones."),
- 6: dict(comp="Entorno químico", pags="218 a 224",
+ 6: dict(comp="Entorno químico", pags=_pags(6),
    tema="Reacciones que calientan y encadenan",
    competencia="EF · reacciones y energía",
    estr=["La ecuación es una receta", "¿El calor sale o entra?",
@@ -447,7 +477,8 @@ _S = [
  (6, 221, 5, "Qué es un polímero, y por qué amasar dos polímeros no forma uno nuevo."),
  (6, 222, 8, "Energía de enlace: romper enlaces cuesta y formarlos libera; formar agua calienta."),
 ]
-SELLOS = [(AREA_CSV, m, pag, preg, saber, "tarjeta de la pregunta", "En el cuaderno")
+# _S trae la página vieja (leída del PDF entregado); SELLOS, la del cuaderno de 398.
+SELLOS = [(AREA_CSV, m, PG.nueva(pag), preg, saber, "tarjeta de la pregunta", "En el cuaderno")
           for m, pag, preg, saber in _S]
 TEXTOS = []        # los textos completos van en la guía (TEXTOS_QUI.md)
 
@@ -1105,14 +1136,14 @@ def h1():
     y = nota(b, M, y, CW,
         "Casi ninguna pregunta de Química se resuelve recordando una fórmula. Se resuelve preguntando "
         "qué se observó, qué se midió y con qué unidad, y qué hacen las partículas. Es el instrumento "
-        "que el estudiante encuentra en la portada del área, en la página 182: un número sin unidad no "
+        f"que el estudiante encuentra en la portada del área, en la página {PORTADA}: un número sin unidad no "
         "dice nada, y una partícula que no sabe dibujar todavía es solo una palabra. Un estudiante que "
         "acierta con el instrumento vacío no aprendió la estrategia: adivinó, y en la prueba real no va "
         "a tener a quién preguntarle.",
         QUI, QUI_BG, QUI_LN, "El instrumento de pensamiento del área: la partícula y su unidad", 25) + 30
     y = seccion(b, y, "El área en números")
     na = sum(len(v) for v in AVISOS.values())
-    cif = [("43", "páginas del cuaderno\\ncon la portada", QUI), ("60", "preguntas del libro\\ncon su instrumento", QUI),
+    cif = [(str(AREA_PAGS[1] - AREA_PAGS[0] + 1), "páginas del cuaderno\\ncon portada y simulacro", QUI), ("60", "preguntas del libro\\ncon su instrumento", QUI),
            ("24", "preguntas tipo\\nSaber 11", "#1F4E8C"), (str(len(SELLOS)), "sellos «aquí entra\\nel profe»", ORO),
            (str(na), "avisos del libro\\nantes de entrar", ROJO)]
     an2 = (CW - 4 * 18) / 5
@@ -1173,8 +1204,8 @@ def h1():
 
 def h2():
     b = svg_open()
-    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo", derecha="43",
-                 dsub="páginas del cuaderno")
+    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo",
+                 derecha=str(AREA_PAGS[1] - AREA_PAGS[0] + 1), dsub=f"páginas · {AREA_PAGS[0]} a {AREA_PAGS[1]}")
     y = seccion(b, y, "Qué se ve en cada sábado",
         "Seis clases de contenido, una por momento, y dos para el simulacro del área. El número "
         "de clases es fijo: no se recorta aunque un momento quede largo.")
@@ -1206,8 +1237,8 @@ def h2():
             b.append(T(colx[4] + 20, y + 76, [f"páginas {BASE[mis]+2} y {BASE[mis]+6}"], 19, GRAY))
         else:
             b.append(T(colx[2] + 20, y + 58, ["UC · EF · IN"], 23, GRAY))
-            b.append(T(colx[3] + 20, y + 58, ["todo el área"], 22, GRAY))
-            b.append(T(colx[4] + 20, y + 58, ["24 ya resueltas"], 22, GRAY))
+            b.append(T(colx[3] + 20, y + 58, ["condiciones de examen" if n == 7 else "6 por estudiante"], 22, GRAY))
+            b.append(T(colx[4] + 20, y + 58, ["no está en el cuaderno" if n == 7 else f"páginas {SIM}"], 22, GRAY))
         y += alto + 10
     y += 24
     y = seccion(b, y, "Las 24 estrategias del área, misión por misión",
@@ -1449,82 +1480,11 @@ def hoja_clase_b(mis):
 
 
 def h17():
-    """Clases 7 y 8 · el simulacro del área y su devolución."""
+    """Clases 7 y 8 · el simulacro de EDUCATE y su socialización en el cuaderno (C7 y C8)."""
     b = svg_open()
-    y = cabecera(b, "Clases 7 y 8", "El simulacro del área y su devolución",
-                 derecha="24", dsub="preguntas del simulacro")
-    y = seccion(b, y, "Qué son estas dos clases",
-        "No traen contenido nuevo. Trabajan las 24 preguntas tipo Saber 11 que el estudiante ya tiene "
-        "en su cuaderno, cuatro por momento, y que hasta ahora resolvió de a poco y con instrumento.")
-    dos = [("Clase 7 · el simulacro", ROJO, ROJO_BG, ROJO_LN,
-            "Condiciones de prueba, 90 minutos de reloj, en silencio",
-            ["Las 24 preguntas de entrenamiento del área, seguidas, en el orden del cuaderno.",
-             "El estudiante SÍ puede escribir al margen la cuenta con sus unidades y dibujar las "
-             "partículas: en la prueba real también puede, y es lo que entrenó.",
-             "No se responde ninguna duda, ni de conceptos.",
-             "Los últimos 30 minutos: cada uno cuenta sus aciertos por competencia (UC, EF, IN)."]),
-           ("Clase 8 · la devolución", VERDE, VERDE_BG, VERDE_LN,
-            "Reparación con el instrumento de la primera vez",
-            ["Se eligen las cinco preguntas que más falló el grupo.",
-             "Cada estudiante compara lo que escribió al margen en el simulacro con el instrumento "
-             "de su hoja de entrenamiento.",
-             "La pregunta que gobierna la clase: ¿qué dato, qué unidad o qué partícula viste esta vez "
-             "que no viste antes?",
-             "Al final, la portada del área: las ocho clases, las caritas y el puntaje."])]
-    an = (CW - 20) / 2
-    alto = 0
-    for _, _, _, _, _, pasos in dos:
-        alto = max(alto, 120 + sum(len(wrap_px(p_, 22, an - 110)) for p_ in pasos) * 31 + len(pasos) * 22)
-    for i, (tit, c, bg, ln, sub_, pasos) in enumerate(dos):
-        x = M + i * (an + 20)
-        b.append(rect(x, y, an, alto, bg, r=18, stroke=ln, sw=2.2))
-        b.append(rect(x + 14, y + 16, 5, alto - 32, c, r=3))
-        b.append(T(x + 40, y + 52, [tit], 27, c, weight="700"))
-        b.append(T(x + 40, y + 86, [sub_], 20, GRAY, style="italic"))
-        yy = y + 112
-        for p_ in pasos:
-            b.append(f'<circle cx="{x+52}" cy="{yy+12}" r="6" fill="{c}"/>')
-            yy = parrafo_j(b, x + 76, yy - 6, p_, an - 110, 22, INK, lh=31) + 22
-    y += alto + 30
-    y = nota(b, M, y, CW,
-        "El simulacro no se califica con nota. Se cuenta por competencia, y lo que importa es que el "
-        "estudiante vea en cuál se le va el puntaje. La competencia de cada pregunta es la que le pone "
-        "el cuaderno en su hoja de entrenamiento; sirve para decidir el refuerzo, no para reportar. "
-        "En la prueba real Biología, Química y Física dan un solo puntaje de Ciencias Naturales.",
-        ORO, ORO_BG, ORO_LN, "Cómo se lee el resultado", 24) + 30
-    y = seccion(b, y, "Conteo por competencia",
-        "Llénalo con el grupo en el tablero al final de la clase 7. Debajo de cada una, las "
-        "preguntas que le tocan: misión y número.")
-    grupos = {"UC": [], "EF": [], "IN": []}
-    for m in range(1, 7):
-        for k in range(1, 5):
-            grupos[comp_icfes(m, k)].append(f"M{m}·{k}")
-    an2 = (CW - 2 * 18) / 3
-    lineas = {c_: wrap_px("  ".join(v), 19, an2 - 80, "700") for c_, v in grupos.items()}
-    alto2 = 168 + max(len(v) for v in lineas.values()) * 27
-    for i, cod in enumerate(("UC", "EF", "IN")):
-        x = M + i * (an2 + 18)
-        b.append(rect(x, y, an2, alto2, "white", r=16, stroke=QUI_LN, sw=2))
-        b.append(rect(x + 14, y + 14, 5, alto2 - 28, QUI, r=3))
-        b.append(T(x + 40, y + 46, [f"{cod} · {len(grupos[cod])} preguntas"], 23, INK, weight="700"))
-        b.append(T(x + 40, y + 76, [COMP_NOM[cod].lower()], 19, GRAY, style="italic"))
-        for j, ln in enumerate(lineas[cod]):
-            b.append(T(x + 40, y + 108 + j * 27, [" ".join(ln)], 19, QUI, weight="700"))
-        yb = y + 108 + len(lineas[cod]) * 27 - 6
-        b.append(T(x + 40, yb + 20, ["aciertos del grupo"], 18, GRAY))
-        b.append(rect(x + 230, yb - 6, an2 - 270, 40, QUI_BG, r=10, stroke=QUI_LN, sw=1.8))
-    y += alto2 + 30
-    y = seccion(b, y, "Las cinco preguntas que se reparan en la clase 8")
-    cx = [M, M + 200, M + 560, M + 1160]
-    y = encabezado_tabla(b, y, list(zip(cx, ["N.º", "MOMENTO Y PÁGINA", "QUÉ DATO HABÍA QUE VER",
-                                              "QUÉ FALLÓ EL GRUPO"])))
-    for k in range(1, 6):
-        b.append(rect(M, y, CW, 76, "white", r=12, stroke=QUI_LN, sw=1.8))
-        b.append(rect(M + 10, y + 10, 4, 56, VERDE, r=2))
-        b.append(T(cx[0] + 54, y + 50, [str(k)], 26, VERDE, weight="700", anchor="middle"))
-        for xi, xf in [(cx[1] + 18, cx[2] - 20), (cx[2] + 18, cx[3] - 20), (cx[3] + 18, W - M - 30)]:
-            b.append(line(xi, y + 54, xf, y + 54, "#E6EAF0", 2))
-        y += 82
+    y = cabecera(b, "Clases 7 y 8", "El simulacro de EDUCATE y su socialización en el cuaderno",
+                 derecha=str(C8["preguntas_cuaderno"]), dsub="preguntas caben en el cuaderno")
+    PS.hoja(b, y, C7, C8, QUI, QUI_BG, QUI_LN, seccion, nota)
     pie(b, 17)
     svg_close(b, OUTP + "17.svg")
 

@@ -143,9 +143,23 @@ CLASES = [
     (4, "Momento 4 · Eventos ondulatorios", f"páginas {BASE[4]} a {BASE[4] + 6} del cuaderno"),
     (5, "Momento 5 · Mecánica clásica · la energía", f"páginas {BASE[5]} a {BASE[5] + 6} del cuaderno"),
     (6, "Momento 6 · Termodinámica · cierre del área", f"páginas {BASE[6]} a {BASE[6] + 6} del cuaderno"),
-    (None, "Simulacro del área", "las 24 preguntas tipo Saber 11, en condiciones de prueba"),
-    (None, "Socialización del simulacro", f"hojas de simulacro, páginas {SIM}: reparación y cierre"),
+    (None, "Simulacro del área", "el simulacro que aplica EDUCATE, en condiciones de examen"),
+    (None, "Socialización del simulacro", f"hojas de simulacro del cuaderno, páginas {SIM}"),
 ]
+
+# Clases 7 y 8 (decisión de Nelson, 10 nov): el simulacro es una prueba que escoge EDUCATE y no está en
+# el cuaderno; la clase 8 socializa sus preguntas en las hojas de simulacro. C7 y C8: plan_simulacro.py.
+import plan_simulacro as PS
+C7, C8 = PS.datos("fis", conteo="competencia (UC, EF, IN)", dinamica=dict(
+    nombre="Predigo y miro", formato="en parejas",
+    pasos=["Parejas con la segunda pregunta asignada. Antes de mirar las opciones, cada uno escribe su "
+           "predicción en la fila «predigo antes de mirar».",
+           "A dibuja el sistema: las fuerzas con su nombre o la energía por tramos. B escribe las magnitudes "
+           "con su valor y su unidad.",
+           "Comparan la predicción con el dibujo. Si no coinciden, gana el dibujo, y se escribe por qué.",
+           "Cada uno nombra la ley que manda, revisa que las unidades cuadren y tacha con razón."],
+    entrena="Dibujar el sistema y predecir antes de calcular: qué cambió y qué lo causó. Son la fila "
+            "«predigo antes de mirar», las magnitudes y «la ley que manda» del esquema."))
 LIBRO = {1: (205, 208), 2: (216, 218), 3: (226, 228), 4: (236, 239), 5: (247, 250), 6: (259, 262)}
 
 
@@ -1206,8 +1220,8 @@ def h2():
             b.append(T(colx[4] + 20, y + 76, [f"páginas {BASE[mis]+2} y {BASE[mis]+6}"], 19, GRAY))
         else:
             b.append(T(colx[2] + 20, y + 58, ["UC · EF · IN"], 23, GRAY))
-            b.append(T(colx[3] + 20, y + 58, ["todo el área"], 22, GRAY))
-            b.append(T(colx[4] + 20, y + 58, ["24 ya resueltas"], 22, GRAY))
+            b.append(T(colx[3] + 20, y + 58, ["condiciones de examen" if n == 7 else "6 por estudiante"], 22, GRAY))
+            b.append(T(colx[4] + 20, y + 58, ["no está en el cuaderno" if n == 7 else f"páginas {SIM}"], 22, GRAY))
         y += alto + 10
     y += 24
     y = seccion(b, y, "Las 24 estrategias del área, misión por misión",
@@ -1449,83 +1463,11 @@ def hoja_clase_b(mis):
 
 
 def h17():
-    """Clases 7 y 8 · el simulacro del área y su devolución."""
+    """Clases 7 y 8 · el simulacro de EDUCATE y su socialización en el cuaderno (C7 y C8)."""
     b = svg_open()
-    y = cabecera(b, "Clases 7 y 8", "El simulacro del área y su devolución",
-                 derecha="24", dsub="preguntas del simulacro")
-    y = seccion(b, y, "Qué son estas dos clases",
-        "No traen contenido nuevo. Trabajan las 24 preguntas tipo Saber 11 que el estudiante ya tiene "
-        "en su cuaderno, cuatro por momento, y que hasta ahora resolvió de a poco y con instrumento.")
-    dos = [("Clase 7 · el simulacro", ROJO, ROJO_BG, ROJO_LN,
-            "Condiciones de prueba, 90 minutos de reloj, en silencio",
-            ["Las 24 preguntas de entrenamiento del área, seguidas, en el orden del cuaderno.",
-             "El estudiante SÍ puede dibujar al margen las flechas y hacer las cuentas con unidades: "
-             "en la prueba real también puede, y es lo que entrenó.",
-             "No se responde ninguna duda, ni de conceptos.",
-             "Los últimos 30 minutos: cada uno cuenta sus aciertos por competencia (UC, EF, IN)."]),
-           ("Clase 8 · la devolución", VERDE, VERDE_BG, VERDE_LN,
-            "Reparación con el instrumento de la primera vez",
-            [f"Se eligen las cinco preguntas que más falló el grupo y se reparan en las hojas de simulacro "
-             f"del cuaderno (páginas {SIM}): un esquema por pregunta.",
-             "Cada estudiante compara lo que escribió al margen en el simulacro con el instrumento "
-             "de su hoja de entrenamiento.",
-             "La pregunta que gobierna la clase: ¿qué flecha, qué julio o qué unidad viste esta vez "
-             "que no viste antes?",
-             "Al final, la portada del área: las ocho clases, las caritas y el puntaje."])]
-    an = (CW - 20) / 2
-    alto = 0
-    for _, _, _, _, _, pasos in dos:
-        alto = max(alto, 120 + sum(len(wrap_px(p_, 22, an - 110)) for p_ in pasos) * 31 + len(pasos) * 22)
-    for i, (tit, c, bg, ln, sub_, pasos) in enumerate(dos):
-        x = M + i * (an + 20)
-        b.append(rect(x, y, an, alto, bg, r=18, stroke=ln, sw=2.2))
-        b.append(rect(x + 14, y + 16, 5, alto - 32, c, r=3))
-        b.append(T(x + 40, y + 52, [tit], 27, c, weight="700"))
-        b.append(T(x + 40, y + 86, [sub_], 20, GRAY, style="italic"))
-        yy = y + 112
-        for p_ in pasos:
-            b.append(f'<circle cx="{x+52}" cy="{yy+12}" r="6" fill="{c}"/>')
-            yy = parrafo_j(b, x + 76, yy - 6, p_, an - 110, 22, INK, lh=31) + 22
-    y += alto + 30
-    y = nota(b, M, y, CW,
-        "El simulacro no se califica con nota. Se cuenta por competencia, y lo que importa es que el "
-        "estudiante vea en cuál se le va el puntaje. La competencia de cada pregunta es la que le pone "
-        "el cuaderno en su hoja de entrenamiento; sirve para decidir el refuerzo, no para reportar. "
-        "En la prueba real Biología, Química y Física dan un solo puntaje de Ciencias Naturales.",
-        ORO, ORO_BG, ORO_LN, "Cómo se lee el resultado", 24) + 30
-    y = seccion(b, y, "Conteo por competencia",
-        "Llénalo con el grupo en el tablero al final de la clase 7. Debajo de cada una, las "
-        "preguntas que le tocan: misión y número.")
-    grupos = {"UC": [], "EF": [], "IN": []}
-    for m in range(1, 7):
-        for k in range(1, 5):
-            grupos[comp_icfes(m, k)].append(f"M{m}·{k}")
-    an2 = (CW - 2 * 18) / 3
-    lineas = {c_: wrap_px("  ".join(v), 19, an2 - 80, "700") for c_, v in grupos.items()}
-    alto2 = 168 + max(len(v) for v in lineas.values()) * 27
-    for i, cod in enumerate(("UC", "EF", "IN")):
-        x = M + i * (an2 + 18)
-        b.append(rect(x, y, an2, alto2, "white", r=16, stroke=FIS_LN, sw=2))
-        b.append(rect(x + 14, y + 14, 5, alto2 - 28, FIS, r=3))
-        b.append(T(x + 40, y + 46, [f"{cod} · {len(grupos[cod])} preguntas"], 23, INK, weight="700"))
-        b.append(T(x + 40, y + 76, [COMP_NOM[cod].lower()], 19, GRAY, style="italic"))
-        for j, ln in enumerate(lineas[cod]):
-            b.append(T(x + 40, y + 108 + j * 27, [" ".join(ln)], 19, FIS, weight="700"))
-        yb = y + 108 + len(lineas[cod]) * 27 - 6
-        b.append(T(x + 40, yb + 20, ["aciertos del grupo"], 18, GRAY))
-        b.append(rect(x + 230, yb - 6, an2 - 270, 40, FIS_BG, r=10, stroke=FIS_LN, sw=1.8))
-    y += alto2 + 30
-    y = seccion(b, y, "Las cinco preguntas que se reparan en la clase 8")
-    cx = [M, M + 200, M + 560, M + 1160]
-    y = encabezado_tabla(b, y, list(zip(cx, ["N.º", "MOMENTO Y PÁGINA", "QUÉ FLECHA O CUENTA HABÍA QUE VER",
-                                              "QUÉ FALLÓ EL GRUPO"])))
-    for k in range(1, 6):
-        b.append(rect(M, y, CW, 76, "white", r=12, stroke=FIS_LN, sw=1.8))
-        b.append(rect(M + 10, y + 10, 4, 56, VERDE, r=2))
-        b.append(T(cx[0] + 54, y + 50, [str(k)], 26, VERDE, weight="700", anchor="middle"))
-        for xi, xf in [(cx[1] + 18, cx[2] - 20), (cx[2] + 18, cx[3] - 20), (cx[3] + 18, W - M - 30)]:
-            b.append(line(xi, y + 54, xf, y + 54, "#E6EAF0", 2))
-        y += 82
+    y = cabecera(b, "Clases 7 y 8", "El simulacro de EDUCATE y su socialización en el cuaderno",
+                 derecha=str(C8["preguntas_cuaderno"]), dsub="preguntas caben en el cuaderno")
+    PS.hoja(b, y, C7, C8, FIS, FIS_BG, FIS_LN, seccion, nota)
     pie(b, 17)
     svg_close(b, OUTP + "17.svg")
 

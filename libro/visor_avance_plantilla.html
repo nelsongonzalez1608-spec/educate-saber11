@@ -315,7 +315,7 @@ const doc = document.getElementById("docentes");
 doc.innerHTML = D.docente.map((d, i) => {
   const a = AREAS.find(x => x.n === d.area) || {c: "#242478"};
   const plan = d.planeador
-    ? `<div class="fila"><button class="boton" type="button" data-plan="${i}">Ver el planeador (${d.planeador.hojas.length} hojas)</button>
+    ? `<div class="fila"><button class="boton" type="button" data-plan="${i}">Ver el planeador (${d.planeador.hojas} hojas)</button>
          <button class="boton" type="button" data-bajar="${esc(d.planeador.pdf)}">Descargar PDF</button></div>`
     : `<p class="pendiente">Planeador: pendiente</p>`;
   const guias = d.guias.length
@@ -327,7 +327,10 @@ doc.innerHTML = D.docente.map((d, i) => {
 }).join("");
 doc.addEventListener("click", e => {
   const b = e.target.closest("[data-plan]");
-  if (b) { const d = D.docente[+b.dataset.plan]; verLista(d.planeador.hojas.map((s, i) => ({src: s, txt: `${d.area} · planeador · hoja ${i + 1} de ${d.planeador.hojas.length}`})), 0); }
+  if (b) { const d = D.docente[+b.dataset.plan];
+    document.getElementById("guia-tit").textContent = `${d.area} · planeador del docente`;
+    document.getElementById("guia-bajar").dataset.f = d.planeador.pdf;
+    fGuia.src = d.planeador.pdf; dGuia.showModal(); }
 });
 
 /* ---------- presentaciones ---------- */

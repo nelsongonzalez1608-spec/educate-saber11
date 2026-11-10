@@ -68,6 +68,11 @@ def docente(out):
     import shutil, glob
     os.makedirs(os.path.join(out, "guias"), exist_ok=True)
     def hojas(pdf, carpeta):
+        """Desde el 10 nov el planeador se ve como PDF dentro de la página (el tablero no admite más
+        de 511 archivos): ya no se generan imágenes por hoja. Devuelve el número de hojas."""
+        import pikepdf
+        with pikepdf.open(os.path.join(ENT, pdf)) as p:
+            return len(p.pages)
         d = os.path.join(out, "doc", carpeta)
         if not os.path.isdir(d):
             os.makedirs(d)
@@ -92,6 +97,8 @@ def docente(out):
             res.append(dict(f="guias/" + os.path.basename(f), t=n))
         return res
     guias_mat, guias_bio = guias_de("guias_matematicas", "MAT_"), guias_de("guias_biologia", "BIO_")
+    guias_qui, guias_fis, guias_ing = (guias_de("guias_quimica", "QUI_"), guias_de("guias_fisica", "FIS_"),
+                                       guias_de("guias_ingles", "ING_"))
     pil = os.path.join(RAIZ, "piloto", "paquete_mision1_aprobado", "3_presentaciones")
     shutil.copy(os.path.join(pil, "Clase_viva_estudiantes.html"), os.path.join(out, "guias", "Piloto_Mate_M1_Clase_viva.html"))
     shutil.copy(os.path.join(pil, "Guia_del_encuentro_docente.html"), os.path.join(out, "guias", "Piloto_Guia_del_encuentro_docente.html"))
@@ -106,9 +113,12 @@ def docente(out):
              hojas=hojas("EDUCATE_Planeador_Sociales.pdf", "plan_soc")), guias=guias_soc),
         dict(area="Biología", planeador=dict(pdf="descargas/Planeador_Biologia.pdf",
              hojas=hojas("EDUCATE_Planeador_Biologia.pdf", "plan_bio")), guias=guias_bio),
-        dict(area="Química", planeador=None, guias=[], guias_nota="pendientes (el cuaderno ya está completo)"),
-        dict(area="Física", planeador=None, guias=[], guias_nota="pendientes (el cuaderno ya está completo)"),
-        dict(area="Inglés", planeador=None, guias=[], guias_nota="después del cuaderno del área"),
+        dict(area="Química", planeador=dict(pdf="descargas/Planeador_Quimica.pdf",
+             hojas=hojas("EDUCATE_Planeador_Quimica.pdf", "plan_qui")), guias=guias_qui),
+        dict(area="Física", planeador=dict(pdf="descargas/Planeador_Fisica.pdf",
+             hojas=hojas("EDUCATE_Planeador_Fisica.pdf", "plan_fis")), guias=guias_fis),
+        dict(area="Inglés", planeador=dict(pdf="descargas/Planeador_Ingles.pdf",
+             hojas=hojas("EDUCATE_Planeador_Ingles.pdf", "plan_ing")), guias=guias_ing),
     ]
 
 
@@ -123,6 +133,9 @@ def descargas(out):
               ("EDUCATE_Planeador_LecturaCritica.pdf", "Planeador_LecturaCritica.pdf"),
               ("EDUCATE_Planeador_Sociales.pdf", "Planeador_Sociales.pdf"),
               ("EDUCATE_Planeador_Biologia.pdf", "Planeador_Biologia.pdf"),
+              ("EDUCATE_Planeador_Quimica.pdf", "Planeador_Quimica.pdf"),
+              ("EDUCATE_Planeador_Fisica.pdf", "Planeador_Fisica.pdf"),
+              ("EDUCATE_Planeador_Ingles.pdf", "Planeador_Ingles.pdf"),
               ("EDUCATE_Informe_hallazgos.pdf", "Informe_hallazgos_6nov.pdf"),
               # la matriz .xlsx no se puede servir desde la página (solo PDF, imágenes, HTML…): queda en GitHub
               ("EDUCATE_Estado_del_proyecto.pdf", "Estado_del_proyecto_6nov.pdf"),
@@ -133,6 +146,9 @@ def descargas(out):
     titulos = {f[:11]: f"Cuaderno · {n} (páginas {a}–{b})" for f, n, a, b in CUADERNO}
     titulos.update({"Planeador_Matematicas": "Planeador del docente · Matemáticas",
                "Planeador_LecturaCritica": "Planeador del docente · Lectura Crítica",
+               "Planeador_Quimica": "Planeador del docente · Química",
+               "Planeador_Fisica": "Planeador del docente · Física",
+               "Planeador_Ingles": "Planeador del docente · Inglés",
                "Planeador_Sociales": "Planeador del docente · Sociales y Ciudadanas",
                "Planeador_Biologia": "Planeador del docente · Biología",
                "Guias_LecturaCritica": "Las 8 presentaciones de Lectura Crítica (.zip)",

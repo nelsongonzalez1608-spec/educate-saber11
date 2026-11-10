@@ -8,7 +8,7 @@ banco de dinámicas isomorfas a las estrategias. Usa el motor de plan_piezas.py 
 cambiarlo.
 
 Lo propio del área: donde Lectura Crítica tiene el texto marcado, Sociales tiene el MAPA
-DE ACTORES de la portada del área (página 96): quién gana, quién pierde, quién decide. Y
+DE ACTORES de la portada del área (página 113 del cuaderno de 398): quién gana, quién pierde, quién decide. Y
 tiene dos cosas que Lectura Crítica no tiene en esa medida: doce sellos «Alto · aquí entra
 el profe» con conceptos que el estudiante no trae de casa (la Constituyente, el Estado
 Social de Derecho, los mecanismos de participación…) y cinco preguntas del libro que tocan
@@ -36,6 +36,7 @@ Las de las misiones 3 a 6 se copian del docstring de soc3.py … soc6.py.
 import csv
 from plan_piezas import *
 import plan_piezas as PZ
+import paginas as PG          # la numeración final del cuaderno (398 páginas, 10 nov): única fuente
 
 SOC = "#C9821B"; SOC_BG = "#FDF5E7"; SOC_LN = "#E8CFA3"
 TOTAL = 24
@@ -112,18 +113,47 @@ FASES = [
      "Cuaderno: «Palabras que me frenaron», «lo que me llevo», carita de salida y portada del área."),
 ]
 
+# Páginas del cuaderno. Los módulos de misión siguen en la numeración vieja (mapa de 347); lo
+# impreso va en la de 398 (portada, seis misiones y, al final, las hojas de simulacro).
+# paginas.nueva() traduce: si la numeración cambia, basta volver a construir.
+BASE_VIEJA = {1: 97, 2: 104, 3: 111, 4: 118, 5: 125, 6: 132}
+BASE = {m: PG.nueva(b) for m, b in BASE_VIEJA.items()}
+PORTADA = PG.nueva(96)
+AREA_PAGS = PG.rango_area("soc")
+SIMULACRO_PAGS = PG.paginas_simulacro("soc")
+SIM = f"{SIMULACRO_PAGS[0]} a {SIMULACRO_PAGS[-1]}"
+
+
+def _pags(m):
+    return f"{BASE[m]} a {BASE[m] + 6}"
+
+
 CLASES = [
-    (1, "Momento 1 · Competencias ciudadanas", "páginas 97 a 103 del cuaderno"),
-    (2, "Momento 2 · Competencias ciudadanas", "páginas 104 a 110 del cuaderno"),
-    (3, "Momento 3 · Competencias ciudadanas", "páginas 111 a 117 del cuaderno"),
-    (4, "Momento 4 · Historia y cultura", "páginas 118 a 124 del cuaderno"),
-    (5, "Momento 5 · Espacio y ambiente", "páginas 125 a 131 del cuaderno"),
-    (6, "Momento 6 · Ético-político · cierre del área", "páginas 132 a 138 del cuaderno"),
-    (None, "Simulacro del área", "las 24 preguntas Saber 11, en condiciones de prueba"),
-    (None, "Socialización del simulacro", "devolución, reparación y cierre del área"),
+    (1, "Momento 1 · Competencias ciudadanas", f"páginas {_pags(1)} del cuaderno"),
+    (2, "Momento 2 · Competencias ciudadanas", f"páginas {_pags(2)} del cuaderno"),
+    (3, "Momento 3 · Competencias ciudadanas", f"páginas {_pags(3)} del cuaderno"),
+    (4, "Momento 4 · Historia y cultura", f"páginas {_pags(4)} del cuaderno"),
+    (5, "Momento 5 · Espacio y ambiente", f"páginas {_pags(5)} del cuaderno"),
+    (6, "Momento 6 · Ético-político · cierre del área", f"páginas {_pags(6)} del cuaderno"),
+    (None, "Simulacro del área", "el simulacro que aplica EDUCATE, en condiciones de examen"),
+    (None, "Socialización del simulacro", f"hojas de simulacro del cuaderno, páginas {SIM}"),
 ]
 
-BASE = {1: 97, 2: 104, 3: 111, 4: 118, 5: 125, 6: 132}
+# Clases 7 y 8 (decisión de Nelson, 10 nov): el simulacro es una prueba que escoge EDUCATE y no está en
+# el cuaderno; la clase 8 socializa sus preguntas en las hojas de simulacro. C7 y C8: plan_simulacro.py.
+import plan_simulacro as PS
+C7, C8 = PS.datos("soc", conteo="competencia (PS, IP, PRS)", dinamica=dict(
+    nombre="La mesa de las voces", formato="en equipos de cuatro",
+    pasos=["Equipos de cuatro con la segunda pregunta asignada. Antes de hablar, el equipo escribe la "
+           "situación en el óvalo: quién, dónde, cuándo y qué está en juego.",
+           "Cada integrante toma una opción (A, B, C o D) y la defiende un minuto como si fuera la correcta.",
+           "Los otros tres solo pueden tumbarla con un concepto, una norma o un actor del caso, nunca con "
+           "una opinión.",
+           "Queda en pie la que nadie tumbó. Cada uno escribe en SU esquema la idea clave y tacha con razón "
+           "las otras tres."],
+    entrena="Leer la situación desde los actores y desde el principio que la decide antes de elegir. Son "
+            "la situación, «la mesa de las voces» y la idea clave del esquema."))
+
 LIBRO = {1: (336, 339), 2: (347, 349), 3: (358, 361), 4: (370, 374), 5: (383, 386), 6: (398, 402)}
 
 # PS pensamiento social · IP interpretación y análisis de perspectivas · PRS pensamiento
@@ -135,7 +165,7 @@ COMP_EST = {1: ["IP", "PS", "PRS", "PS"], 2: ["IP", "PS", "PRS", "PS"],
             5: ["PS", "IP", "PRS", "IP"], 6: ["PS", "PRS", "PRS", "IP"]}
 
 MISIONES = {
- 1: dict(comp="Competencias ciudadanas", pags="97 a 103",
+ 1: dict(comp="Competencias ciudadanas", pags=_pags(1),
    tema="Pensar socialmente: hechos, principios y contextos",
    competencia="PS · pensamiento social",
    estr=["Quién dice qué y por qué", "El principio que hay detrás",
@@ -149,7 +179,7 @@ MISIONES = {
    cierre="La estrategia 3 —si pasa esto, qué pasa después— no tiene pregunta Saber 11 en el "
           "entrenamiento: se entrena solo en el taller, en las preguntas 3, 6 y 9. Dale ahí el "
           "tiempo que el ICFES no le da."),
- 2: dict(comp="Competencias ciudadanas", pags="104 a 110",
+ 2: dict(comp="Competencias ciudadanas", pags=_pags(2),
    tema="Contrastar posturas: en qué coinciden, en qué no",
    competencia="IP · análisis de perspectivas",
    estr=["En qué coinciden y en qué no", "El nombre exacto de la figura",
@@ -158,12 +188,13 @@ MISIONES = {
            "o al revés. Separar la propuesta de la razón es la operación que más evalúa el ICFES "
            "en esta competencia.",
    ojo="La opción D de la pregunta 6 dice que la Conmoción Interior permite «suspender» los "
-       "derechos humanos. Es falso: la Constitución dice limitar, no suspender, y la página 99 "
+       "derechos humanos. Es falso: la Constitución dice limitar, no suspender, y la página "
+       f"{PG.nueva(99)} "
        "del cuaderno enseña justo eso. Dilo en voz alta.",
    cierre="Los mecanismos de participación (pregunta 9 y la segunda del ICFES) se confunden entre "
           "sí. El criterio no es quién lo convoca sino qué se decide: un mandato, una ley o la "
           "Constitución."),
- 3: dict(comp="Competencias ciudadanas", pags="111 a 117",
+ 3: dict(comp="Competencias ciudadanas", pags=_pags(3),
    tema="Lo que mueve una decisión: voces, derechos y efectos",
    competencia="PRS · pensamiento sistémico",
    estr=["Cada voz, su preocupación", "Quién gana y quién paga",
@@ -177,7 +208,7 @@ MISIONES = {
    cierre="En las preguntas 1, 5, 7 y 10 la correcta es la única que dice «X pero también Y» y "
           "las otras traen una palabra absoluta. No enseñes ese truco: el instrumento pide escribir "
           "las dimensiones antes de mirar las opciones, y eso es lo que se evalúa."),
- 4: dict(comp="Historia y cultura", pags="118 a 124",
+ 4: dict(comp="Historia y cultura", pags=_pags(4),
    tema="Un hecho, muchas miradas: lo que el pasado le hizo a la gente",
    competencia="PRS e IP · dimensiones y miradas",
    estr=["Un hecho, varias dimensiones", "Quién lo mira y desde dónde",
@@ -191,7 +222,7 @@ MISIONES = {
    cierre="Coincidir en el tiempo no es causar. La pregunta 7 pide una motivación que el texto "
           "solo sugiere: el sello de esa pregunta es para explicar qué es el despojo de tierras "
           "antes de que el grupo elija."),
- 5: dict(comp="Espacio y ambiente", pags="125 a 131",
+ 5: dict(comp="Espacio y ambiente", pags=_pags(5),
    tema="El territorio no es neutro: lugar, gente y poder",
    competencia="PRS e IP · lugar, efectos y voces",
    estr=["El lugar explica el problema", "Ninguna voz se queda afuera",
@@ -204,7 +235,7 @@ MISIONES = {
        "en Sociales hay que saber cuándo un texto es un caso hipotético.",
    cierre="Tres plantillas de enunciado se repiten tres veces cada una. Avisa al grupo que el "
           "enunciado se parece pero el caso cambia: el que responde por inercia, falla."),
- 6: dict(comp="Ético-político", pags="132 a 138",
+ 6: dict(comp="Ético-político", pags=_pags(6),
    tema="Lo que hace legítimo a un poder: la mayoría, los derechos y las cuentas",
    competencia="PS, IP y PRS · cierre del área",
    estr=["La mayoría y sus límites", "Eficaz no es lo mismo que legítimo",
@@ -247,7 +278,7 @@ AVISOS = {
  2: [("preg. 6", "media",
       "La opción D dice que la Conmoción Interior permite suspender los derechos humanos. La "
       "Constitución dice limitar, no suspender (art. 214).",
-      "No la dejes pasar como dato: el cuaderno la marca y la página 99 enseña lo contrario."),
+      f"No la dejes pasar como dato: el cuaderno la marca y la página {PG.nueva(99)} enseña lo contrario."),
      ("preg. 4 a 6", "atención",
       "El texto del Palacio de Justicia (1985) nombra al oficial que dirigió la retoma. No es un "
       "político, pero entra en la conversación pendiente sobre nombres propios.",
@@ -361,7 +392,8 @@ _S = [
  (6, 135, 6, "División de poderes y pluralismo: los dos principios detrás de la palabra "
              "«contrapesos»."),
 ]
-SELLOS = [(AREA_CSV, m, pag, preg, saber, "tarjeta de la pregunta", "En el cuaderno")
+# _S trae la página vieja (leída del PDF entregado); SELLOS, la del cuaderno de 398.
+SELLOS = [(AREA_CSV, m, PG.nueva(pag), preg, saber, "tarjeta de la pregunta", "En el cuaderno")
           for m, pag, preg, saber in _S]
 TEXTOS = []        # Sociales no tiene textos para proyectar en el planeador: van en la guía
 
@@ -896,7 +928,7 @@ def h1():
         ORO, ORO_BG, ORO_LN, "El instrumento de pensamiento del área: el mapa de actores", 25) + 30
     y = seccion(b, y, "El área en números")
     na = sum(len(v) for v in AVISOS.values())
-    cif = [("43", "páginas del cuaderno\\ncon la portada", SOC), ("60", "preguntas del libro\\ncon su instrumento", SOC),
+    cif = [(str(AREA_PAGS[1] - AREA_PAGS[0] + 1), "páginas del cuaderno\\ncon portada y simulacro", SOC), ("60", "preguntas del libro\\ncon su instrumento", SOC),
            ("24", "preguntas Saber 11\\npara entrenar", VERDE), (str(len(SELLOS)), "sellos «aquí entra\\nel profe»", ORO),
            (str(na), "avisos del libro\\nantes de entrar", ROJO)]
     an2 = (CW - 4 * 18) / 5
@@ -958,8 +990,8 @@ def h1():
 
 def h2():
     b = svg_open()
-    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo", derecha="43",
-                 dsub="páginas del cuaderno")
+    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo",
+                 derecha=str(AREA_PAGS[1] - AREA_PAGS[0] + 1), dsub=f"páginas · {AREA_PAGS[0]} a {AREA_PAGS[1]}")
     y = seccion(b, y, "Qué se ve en cada sábado",
         "Seis clases de contenido, una por momento, y dos para el simulacro del área. El número "
         "de clases es fijo: no se recorta aunque un momento quede largo.")
@@ -991,8 +1023,8 @@ def h2():
             b.append(T(colx[4] + 20, y + 76, [f"páginas {BASE[mis]+2} y {BASE[mis]+6}"], 19, GRAY))
         else:
             b.append(T(colx[2] + 20, y + 58, ["PS · IP · PRS"], 23, GRAY))
-            b.append(T(colx[3] + 20, y + 58, ["todo el área"], 22, GRAY))
-            b.append(T(colx[4] + 20, y + 58, ["24 preguntas ya resueltas"], 22, GRAY))
+            b.append(T(colx[3] + 20, y + 58, ["condiciones de examen" if n == 7 else "6 por estudiante"], 22, GRAY))
+            b.append(T(colx[4] + 20, y + 58, ["no está en el cuaderno" if n == 7 else f"páginas {SIM}"], 22, GRAY))
         y += alto + 10
     y += 24
     y = seccion(b, y, "Las 24 estrategias del área, misión por misión",
@@ -1243,82 +1275,11 @@ def hoja_clase_b(mis):
 
 
 def h17():
-    """Clases 7 y 8 · el simulacro del área y su devolución."""
+    """Clases 7 y 8 · el simulacro de EDUCATE y su socialización en el cuaderno (C7 y C8)."""
     b = svg_open()
-    y = cabecera(b, "Clases 7 y 8", "El simulacro del área y su devolución",
-                 derecha="24", dsub="preguntas del simulacro")
-    y = seccion(b, y, "Qué son estas dos clases",
-        "No traen contenido nuevo. Trabajan las 24 preguntas Saber 11 que el estudiante ya tiene en "
-        "su cuaderno, cuatro por momento, y que hasta ahora resolvió de a poco y con instrumento.")
-    dos = [("Clase 7 · el simulacro", ROJO, ROJO_BG, ROJO_LN,
-            "Condiciones de prueba, 90 minutos de reloj, en silencio",
-            ["Las 24 preguntas Saber 11 del área, seguidas, en el orden del cuaderno.",
-             "El estudiante SÍ puede escribir quién gana, quién pierde y quién decide al margen: en "
-             "la prueba real también puede, y es lo que entrenó.",
-             "No se responde ninguna duda, ni de conceptos.",
-             "Los últimos 30 minutos: cada uno cuenta sus aciertos por competencia (PS, IP, PRS)."]),
-           ("Clase 8 · la devolución", VERDE, VERDE_BG, VERDE_LN,
-            "Reparación con el instrumento de la primera vez",
-            ["Se eligen las cinco preguntas que más falló el grupo.",
-             "Cada estudiante compara lo que escribió al margen en el simulacro con el instrumento "
-             "de su hoja de entrenamiento.",
-             "La pregunta que gobierna la clase: ¿qué actor o qué principio viste esta vez que no "
-             "viste antes?",
-             "Al final, la portada del área: las ocho clases, las caritas y el puntaje."])]
-    an = (CW - 20) / 2
-    alto = 0
-    for _, _, _, _, _, pasos in dos:
-        alto = max(alto, 120 + sum(len(wrap_px(p_, 22, an - 110)) for p_ in pasos) * 31 + len(pasos) * 22)
-    for i, (tit, c, bg, ln, sub_, pasos) in enumerate(dos):
-        x = M + i * (an + 20)
-        b.append(rect(x, y, an, alto, bg, r=18, stroke=ln, sw=2.2))
-        b.append(rect(x + 14, y + 16, 5, alto - 32, c, r=3))
-        b.append(T(x + 40, y + 52, [tit], 27, c, weight="700"))
-        b.append(T(x + 40, y + 86, [sub_], 20, GRAY, style="italic"))
-        yy = y + 112
-        for p_ in pasos:
-            b.append(f'<circle cx="{x+52}" cy="{yy+12}" r="6" fill="{c}"/>')
-            yy = parrafo_j(b, x + 76, yy - 6, p_, an - 110, 22, INK, lh=31) + 22
-    y += alto + 30
-    y = nota(b, M, y, CW,
-        "El simulacro no se califica con nota. Se cuenta por competencia, y lo que importa es que el "
-        "estudiante vea en cuál se le va el puntaje. La competencia de cada pregunta sale de la "
-        "estrategia que entrena; es una clasificación de EDUCATE, no la oficial del ICFES, y sirve "
-        "para decidir el refuerzo, no para reportar.",
-        ORO, ORO_BG, ORO_LN, "Cómo se lee el resultado", 24) + 30
-    y = seccion(b, y, "Conteo por competencia",
-        "Llénalo con el grupo en el tablero al final de la clase 7. Debajo de cada una, las "
-        "preguntas que le tocan: misión y número.")
-    grupos = {"PS": [], "IP": [], "PRS": []}
-    for m in range(1, 7):
-        for k in range(1, 5):
-            grupos[comp_icfes(m, k)].append(f"M{m}·{k}")
-    an2 = (CW - 2 * 18) / 3
-    lineas = {c_: wrap_px("  ".join(v), 19, an2 - 80) for c_, v in grupos.items()}
-    alto2 = 168 + max(len(v) for v in lineas.values()) * 27
-    for i, cod in enumerate(("PS", "IP", "PRS")):
-        x = M + i * (an2 + 18)
-        b.append(rect(x, y, an2, alto2, "white", r=16, stroke=SOC_LN, sw=2))
-        b.append(rect(x + 14, y + 14, 5, alto2 - 28, SOC, r=3))
-        b.append(T(x + 40, y + 46, [f"{cod} · {len(grupos[cod])} preguntas"], 23, INK, weight="700"))
-        b.append(T(x + 40, y + 76, [COMP_NOM[cod].lower()], 19, GRAY, style="italic"))
-        for j, ln in enumerate(lineas[cod]):
-            b.append(T(x + 40, y + 108 + j * 27, [" ".join(ln)], 19, SOC, weight="700"))
-        yb = y + 108 + len(lineas[cod]) * 27 - 6
-        b.append(T(x + 40, yb + 20, ["aciertos del grupo"], 18, GRAY))
-        b.append(rect(x + 230, yb - 6, an2 - 270, 40, SOC_BG, r=10, stroke=SOC_LN, sw=1.8))
-    y += alto2 + 30
-    y = seccion(b, y, "Las cinco preguntas que se reparan en la clase 8")
-    cx = [M, M + 200, M + 560, M + 1160]
-    y = encabezado_tabla(b, y, list(zip(cx, ["N.º", "MOMENTO Y PÁGINA", "QUÉ HABÍA QUE VER EN EL CASO",
-                                              "QUÉ FALLÓ EL GRUPO"])))
-    for k in range(1, 6):
-        b.append(rect(M, y, CW, 76, "white", r=12, stroke=SOC_LN, sw=1.8))
-        b.append(rect(M + 10, y + 10, 4, 56, VERDE, r=2))
-        b.append(T(cx[0] + 54, y + 50, [str(k)], 26, VERDE, weight="700", anchor="middle"))
-        for xi, xf in [(cx[1] + 18, cx[2] - 20), (cx[2] + 18, cx[3] - 20), (cx[3] + 18, W - M - 30)]:
-            b.append(line(xi, y + 54, xf, y + 54, "#E6EAF0", 2))
-        y += 82
+    y = cabecera(b, "Clases 7 y 8", "El simulacro de EDUCATE y su socialización en el cuaderno",
+                 derecha=str(C8["preguntas_cuaderno"]), dsub="preguntas caben en el cuaderno")
+    PS.hoja(b, y, C7, C8, SOC, SOC_BG, SOC_LN, seccion, nota)
     pie(b, 17)
     svg_close(b, OUTP + "17.svg")
 

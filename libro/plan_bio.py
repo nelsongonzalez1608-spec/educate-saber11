@@ -8,7 +8,7 @@ dinámicas isomorfas a las estrategias. Usa el motor de plan_piezas.py sin cambi
 las hojas sale de plan_soc.py, adaptado aquí (plan_soc no se toca).
 
 Lo propio del área: donde Sociales tiene el mapa de actores, Biología tiene EL DATO Y SU
-COMPARACIÓN de la portada del área (página 139): qué cambió, qué se midió y contra qué se compara.
+COMPARACIÓN de la portada del área (página 166 del cuaderno de 398): qué cambió, qué se midió y contra qué se compara.
 Siete sellos «Alto · aquí entra el profe» (seis del taller y uno del entrenamiento) y cuatro claves
 del libro que el profe tiene que saber defender o discutir (M4 P7 y P9, M6 P2 y P10).
 
@@ -30,6 +30,7 @@ preguntas de entrenamiento se llaman «preguntas tipo Saber 11».
 import ast, csv, re
 from plan_piezas import *
 import plan_piezas as PZ
+import paginas as PG          # la numeración final del cuaderno (398 páginas, 10 nov): única fuente
 
 BIO = "#30843C"; BIO_BG = "#EEF6EF"; BIO_LN = "#BFDDC4"
 TOTAL = 24
@@ -109,18 +110,46 @@ FASES = [
      "Cuaderno: «Palabras que me frenaron», «lo que me llevo», carita de salida y portada del área."),
 ]
 
+# Páginas del cuaderno. Los módulos de misión siguen en la numeración vieja (mapa de 347); lo
+# impreso va en la de 398 (portada, seis misiones y, al final, las hojas de simulacro).
+# paginas.nueva() traduce: si la numeración cambia, basta volver a construir.
+BASE_VIEJA = {1: 140, 2: 147, 3: 154, 4: 161, 5: 168, 6: 175}
+BASE = {m: PG.nueva(b) for m, b in BASE_VIEJA.items()}
+PORTADA = PG.nueva(139)
+AREA_PAGS = PG.rango_area("bio")
+SIMULACRO_PAGS = PG.paginas_simulacro("bio")
+SIM = f"{SIMULACRO_PAGS[0]} a {SIMULACRO_PAGS[-1]}"
+
+
+def _pags(m):
+    return f"{BASE[m]} a {BASE[m] + 6}"
+
+
 CLASES = [
-    (1, "Momento 1 · Biológico-celular", "páginas 140 a 146 del cuaderno"),
-    (2, "Momento 2 · Biológico-organísmico", "páginas 147 a 153 del cuaderno"),
-    (3, "Momento 3 · Biológico-ecosistémico", "páginas 154 a 160 del cuaderno"),
-    (4, "Momento 4 · Ciencia, tecnología y sociedad", "páginas 161 a 167 del cuaderno"),
-    (5, "Momento 5 · Entorno biológico · herencia", "páginas 168 a 174 del cuaderno"),
-    (6, "Momento 6 · Entorno biológico · cierre del área", "páginas 175 a 181 del cuaderno"),
-    (None, "Simulacro del área", "las 24 preguntas tipo Saber 11, en condiciones de prueba"),
-    (None, "Socialización del simulacro", "devolución, reparación y cierre del área"),
+    (1, "Momento 1 · Biológico-celular", f"páginas {_pags(1)} del cuaderno"),
+    (2, "Momento 2 · Biológico-organísmico", f"páginas {_pags(2)} del cuaderno"),
+    (3, "Momento 3 · Biológico-ecosistémico", f"páginas {_pags(3)} del cuaderno"),
+    (4, "Momento 4 · Ciencia, tecnología y sociedad", f"páginas {_pags(4)} del cuaderno"),
+    (5, "Momento 5 · Entorno biológico · herencia", f"páginas {_pags(5)} del cuaderno"),
+    (6, "Momento 6 · Entorno biológico · cierre del área", f"páginas {_pags(6)} del cuaderno"),
+    (None, "Simulacro del área", "el simulacro que aplica EDUCATE, en condiciones de examen"),
+    (None, "Socialización del simulacro", f"hojas de simulacro del cuaderno, páginas {SIM}"),
 ]
 
-BASE = {1: 140, 2: 147, 3: 154, 4: 161, 5: 168, 6: 175}
+# Clases 7 y 8 (decisión de Nelson, 10 nov): el simulacro es una prueba que escoge EDUCATE y no está en
+# el cuaderno; la clase 8 socializa sus preguntas en las hojas de simulacro. C7 y C8: plan_simulacro.py.
+import plan_simulacro as PS
+C7, C8 = PS.datos("bio", conteo="competencia (UC, EF, IN)", dinamica=dict(
+    nombre="Lo que sí y lo que no", formato="en parejas",
+    pasos=["Parejas con la segunda pregunta asignada. A dice en voz alta lo que cambia (la variable o el "
+           "dato que manda) y en qué escala pasa.",
+           "B propone a propósito una conclusión que dice más de lo que los datos permiten.",
+           "A la corta: dice qué parte sí sostienen los datos y cuál no alcanza, y lo escribe en «lo que sí "
+           "concluyo» y «lo que no alcanza».",
+           "Cambian de papel para el tacho: cada opción descartada lleva la razón que dan los datos."],
+    entrena="Separar lo que los datos permiten concluir de lo que se les agrega. Son las piezas «lo que "
+            "cambia», «lo que sí concluyo» y «lo que no alcanza» del esquema."))
+
 LIBRO = {1: (72, 75), 2: (83, 85), 3: (94, 97), 4: (104, 107), 5: (116, 119), 6: (127, 130)}
 # Página del libro de cada pregunta: «la lees en tu libro, página N» (Q[n]["pag"] de bioN.py).
 PAG_LIBRO = {
@@ -138,7 +167,7 @@ COMP_NOM = {"UC": "Uso comprensivo del conocimiento científico", "EF": "Explica
 _COD = {"uso comprensivo": "UC", "explicación de fenómenos": "EF", "indagación": "IN"}
 
 MISIONES = {
- 1: dict(comp="Biológico-celular", pags="140 a 146",
+ 1: dict(comp="Biológico-celular", pags=_pags(1),
    tema="La célula: una fábrica que trabaja en cadena",
    competencia="EF · explicación de fenómenos",
    estr=["Cada organelo, su oficio", "La ruta de la proteína, estación a estación",
@@ -152,7 +181,7 @@ MISIONES = {
    cierre="La estrategia 4 —dónde hay más y hacia dónde va— tiene una sola pregunta en el taller (la "
           "2) y una en el entrenamiento. Dale en la dinámica el tiempo completo: es la base de la "
           "ósmosis y del transporte activo, que vuelven en las misiones 2 y 3."),
- 2: dict(comp="Biológico-organísmico", pags="147 a 153",
+ 2: dict(comp="Biológico-organísmico", pags=_pags(2),
    tema="El equilibrio de adentro: un cuerpo que se regula",
    competencia="UC · uso comprensivo",
    estr=["El circuito que vuelve al equilibrio", "La función sale del texto",
@@ -165,7 +194,7 @@ MISIONES = {
        "una opción que explique a las dos personas: la clave A es la única fisiológicamente cierta.",
    cierre="La pregunta 5 pide lo que cambia «primero» y el texto dice que la urea baja «gradualmente». "
           "No se contradicen: algo puede empezar primero y tardar en terminar. Vale la pena decirlo."),
- 3: dict(comp="Biológico-ecosistémico", pags="154 a 160",
+ 3: dict(comp="Biológico-ecosistémico", pags=_pags(3),
    tema="En el ecosistema nada cambia solo",
    competencia="UC y EF · datos, redes y límites",
    estr=["Los datos hablan primero", "Sigue la red: quién depende de quién",
@@ -178,7 +207,7 @@ MISIONES = {
        "ahí está la ecología que esas preguntas no miden.",
    cierre="La tabla de la pregunta 1 no trae unidades y la de las preguntas 8 y 9 escribe los "
           "decimales con punto. Aprovéchalo: un dato sin unidades no se puede comparar con otro estudio."),
- 4: dict(comp="Ciencia, tecnología y sociedad", pags="161 a 167",
+ 4: dict(comp="Ciencia, tecnología y sociedad", pags=_pags(4),
    tema="Cada invento es una oportunidad y un riesgo",
    competencia="IN · indagación",
    estr=["¿Se puede poner a prueba?", "El mecanismo, eslabón por eslabón",
@@ -192,7 +221,7 @@ MISIONES = {
    cierre="Varias fuentes del libro (la cirugía fetal de 2025, la cifra de «hasta un 37 %» de memoria, "
           "el globo de Manizales) no se pudieron verificar. Trátalas como casos para razonar, no como "
           "datos para memorizar."),
- 5: dict(comp="Entorno biológico", pags="168 a 174",
+ 5: dict(comp="Entorno biológico", pags=_pags(5),
    tema="Lo que se hereda, lo que se edita y lo que se arriesga",
    competencia="IN y UC · herencia y pruebas",
    estr=["Seguir el alelo por la familia", "Del cambio en el ADN a lo que se ve",
@@ -206,7 +235,7 @@ MISIONES = {
    cierre="El texto del Pomsky culpa a los perros «híbridos»; cruzar dos razas distintas en principio "
           "reduce la homocigosis, y el problema aparece al cruzar parientes. Sepáralo en clase: mezclar "
           "razas no es lo mismo que cruzar hermanos."),
- 6: dict(comp="Entorno biológico", pags="175 a 181",
+ 6: dict(comp="Entorno biológico", pags=_pags(6),
    tema="La vida cambia: ambiente, selección y ecosistemas",
    competencia="UC, IN y EF · cierre del área",
    estr=["El ambiente o la herencia", "Lo que los datos sí dejan concluir",
@@ -388,7 +417,8 @@ _S = [
  (4, 165, 7, "Qué es un indicador de pH y por qué cambia de color cuando cambia la química."),
  (5, 171, 5, "Radiación ionizante: por qué rompe el ADN y en qué se diferencia de una quemadura."),
 ]
-SELLOS = [(AREA_CSV, m, pag, preg, saber, "tarjeta de la pregunta", "En el cuaderno")
+# _S trae la página vieja (leída del PDF entregado); SELLOS, la del cuaderno de 398.
+SELLOS = [(AREA_CSV, m, PG.nueva(pag), preg, saber, "tarjeta de la pregunta", "En el cuaderno")
           for m, pag, preg, saber in _S]
 TEXTOS = []        # los textos completos van en la guía (TEXTOS_BIO.md)
 
@@ -1013,13 +1043,13 @@ def h1():
     y = nota(b, M, y, CW,
         "Casi ninguna pregunta de Biología se resuelve recordando un nombre. Se resuelve preguntando "
         "qué cambió, qué se midió y contra qué se compara. Es el instrumento que el estudiante "
-        "encuentra en la portada del área, en la página 139. Un estudiante que acierta con el "
+        f"encuentra en la portada del área, en la página {PORTADA}. Un estudiante que acierta con el "
         "instrumento vacío no aprendió la estrategia: adivinó, y en la prueba real no va a tener a "
         "quién preguntarle.",
         BIO, BIO_BG, BIO_LN, "El instrumento de pensamiento del área: el dato y su comparación", 25) + 30
     y = seccion(b, y, "El área en números")
     na = sum(len(v) for v in AVISOS.values())
-    cif = [("43", "páginas del cuaderno\\ncon la portada", BIO), ("60", "preguntas del libro\\ncon su instrumento", BIO),
+    cif = [(str(AREA_PAGS[1] - AREA_PAGS[0] + 1), "páginas del cuaderno\\ncon portada y simulacro", BIO), ("60", "preguntas del libro\\ncon su instrumento", BIO),
            ("24", "preguntas tipo\\nSaber 11", "#1F4E8C"), (str(len(SELLOS)), "sellos «aquí entra\\nel profe»", ORO),
            (str(na), "avisos del libro\\nantes de entrar", ROJO)]
     an2 = (CW - 4 * 18) / 5
@@ -1081,8 +1111,8 @@ def h1():
 
 def h2():
     b = svg_open()
-    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo", derecha="43",
-                 dsub="páginas del cuaderno")
+    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo",
+                 derecha=str(AREA_PAGS[1] - AREA_PAGS[0] + 1), dsub=f"páginas · {AREA_PAGS[0]} a {AREA_PAGS[1]}")
     y = seccion(b, y, "Qué se ve en cada sábado",
         "Seis clases de contenido, una por momento, y dos para el simulacro del área. El número "
         "de clases es fijo: no se recorta aunque un momento quede largo.")
@@ -1114,8 +1144,8 @@ def h2():
             b.append(T(colx[4] + 20, y + 76, [f"páginas {BASE[mis]+2} y {BASE[mis]+6}"], 19, GRAY))
         else:
             b.append(T(colx[2] + 20, y + 58, ["UC · EF · IN"], 23, GRAY))
-            b.append(T(colx[3] + 20, y + 58, ["todo el área"], 22, GRAY))
-            b.append(T(colx[4] + 20, y + 58, ["24 ya resueltas"], 22, GRAY))
+            b.append(T(colx[3] + 20, y + 58, ["condiciones de examen" if n == 7 else "6 por estudiante"], 22, GRAY))
+            b.append(T(colx[4] + 20, y + 58, ["no está en el cuaderno" if n == 7 else f"páginas {SIM}"], 22, GRAY))
         y += alto + 10
     y += 24
     y = seccion(b, y, "Las 24 estrategias del área, misión por misión",
@@ -1355,82 +1385,11 @@ def hoja_clase_b(mis):
 
 
 def h17():
-    """Clases 7 y 8 · el simulacro del área y su devolución."""
+    """Clases 7 y 8 · el simulacro de EDUCATE y su socialización en el cuaderno (C7 y C8)."""
     b = svg_open()
-    y = cabecera(b, "Clases 7 y 8", "El simulacro del área y su devolución",
-                 derecha="24", dsub="preguntas del simulacro")
-    y = seccion(b, y, "Qué son estas dos clases",
-        "No traen contenido nuevo. Trabajan las 24 preguntas tipo Saber 11 que el estudiante ya tiene "
-        "en su cuaderno, cuatro por momento, y que hasta ahora resolvió de a poco y con instrumento.")
-    dos = [("Clase 7 · el simulacro", ROJO, ROJO_BG, ROJO_LN,
-            "Condiciones de prueba, 90 minutos de reloj, en silencio",
-            ["Las 24 preguntas de entrenamiento del área, seguidas, en el orden del cuaderno.",
-             "El estudiante SÍ puede escribir al margen qué cambió, qué se midió y contra qué se "
-             "compara: en la prueba real también puede, y es lo que entrenó.",
-             "No se responde ninguna duda, ni de conceptos.",
-             "Los últimos 30 minutos: cada uno cuenta sus aciertos por competencia (UC, EF, IN)."]),
-           ("Clase 8 · la devolución", VERDE, VERDE_BG, VERDE_LN,
-            "Reparación con el instrumento de la primera vez",
-            ["Se eligen las cinco preguntas que más falló el grupo.",
-             "Cada estudiante compara lo que escribió al margen en el simulacro con el instrumento "
-             "de su hoja de entrenamiento.",
-             "La pregunta que gobierna la clase: ¿qué dato o qué comparación viste esta vez que no "
-             "viste antes?",
-             "Al final, la portada del área: las ocho clases, las caritas y el puntaje."])]
-    an = (CW - 20) / 2
-    alto = 0
-    for _, _, _, _, _, pasos in dos:
-        alto = max(alto, 120 + sum(len(wrap_px(p_, 22, an - 110)) for p_ in pasos) * 31 + len(pasos) * 22)
-    for i, (tit, c, bg, ln, sub_, pasos) in enumerate(dos):
-        x = M + i * (an + 20)
-        b.append(rect(x, y, an, alto, bg, r=18, stroke=ln, sw=2.2))
-        b.append(rect(x + 14, y + 16, 5, alto - 32, c, r=3))
-        b.append(T(x + 40, y + 52, [tit], 27, c, weight="700"))
-        b.append(T(x + 40, y + 86, [sub_], 20, GRAY, style="italic"))
-        yy = y + 112
-        for p_ in pasos:
-            b.append(f'<circle cx="{x+52}" cy="{yy+12}" r="6" fill="{c}"/>')
-            yy = parrafo_j(b, x + 76, yy - 6, p_, an - 110, 22, INK, lh=31) + 22
-    y += alto + 30
-    y = nota(b, M, y, CW,
-        "El simulacro no se califica con nota. Se cuenta por competencia, y lo que importa es que el "
-        "estudiante vea en cuál se le va el puntaje. La competencia de cada pregunta es la que le pone "
-        "el cuaderno en su hoja de entrenamiento; sirve para decidir el refuerzo, no para reportar. "
-        "En la prueba real Biología, Química y Física dan un solo puntaje de Ciencias Naturales.",
-        ORO, ORO_BG, ORO_LN, "Cómo se lee el resultado", 24) + 30
-    y = seccion(b, y, "Conteo por competencia",
-        "Llénalo con el grupo en el tablero al final de la clase 7. Debajo de cada una, las "
-        "preguntas que le tocan: misión y número.")
-    grupos = {"UC": [], "EF": [], "IN": []}
-    for m in range(1, 7):
-        for k in range(1, 5):
-            grupos[comp_icfes(m, k)].append(f"M{m}·{k}")
-    an2 = (CW - 2 * 18) / 3
-    lineas = {c_: wrap_px("  ".join(v), 19, an2 - 80, "700") for c_, v in grupos.items()}
-    alto2 = 168 + max(len(v) for v in lineas.values()) * 27
-    for i, cod in enumerate(("UC", "EF", "IN")):
-        x = M + i * (an2 + 18)
-        b.append(rect(x, y, an2, alto2, "white", r=16, stroke=BIO_LN, sw=2))
-        b.append(rect(x + 14, y + 14, 5, alto2 - 28, BIO, r=3))
-        b.append(T(x + 40, y + 46, [f"{cod} · {len(grupos[cod])} preguntas"], 23, INK, weight="700"))
-        b.append(T(x + 40, y + 76, [COMP_NOM[cod].lower()], 19, GRAY, style="italic"))
-        for j, ln in enumerate(lineas[cod]):
-            b.append(T(x + 40, y + 108 + j * 27, [" ".join(ln)], 19, BIO, weight="700"))
-        yb = y + 108 + len(lineas[cod]) * 27 - 6
-        b.append(T(x + 40, yb + 20, ["aciertos del grupo"], 18, GRAY))
-        b.append(rect(x + 230, yb - 6, an2 - 270, 40, BIO_BG, r=10, stroke=BIO_LN, sw=1.8))
-    y += alto2 + 30
-    y = seccion(b, y, "Las cinco preguntas que se reparan en la clase 8")
-    cx = [M, M + 200, M + 560, M + 1160]
-    y = encabezado_tabla(b, y, list(zip(cx, ["N.º", "MOMENTO Y PÁGINA", "QUÉ DATO HABÍA QUE VER",
-                                              "QUÉ FALLÓ EL GRUPO"])))
-    for k in range(1, 6):
-        b.append(rect(M, y, CW, 76, "white", r=12, stroke=BIO_LN, sw=1.8))
-        b.append(rect(M + 10, y + 10, 4, 56, VERDE, r=2))
-        b.append(T(cx[0] + 54, y + 50, [str(k)], 26, VERDE, weight="700", anchor="middle"))
-        for xi, xf in [(cx[1] + 18, cx[2] - 20), (cx[2] + 18, cx[3] - 20), (cx[3] + 18, W - M - 30)]:
-            b.append(line(xi, y + 54, xf, y + 54, "#E6EAF0", 2))
-        y += 82
+    y = cabecera(b, "Clases 7 y 8", "El simulacro de EDUCATE y su socialización en el cuaderno",
+                 derecha=str(C8["preguntas_cuaderno"]), dsub="preguntas caben en el cuaderno")
+    PS.hoja(b, y, C7, C8, BIO, BIO_BG, BIO_LN, seccion, nota)
     pie(b, 17)
     svg_close(b, OUTP + "17.svg")
 
