@@ -417,7 +417,7 @@ def verificar(icfes=None):
                 malas.append(f"M{mis} P{k}: el módulo no trae opciones en texto y no hay figura de opciones")
             if (MARCA in v["texto"]) != ((mis, k) in FIGURAS):
                 malas.append(f"M{mis} P{k}: marca de figura y FIGURAS no coinciden")
-            if f"{mis}·{k}" and not v["verificacion"]:
+            if not v["verificacion"]:
                 malas.append(f"M{mis} P{k}: falta «Verificada resolviéndola»")
     return malas
 

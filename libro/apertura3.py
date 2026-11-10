@@ -275,7 +275,11 @@ def portada_area(pag, n_area, nombre, c, titulo, comps, instr_titulo, instr_text
         else:
             b.append(T(x, y + 62, [lab], 22, GRAY))
         b.append(line(x, y + 112, x + 260, y + 112, EDU_AZUL if lab == "META" else LGRAY, 2.6))  # se escribe
-    BT.pie_b(b, pag, c, texto=f"{nombre if not sub_titulo else nombre + ' y Ciudadanas'} · área {n_area} de {N_AREAS}")
+    # `pag` es la página vieja (mapa de 347): siembra el trazo a mano y no se cambia. El pie lleva la
+    # página del cuaderno de 398 (armado final, 10 nov): paginas.nueva().
+    import paginas
+    BT.pie_b(b, paginas.nueva(pag), c,
+             texto=f"{nombre if not sub_titulo else nombre + ' y Ciudadanas'} · área {n_area} de {N_AREAS}")
     svg_close(b, OUT + archivo)
 
 

@@ -18,8 +18,8 @@ vectores. Para cada página:
      en cada tarjeta muestra SOLO el recorte de la columna izquierda original. Si el recorte no
      cabe (tarjeta de 1090 → 1010), encajar() lo escala anclado arriba.
 
-    python3 rehace_hojas.py                 # las 84
-    python3 rehace_hojas.py 33 106          # esas páginas del cuaderno
+    python3 rehace_hojas.py                 # las 98
+    python3 rehace_hojas.py 30 123          # esas páginas del cuaderno (numeración de 398)
     COLOR_MATE="#A82424" python3 rehace_hojas.py   # Matemáticas en el rojo con que se entregó
 
 Regla 7 (Nelson, 10 nov): en las hojas de entrenamiento NO se copia del original el título de la
@@ -29,6 +29,11 @@ en «· 2 preguntas Saber 11». El original decía «Pregunta real para entrenar
 del ICFES», «Pregunta oficial ICFES · Saber 11» (o con año) y «· 2 preguntas reales».
 arma_pdf.py, además, borra de la página original incrustada todo el texto que queda fuera de
 los recortes, para que el texto viejo no siga debajo (invisible pero buscable).
+
+Numeración (armado final, 10 nov · 398 páginas): el PDF entregado sigue con su numeración vieja
+(1–110). Cada hoja se LEE de su página vieja (`pagina_anterior` del manifiesto; también el id
+`orig<vieja>` del original incrustado, que usa arma_pdf.py) y el PIE lleva la página nueva
+(`pagina` del manifiesto, paginas.nueva()).
 """
 import html as html_mod
 import json
@@ -192,7 +197,11 @@ def _tarjeta_icfes_recorte(b, y, info, inst, k):
 
 
 # ───────── una página ─────────
-def rehacer(pag, svg_nombre):
+def rehacer(pag, svg_nombre, pag_nueva=None):
+    """pag = página en el PDF entregado (numeración vieja); pag_nueva = la que va en el pie."""
+    if pag_nueva is None:
+        import paginas
+        pag_nueva = paginas.nueva(pag)
     area, mis, tipo, num = re.fullmatch(r"([a-z]+)(\d)_([ti])(\d)", svg_nombre).groups()
     mis = int(mis)
     nombre_area, color = AREAS[area]
@@ -219,7 +228,7 @@ def rehacer(pag, svg_nombre):
         hoja = int(re.search(r"hoja (\d) de 5", linea3).group(1))
         qs = [dict(n=i["n"], est=i["est"], pag=i["pag"], ctx=i["ctx"], comp=i["comp"],
                    inst=_recorte(pag, i, yn, i["n"])) for i, yn in zip(infos, y_nuevas)]
-        ruta = hoja_taller(svg_nombre, pag, hoja, qs[0], qs[1], vocab=vocab)
+        ruta = hoja_taller(svg_nombre, pag_nueva, hoja, qs[0], qs[1], vocab=vocab)
     else:
         b = tb.hoja_nueva()                       # con la cuadrícula de puntos de la bitácora
         cabecera(b, cabecera_icfes(linea3))
@@ -227,7 +236,7 @@ def rehacer(pag, svg_nombre):
             _tarjeta_icfes_recorte(b, yn, i, _recorte(pag, i, yn, f"i{k}"), k)
         if vocab:
             franja_vocab(b)
-        tb.footer(b, pag, color, texto=f"{nombre_area} · Misión {mis} · Entrenamiento ICFES")
+        tb.footer(b, pag_nueva, color, texto=f"{nombre_area} · Misión {mis} · Entrenamiento ICFES")
         ruta = OUT + svg_nombre + ".svg"
         svg_close(b, ruta)
     s = open(ruta, encoding="utf-8").read()
@@ -240,17 +249,19 @@ def hojas():
     man = json.load(open(os.path.join(RAIZ, "tablero", "manifiesto_hojas.json"), encoding="utf-8"))
     n = int(re.search(r"^Pages:\s+(\d+)", subprocess.run(["pdfinfo", PDF], capture_output=True,
                                                          text=True).stdout, re.M).group(1))
-    # solo las páginas que existen en el PDF entregado (1–110): las nuevas tienen su propio módulo
-    return sorted((h["pagina"], h["svg"]) for h in man
-                  if h["pagina"] <= n and re.fullmatch(r"(m|lc|soc)\d_[ti]\d", h["svg"]))
+    # solo las páginas que existen en el PDF entregado (1–110): las nuevas tienen su propio módulo.
+    # (página vieja, página nueva, svg)
+    return sorted((h["pagina_anterior"], h["pagina"], h["svg"]) for h in man
+                  if (h.get("pagina_anterior") or 10 ** 6) <= n
+                  and re.fullmatch(r"(m|lc|soc)\d_[ti]\d", h["svg"]))
 
 
 if __name__ == "__main__":
     pedidas = {int(a) for a in sys.argv[1:]}
-    for pag, nombre in hojas():
-        if pedidas and pag not in pedidas:
+    for pag, nueva, nombre in hojas():
+        if pedidas and nueva not in pedidas:
             continue
-        ruta, infos = rehacer(pag, nombre)
-        print(f"ok p.{pag:3d} {nombre:8s} " + " · ".join(
+        ruta, infos = rehacer(pag, nombre, nueva)
+        print(f"ok p.{nueva:3d} (antes {pag:3d}) {nombre:8s} " + " · ".join(
             (f"preg {i['n']}" if "n" in i else "icfes") + f" est {i['est']} ({i['y1'] - i['y0']:.0f} px)"
             for i in infos))

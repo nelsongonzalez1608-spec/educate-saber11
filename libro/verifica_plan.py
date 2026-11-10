@@ -18,8 +18,9 @@ def bajo(svg):
         y, h = float(m.group(1)), float(m.group(2))
         if y == 0 and h >= 2500:
             continue                      # el fondo de la página
-        if y >= TOPE_Y:
-            continue                      # el pie
+        if abs(y - 2476) < 1 and abs(h - 76) < 1:
+            continue                      # el pie (y solo el pie: un recuadro que EMPIEZA
+                                          # debajo de 2470 también se sale; 10 nov)
         if y + h > mx:
             mx, quien = y + h, "rect"
     for m in re.finditer(r'<text[^>]*\by="([-\d.]+)"', svg):

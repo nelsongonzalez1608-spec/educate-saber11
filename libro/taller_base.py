@@ -541,6 +541,28 @@ def hoja_nueva():
 
 
 # ───────── hojas completas ─────────
+_MANIF = None
+
+
+def _comprobar_pagina(nombre, pag):
+    """El número del pie tiene que ser el del manifiesto (numeración de 398, 10 nov). Los módulos
+    guardan la numeración vieja en build(pages=…) y construye.py la traduce (paginas.nueva). Si
+    alguien corre `python3 bio1.py` directo, la hoja saldría con el número viejo: aquí se detiene."""
+    global _MANIF
+    if _MANIF is None:
+        import json
+        ruta = os.path.join(os.path.dirname(OUT.rstrip("/")), "tablero", "manifiesto_hojas.json")
+        try:
+            _MANIF = {h["svg"]: h["pagina"] for h in json.load(open(ruta, encoding="utf-8"))}
+        except OSError:
+            _MANIF = {}
+    debe = _MANIF.get(nombre)
+    if debe is not None and debe != pag:
+        raise ValueError(f"{nombre}: el pie diría p. {pag} y el manifiesto dice p. {debe}. "
+                         f"Construye el módulo con `python3 construye.py <módulo>`: traduce la "
+                         f"numeración vieja de build(pages=…) a la de 398 páginas.")
+
+
 def _pie_texto(tipo):
     return f"{A['area']} · Misión {A['mision']} · {tipo}"
 
@@ -549,6 +571,7 @@ def hoja_taller(nombre, pag, hoja, qa, qb, vocab=True, cierre=None):
     """Una hoja de taller: dos preguntas del libro. Devuelve la ruta del SVG.
     qb=None deja una sola pregunta; entonces `cierre(b, y, h)` dibuja lo que va en el
     segundo bloque (p. ej. el cierre de la misión) entre y y y + h."""
+    _comprobar_pagina(nombre, pag)
     set_bloque(vocab)
     b = hoja_nueva()
     nh = A.get("n_hojas", 5)
@@ -571,6 +594,7 @@ def hoja_taller(nombre, pag, hoja, qa, qb, vocab=True, cierre=None):
 
 def hoja_icfes(nombre, pag, qa, qb, vocab=True):
     """Una hoja de entrenamiento: dos preguntas Saber 11, cada una con su instrumento."""
+    _comprobar_pagina(nombre, pag)
     set_bloque(vocab)
     b = hoja_nueva()
     e = sorted({qa["est"], qb["est"]})

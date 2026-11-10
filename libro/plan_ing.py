@@ -191,14 +191,8 @@ def pags_mision(mis):
 
 
 def rango(ps):
-    """[269, 270, 271, 275] → «269 a 271 y 275»."""
-    ps = sorted(set(ps))
-    tramos, a = [], ps[0]
-    for x, y in zip(ps, ps[1:] + [None]):
-        if y != x + 1:
-            tramos.append(str(a) if a == x else f"{a} a {x}" if x - a > 1 else f"{a} y {x}")
-            a = y
-    return ", ".join(tramos[:-1]) + (" y " if len(tramos) > 1 else "") + tramos[-1]
+    """Páginas: [269, 270, 271, 275] → «269 a 271 y 275» (lo mismo que nums())."""
+    return nums(ps)
 
 
 def nums(ns):
@@ -291,9 +285,9 @@ MISIONES = {
    ojo="En casi todas las preguntas los distractores cierran con absolutos («exclusively», «completely», "
        "«all») y la correcta matiza. No lo enseñes como truco: la tarjeta 14 enseña a tratar la palabra "
        "fuerte como una alarma que se comprueba en el texto. Las cuatro del entrenamiento traen erratas "
-       "corregidas por EDUCATE: Nelson decide si se cambian.",
+       "corregidas por EDUCATE: la dirección de EDUCATE decide si se cambian.",
    cierre="La misión no deja tarea: diez tarjetas en clase y seis en el reto. Son preguntas largas: en el "
-          "desarrollo guiado el texto se lee una sola vez, entero, antes del primer bloque de cada bloque."),
+          "desarrollo guiado cada texto se lee una vez, entero, antes de su primer bloque de tarjetas."),
  6: dict(comp="gramatical · léxico", parte="Parte 7",
    tema="El texto entero decide el espacio",
    pasos=["leo el texto entero", "¿qué pieza falta?", "la pista: cerca o lejos",
@@ -322,7 +316,7 @@ CLAVES = {m: dict(zip(range(1, len(k) + 1), k)) for m, k in _K.items()}
 # casa: [(tarjetas, clase en la que se revisa con la ronda de claves, rótulo de la entrega)]
 REPARTO = {
  1: dict(clase=[1, 2, 3, 4, 5, 6, 7, 15, 16, 17], reto=[8, 9, 10, 11, 12, 13, 14],
-         casa=[([18, 19, 20, 21], 2, "avisos 18 a 21")]),
+         casa=[([18, 19, 20, 21], 2, "Parte 2, avisos")]),
  2: dict(clase=list(range(1, 11)), reto=[], casa=[]),
  3: dict(clase=[1, 3, 12, 14, 21, 23, 25, 29, 36, 38], reto=[31, 32, 33, 34, 35, 37, 39, 40],
          casa=[([2, 4, 5, 6, 7, 8, 9, 10], 4, "texto 1 · Karol G"),
@@ -331,7 +325,7 @@ REPARTO = {
  4: dict(clase=[1, 2, 3, 4, 7, 9, 11, 13, 14, 16], reto=[5, 6, 8, 10, 12, 15], casa=[]),
  5: dict(clase=[1, 3, 4, 5, 6, 7, 9, 12, 13, 15], reto=[2, 8, 10, 11, 14, 16], casa=[]),
  6: dict(clase=[1, 2, 5, 6, 8, 9, 12, 13, 14, 16], reto=[17, 18, 19, 20, 21, 22, 23, 24],
-         casa=[([3, 4, 7, 10, 11, 15], 8, "tarjetas 3, 4, 7, 10, 11 y 15")]),
+         casa=[([3, 4, 7, 10, 11, 15], 8, "bloques 1 y 2")]),
 }
 
 
@@ -389,11 +383,10 @@ AVISOS = {
      ("preg. 34, 35 y 39", "corrección",
       "34: as, since y because son correctas; 35: through y on; 39: since y but se defienden.",
       "Reto: es la discusión del equipo. Acepta las defendidas con la pista."),
-     ("preg. 17 a 20", "corrección",
-      "Se defienden dos relojes: el pasado del relato (combined, dealt, tried, left) y el presente de la trama.",
-      "Casa (ronda de la clase 5): acepta cualquiera si es el mismo en 18, 19 y 20."),
-     ("preg. 24", "corrección", "by, with y through son correctas.",
-      "Casa (ronda de la clase 6): acepta las tres."),
+     ("preg. 17 a 20 · 24", "corrección",
+      "17 a 20: valen el pasado del relato (combined, dealt, tried, left) y el presente de la trama; 24: by, "
+      "with y through son correctas.",
+      "Son de la casa: en las rondas de las clases 5 y 6 acéptalas (en 18 a 20, el mismo reloj en las tres)."),
      ("preg. 29 · 33 · 40", "atención",
       "29: to no es preposición sino la marca del infinitivo; 33: through también se defiende; 40: el «an» descarta solo la C.",
       "Dilo al revelar. No cambian las claves.")],
@@ -421,7 +414,7 @@ AVISOS = {
      ("claves del Bloque 1", "atención", "C A D B C A D B: un patrón que se repite cada cuatro.",
       "No lo digas en clase. Va a la editorial."),
      ("ICFES 1 a 4", "media",
-      "Las cuatro de entrenamiento traen erratas que EDUCATE corrigió a mano: Nelson decide si se cambian.",
+      "Las cuatro de entrenamiento traen erratas que EDUCATE corrigió a mano: la dirección de EDUCATE decide si se cambian.",
       "Texto con erratas corregidas por EDUCATE; pendiente de decisión.")],
  6: [("preg. 2 y 9", "corrección",
       "Dos opciones correctas: felt y were feeling (2); express y explore (9). El libro espera una.",
@@ -1058,8 +1051,26 @@ def h1():
         b.append(checkbox(M + 44, yy - 14, 13, ING))
         parrafo_j(b, M + 100, yy - 22, r_, CW - 150, 23, INK)
         yy += 50
+    y = yy + 40
+    y = seccion(b, y, "La ronda de claves, paso a paso · cinco minutos",
+        "Abre las clases 2, 4, 5, 6 y 8, dentro de los 15 minutos de la activación. La guía de clase trae las "
+        "claves de la tarea en una diapositiva, ocultas hasta que presiones «Revelar».")
+    pasos = [("1", "Cuaderno abierto en la tarea y un color distinto del lápiz en la mano."),
+             ("2", "Revelas las claves; cada uno pone una chulita o una X junto al «marco al final» de cada tarjeta."),
+             ("3", "Junto a cada X escribe la pista que no vio: la palabra del texto que decidía."),
+             ("4", "Manos arriba por tarjeta: la más fallada se explica en un minuto; las demás, a tu registro.")]
+    an = (CW - 3 * 16) / 4
+    alto = max(70 + len(wrap_px(t, 20, an - 70)) * 28 for _, t in pasos)
+    for i, (k, t) in enumerate(pasos):
+        x = M + i * (an + 16)
+        b.append(rect(x, y, an, alto, ORO_BG, r=14, stroke=ORO_LN, sw=1.8))
+        b.append(f'<circle cx="{x+40}" cy="{y+40}" r="20" fill="{ORO}"/>')
+        b.append(T(x + 40, y + 48, [k], 22, "white", weight="700", anchor="middle"))
+        parrafo_j(b, x + 30, y + 66, t, an - 60, 20, INK, lh=28)
+    y += alto
     pie(b, 1)
     svg_close(b, OUTP + "01.svg")
+    return y
 
 
 def h2():
@@ -1141,6 +1152,7 @@ def h2():
             yy = parrafo_j(b, x + 92, yy - 1, e, an - 132, 21, INK, lh=29) + 12
     pie(b, 2)
     svg_close(b, OUTP + "02.svg")
+    return y + 2 * alto + 18
 
 
 def hoja_momentos(parte):
@@ -1194,6 +1206,16 @@ def _chips_claves(b, y, mis):
     if extra:
         b.append(T(x, y + 25, [extra], 19, GRAY, style="italic"))
     return y + 40
+
+
+def _alto_avisos(mis):
+    h = 46 + 52                    # el título de la sección y su subtítulo
+    for preg, sev, que, hacer in AVISOS.get(mis, []):
+        h += max(58, 18 + len(wrap_px(que + "  →  " + hacer, 19, CW - 380)) * 26) + 5
+    return h + 16
+
+
+AVISOS_EN_B = set()                # las misiones cuyos avisos no caben en la primera hoja de la clase
 
 
 def _avisos(b, y, mis):
@@ -1259,7 +1281,7 @@ def hoja_clase(mis):
         y += 16
     y = seccion(b, y, "Las diez tarjetas de clase, su instrumento y su clave",
         f"Van en el desarrollo guiado, en cinco bloques de dos: "
-        f"{', '.join(f'{a}-{b_}' for a, b_ in zip(r['clase'][::2], r['clase'][1::2]))}. La primera es la "
+        f"{' · '.join(f'{a} y {b_}' for a, b_ in zip(r['clase'][::2], r['clase'][1::2]))}. La primera es la "
         "pregunta modelo del momento 2.")
     cx = [M, M + 80, M + 230, M + 560, M + 1230, W - M - 100]
     y = encabezado_tabla(b, y, list(zip(cx, ["N.º", "PÁGINAS", "SUBESTRATEGIA", "INSTRUMENTO DE PENSAMIENTO",
@@ -1291,7 +1313,10 @@ def hoja_clase(mis):
         "Resueltas a mano contra el libro. El color dice adónde va cada tarjeta. Las de la casa se revelan en "
         "la ronda de claves de la clase siguiente, en la guía.")
     y = _chips_claves(b, y, mis) + 14
-    y = _avisos(b, y, mis)
+    if y + _alto_avisos(mis) <= TOPE:
+        y = _avisos(b, y, mis)
+    else:
+        AVISOS_EN_B.add(mis)
     pie(b, 3 + mis * 2)
     svg_close(b, OUTP + f"{3 + mis * 2:02d}.svg")
     return y
@@ -1318,7 +1343,7 @@ def hoja_clase_b(mis):
     act += (f"{'frase' if ronda else 'Frase'} proyectada, sin contexto: «{caso}» ¿Qué palabra decide? Dinámica E1 «{din[0][0]}» "
             f"({din[0][1]}'). Pista para el final: {pista}.")
     pares = list(zip(r["clase"][::2], r["clase"][1::2]))
-    bloques = "; ".join(f"{a}-{b_} (p. {pag_tarjeta(mis, a)}" +
+    bloques = "; ".join(f"{a} y {b_} (p. {pag_tarjeta(mis, a)}" +
                         (f" y {pag_tarjeta(mis, b_)})" if pag_tarjeta(mis, b_) != pag_tarjeta(mis, a) else ")")
                         for a, b_ in pares[1:])
     p1 = r["clase"][0]
@@ -1327,19 +1352,23 @@ def hoja_clase_b(mis):
         f"Pregunta modelo: la tarjeta {p1} ({libro_num(mis, p1)}, libro página {pag_libro(mis, p1)}). Manos "
         f"alzadas antes de buscar la pista. La pregunta del momento: {PROBLEMATIZADORA[mis]} Al final se llena "
         f"con el grupo «{ins.get(p1, '—')}».",
-        f"Bloques {pares[0][0]}-{pares[0][1]} (el de la pregunta modelo, en pantalla); {bloques}. Unos cinco "
+        f"Bloques: {pares[0][0]} y {pares[0][1]} (el de la pregunta modelo, en pantalla); {bloques}. Unos cinco "
         f"minutos por bloque y, entre bloques, las dinámicas E2, E3 y E4 (3')."
-        + (f" Sello en la tarjeta {', '.join(map(str, sel))}." if sel else "")
+        + (f" Sello «Alto» en {'la tarjeta' if len(sel) == 1 else 'las tarjetas'} {nums(sel)}." if sel else "")
         + (f" Corrección EDUCATE en {' y '.join(corr)}." if corr else ""),
         (f"Reto del corte «{RETOS[mis][0]}»: tarjetas {nums(r['reto'])} del libro, en relevo por equipos de tres "
          f"(páginas {rango([pag_tarjeta(mis, n) for n in r['reto']])}). Cada uno las deja llenas en su cuaderno."
          if r["reto"] else
          f"Reto del corte «{RETOS[mis][0]}»: seis frases nuevas; cada uno registra en su hoja."),
-        f"Entrenamiento, páginas {i1} y {i2}. Cuatro preguntas tipo Saber 11, en silencio y con reloj.",
+        f"Entrenamiento, páginas {i1} y {i2}. Cuatro preguntas tipo Saber 11, en silencio y con reloj."
+        + (" Texto con erratas corregidas por EDUCATE; pendiente de decisión." if mis == 5 else ""),
         "Solo las falladas, con la pista que las resuelve. "
-        + ("; ".join(f"Tarea: tarjetas {nums(ns)} ({rot_}, páginas {rango([pag_tarjeta(mis, n) for n in ns])}), "
-                     f"se revisan al comenzar la clase {c_}" for ns, c_, rot_ in r["casa"])
-           + "." if r["casa"] else "Esta misión no deja tarea.")
+        + ((f"Tarea: tarjetas {nums(r['casa'][0][0])} (páginas "
+            f"{rango([pag_tarjeta(mis, n) for n in r['casa'][0][0]])}); se revisan al comenzar la clase "
+            f"{r['casa'][0][1]}." if len(r["casa"]) == 1 else
+            "Tarea en tres entregas, un texto por semana: " +
+            "; ".join(f"{nums(ns)} (clase {c_})" for ns, c_, _ in r["casa"]) + ".")
+           if r["casa"] else "Esta misión no deja tarea.")
         + f" Vocabulario, «lo que me llevo», carita de salida y la clase {mis} en la portada del área.",
     ]
     y = seccion(b, y, "El sábado, minuto a minuto", "Las seis fases con el contenido de esta misión puesto encima.")
@@ -1355,6 +1384,8 @@ def hoja_clase_b(mis):
         reloj += mins
         y += h + 6
     y += 16
+    if mis in AVISOS_EN_B:
+        y = _avisos(b, y, mis)
     y = seccion(b, y, "Si Inglés no es tu fuerte",
         "Lo que tienes que poder explicar en dos minutos, y cómo se dicen las palabras clave (la sílaba fuerte "
         "lleva tilde). Si te preguntan algo que no sabes: «vamos a ver qué dice el texto».", color=VERDE)
@@ -1412,6 +1443,8 @@ def hoja_clase_b(mis):
     alto_reg = int(min(232, (2470 - y - 14) / 2))
     if alto_reg < 150:
         campos, alto_reg = [campos[0], campos[3]], int(min(232, 2470 - y - 4))
+    if alto_reg < 150:
+        raise SystemExit(f"Clase {mis}: el registro del docente queda de {alto_reg} px")
     registro_docente(b, y, alto=alto_reg, campos=campos)
     pie(b, 4 + mis * 2)
     svg_close(b, OUTP + f"{4 + mis * 2:02d}.svg")
@@ -1496,6 +1529,14 @@ def h17():
         for xi, xf in [(cx[1] + 18, cx[2] - 20), (cx[2] + 18, cx[3] - 20), (cx[3] + 18, W - M - 30)]:
             b.append(line(xi, y + 54, xf, y + 54, "#E6EAF0", 2))
         y += 82
+    y += 24
+    y = nota(b, M, y, CW,
+        "Cada una de las cinco se repara por escrito en una de las hojas de simulacro que van al final del área "
+        "en el cuaderno (tres esquemas por página: qué me piden, qué herramienta uso, qué opción tacho y con qué "
+        "razón). Si esas hojas todavía no están impresas, se repara en la hoja de entrenamiento de la misma "
+        "pregunta, al lado del instrumento de la primera vez. Si la más fallada es de la familia «Lectura», "
+        "pide que lean en voz alta la frase del texto que la decide antes de mirar las opciones.",
+        VERDE, VERDE_BG, VERDE_LN, "Dónde se repara", 23)
     pie(b, 17)
     svg_close(b, OUTP + "17.svg")
     return y
@@ -1558,20 +1599,37 @@ def h24():
         b.append(T(M + 100, y + 41, [t], 23, INK, weight="700"))
         b.append(T(M + 860, y + 41, [s_], 21, GRAY))
         y += 72
+    y += 20
+    y = nota(b, M, y, CW,
+        "Las cuatro preguntas de entrenamiento de la Misión 5 (páginas 325 y 330) traen erratas que EDUCATE "
+        "corrigió a mano; la dirección está decidiendo si se cambian. Mientras tanto se usan como están en el "
+        "cuaderno. La pronunciación aproximada de las hojas de clase y las frases en inglés de las dinámicas y "
+        "de las activaciones las escribió EDUCATE para este planeador: si algo te suena raro, anótalo y "
+        "devuélvelo con el registro.",
+        ROJO, ROJO_BG, ROJO_LN, "Pendiente", 23)
     pie(b, 24)
     svg_close(b, OUTP + "24.svg")
     return y
 
 
+TOPE = 2470          # donde empieza el pie (verifica_plan.py)
+
+
 def build():
-    h1(); h2()
+    """Dibuja las 24 hojas. Cada función devuelve hasta dónde llegó su contenido: verifica_plan.py no ve
+    lo que empieza por debajo del pie (lo salta como si fuera el pie), así que aquí se mide aparte."""
+    altos = {1: h1(), 2: h2()}
     hoja_momentos(1); hoja_momentos(2)
     for m in range(1, 7):
-        hoja_clase(m); hoja_clase_b(m)
-    h17()
+        altos[3 + 2 * m] = hoja_clase(m)
+        altos[4 + 2 * m] = hoja_clase_b(m)
+    altos[17] = h17()
     for m in range(1, 7):
-        hoja_dinamicas(m)
-    h24()
+        altos[17 + m] = hoja_dinamicas(m)
+    altos[24] = h24()
+    malas = {k: round(v) for k, v in altos.items() if v > TOPE}
+    if malas:
+        raise SystemExit(f"Se meten en el pie (hoja: hasta dónde llegan): {malas}")
     return [f"{OUTP}{i:02d}.svg" for i in range(1, TOTAL + 1)]
 
 

@@ -18,9 +18,20 @@
     con año en algunas de Matemáticas) y «· 2 preguntas reales» de la cabecera seguían debajo.
     Solo se quitan operadores de texto (Tj, TJ, ', "); los trazos y rellenos quedan como estaban.
 
-    python3 apertura.py && python3 apertura2.py && python3 apertura3.py
-    python3 rehace_hojas.py && python3 arma_pdf.py
-    → entregables/Cuaderno_Saber11_paginas_1_a_110_v2.pdf
+Armado final (10 nov 2026 · 398 páginas): `armar()` ya no arma solo las 1–110: arma el cuaderno
+COMPLETO en el orden de tablero/manifiesto_hojas.json y `partir()` saca un PDF por sección. Las
+páginas de misión de las 1–110 entregadas se componen como arriba (leyendo su página vieja,
+`pagina_anterior`); todas las demás salen de su SVG. Antes hay que haber regenerado todo:
+
+    python3 paginas.py                     # tablero/mapa_paginas.json
+    python3 construye.py soc3 soc3_icfes … # módulos (cada uno en su proceso; traduce la numeración)
+    python3 rehace_hojas.py                # las 98 hojas de misión de las 1–110 (pie nuevo)
+    python3 apertura3.py                   # portadas de área (pie nuevo)
+    python3 simulacro.py --cuaderno        # las 54 hojas de simulacro
+    python3 cierre_b.py                    # cierre (396–397) y mensaje final (398)
+    python3 apertura_b.py                  # apertura (1–6; la página 4 anida bio2_t4)
+    python3 arma_pdf.py
+    → entregables/Cuaderno_Saber11_completo_398_paginas.pdf y Cuaderno_01_… a Cuaderno_09_…
 """
 import json
 import os
@@ -35,7 +46,6 @@ import render
 RAIZ = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 LIBRO = os.path.join(RAIZ, "libro")
 PDF = os.path.join(RAIZ, "entregables", "Cuaderno_Saber11_paginas_1_a_110.pdf")
-DEST = os.path.join(RAIZ, "entregables", "Cuaderno_Saber11_paginas_1_a_110_v2.pdf")
 S = 612 / 2000                     # 1 unidad del SVG en puntos (página completa)
 H_PT = 792
 NS = "{http://www.w3.org/2000/svg}"
@@ -153,53 +163,93 @@ def _solo_texto_visible(pdf, page, recortes):
     return len(borrar)
 
 
-def armar(dest=DEST):
-    man = {h["pagina"]: h["svg"] for h in json.load(open(os.path.join(RAIZ, "tablero",
-                                                                         "manifiesto_hojas.json")))}
+def _pagina_mision(nuevo, orig, svg, p_vieja, tmp):
+    """Agrega a `nuevo` una página de misión de las 1–110 entregadas: el marco nuevo (SVG de
+    rehace_hojas.py sin el original) y, debajo de los recortes, la página vieja `p_vieja` del PDF
+    entregado. Devuelve el PDF del marco (tiene que seguir abierto hasta save())."""
+    txt = open(svg, encoding="utf-8").read()
+    marco_svg = os.path.join(tmp, f"m{p_vieja}.svg")
+    open(marco_svg, "w", encoding="utf-8").write(_sin_original(txt, p_vieja))
+    marco_pdf = os.path.join(tmp, f"m{p_vieja}.pdf")
+    render.conv(marco_svg, marco_pdf)
+    marco = pikepdf.open(marco_pdf)
+    nuevo.pages.append(marco.pages[0])
+    pg = pikepdf.Page(nuevo.pages[-1])
+    recs = _recortes(txt)
+    _solo_texto_visible(orig, orig.pages[p_vieja - 1], recs)    # regla 7: nada viejo debajo
+    fx = nuevo.copy_foreign(pikepdf.Page(orig.pages[p_vieja - 1]).as_form_xobject())
+    nombre = pg.add_resource(fx, pikepdf.Name.XObject, prefix="Orig")
+    ops = b"".join(_capa_original(*r, nombre=str(nombre)[1:]) for r in recs)
+    # cairo deja la matriz volteada al final del marco: se encierra entre q … Q para que
+    # la página original entre con la matriz limpia (si no, sale de cabeza)
+    pg.contents_add(pikepdf.Stream(nuevo, b"q\n"), prepend=True)
+    pg.contents_add(pikepdf.Stream(nuevo, b"Q\n" + ops), prepend=False)
+    return marco
+
+
+# ───────── armado final · 398 páginas (10 nov 2026) ─────────
+ENT = os.path.join(RAIZ, "entregables")
+COMPLETO = os.path.join(ENT, "Cuaderno_Saber11_completo_398_paginas.pdf")
+PARTES = [("Cuaderno_01_Apertura_p1-6.pdf", 1, 6),
+          ("Cuaderno_02_Matematicas_p7-59.pdf", 7, 59),
+          ("Cuaderno_03_LecturaCritica_p60-112.pdf", 60, 112),
+          ("Cuaderno_04_Sociales_p113-165.pdf", 113, 165),
+          ("Cuaderno_05_Biologia_p166-214.pdf", 166, 214),
+          ("Cuaderno_06_Quimica_p215-263.pdf", 215, 263),
+          ("Cuaderno_07_Fisica_p264-312.pdf", 264, 312),
+          ("Cuaderno_08_Ingles_p313-395.pdf", 313, 395),
+          ("Cuaderno_09_Cierre_p396-398.pdf", 396, 398)]
+
+
+def armar(dest=COMPLETO):
+    """El cuaderno completo en el orden del manifiesto (398 páginas). Las páginas de misión de las
+    1–110 entregadas salen del marco + el original (`_pagina_mision`); todas las demás, de su SVG."""
+    man = sorted(json.load(open(os.path.join(RAIZ, "tablero", "manifiesto_hojas.json"), encoding="utf-8")),
+                 key=lambda h: h["pagina"])
+    assert [h["pagina"] for h in man] == list(range(1, len(man) + 1)), "el manifiesto tiene huecos"
     orig = pikepdf.open(PDF)
     nuevo = pikepdf.new()
-    rehechas = 0
-    regeneradas = 0
+    rehechas = de_svg = 0
     vivos = []          # los PDF de origen tienen que seguir abiertos hasta save()
     with tempfile.TemporaryDirectory() as tmp:
-        for p in range(1, len(orig.pages) + 1):
-            svg = os.path.join(LIBRO, man[p] + ".svg")
-            es_mision = re.fullmatch(r"(m|lc|soc)\d_[ti]\d", man[p]) is not None
-            if not es_mision:
-                if os.path.exists(svg):          # apertura o portada regenerada
-                    hoja_pdf = os.path.join(tmp, f"{p}.pdf")
-                    render.conv(svg, hoja_pdf)
-                    hoja = pikepdf.open(hoja_pdf); vivos.append(hoja)
-                    nuevo.pages.append(hoja.pages[0])
-                    regeneradas += 1
-                else:
-                    nuevo.pages.append(orig.pages[p - 1])
+        for h in man:
+            svg = os.path.join(LIBRO, h["svg"] + ".svg")
+            if not os.path.exists(svg):
+                raise FileNotFoundError(f"página {h['pagina']}: falta {svg}")
+            pv = h.get("pagina_anterior")
+            if pv and pv <= len(orig.pages) and re.fullmatch(r"(m|lc|soc)\d_[ti]\d", h["svg"]):
+                vivos.append(_pagina_mision(nuevo, orig, svg, pv, tmp))
+                rehechas += 1
                 continue
-            txt = open(svg, encoding="utf-8").read()
-            marco_svg = os.path.join(tmp, f"{p}.svg")
-            open(marco_svg, "w", encoding="utf-8").write(_sin_original(txt, p))
-            marco_pdf = os.path.join(tmp, f"{p}.pdf")
-            render.conv(marco_svg, marco_pdf)
-            marco = pikepdf.open(marco_pdf)
-            nuevo.pages.append(marco.pages[0])
-            pg = pikepdf.Page(nuevo.pages[-1])
-            recs = _recortes(txt)
-            _solo_texto_visible(orig, orig.pages[p - 1], recs)    # regla 7: nada viejo debajo
-            fx = nuevo.copy_foreign(pikepdf.Page(orig.pages[p - 1]).as_form_xobject())
-            nombre = pg.add_resource(fx, pikepdf.Name.XObject, prefix="Orig")
-            ops = b"".join(_capa_original(*r, nombre=str(nombre)[1:]) for r in recs)
-            # cairo deja la matriz volteada al final del marco: se encierra entre q … Q para que
-            # la página original entre con la matriz limpia (si no, sale de cabeza)
-            pg.contents_add(pikepdf.Stream(nuevo, b"q\n"), prepend=True)
-            pg.contents_add(pikepdf.Stream(nuevo, b"Q\n" + ops), prepend=False)
-            rehechas += 1
+            out = os.path.join(tmp, f"{h['pagina']}.pdf")
+            render.conv(svg, out)
+            hoja = pikepdf.open(out); vivos.append(hoja)
+            nuevo.pages.append(hoja.pages[0])
+            de_svg += 1
         nuevo.save(dest, compress_streams=True, object_stream_mode=pikepdf.ObjectStreamMode.generate)
-    return dest, rehechas, regeneradas
+    return dest, rehechas, de_svg
+
+
+def partir(completo=COMPLETO):
+    """Un PDF por sección (PARTES), copiando las páginas del completo (comparten fuentes)."""
+    todo = pikepdf.open(completo)
+    salidas = []
+    for nom, a, b in PARTES:
+        n = pikepdf.new()
+        for i in range(a - 1, b):
+            n.pages.append(todo.pages[i])
+        n.remove_unreferenced_resources()
+        d = os.path.join(ENT, nom)
+        n.save(d, compress_streams=True, object_stream_mode=pikepdf.ObjectStreamMode.generate)
+        salidas.append(d)
+    return salidas
 
 
 if __name__ == "__main__":
     d, n, r = armar()
-    print(f"{d}: {n} páginas de misión rehechas · {r} de apertura y portadas regeneradas · "
+    print(f"{d}: {n} páginas de misión rehechas sobre el original · {r} desde su SVG · "
           f"{os.path.getsize(d) / 1e6:.1f} MB")
     print("pies:", render.verifica(d, "Aprende"))
     print("textos invisibles que se dejaron (dependían de otro):", len(DEJADOS))
+    for p in partir(d):
+        print(os.path.basename(p), render.verifica(p, "Aprende"), f"{os.path.getsize(p) / 1e6:.1f} MB")
