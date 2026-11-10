@@ -1170,18 +1170,18 @@ def _chips_claves(b, y, mis):
     porfila = 12 if n > 12 else n
     gap = 10
     w = (CW - (porfila - 1) * gap) / porfila
-    h = 54
+    h = 48
     colores = {"clase": ("white", ING, INK), "reto": (MORADO_BG, MORADO, MORADO), "casa": (ORO_BG, ORO, "#7A4A0C")}
     for i in range(n):
         k = i + 1
         x = M + (i % porfila) * (w + gap)
-        yy = y + (i // porfila) * (h + 10)
+        yy = y + (i // porfila) * (h + 8)
         bg, ln, tc = colores[destino(mis, k)]
         b.append(rect(x, yy, w, h, bg, r=10, stroke=ln, sw=2))
-        b.append(T(x + 16, yy + 36, [str(k)], 21, GRAY, weight="700"))
+        b.append(T(x + 16, yy + 32, [str(k)], 21, GRAY, weight="700"))
         cl = CLAVES[mis][k]
-        b.append(T(x + w - 18, yy + 37, [cl], 25, tc, weight="700", anchor="end"))
-    y += ((n - 1) // porfila + 1) * (h + 10) + 4
+        b.append(T(x + w - 18, yy + 33, [cl], 25, tc, weight="700", anchor="end"))
+    y += ((n - 1) // porfila + 1) * (h + 8) + 4
     x = M
     for t, key in (("en clase", "clase"), ("en el reto", "reto"), ("para la casa", "casa")):
         if key != "clase" and not any(destino(mis, k) == key for k in range(1, n + 1)):
@@ -1196,6 +1196,25 @@ def _chips_claves(b, y, mis):
     return y + 40
 
 
+def _avisos(b, y, mis):
+    av = AVISOS.get(mis, [])
+    y = seccion(b, y, "Lo que tienes que saber del libro antes de entrar",
+        "Salió de resolver las preguntas una por una. «Corrección» es lo que el cuaderno ya corrige en la tarjeta.")
+    for preg, sev, que, hacer in av:
+        c, bg, ln = SEV_ING[sev]
+        texto = que + "  →  " + hacer
+        lin = wrap_px(texto, 19, CW - 380)
+        h = max(58, 18 + len(lin) * 26)
+        b.append(rect(M, y, CW, h, bg, r=12, stroke=ln, sw=1.8))
+        b.append(rect(M + 10, y + 10, 4, h - 20, c, r=2))
+        b.append(T(M + 34, y + h / 2 - 4, [preg.upper()], 16, c, weight="700", ls=1))
+        chip(b, M + 34, y + h / 2 + 5, sev.upper(), c, size=12, pad=9, fill="white", txtc=c)
+        parrafo_j(b, M + 340, y + (h - len(lin) * 26) / 2 - 5, texto, CW - 380, 19, INK, lh=26)
+        y += h + 5
+    y += 16
+    return y
+
+
 def hoja_clase(mis):
     d = MISIONES[mis]
     cols = COLS_MIS[mis]
@@ -1204,7 +1223,7 @@ def hoja_clase(mis):
     a_, z_ = pags_mision(mis)
     y = cabecera(b, f"Clase {mis}", f"Misión {mis} · {d['parte']} · {d['comp']} · cuaderno {a_} a {z_} · "
                  f"libro {l0} a {l1}", derecha=f"{mis}", dsub="de 8 clases")
-    y = seccion(b, y, f"La estrategia de la {d['parte'].lower()}: «{d['tema']}»",
+    y = seccion(b, y, f"La estrategia de {'las' if 'Partes' in d['parte'] else 'la'} {d['parte'].lower()}: «{d['tema']}»",
         "Sus cuatro pasos: " + " · ".join(f"{i+1} {p}" for i, p in enumerate(d["pasos"])) + ". Las cuatro "
         "subestrategias salen rotuladas en cada tarjeta, con este mismo color: nómbralas igual en voz alta.")
     an = (CW - 3 * 16) / 4
@@ -1271,7 +1290,8 @@ def hoja_clase(mis):
     y = seccion(b, y, f"Las claves de las {TOTAL_PREG[mis]} tarjetas de la misión",
         "Resueltas a mano contra el libro. El color dice adónde va cada tarjeta. Las de la casa se revelan en "
         "la ronda de claves de la clase siguiente, en la guía.")
-    y = _chips_claves(b, y, mis)
+    y = _chips_claves(b, y, mis) + 14
+    y = _avisos(b, y, mis)
     pie(b, 3 + mis * 2)
     svg_close(b, OUTP + f"{3 + mis * 2:02d}.svg")
     return y
@@ -1295,7 +1315,7 @@ def hoja_clase_b(mis):
     if ronda:
         m_, ns, rot_ = ronda[0]
         act = (f"Ronda de claves de la tarea de la Misión {m_} ({rot_}; tarjetas {nums(ns)}), 5'. Después, ")
-    act += (f"frase proyectada, sin contexto: «{caso}». ¿Qué palabra decide? Dinámica E1 «{din[0][0]}» "
+    act += (f"{'frase' if ronda else 'Frase'} proyectada, sin contexto: «{caso}» ¿Qué palabra decide? Dinámica E1 «{din[0][0]}» "
             f"({din[0][1]}'). Pista para el final: {pista}.")
     pares = list(zip(r["clase"][::2], r["clase"][1::2]))
     bloques = "; ".join(f"{a}-{b_} (p. {pag_tarjeta(mis, a)}" +
@@ -1334,21 +1354,6 @@ def hoja_clase_b(mis):
         parrafo_j(b, M + 380, y + (h - len(lin) * 28) / 2 - 5, txt, CW - 420, 20, INK, lh=28)
         reloj += mins
         y += h + 6
-    y += 16
-    av = AVISOS.get(mis, [])
-    y = seccion(b, y, "Lo que tienes que saber del libro antes de entrar",
-        "Salió de resolver las preguntas una por una. «Corrección» es lo que el cuaderno ya corrige en la tarjeta.")
-    for preg, sev, que, hacer in av:
-        c, bg, ln = SEV_ING[sev]
-        texto = que + "  →  " + hacer
-        lin = wrap_px(texto, 19, CW - 380)
-        h = max(58, 18 + len(lin) * 26)
-        b.append(rect(M, y, CW, h, bg, r=12, stroke=ln, sw=1.8))
-        b.append(rect(M + 10, y + 10, 4, h - 20, c, r=2))
-        b.append(T(M + 34, y + h / 2 - 4, [preg.upper()], 16, c, weight="700", ls=1))
-        chip(b, M + 34, y + h / 2 + 5, sev.upper(), c, size=12, pad=9, fill="white", txtc=c)
-        parrafo_j(b, M + 340, y + (h - len(lin) * 26) / 2 - 5, texto, CW - 380, 19, INK, lh=26)
-        y += h + 5
     y += 16
     y = seccion(b, y, "Si Inglés no es tu fuerte",
         "Lo que tienes que poder explicar en dos minutos, y cómo se dicen las palabras clave (la sílaba fuerte "
@@ -1398,13 +1403,16 @@ def hoja_clase_b(mis):
         b.append(T(W - M - 64, y + h / 2 + 10, [cl or "—"], 26, ING_T, weight="700", anchor="middle"))
         y += h + 5
     y += 18
-    resto = 2470 - y
-    if resto >= 210:
-        y = seccion(b, y, "Después de la clase · tu registro", "Se llena el mismo sábado, antes de salir.")
-        alto_reg = int(min(200, 2470 - y - 4))
-        registro_docente(b, y, alto=alto_reg, campos=[
-            ("¿Qué tarjeta hubo que explicar dos veces?", "y con qué ejemplo funcionó"),
-            ("¿Qué pregunta no supiste responder?", "tráela resuelta la próxima clase")])
+    y = seccion(b, y, "Después de la clase · tu registro",
+                "Se llena el mismo sábado, antes de salir. Esto no lo ve el estudiante.")
+    campos = [("¿Qué tarjeta hubo que explicar dos veces?", "y con qué ejemplo funcionó la segunda"),
+              ("¿A quién hay que volver la próxima clase?", "nombres, no «algunos»"),
+              ("¿Qué cuaderno quedó con el instrumento vacío?", "aunque haya acertado la respuesta"),
+              ("¿Qué pregunta no supiste responder?", "tráela resuelta la próxima clase")]
+    alto_reg = int(min(232, (2470 - y - 14) / 2))
+    if alto_reg < 150:
+        campos, alto_reg = [campos[0], campos[3]], int(min(232, 2470 - y - 4))
+    registro_docente(b, y, alto=alto_reg, campos=campos)
     pie(b, 4 + mis * 2)
     svg_close(b, OUTP + f"{4 + mis * 2:02d}.svg")
     return y
