@@ -17,7 +17,7 @@ AZ, ROJO, VERDE, ORO = "#1F4E8C", "#A82424", "#2E7A39", "#B0711A"
 
 
 def svg(w, h, cuerpo, alto=300, rot=""):
-    return (f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="{rot}" style="max-height:{alto}px" '
+    return (f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="{rot}" style="max-height:min({alto}px,34vh)" '
             f'xmlns="http://www.w3.org/2000/svg">{cuerpo}</svg>')
 
 
@@ -185,7 +185,7 @@ def postes():
         ex, ey = x + sl * math.cos(math.radians(22)), y + sl * math.sin(math.radians(22))
         g += ln(x, y, ex, ey, INK, 2)
         g += f'<path d="M {x+34} {y} A 34 34 0 0 1 {x+34*math.cos(math.radians(22)):.1f} {y+34*math.sin(math.radians(22)):.1f}" fill="none" stroke="{col}" stroke-width="2"/>'
-        g += t(x + 44, y + 26, ang, 15, col, "start", "700")
+        g += t(x + 30, y + 52, ang, 16, col, "start", "700")
     g += t(150, y - 112, "Poste 1", 15, INK, "middle", "700") + t(470, y - 62, "Poste 2", 15, INK, "middle", "700")
     g += t(690, y - 8, "acera", 13, MUT, "end", "400", True)
     return svg(720, 225, g, 230, "Dos postes de 10 m y 5 m y sus sombras")
@@ -248,9 +248,9 @@ def triangulos():
         top, rgt = (x0, y0 - v * esc), (x0 + hz * esc, y0)
         g += poly([(x0, y0), top, rgt], "#FAFBFD", INK, 2) + recto(x0, y0, 1, -1)
         g += t(x0 + hz * esc / 2, 22, L, 18, ROJO, "middle", "700")
-        g += t(x0 - 8, y0 - v * esc / 2 + 5, str(v), 14, INK, "end")
-        g += t(x0 + hz * esc / 2, y0 + 20, str(hz), 14, INK, "middle")
-        g += t(x0 + hz * esc / 2 + 10, y0 - v * esc / 2 - 6, str(hip), 14, INK, "start")
+        g += t(x0 - 8, y0 - v * esc / 2 + 5, str(v), 16, INK, "end")
+        g += t(x0 + hz * esc / 2, y0 + 20, str(hz), 16, INK, "middle")
+        g += t(x0 + hz * esc / 2 + 10, y0 - v * esc / 2 - 6, str(hip), 16, INK, "start")
         if th == "abajo":
             g += f'<path d="M {rgt[0]-26} {rgt[1]} A 26 26 0 0 1 {rgt[0]-26*math.cos(math.atan2(v,hz)):.1f} {rgt[1]-26*math.sin(math.atan2(v,hz)):.1f}" fill="none" stroke="{ORO}" stroke-width="2"/>'
             g += t(rgt[0] - 40, rgt[1] - 6, "θ", 15, ORO, "middle", "700")

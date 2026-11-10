@@ -625,7 +625,7 @@ ICFES = {
                 "utilizar. La tabla muestra la cantidad necesaria para preparar un metro cúbico de mezcla, "
                 "según su aplicación. De acuerdo con la información anterior, ¿qué cantidad de mezcla se "
                 "requiere para construir un muro de dimensiones 3 m × 2 m × 0,5 m?",
-              fig="muro",
+              fig="muro", lado=True,
               datos=tabla([("Aplicación", "Cemento (kg)", "Arena (kg)"), ("Pisos", "35", "70"),
                            ("Techos", "30", "90"), ("Muros", "25", "75"), ("Revestimientos", "20", "100")])
                     + '<p class="sub nota">Cantidad necesaria para preparar un metro cúbico de mezcla.</p>',
@@ -969,12 +969,11 @@ def esc_problematizadora(A, mis):
          f'<div class="grid c2 mt modelo"><div class="card">'
          f'<p>{E(q["info"])}</p>{datos}</div>'
          f'<div><p class="enun">{E(q["e"])}</p>{opciones(ident, q["o"], corta)}'
-         f'<p class="sub mt">Antes de analizar: ¿cuál creen que es? Levanten la mano.</p>'
-         f'<div class="ctl">{botones}<button class="btn" data-reset="h{mis}">↺</button>'
-         f'<button class="btn" data-clave="{ident}" data-k="{clave}">Revelar la clave</button></div></div></div>'
-         f'<div class="note mt" style="--accent:var(--m2)"><b>La regla de este momento:</b> nadie justifica '
-         f'diciendo «porque se ve así». Cada intervención nombra un dato: un valor de la tabla, un punto de la '
-         f'gráfica, una cuenta.</div>')
+         f'<div class="ctl"><span class="sub manos">Antes de analizar, manos:</span>{botones}<button class="btn" data-reset="h{mis}">↺</button>'
+         f'<button class="btn" data-clave="{ident}" data-k="{clave}">Revelar la clave</button></div>'
+         f'<div class="note" style="--accent:var(--m2)"><b>La regla de este momento:</b> nadie justifica '
+         f'diciendo «porque se ve así». Cada intervención nombra un dato: un valor, un punto de la gráfica, '
+         f'una cuenta.</div></div></div>')
     av = [f"Aviso del libro ({s}): {que} Qué haces: {hacer}" for s, que, hacer in avisos_planeador(mis).get(1, [])]
     return dict(m=1, html=h, guia=guia_fase(A, 1, apoyo=[
         "Cuenta las manos con los botones antes de cualquier análisis. El número queda en pantalla: al final "
@@ -1036,6 +1035,8 @@ def esc_icfes(A, mis, k):
     n, c = num_est(mis, est), col_est(mis, est)
     ident = f"icf{mis}{k}"
     datos = figura(q.get("fig")) + q.get("datos", "")
+    if q.get("lado"):
+        datos = f'<div class="lado">{datos}</div>'
     corta = all(len(x) < 34 for x in q["o"])
     pie = (f'<div class="ctl"><button class="btn" data-clave="{ident}" data-k="{q["k"]}">Revelar la clave</button></div>')
     cab = (f'<div class="eyebrow"><span class="membrete">{E(MEMBRETE)}</span>'
@@ -1090,6 +1091,9 @@ def escenas_simulacro():
     sc7[0]["guia"]["apoyo"].append(
         f"⚑ {len(ased)} de las 24 ({', '.join(ased)}) salen del compilado ASED, no del ICFES. Nelson decide si "
         "se reemplazan antes de imprimir.")
+    sc7[2]["html"] = (sc7[2]["html"].replace("Conteo por competencia", "Conteo por componente")
+                      .replace("preguntas de cada competencia", "preguntas de cada componente"))
+    sc7[2]["guia"]["obj"] = "Que el grupo vea en cuál de los tres componentes se le va el puntaje."
     sc7[2]["guia"]["apoyo"] = [
         "Se cuenta por componente, como dice el planeador: numérico-variacional (franjas de los momentos 1 y "
         "2), espacial-métrico (3 y 4) y aleatorio (5 y 6). Ocho preguntas en cada uno.",
@@ -1098,6 +1102,7 @@ def escenas_simulacro():
         "Anota los tres números: son el dato que la coordinación necesita para decidir el refuerzo."]
     todas = [(m, k, re.split(r" · ", f["contexto"])[0][:46]) for m in range(1, 7) for k, f in enumerate(P.BANCO[m], 1)]
     sc8 = CV.escenas_clase8(A, todas)
+    sc8[1]["guia"]["decir"] = ["Usa los tres números del conteo por componente de la clase 7."]
     sc8[1]["guia"]["apoyo"].append("Cada pregunta se repara con el instrumento con el que se trabajó la primera "
                                    "vez: el estudiante tiene que volver a esa página de su cuaderno (franjas de "
                                    "entrenamiento: páginas 13, 17, 20, 24, 27, 31, 34, 38, 41, 45, 48 y 52).")
@@ -1117,7 +1122,8 @@ CSS = """
 .fig svg{display:block;width:100%;height:auto;margin:0 auto}
 .fig text{font-family:var(--text)}
 .ops.c2{grid-template-columns:1fr 1fr}
-.modelo .card p{margin-top:0}
+.modelo{font-size:.9em}.manos{align-self:center}.modelo .card p{margin-top:0}
+.lado{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}.lado .fig{flex:1 1 260px}.lado .dat{flex:0 0 auto}
 .inst{font-style:italic;color:var(--muted)}
 .nota{font-size:.85em;margin-top:4px}
 .enun2{font-weight:600;margin-top:10px}
@@ -1141,8 +1147,26 @@ def revisar(html, archivo):
         raise SystemExit(f"{archivo}: dice «oficial»: " + re.search(r".{60}oficial.{60}", html, re.I | re.S).group(0))
 
 
+# Texto del planeador y del motor que nombra al ICFES donde ahora va «Saber 11» o «de entrenamiento»
+# (decisión de Nelson, 10 nov). plan_mate.py no se toca: el cambio se hace al escribir la guía.
+MEMBRETE_TXT = [
+    ("¿En qué se parecía la pregunta del ICFES a la de tu libro?",
+     "¿En qué se parecía la pregunta Saber 11 a la de tu libro?"),
+    ("la pregunta del libro y la del ICFES", "la pregunta del libro y la de entrenamiento"),
+    ("una pregunta del ICFES no se resuelve", "una pregunta tipo Saber 11 no se resuelve"),
+    ("preguntas reales del ICFES", "preguntas tipo Saber 11"),
+    ("y de la del ICFES sobre", "y de la de entrenamiento sobre"),
+    ("Las cuatro ICFES de este momento", "Las cuatro preguntas de entrenamiento de este momento"),
+    ("más aparece en el ICFES de este componente", "más aparece en Saber 11 en este componente"),
+    ("hojas de entrenamiento ICFES", "hojas de entrenamiento"),
+    ("Entrenamiento ICFES", "Entrenamiento"),
+]
+
+
 def escribir(A, archivo, titulo, sub, sc, out):
     html = CV.pagina(A, titulo, sub, sc, titulo).replace("</style>", CSS + "</style>", 1)
+    for a, b_ in MEMBRETE_TXT:
+        html = html.replace(a, b_)
     revisar(html, archivo)
     f = os.path.join(out, archivo)
     with open(f, "w", encoding="utf-8") as fh:

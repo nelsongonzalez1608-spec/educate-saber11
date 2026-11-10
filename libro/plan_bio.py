@@ -296,7 +296,7 @@ AVISOS = {
       "funcional» con solo dos grupos.",
       "Escríbelo bien en el tablero: 2,8 millones."),
      ("ICFES 1", "atención",
-      "El esquema oficial dice «sustracción del oxígeno disuelto para tomar fosfatos y nitratos»: el "
+      "El esquema de la pregunta dice «sustracción del oxígeno disuelto para tomar fosfatos y nitratos»: el "
       "oxígeno lo gasta la descomposición. La clave C sí lo dice bien.",
       "Corrige el esquema en voz alta al socializar."),
      ("ICFES 3", "atención",
