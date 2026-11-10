@@ -12,7 +12,7 @@ densidad), de tres fuentes en Drive:
     lo lista entre las fuentes): ítems 67 y 64. NO verificados contra un cuadernillo liberado
     del ICFES (el PDF pesa 30 MB; solo se leyó su texto, donde estos dos ítems traen sus letras).
 Ninguna estaba en tablero/icfes.csv; reservadas en tablero/propuestas/qui_icfes_reservas.csv.
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Claves verificadas (resueltas a mano, no copiadas de un solucionario):
 

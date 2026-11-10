@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """MATEMÁTICAS · Momento 1 · Entrenamiento ICFES — una hoja por estrategia, después del bloque del taller.
-Preguntas reales de Saber 11 (membretadas), cada una con su propio instrumento."""
+Preguntas Saber 11, cada una con su propio instrumento. Membrete (regla 7, Nelson 10 nov):
+siempre «Pregunta Saber 11», sin año ni «oficial»."""
 import math, random, sys
 sys.path.insert(0, "/home/claude/cuaderno")
 from lib import *
@@ -14,6 +15,7 @@ IMG = "/home/claude/cuaderno/"
 
 
 def membrete(b, x, y, txt):
+    txt = "Pregunta Saber 11"          # regla 7 (10 nov): el dato de datos.py se ignora
     w = len(txt) * 11.4 + 60
     b.append(rect(x, y, w, 44, "white", r=10, stroke=AZ_D, sw=2.2))
     b.append(rect(x, y, 14, 44, AZ_D, r=7))
@@ -38,7 +40,7 @@ def bloque_icfes(b, y, est, q, idx, instrumento):
     b.append(rect(M, y, CW, 104, AZm_BG, r=26)); b.append(rect(M, y + 60, CW, 44, AZm_BG, r=0))
     b.append(f'<rect x="{M+28}" y="{y+22}" width="60" height="60" rx="12" fill="{ec}"/>')
     b.append(T(M + 58, y + 62, ["✔"], 30, "white", weight="700", anchor="middle"))
-    b.append(T(M + 112, y + 44, [f"Pregunta real del ICFES · {idx} de 2"], 24, AZm, weight="700"))
+    b.append(T(M + 112, y + 44, [f"Pregunta para entrenar · {idx} de 2"], 24, AZm, weight="700"))
     b.append(T(M + 112, y + 78, [f"entrena lo mismo que la estrategia {est}: {enm.lower()}"], 21, GRAY, style="italic"))
     membrete(b, M + 900, y + 30, q["f"])
     b.append(T(M + 1500, y + 44, ["Mi primera idea:"], 20, GRAY)); b.append(line(M + 1500, y + 86, W - M - 30, y + 86, LGRAY, 2.2))

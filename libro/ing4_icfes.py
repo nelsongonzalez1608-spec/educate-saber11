@@ -7,7 +7,7 @@ Las cuatro salen del cuadernillo oficial «Prueba Inglés · Cuadernillo de preg
 (comprensión literal de un artículo, tres opciones). Verificadas contra la página del cuadernillo
 y resueltas a mano; la tabla de respuestas del final coincide. Ninguna estaba en
 tablero/icfes.csv; reservadas en tablero/propuestas/ing_icfes_reservas.csv.
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Cada tarjeta imprime los párrafos que necesita (el artículo completo está en
 tablero/propuestas/ing4_textos.md, para que el profe lo proyecte).
@@ -31,7 +31,7 @@ Claves verificadas:
 from ing4 import *   # noqa: F401,F403  (configura la misión y EST)
 from ing4 import rot, caja, pista, renglon, texto, tinte, flecha, marca, frase_hueco, encabezado
 
-F = "Pregunta oficial ICFES · Saber 11"
+F = "Pregunta Saber 11"
 INSTR = "Lea el artículo y luego responda la pregunta."
 
 SALTER_1 = ("James Salter was a pilot in the United States Air Force. He abandoned the military profession in 1957 "

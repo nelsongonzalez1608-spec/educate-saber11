@@ -6,8 +6,8 @@ Las cuatro preguntas salen del cuadernillo oficial Saber 11 «2016-1 · Examen d
 Segunda sesión», cuadernillo ABD (encabezado «Saber 11 - 116 - B10O - ABD · 2a. sesión»),
 sección Sociales y Ciudadanas. Fotocopia en Drive: «1. CUADERNILLOS ICFES» /
 «2016-2 SEGUNDA SESION.pdf» (el nombre del archivo dice 2016-2, la portada dice 2016-1).
-Número de ítem leído en la página. Membrete sin año (decisión pendiente de Nelson):
-«Pregunta oficial ICFES · Saber 11».
+Número de ítem leído en la página. Membrete (regla 7, Nelson 10 nov):
+siempre «Pregunta Saber 11».
 
 Descartados de la misma sección: 7 a 12 (el texto de Molano nombra a Juan Martín Caicedo,
 político colombiano vivo) y 24 (la opción que parece correcta dice «No» y da una razón de «Sí»).
@@ -21,7 +21,7 @@ Claves verificadas (resueltas a mano, no copiadas de un solucionario):
 """
 from soc5 import *   # noqa: F401,F403  (configura la misión y EST)
 
-F = "Pregunta oficial ICFES · Saber 11"
+F = "Pregunta Saber 11"
 
 
 # ───────── QA · ítem 5 ─────────

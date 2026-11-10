@@ -7,7 +7,7 @@ Las cuatro salen del cuadernillo oficial «Prueba Inglés · Cuadernillo de preg
 trae dos exámenes de 25 preguntas cada uno, ya aplicados. Verificadas contra la página del
 cuadernillo y resueltas a mano; la tabla de respuestas del final del cuadernillo coincide.
 Ninguna estaba en tablero/icfes.csv; reservadas en tablero/propuestas/ing_icfes_reservas.csv.
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Los textos de la Parte 4 y la Parte 7 son largos y traen varios espacios: cada tarjeta imprime
 el párrafo donde está su espacio (con los demás espacios numerados, como en el original). El
@@ -32,7 +32,7 @@ Claves verificadas:
 from ing3 import *   # noqa: F401,F403  (configura la misión y EST)
 from ing3 import rot, caja, pista, renglon, texto, tinte, flecha, marca, frase_hueco
 
-F = "Pregunta oficial ICFES · Saber 11"
+F = "Pregunta Saber 11"
 INSTR = "Lea el texto de la parte inferior y seleccione la palabra correcta para cada espacio."
 
 

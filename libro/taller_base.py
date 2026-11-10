@@ -378,13 +378,15 @@ def tarjeta(b, y, n, est, pag, ctx, inst, comp=None, letras="ABCD", **_):
 
 
 # ───────── entrenamiento ICFES ─────────
-MEMBRETE = "Pregunta oficial ICFES · Saber 11"
+MEMBRETE = "Pregunta Saber 11"
 
 
 def membrete(b, x, y, txt=None):
-    """Siempre genérico: «Pregunta oficial ICFES · Saber 11» (Nelson, 6 nov: no hay certeza del
-    año ni de la aplicación de cada pregunta del banco). `txt` se ignora a propósito: el
-    cuadernillo y el número verificados se guardan en tablero/icfes.csv (columna fuente)."""
+    """Siempre «Pregunta Saber 11», sin año, sin «oficial» y sin «ICFES» (Nelson, 10 nov: varias
+    preguntas del banco vienen de un compilado comercial, el ASED, y no del ICFES; nada de lo que
+    ve el estudiante puede decir que una pregunta es «oficial» o «real»). `txt` se ignora a
+    propósito: el cuadernillo y el número verificados se guardan en tablero/icfes.csv (columna
+    fuente)."""
     txt = MEMBRETE
     c = A["color"]
     w = tw(txt, 19, "700") + 48
@@ -414,8 +416,8 @@ def tarjeta_icfes(b, y, q, n):
     c = _marco_tarjeta(b, y)
     b.append(rect(M + 28, y + 22, 60, 60, c, r=12))
     b.append(buoy(M + 58, y + 52, 15))
-    b.append(T(M + 112, y + 44, ["Pregunta real para entrenar"], 24, c, weight="700"))
-    membrete(b, M + 112, y + 58, q.get("f") or "Pregunta oficial ICFES · Saber 11")
+    b.append(T(M + 112, y + 44, ["Pregunta para entrenar"], 24, c, weight="700"))
+    membrete(b, M + 112, y + 58, q.get("f") or MEMBRETE)
     chip_estrategia(b, M + 1275, y + 30, est,
                     prefijo="entrena la " + A.get("prefijo", "Estrategia").lower(), derecha=True)
     if q.get("comp"):
@@ -484,13 +486,13 @@ def hoja_taller(nombre, pag, hoja, qa, qb, vocab=True, cierre=None):
 
 
 def hoja_icfes(nombre, pag, qa, qb, vocab=True):
-    """Una hoja de entrenamiento: dos preguntas reales del ICFES, cada una con su instrumento."""
+    """Una hoja de entrenamiento: dos preguntas Saber 11, cada una con su instrumento."""
     set_bloque(vocab)
     b = svg_open()
     e = sorted({qa["est"], qb["est"]})
     ests = " y ".join(str(x) for x in e)
     cabecera(b, f"Entrenamiento ICFES · entrena las {A.get('prefijo', 'Estrategia').lower()}{'s' if len(e) > 1 else ''} "
-                f"{ests} · 2 preguntas reales")
+                f"{ests} · 2 preguntas Saber 11")
     tarjeta_icfes(b, Y0, qa, 1)
     tarjeta_icfes(b, y_bloque2(), qb, 2)
     if vocab:

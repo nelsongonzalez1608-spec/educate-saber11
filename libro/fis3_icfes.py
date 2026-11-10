@@ -16,7 +16,7 @@ triángulo y las cuatro figuras de la 42, las cinco figuras de campo de la 72 (r
 líneas de campo calculadas para dos cargas de signo contrario) y las esferas de la 19 se
 redibujaron con los mismos datos.
 
-Membrete: siempre «Pregunta oficial ICFES · Saber 11» (el motor lo impone).
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11» (el motor lo impone).
 
 Claves verificadas (resueltas a mano, no copiadas de un solucionario):
 

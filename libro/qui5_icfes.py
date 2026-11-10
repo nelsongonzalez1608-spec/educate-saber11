@@ -9,7 +9,7 @@ los enunciados, las tablas y las opciones salen completos en el texto; donde el 
 una figura que no se pudo ver, se dice abajo. Ninguna estaba en tablero/icfes.csv; reservadas en
 tablero/propuestas/qui_icfes_reservas.csv. Fuente del proyecto según CLAUDE.md § 10.
 
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Claves verificadas (resueltas a mano, no copiadas de un solucionario):
 

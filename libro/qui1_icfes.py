@@ -12,7 +12,7 @@ Cuatro preguntas de Ciencias Naturales con contenido de química, de dos fuentes
     opciones se tomaron en el orden en que aparecen en ese texto. Se usan porque en los dos
     cuadernillos oficiales de Drive ya no quedaban preguntas de química sin usar o sin reservar
     (Biología y Química M3 a M6). Registrado en qui1_icfes.csv y en el informe.
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Claves verificadas (resueltas a mano, no copiadas de un solucionario):
 

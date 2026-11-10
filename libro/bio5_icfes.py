@@ -9,7 +9,7 @@ Segunda sesión») y las páginas escaneadas en Drive («1. CUADERNILLOS ICFES»
 SESION.pdf»: el archivo se llama 2016-2 pero la portada dice 2016-1, segunda sesión).
 Ninguna estaba en tablero/icfes.csv; reservadas en tablero/propuestas/bio_icfes_reservas.csv.
 
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Claves verificadas (resueltas a mano, no copiadas de un solucionario):
 

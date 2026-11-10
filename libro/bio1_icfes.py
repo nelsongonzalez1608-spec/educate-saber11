@@ -9,7 +9,7 @@ cuadernillos escaneados en Drive («1. CUADERNILLOS ICFES»):
   · «2016-2 SEGUNDA SESION.pdf»: portada «2016-1 · Segunda sesión», cuadernillo ABD; páginas de
     Ciencias Naturales con encabezado «Saber 11 - 083 - B10O - ABD · 2a. sesión».
 Ninguna estaba en tablero/icfes.csv; reservadas en tablero/propuestas/bio_icfes_reservas.csv.
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Claves verificadas (resueltas a mano, no copiadas de un solucionario):
 

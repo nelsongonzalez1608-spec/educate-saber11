@@ -12,7 +12,7 @@ OJO con la numeración del Examen 1: la página 8 dice «responde las preguntas 
 imprime como «6.» (Grandma) y «7.» (umbrella); la 6 real es un aviso de la Parte 2. La tabla de
 respuestas va con la numeración correcta: 7 · C y 8 · B. Registrado como hallazgo.
 
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Claves verificadas (resueltas a mano; coinciden con la tabla del cuadernillo):
 

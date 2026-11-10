@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Inglés · Misión 6 · entrenamiento ICFES · páginas 337 y 344 (cierre del área).
 
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Claves verificadas (resueltas a mano, no copiadas de la tabla de respuestas):
 

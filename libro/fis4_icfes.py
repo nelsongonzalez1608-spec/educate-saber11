@@ -14,7 +14,7 @@ tablero/propuestas/fis_icfes_reservas.csv. Ninguna nombra a un político. Las do
 piscina (32), la figura de los parlantes (70) y la tabla y las cuatro gráficas de la 48 se
 redibujaron con los mismos datos.
 
-Membrete: siempre «Pregunta oficial ICFES · Saber 11» (el motor lo impone).
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11» (el motor lo impone).
 
 Claves verificadas (resueltas a mano, no copiadas de un solucionario):
 

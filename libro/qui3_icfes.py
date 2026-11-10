@@ -14,7 +14,7 @@ tablero/propuestas/qui_icfes_reservas.csv. Ninguna nombra a un político. La tab
 la del 65, la gráfica del 95 y las cuatro gráficas de barras del 113 se redibujaron con los
 mismos datos.
 
-Membrete: siempre «Pregunta oficial ICFES · Saber 11» (el motor lo impone).
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11» (el motor lo impone).
 
 Claves verificadas (resueltas a mano, no copiadas de un solucionario):
 

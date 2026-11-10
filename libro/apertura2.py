@@ -276,7 +276,7 @@ def encontrar_2():
     # momentos
     b.append(rect(M, top, CW, 430, SOFT, r=26))
     b.append(T(M + 40, top + 56, ["Cada área tiene 6 momentos"], 34, EDU_AZUL, weight="700"))
-    parrafo_j(b, M + 40, top + 76, "Un momento es un taller de 10 preguntas de tu libro, más entrenamiento con preguntas reales del ICFES "
+    parrafo_j(b, M + 40, top + 76, "Un momento es un taller de 10 preguntas de tu libro, más entrenamiento con preguntas tipo Saber 11 "
             "y un simulacro. Un momento no cabe en una clase: tu profesor lo reparte en el ritmo del grupo, en las 8 clases del área.",
             CW - 80, 24, color=GRAY, lh=34)
     gw = (CW - 80 - 5 * 26) / 6
@@ -299,7 +299,7 @@ def encontrar_2():
              ("Pregunta problematizadora", 20, "el reto del momento: cada uno dice su hipótesis", EDU_ROJO),
              ("Desarrollo guiado", 35, "las preguntas del libro, con la estrategia", EDU_VERDE),
              ("Reto en equipo", 20, "una situación por equipo; registro individual", EDU_ORO),
-             ("Evaluación individual", 20, "preguntas reales del ICFES, en silencio", "#5B3E96"),
+             ("Evaluación individual", 20, "preguntas tipo Saber 11, en silencio", "#5B3E96"),
              ("Cierre", 10, "bitácora y salvavidas", TEAL)]
     bx = M + 40; bw_total = CW - 80; by = y + 110
     xx = bx
@@ -336,13 +336,14 @@ def encontrar_2():
             b.append(T(x + 24, yy + 82 + j * 26, [ln], 19, "white", op=0.92))
     b.append(hand_arrow(sx + 60, y + 600, sx + 4 * (sw_ + 20) - 80, y + 600, EDU_ORO, sw=5, bend=0, head=26))
     b.append(PT(sx + 2 * (sw_ + 20), y + 650, ["cada hoja resuelta con andamiaje es un escalón"], 30, EDU_ORO, rot=-0.8, anchor="middle"))
-    # membrete ICFES (franja propia)
+    # membrete de las preguntas de entrenamiento (franja propia) · regla 7, Nelson 10 nov:
+    # «Pregunta Saber 11», sin «oficial» ni «real» (varias vienen del ASED, no del ICFES)
     y += 740
     b.append(rect(M, y, CW, 190, "white", r=26, stroke=EDU_AZUL, sw=3))
     b.append(rect(M + 40, y + 50, 560, 90, SOFT, r=14, stroke=AZ_LN, sw=2))
-    b.append(T(M + 70, y + 106, ["Pregunta oficial ICFES · Saber 11"], 26, AZ_D, weight="700"))
-    b.append(T(M + 640, y + 80, ["Cuando veas este membrete, la pregunta es real: la hizo el ICFES para el Saber 11."], 24, INK))
-    b.append(T(M + 640, y + 116, ["La resolvió alguien antes que tú, en la prueba de verdad. No entrenas con preguntas inventadas."], 24, INK))
+    b.append(T(M + 70, y + 106, ["Pregunta Saber 11"], 26, AZ_D, weight="700"))
+    b.append(T(M + 640, y + 80, ["Cuando veas este membrete, la pregunta tiene la forma y el nivel del Saber 11."], 24, INK))
+    b.append(T(M + 640, y + 116, ["Es el formato de la prueba de verdad: lo entrenas aquí para que ese día nada te sorprenda."], 24, INK))
     b.append(hand_arrow(M + 620, y + 95, M + 605, y + 95, EDU_ORO, sw=3, bend=0, head=0))
     footer(b, 7, EDU_VERDE)
     svg_close(b, OUT + "ap07_encontrar2.svg")

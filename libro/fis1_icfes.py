@@ -9,7 +9,7 @@ Cuatro preguntas de Ciencias Naturales con contenido de mecánica clásica, de d
     13, 17 y 43, verificadas contra el PDF.
   · ASED pre código 11 (Drive), capítulo 9 «Preguntas de Física», sección Mecánica clásica,
     ítem 13 (el ASED reinicia la numeración en cada sección). Solo se leyó el texto del PDF.
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Claves verificadas (resueltas a mano, no copiadas del solucionario):
 

@@ -11,7 +11,7 @@ en tablero/icfes.csv; reservadas en tablero/propuestas/ing_icfes_reservas.csv.
 En este cuadernillo la Parte 1 es el léxico (descripción → palabra, A–G con H de ejemplo) y la
 Parte 2 los avisos («¿Dónde puede ver estos avisos?», A–C): las mismas dos tareas de la misión.
 
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Claves verificadas (resueltas a mano; coinciden con la tabla del cuadernillo):
 

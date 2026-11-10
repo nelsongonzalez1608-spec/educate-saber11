@@ -6,7 +6,7 @@ Las cuatro preguntas salen del cuadernillo «Saber 11 · 2016-1 · Examen de Est
 (Drive de Nelson, carpeta «1. CUADERNILLOS ICFES», archivo «2016-1 PRIMERA SESION.pdf», sección
 Sociales y Ciudadanas, encabezado «Saber 11 - 116 - B05R - AAM»). Es una fotocopia del cuadernillo
 con su portada; como no se cotejó contra la publicación liberada del ICFES, el membrete va sin año
-(regla 7): «Pregunta oficial ICFES · Saber 11».
+(regla 7; desde el 10 nov, siempre «Pregunta Saber 11»).
 
 Claves verificadas resolviendo cada pregunta (6 nov 2026):
 
@@ -20,7 +20,7 @@ from taller_base import _mezcla
 import soc3  # noqa: F401  (configura el área, la misión y las estrategias)
 from soc3 import AZ, VE, RO, MO, rot, pista, casilla, si_no
 
-F = "Pregunta oficial ICFES · Saber 11"
+F = "Pregunta Saber 11"
 
 
 def caja_texto(b, x, y, w, rotulo, txt, c):

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Física · Misión 5 · entrenamiento ICFES · páginas 256 y 260.
 
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Claves verificadas (resueltas a mano, no copiadas de un solucionario):
 

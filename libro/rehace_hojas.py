@@ -21,6 +21,14 @@ vectores. Para cada página:
     python3 rehace_hojas.py                 # las 84
     python3 rehace_hojas.py 33 106          # esas páginas del cuaderno
     COLOR_MATE="#A82424" python3 rehace_hojas.py   # Matemáticas en el rojo con que se entregó
+
+Regla 7 (Nelson, 10 nov): en las hojas de entrenamiento NO se copia del original el título de la
+tarjeta, el membrete ni el final de la cabecera. El título es siempre «Pregunta para entrenar»,
+el membrete siempre «Pregunta Saber 11» (lo impone taller_base.membrete()) y la cabecera termina
+en «· 2 preguntas Saber 11». El original decía «Pregunta real para entrenar» / «Pregunta oficial
+del ICFES», «Pregunta oficial ICFES · Saber 11» (o con año) y «· 2 preguntas reales».
+arma_pdf.py, además, borra de la página original incrustada todo el texto que queda fuera de
+los recortes, para que el texto viejo no siga debajo (invisible pero buscable).
 """
 import html as html_mod
 import json
@@ -162,13 +170,23 @@ def _recorte(pag, info, y_nueva, clave):
 
 
 # ───────── tarjeta ICFES con el recorte original ─────────
+TITULO_ICFES = "Pregunta para entrenar"          # regla 7 (10 nov): ni «real» ni «oficial»
+
+
+def cabecera_icfes(linea):
+    """«… · 2 preguntas reales» → «… · 2 preguntas Saber 11» (regla 7, 10 nov)."""
+    nueva = re.sub(r"·\s*2 preguntas reales\s*$", "· 2 preguntas Saber 11", linea.strip())
+    assert "reales" not in nueva and "oficial" not in nueva.lower(), linea
+    return nueva
+
+
 def _tarjeta_icfes_recorte(b, y, info, inst, k):
     est = info["est"]
     c = tb._marco_tarjeta(b, y)
     b.append(rect(M + 28, y + 22, 60, 60, c, r=12))
     b.append(buoy(M + 58, y + 52, 15))
-    b.append(T(M + 112, y + 44, [info["titulo"]], 24, c, weight="700"))
-    membrete(b, M + 112, y + 58, info["membrete"])
+    b.append(T(M + 112, y + 44, [TITULO_ICFES], 24, c, weight="700"))   # regla 7: no se copia
+    membrete(b, M + 112, y + 58)                                          # «Pregunta Saber 11»
     chip_estrategia(b, M + 1275, y + 30, est, prefijo="entrena la estrategia", derecha=True)
     if info["comp"]:
         b.append(T(M + 1275, y + 92, [f"competencia · {info['comp']}"], 15, GRAY, style="italic", anchor="end"))
@@ -209,7 +227,7 @@ def rehacer(pag, svg_nombre):
         ruta = hoja_taller(svg_nombre, pag, hoja, qs[0], qs[1], vocab=vocab)
     else:
         b = svg_open()
-        cabecera(b, linea3)
+        cabecera(b, cabecera_icfes(linea3))
         for k, (i, yn) in enumerate(zip(infos, y_nuevas), 1):
             _tarjeta_icfes_recorte(b, yn, i, _recorte(pag, i, yn, f"i{k}"), k)
         if vocab:

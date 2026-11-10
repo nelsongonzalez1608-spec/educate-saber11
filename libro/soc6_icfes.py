@@ -10,7 +10,7 @@ el archivo se llama 2016-2 pero la portada dice 2016-1, segunda sesión). Ningun
 tablero/icfes.csv. La N.º 6 se cambió por la N.º 2 porque la Misión 5 usa los ítems 5, 6, 18 y 19; los 7 a 12
 nombran a un exalcalde vivo y no se usan.
 
-Membrete sin año (decisión pendiente de Nelson): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11».
 Ninguna nombra a un político colombiano vivo.
 
 Claves verificadas (resueltas a mano, no copiadas de un solucionario):

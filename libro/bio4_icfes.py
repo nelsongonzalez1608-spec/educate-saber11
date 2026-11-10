@@ -9,7 +9,7 @@ páginas 30, 31 y 34). Los ítems 99 a 101 comparten el contexto del color del v
 completo está en tablero/propuestas/bio4_textos.md. Ninguna estaba en tablero/icfes.csv; las
 cuatro se reservaron en tablero/propuestas/bio_icfes_reservas.csv. Ninguna nombra a un político.
 
-Membrete: siempre «Pregunta oficial ICFES · Saber 11» (el motor lo impone).
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11» (el motor lo impone).
 
 Claves verificadas (resueltas a mano, no copiadas de un solucionario):
 

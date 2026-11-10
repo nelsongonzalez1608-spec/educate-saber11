@@ -14,7 +14,7 @@ tablero/propuestas/qui_icfes_reservas.csv. Ninguna nombra a un político. Las ta
 redibujaron con los mismos datos; las cuatro figuras de vasos del 104, los objetos y el esquema
 del carro del 54 se redibujaron con lo mismo que muestra el escaneo.
 
-Membrete: siempre «Pregunta oficial ICFES · Saber 11» (el motor lo impone).
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11» (el motor lo impone).
 
 Claves verificadas (resueltas a mano, no copiadas de un solucionario):
 

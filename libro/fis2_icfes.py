@@ -9,7 +9,7 @@ Cuatro preguntas de Ciencias Naturales con contenido de termodinámica, de dos f
   · ASED pre código 11 (Drive), capítulo 9 «Preguntas de Física», sección Mecánica clásica,
     ítem 10 (el ASED reinicia la numeración en cada sección; la pregunta está en Mecánica
     clásica aunque su contenido es el aire caliente). Solo se leyó el texto del PDF.
-Membrete siempre genérico (regla 7): «Pregunta oficial ICFES · Saber 11».
+Membrete (regla 7, Nelson 10 nov): siempre «Pregunta Saber 11», sin año ni «oficial».
 
 Claves verificadas (resueltas a mano, no copiadas del solucionario):
 
