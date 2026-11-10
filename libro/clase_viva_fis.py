@@ -465,6 +465,10 @@ def escenas_simulacro(A, textos):
     # el rótulo de cada botón es el título de la pregunta en TEXTOS_FIS.md: corto y sin repetirse
     todas = [(m, k, rotulo(textos[(m, k)]["titulo"])) for m in range(1, 7) for k in range(1, 5)]
     sc8 = CV.escenas_clase8(A, todas)
+    sc8[1]["guia"]["apoyo"].append(
+        f"Cada pregunta escogida se repara en las hojas de simulacro del cuaderno (páginas {P.SIM}): un "
+        "esquema por pregunta, la que el estudiante escoge o la que le asignas. Las hojas traen la "
+        "competencia, la estrategia de la misión, las magnitudes con su unidad y «tacho con razón».")
     sc8[-1]["guia"]["apoyo"] = [a.replace("la franja de vocabulario completa",
                                           "la franja «Palabras que me frenaron» completa")
                                 for a in sc8[-1]["guia"]["apoyo"]]

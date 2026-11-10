@@ -10,7 +10,7 @@ aporte» acotado en cada uno y un banco de dinámicas isomorfas a las estrategia
 plan_piezas.py sin cambiarlo; el dibujo de las hojas sale de plan_bio.py, adaptado aquí.
 
 Lo propio del área: donde Biología tiene el dato y su comparación, Física tiene LA FLECHA CON SU
-NOMBRE de la portada del área (página 225): nada cambia porque sí; cada fuerza se dibuja como una
+NOMBRE de la portada del área (página 264 del cuaderno de 398): nada cambia porque sí; cada fuerza se dibuja como una
 flecha con su nombre y cada julio tiene que aparecer en la cuenta. Doce sellos «Alto · aquí entra
 el profe» (todos del taller), tres claves del libro de reserva alta (M2 P10, M4 P3 y M4 P9) y
 siete de reserva media que el profe tiene que saber defender o discutir.
@@ -39,6 +39,7 @@ preguntas de entrenamiento se llaman «preguntas tipo Saber 11».
 import ast, csv, re
 from plan_piezas import *
 import plan_piezas as PZ
+import paginas as PG          # la numeración final del cuaderno (398 páginas, 10 nov): única fuente
 
 FIS = "#5C7A1E"; FIS_BG = "#F2F5EA"; FIS_LN = "#CBD8B0"
 TOTAL = 24
@@ -125,18 +126,26 @@ FASES = [
      "Cuaderno: «Palabras que me frenaron», «lo que me llevo», carita de salida y portada del área."),
 ]
 
-CLASES = [
-    (1, "Momento 1 · Mecánica clásica", "páginas 226 a 232 del cuaderno"),
-    (2, "Momento 2 · Termodinámica", "páginas 233 a 239 del cuaderno"),
-    (3, "Momento 3 · Electromagnetismo", "páginas 240 a 246 del cuaderno"),
-    (4, "Momento 4 · Eventos ondulatorios", "páginas 247 a 253 del cuaderno"),
-    (5, "Momento 5 · Mecánica clásica · la energía", "páginas 254 a 260 del cuaderno"),
-    (6, "Momento 6 · Termodinámica · cierre del área", "páginas 261 a 267 del cuaderno"),
-    (None, "Simulacro del área", "las 24 preguntas tipo Saber 11, en condiciones de prueba"),
-    (None, "Socialización del simulacro", "devolución, reparación y cierre del área"),
-]
+# Páginas del cuaderno. Los módulos fisN.py siguen en la numeración vieja (226 … 267); el cuaderno
+# impreso va en la de 398 páginas (Física 264–312: portada, seis misiones y, al final, las tres hojas
+# de simulacro). paginas.nueva() traduce: si la numeración cambia, basta volver a construir.
+BASE_VIEJA = {1: 226, 2: 233, 3: 240, 4: 247, 5: 254, 6: 261}
+BASE = {m: PG.nueva(b) for m, b in BASE_VIEJA.items()}
+PORTADA = PG.nueva(225)
+AREA_PAGS = PG.rango_area("fis")                      # (264, 312)
+SIMULACRO_PAGS = PG.paginas_simulacro("fis")          # [307 … 312]
+SIM = f"{SIMULACRO_PAGS[0]} a {SIMULACRO_PAGS[-1]}"
 
-BASE = {1: 226, 2: 233, 3: 240, 4: 247, 5: 254, 6: 261}
+CLASES = [
+    (1, "Momento 1 · Mecánica clásica", f"páginas {BASE[1]} a {BASE[1] + 6} del cuaderno"),
+    (2, "Momento 2 · Termodinámica", f"páginas {BASE[2]} a {BASE[2] + 6} del cuaderno"),
+    (3, "Momento 3 · Electromagnetismo", f"páginas {BASE[3]} a {BASE[3] + 6} del cuaderno"),
+    (4, "Momento 4 · Eventos ondulatorios", f"páginas {BASE[4]} a {BASE[4] + 6} del cuaderno"),
+    (5, "Momento 5 · Mecánica clásica · la energía", f"páginas {BASE[5]} a {BASE[5] + 6} del cuaderno"),
+    (6, "Momento 6 · Termodinámica · cierre del área", f"páginas {BASE[6]} a {BASE[6] + 6} del cuaderno"),
+    (None, "Simulacro del área", "las 24 preguntas tipo Saber 11, en condiciones de prueba"),
+    (None, "Socialización del simulacro", f"hojas de simulacro, páginas {SIM}: reparación y cierre"),
+]
 LIBRO = {1: (205, 208), 2: (216, 218), 3: (226, 228), 4: (236, 239), 5: (247, 250), 6: (259, 262)}
 
 
@@ -158,7 +167,7 @@ COMP_NOM = {"UC": "Uso comprensivo del conocimiento científico", "EF": "Explica
 _COD = {"uso comprensivo": "UC", "explicación de fenómenos": "EF", "indagación": "IN"}
 
 MISIONES = {
- 1: dict(comp="Mecánica clásica", pags="226 a 232",
+ 1: dict(comp="Mecánica clásica", pags=f"{BASE[1]} a {BASE[1] + 6}",
    tema="Fuerzas, movimiento y energía",
    competencia="UC e IN · fuerzas, gráficas y energía",
    estr=["Las fuerzas, una por una", "La gráfica cuenta el movimiento",
@@ -172,7 +181,7 @@ MISIONES = {
    cierre="La pregunta 5 dice «equilibrio» donde la física dice «conservación del momento angular». "
           "Vale la pena separar las dos palabras: el bailarín no está quieto, está girando con el giro "
           "total constante."),
- 2: dict(comp="Termodinámica", pags="233 a 239",
+ 2: dict(comp="Termodinámica", pags=f"{BASE[2]} a {BASE[2] + 6}",
    tema="El calor, la temperatura y los cambios de fase",
    competencia="EF y UC · calor, cuentas y partículas",
    estr=["El calor va del caliente al frío", "La cuenta del calor",
@@ -184,7 +193,7 @@ MISIONES = {
        "revés cómo funciona la olla a presión. Las dos están en la hoja de esta clase, con qué hacer.",
    cierre="La pregunta 9 mezcla kilogramos con cal/(g·°C). Cierra con eso: un número sin su unidad no "
           "se puede multiplicar con otro."),
- 3: dict(comp="Electromagnetismo", pags="240 a 246",
+ 3: dict(comp="Electromagnetismo", pags=f"{BASE[3]} a {BASE[3] + 6}",
    tema="Lo que mueve a las cargas",
    competencia="EF, UC e IN · cargas, campos y datos",
    estr=["Busca el dato que decide", "Dibuja el campo primero",
@@ -198,7 +207,7 @@ MISIONES = {
        "mirar las opciones.",
    cierre="La pregunta 7 trae la carga y la fuerza sin unidades. Cierra pidiéndolas: 2 × 10⁻⁶ C por "
           "400 N/C da 8 × 10⁻⁴ N."),
- 4: dict(comp="Eventos ondulatorios", pags="247 a 253",
+ 4: dict(comp="Eventos ondulatorios", pags=f"{BASE[4]} a {BASE[4] + 6}",
    tema="La fuente marca el ritmo",
    competencia="EF, UC e IN · ondas, luz y sonido",
    estr=["La fuente pone la frecuencia", "Dibújalo antes de elegir",
@@ -211,7 +220,7 @@ MISIONES = {
        "le pide al profe: prepara los cuatro sellos.",
    cierre="El repaso del libro (página 236) dice que en el caucho la onda llega tarde «por su "
           "absorción». Cierra corrigiéndolo: llega tarde porque el caucho es blando, poco rígido."),
- 5: dict(comp="Mecánica clásica", pags="254 a 260",
+ 5: dict(comp="Mecánica clásica", pags=f"{BASE[5]} a {BASE[5] + 6}",
    tema="La energía que sube, corre y se escapa",
    competencia="UC, EF e IN · energía, fuerzas y control",
    estr=["Cada magnitud con su fórmula y su unidad", "¿Quién empuja y hacia dónde?",
@@ -224,7 +233,7 @@ MISIONES = {
        "80 kg». La 3 pide un concepto que el estudiante no trae, la relatividad general: es un sello.",
    cierre="La pregunta 6 es la más contraria a la intuición: sostener un paquete quieto cansa, pero no "
           "hace trabajo sobre él. Ciérrala con la fórmula: sin desplazamiento, W = 0."),
- 6: dict(comp="Termodinámica", pags="261 a 267",
+ 6: dict(comp="Termodinámica", pags=f"{BASE[6]} a {BASE[6] + 6}",
    tema="La energía que se transforma",
    competencia="UC, EF e IN · cierre del área",
    estr=["Multiplica, divide y lleva las unidades", "La energía no desaparece: cambia de forma",
@@ -1097,12 +1106,13 @@ def h1():
         "Casi ninguna pregunta de Física se resuelve recordando una fórmula. Se resuelve preguntando "
         "qué cambió y qué lo causó: cada fuerza se dibuja como una flecha con su nombre y cada julio "
         "tiene que aparecer en la cuenta. Es el instrumento que el estudiante encuentra en la portada "
-        "del área, en la página 225. Un estudiante que acierta con el instrumento vacío no aprendió la "
+        f"del área, en la página {PORTADA}. Un estudiante que acierta con el instrumento vacío no aprendió la "
         "estrategia: adivinó, y en la prueba real no va a tener a quién preguntarle.",
         FIS, FIS_BG, FIS_LN, "El instrumento de pensamiento del área: la flecha con su nombre", 25) + 30
     y = seccion(b, y, "El área en números")
     na = sum(len(v) for v in AVISOS.values())
-    cif = [("43", "páginas del cuaderno\\ncon la portada", FIS), ("60", "preguntas del libro\\ncon su instrumento", FIS),
+    n_pags = AREA_PAGS[1] - AREA_PAGS[0] + 1
+    cif = [(str(n_pags), "páginas del cuaderno\\ncon portada y simulacro", FIS), ("60", "preguntas del libro\\ncon su instrumento", FIS),
            ("24", "preguntas tipo\\nSaber 11", "#1F4E8C"), (str(len(SELLOS)), "sellos «aquí entra\\nel profe»", ORO),
            (str(na), "avisos del libro\\nantes de entrar", ROJO)]
     an2 = (CW - 4 * 18) / 5
@@ -1163,8 +1173,8 @@ def h1():
 
 def h2():
     b = svg_open()
-    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo", derecha="43",
-                 dsub="páginas del cuaderno")
+    y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo",
+                 derecha=str(AREA_PAGS[1] - AREA_PAGS[0] + 1), dsub=f"páginas · {AREA_PAGS[0]} a {AREA_PAGS[1]}")
     y = seccion(b, y, "Qué se ve en cada sábado",
         "Seis clases de contenido, una por momento, y dos para el simulacro del área. El número "
         "de clases es fijo: no se recorta aunque un momento quede largo.")
@@ -1455,7 +1465,8 @@ def h17():
              "Los últimos 30 minutos: cada uno cuenta sus aciertos por competencia (UC, EF, IN)."]),
            ("Clase 8 · la devolución", VERDE, VERDE_BG, VERDE_LN,
             "Reparación con el instrumento de la primera vez",
-            ["Se eligen las cinco preguntas que más falló el grupo.",
+            [f"Se eligen las cinco preguntas que más falló el grupo y se reparan en las hojas de simulacro "
+             f"del cuaderno (páginas {SIM}): un esquema por pregunta.",
              "Cada estudiante compara lo que escribió al margen en el simulacro con el instrumento "
              "de su hoja de entrenamiento.",
              "La pregunta que gobierna la clase: ¿qué flecha, qué julio o qué unidad viste esta vez "

@@ -11,6 +11,7 @@ area="FÍSICA" (textos_soc no se toca).
     icfes = leer()             # {(misión, k): dict(titulo, texto, enunciado, opciones, clave, notas…)}
     FIGURAS[(3, 1)]            # la gráfica de resistencia contra temperatura (va en el panel del texto)
     FIG_OPCIONES[(3, 2)]       # los cuatro triángulos de cargas (van en la columna de las opciones)
+    FIG_DERECHA[(6, 2)]        # el circuito con P (va a la derecha, encima del enunciado)
 
 Donde el .md dice «[[figura]]», la guía pone FIGURAS[(misión, k)]. Cuando las opciones son dibujos
 (el modelo A, la figura A, la gráfica A…), los cuatro van juntos en FIG_OPCIONES[(misión, k)], encima

@@ -5,6 +5,8 @@ Lo lee `textos_fis.py` con el mismo formato de `TEXTOS_BIO.md` (y de las seccion
 por qué la clave es esa —resuelta a mano el 10 nov 2026, con cuentas y unidades, y cruzada con
 `fisN_icfes.py` y `tablero/icfes.csv`— y lo que el profesor debe hacer notar.
 
+Las páginas son las del cuaderno de 398 (`paginas.py`).
+
 Donde dice `[[figura]]` la guía dibuja la tabla, el esquema o la gráfica de la pregunta
 (`textos_fis.FIGURAS`), redibujados con los mismos datos del cuaderno. Cuando las opciones son
 dibujos, los cuatro van en la columna de las opciones (`textos_fis.FIG_OPCIONES`).
@@ -15,9 +17,9 @@ la primera de la misión 1 y la primera de la misión 2. La guía lo dice en la 
 
 ---
 
-## FÍSICA · MISIÓN 1 · páginas 228 y 232 (entrenamiento ICFES)
+## FÍSICA · MISIÓN 1 · páginas 267 y 271 (entrenamiento ICFES)
 
-### Pregunta 1 (página 228) · Los paquetes del supermercado · clave **C**
+### Pregunta 1 (página 267) · Los paquetes del supermercado · clave **C**
 **Fuente:** compilado ASED pre código 11, capítulo 9, sección Mecánica clásica, ítem 13 (no es del ICFES). **Competencia:** Uso comprensivo del conocimiento científico. **Estrategia del cuaderno:** 1 · Las fuerzas, una por una.
 
 > Una persona sale del supermercado con dos paquetes que pesan 5 kgf, uno en cada mano. Para llegar a su casa debe recorrer 2 cuadras de 100 metros cada una. El trayecto recorrido por la persona es completamente horizontal, lo hace sin detenerse y llega en 2 minutos a su casa.
@@ -38,7 +40,7 @@ D. su valor numérico es de 500 kgf × m por cada paquete.
 - La persona se cansa, pero eso es el trabajo de sus músculos por dentro, no trabajo sobre el paquete. Es la misma idea de la pregunta 6 de la misión 5.
 - El kgf (kilogramo-fuerza) es una unidad antigua: 1 kgf ≈ 9,8 N. Los 2 minutos sobran: el tiempo no entra en el trabajo.
 
-### Pregunta 2 (página 228) · La montaña rusa de la gráfica · clave **D**
+### Pregunta 2 (página 267) · La montaña rusa de la gráfica · clave **D**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 43. **Competencia:** Uso comprensivo del conocimiento científico. **Estrategia del cuaderno:** 2 · La gráfica cuenta el movimiento.
 
 > Un estudiante calculó la energía potencial de un vagón en una montaña rusa. La gráfica representa los datos obtenidos por el estudiante.
@@ -60,7 +62,7 @@ D. El modelo D.
 - Que traduzcan la gráfica a alturas, instante por instante, antes de mirar los dibujos: t₁ abajo, t₂ arriba, t₃ abajo, t₄ a media altura.
 - La energía potencial no dice qué tan rápido va el vagón: solo qué tan alto está.
 
-### Pregunta 3 (página 232) · Tres objetos que caen distinto · clave **C**
+### Pregunta 3 (página 271) · Tres objetos que caen distinto · clave **C**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 13. **Competencia:** Indagación. **Estrategia del cuaderno:** 3 · El experimento justo.
 
 > El profesor de Juan le entrega tres objetos de igual volumen y forma, pero de diferente material, y le pide que los deje caer desde la altura de sus hombros y observe el tiempo de caída al suelo, de cada uno de ellos. Juan observa que los tres tardan tiempos diferentes para llegar al suelo, a pesar de que los tres están sometidos a la misma aceleración gravitacional.
@@ -80,7 +82,7 @@ D. ¿La forma de los objetos está relacionada con diferencias en la fuerza de f
 - Es de indagación: no pide física nueva, pide la ficha del experimento justo. ¿Qué cambió Juan? ¿Qué dejó igual? ¿Qué observó?
 - Una pregunta solo se contesta si lo que ella pregunta es justo lo que se cambió o lo que se midió.
 
-### Pregunta 4 (página 232) · El salto desde el puente · clave **D**
+### Pregunta 4 (página 271) · El salto desde el puente · clave **D**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 17. **Competencia:** Uso comprensivo del conocimiento científico. **Estrategia del cuaderno:** 4 · Lo que se conserva.
 
 > El salto bungee es un deporte que se practica generalmente en puentes. En uno de estos saltos, el deportista se lanzará desde un puente de 65 metros de altura, utilizando una banda elástica que tiene una longitud sin estirar de 30 metros y que puede estirarse 30 metros más.
@@ -103,9 +105,9 @@ D. De energía potencial gravitacional a cinética.
 
 ---
 
-## FÍSICA · MISIÓN 2 · páginas 235 y 239 (entrenamiento ICFES)
+## FÍSICA · MISIÓN 2 · páginas 274 y 278 (entrenamiento ICFES)
 
-### Pregunta 1 (página 235) · El globo que sube · clave **C**
+### Pregunta 1 (página 274) · El globo que sube · clave **C**
 **Fuente:** compilado ASED pre código 11, capítulo 9, sección Mecánica clásica, ítem 10 (no es del ICFES). **Competencia:** Explicación de fenómenos. **Estrategia del cuaderno:** 1 · El calor va del caliente al frío.
 
 > Para elevar un globo se calienta con fuego el aire que está dentro de él.
@@ -125,7 +127,7 @@ D. el plástico del globo se tensa disminuyendo su peso específico y el globo s
 - La cadena tiene tres eslabones: el calor entra al aire, el aire caliente queda menos denso, el empuje gana al peso. Que la escriban antes de mirar las opciones.
 - Es el mismo principio de la pregunta 8 del taller: el aire caliente sube porque es menos denso.
 
-### Pregunta 2 (página 235) · Dos litros en la misma estufa · clave **C**
+### Pregunta 2 (página 274) · Dos litros en la misma estufa · clave **C**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 22. **Competencia:** Uso comprensivo del conocimiento científico. **Estrategia del cuaderno:** 2 · La cuenta del calor.
 
 > Una estudiante calentó en una estufa, durante 1 minuto, un litro de agua que inicialmente estaba a 15 °C. La temperatura final del agua fue 17 °C.
@@ -145,7 +147,7 @@ D. 15 °C.
 - Que escriban qué es igual en los dos casos (la estufa y el minuto: el mismo calor) y qué cambió (la masa).
 - Supone que la estufa entrega lo mismo las dos veces y que se pierde lo mismo: es lo que la pregunta da por hecho.
 
-### Pregunta 3 (página 239) · El agua que hierve, molécula por molécula · clave **B**
+### Pregunta 3 (página 278) · El agua que hierve, molécula por molécula · clave **B**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 1. **Competencia:** Uso comprensivo del conocimiento científico. **Estrategia del cuaderno:** 3 · Lo que hacen las partículas.
 
 > A continuación, se muestra un modelo de la distribución de las moléculas de agua en estado líquido, en un recipiente cerrado.
@@ -169,7 +171,7 @@ D. El modelo D.
 - La trampa es la D: «el gas está desordenado» es cierto, pero desordenado no es roto.
 - Hervir es un cambio físico: cambian la distancia y la rapidez de las moléculas, no las moléculas.
 
-### Pregunta 4 (página 239) · Hervir agua a 25 km de altura · clave **A**
+### Pregunta 4 (página 278) · Hervir agua a 25 km de altura · clave **A**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 27. **Competencia:** Explicación de fenómenos. **Estrategia del cuaderno:** 4 · El ambiente decide el cambio de fase.
 
 > El siguiente modelo representa la relación entre la altura y la cantidad de partículas de aire.
@@ -195,9 +197,9 @@ D. Se congela, porque al no haber aire el agua pasará a estado sólido.
 
 ---
 
-## FÍSICA · MISIÓN 3 · páginas 242 y 246 (entrenamiento ICFES)
+## FÍSICA · MISIÓN 3 · páginas 281 y 285 (entrenamiento ICFES)
 
-### Pregunta 1 (página 242) · La resistencia que manda a 90 °C · clave **B**
+### Pregunta 1 (página 281) · La resistencia que manda a 90 °C · clave **B**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 31. **Competencia:** Indagación. **Estrategia del cuaderno:** 1 · Busca el dato que decide.
 
 > La siguiente gráfica muestra la relación entre la resistencia eléctrica y la temperatura para cuatro resistencias eléctricas (R₁, R₂, R₃ y R₄).
@@ -221,7 +223,7 @@ D. R₄, porque su resistencia eléctrica no depende de la temperatura.
 - El dato que decide está fuera de la gráfica: hay que mirar hacia dónde va cada curva después de 80 °C.
 - La A es la trampa: R₁ es la mayor entre 40 y 80 °C, pero a 90 °C ya no.
 
-### Pregunta 2 (página 242) · Tres cargas en triángulo · clave **A**
+### Pregunta 2 (página 281) · Tres cargas en triángulo · clave **A**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 42. **Competencia:** Uso comprensivo del conocimiento científico. **Estrategia del cuaderno:** 2 · Dibuja el campo primero.
 
 > De la ley de Coulomb se sabe que la fuerza eléctrica debido a la interacción entre cargas de signos iguales es repulsiva y entre cargas de signos opuestos es atractiva. La siguiente figura muestra un sistema conformado por tres cargas eléctricas.
@@ -243,7 +245,7 @@ D. La figura D.
 - Una flecha por cada carga vecina, sobre la línea que une las dos cargas: primero los signos, después si se atraen o se repelen.
 - Las dos flechas se dibujan sobre la carga 1, que es la que recibe las fuerzas.
 
-### Pregunta 3 (página 246) · Hacia dónde se mueve la carga −q · clave **A**
+### Pregunta 3 (página 285) · Hacia dónde se mueve la carga −q · clave **A**
 **Fuente:** cuadernillo Saber 11 2016-1, 2.ª sesión, Ciencias Naturales, ítem 72. **Competencia:** Explicación de fenómenos. **Estrategia del cuaderno:** 3 · Signo, sentido y unidad.
 
 > En la figura se muestra un campo eléctrico E, generado por dos esferas cargadas; en el interior del campo eléctrico se coloca una carga negativa −q, tal como se muestra en la figura.
@@ -265,7 +267,7 @@ D. La figura D.
 - La negativa va hacia la positiva: tiene sentido, se atraen. El signo cambia el sentido, no la línea.
 - La pregunta es por la dirección al soltarla. Después la carga no sigue exactamente la línea, pero eso no se pregunta.
 
-### Pregunta 4 (página 246) · Dos esferas que se tocan · clave **A**
+### Pregunta 4 (página 285) · Dos esferas que se tocan · clave **A**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 19. **Competencia:** Explicación de fenómenos. **Estrategia del cuaderno:** 4 · Del modelo al mecanismo.
 
 > En un metal que pierde electrones, la cantidad de protones es mayor que la de electrones y, por tanto, la carga total es positiva y se representa con signos +. Se tienen dos esferas metálicas idénticas: una esfera (1) inicialmente con carga + Q y otra esfera (2) inicialmente neutra. Al ponerlas en contacto y luego separarlas, se observa que las dos esferas quedan con cargas iguales + Q/2, como muestra la figura.
@@ -289,9 +291,9 @@ D. De la esfera 1 pasaron protones hacia la esfera 2.
 
 ---
 
-## FÍSICA · MISIÓN 4 · páginas 249 y 253 (entrenamiento ICFES)
+## FÍSICA · MISIÓN 4 · páginas 288 y 292 (entrenamiento ICFES)
 
-### Pregunta 1 (página 249) · El detector fuera del agua · clave **D**
+### Pregunta 1 (página 288) · El detector fuera del agua · clave **D**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 9. **Competencia:** Uso comprensivo del conocimiento científico. **Estrategia del cuaderno:** 1 · La fuente pone la frecuencia.
 
 > Un investigador sumerge un detector de sonido en agua para grabar los sonidos emitidos por los animales. El detector muestra la longitud de onda, la frecuencia, la velocidad de propagación y la distancia a la que se produce el sonido emitido por los animales. El investigador saca el detector del agua y registra un sonido.
@@ -311,7 +313,7 @@ D. La velocidad de la onda.
 - La A es la trampa razonable: si la frecuencia no cambia y la rapidez sí, la longitud de onda cambia. Pero para reconocer el medio sirve la magnitud que depende solo del medio.
 - Para cada magnitud, preguntar: ¿quién la pone, el animal o el agua?
 
-### Pregunta 2 (página 249) · El farol visto desde el agua · clave **C**
+### Pregunta 2 (página 288) · El farol visto desde el agua · clave **C**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 32. **Competencia:** Explicación de fenómenos. **Estrategia del cuaderno:** 2 · Dibújalo antes de elegir.
 
 > Los rayos de luz emitidos por objetos luminosos viajan en línea recta dentro de un mismo medio, como se muestra en la Figura 1. Si un rayo de luz pasa de aire a agua cambia su dirección, como se muestra en la Figura 2.
@@ -333,7 +335,7 @@ D. Invertido.
 - Que prolonguen con una regla el último tramo del rayo de la figura 2 antes de mirar las opciones.
 - Es lo mismo que pasa con una moneda en el fondo de un vaso, pero al revés: allá el ojo está en el aire y la moneda parece más cerca de la superficie.
 
-### Pregunta 3 (página 253) · Dos parlantes y una sola nota · clave **C**
+### Pregunta 3 (página 292) · Dos parlantes y una sola nota · clave **C**
 **Fuente:** cuadernillo Saber 11 2016-1, 2.ª sesión, Ciencias Naturales, ítem 70. **Competencia:** Explicación de fenómenos. **Estrategia del cuaderno:** 3 · Concluye solo lo observado.
 
 > Un estudiante camina por el frente de dos parlantes ubicados afuera de la emisora del colegio. Dentro de la emisora la profesora de física toca la nota «do», en un clarinete, para ayudar al profesor de música a afinar algunos instrumentos musicales. El estudiante nota que hay lugares en donde el sonido del clarinete se escucha más fuerte mientras que en otros no, y los marca como se muestra en la siguiente figura.
@@ -355,7 +357,7 @@ D. Porque las ondas de sonido interfieren destructivamente en los puntos blancos
 - La pista está en el patrón: fuerte, débil, fuerte, débil, a distancias regulares. Eso lo hacen dos ondas que se suman.
 - Con un solo parlante no habría puntos blancos: hacen falta las dos fuentes.
 
-### Pregunta 4 (página 253) · La tabla del sonido y sus gráficas · clave **B**
+### Pregunta 4 (página 292) · La tabla del sonido y sus gráficas · clave **B**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 48. **Competencia:** Indagación. **Estrategia del cuaderno:** 4 · Lee la tabla y su escala.
 
 > Una estudiante realizó un experimento para medir la velocidad de propagación del sonido en el aire a diferentes temperaturas. Los resultados que obtuvo se muestran en la siguiente tabla.
@@ -379,9 +381,9 @@ D. La gráfica D.
 
 ---
 
-## FÍSICA · MISIÓN 5 · páginas 256 y 260 (entrenamiento ICFES)
+## FÍSICA · MISIÓN 5 · páginas 295 y 299 (entrenamiento ICFES)
 
-### Pregunta 1 (página 256) · Dos pelotas y la tabla de momentos · clave **A**
+### Pregunta 1 (página 295) · Dos pelotas y la tabla de momentos · clave **A**
 **Fuente:** cuadernillo Saber 11 2016-1, 2.ª sesión, Ciencias Naturales, ítem 79. **Competencia:** Uso comprensivo del conocimiento científico. **Estrategia del cuaderno:** 1 · Cada magnitud con su fórmula y su unidad.
 
 > Una estudiante suelta varias veces una pelota de 5 kg de masa (pelota 1), desde la parte más alta de una rampa de 1,5 m de altura, para que choque elásticamente con una pelota de masa diferente (pelota 2), que inicialmente se encuentra en reposo, como se muestra en la figura. La estudiante registra en la tabla las variaciones del momento antes y después del choque de cada pelota.
@@ -404,7 +406,7 @@ D. I.
 - En el lanzamiento IV la pelota 1 rebota hacia atrás (momento negativo): por eso es el cambio más grande.
 - El cuadernillo dice «la pelota 1 se ejerció»: quiere decir «la pelota 1 ejerció». Y en rigor el cambio del momento es la fuerza por el tiempo del choque: la pregunta supone que los cuatro choques duran lo mismo.
 
-### Pregunta 2 (página 256) · La piñata en equilibrio · clave **D**
+### Pregunta 2 (página 295) · La piñata en equilibrio · clave **D**
 **Fuente:** cuadernillo Saber 11 2016-1, 2.ª sesión, Ciencias Naturales, ítem 52. **Competencia:** Explicación de fenómenos. **Estrategia del cuaderno:** 2 · ¿Quién empuja y hacia dónde?
 
 > En una fiesta, un niño sostiene una piñata por medio de una cuerda que pasa por una polea, como muestra la figura.
@@ -426,7 +428,7 @@ D. la fuerza que hace el niño es igual al peso de la piñata.
 - Dos flechas sobre la piñata antes de mirar las opciones: el peso hacia abajo y la tensión hacia arriba.
 - Supone una polea sin rozamiento y una cuerda liviana, como se hace siempre en el colegio.
 
-### Pregunta 3 (página 260) · Repetir la medida de los resortes · clave **A**
+### Pregunta 3 (página 299) · Repetir la medida de los resortes · clave **A**
 **Fuente:** cuadernillo Saber 11 2016-1, 1.ª sesión, Ciencias Naturales, ítem 106. **Competencia:** Indagación. **Estrategia del cuaderno:** 3 · Una variable a la vez.
 
 > Un estudiante tenía algunos resortes y quería saber cuál de ellos era el más elástico. Para esto colgó una masa de 500 g a cada uno de los resortes y midió cuánto se estiraban. Un compañero de clase desea corroborar las medidas realizadas.
@@ -446,7 +448,7 @@ D. que todos los resortes tengan el mismo tamaño.
 - No tiene figura ni cuentas: es la ficha de una variable a la vez. ¿Qué se compara? ¿Qué se deja quieto? ¿Qué se mide?
 - La B es la trampa del que piensa en el resultado: si todos terminan igual, ya no hay nada que medir.
 
-### Pregunta 4 (página 260) · La pelota que sube por el tubo · clave **D**
+### Pregunta 4 (página 299) · La pelota que sube por el tubo · clave **D**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 26. **Competencia:** Explicación de fenómenos. **Estrategia del cuaderno:** 4 · El principio que explica lo que se ve.
 
 > Un estudiante sopla una pelota por un tubo vertical y esta sube aceleradamente por el tubo, como se muestra en la siguiente figura:
@@ -470,9 +472,9 @@ D. Porque la fuerza que ejerce el aire que sopla el estudiante es mayor que el p
 
 ---
 
-## FÍSICA · MISIÓN 6 · páginas 263 y 267 (entrenamiento ICFES)
+## FÍSICA · MISIÓN 6 · páginas 302 y 306 (entrenamiento ICFES)
 
-### Pregunta 1 (página 263) · Cinco resistencias iguales · clave **B**
+### Pregunta 1 (página 302) · Cinco resistencias iguales · clave **B**
 **Fuente:** cuadernillo Saber 11 2016-1, 1.ª sesión, Ciencias Naturales, ítem 97. **Competencia:** Uso comprensivo del conocimiento científico. **Estrategia del cuaderno:** 1 · Multiplica, divide y lleva las unidades.
 
 > Un circuito se compone de una fuente de voltaje (12 V) y de cinco (5) resistencias (R) de igual valor, conectadas como se muestra en la siguiente figura.
@@ -494,7 +496,7 @@ D. la corriente I3 es igual a la corriente I1, porque tanto I3 como I1 fluyen po
 - Que sigan la corriente con el dedo desde la fuente: dónde se divide y dónde se vuelve a juntar.
 - Lo que entra a un nudo es lo que sale: ninguna corriente se gasta en el camino. Los 12 V no hacen falta para responder.
 
-### Pregunta 2 (página 263) · El bombillo que se prende sin la fuente · clave **C**
+### Pregunta 2 (página 302) · El bombillo que se prende sin la fuente · clave **C**
 **Fuente:** cuadernillo Saber 11 2016-1, 2.ª sesión, Ciencias Naturales, ítem 73. **Competencia:** Explicación de fenómenos. **Estrategia del cuaderno:** 2 · La energía no desaparece: cambia de forma.
 
 > A continuación se presentan los nombres y las funciones de algunos dispositivos que pueden utilizarse en el circuito de la derecha.
@@ -516,7 +518,7 @@ D. Un interruptor.
 - La energía no aparece de la nada: si la fuente no está en el circuito, ¿de dónde sale la luz?
 - En la posición 1 el bombillo también se prende un instante, mientras el condensador se carga. La pregunta solo mira el paso a la posición 2.
 
-### Pregunta 3 (página 267) · El rebote en la cancha y en el salón · clave **D**
+### Pregunta 3 (página 306) · El rebote en la cancha y en el salón · clave **D**
 **Fuente:** cuadernillo Saber 11 2016-1, 2.ª sesión, Ciencias Naturales, ítem 77. **Competencia:** Indagación. **Estrategia del cuaderno:** 3 · ¿Alcanzan los datos para esa conclusión?
 
 > Un niño quiere ver qué pelota rebota más, una de tenis o una de baloncesto. Ambas se lanzan desde una altura de 2,0 m. La pelota de tenis lanzada sobre una cancha de césped rebotó 1,0 m; y la pelota de baloncesto, en una cancha de asfalto rebotó 1,5 m (ver figura).
@@ -540,7 +542,7 @@ D. Porque no se tuvieron las mismas condiciones experimentales.
 - Después de revelar, vale la pena decirlo: la prueba original tampoco era justa, porque cambió la pelota y el piso a la vez.
 - Un resultado vale para las condiciones en que se obtuvo.
 
-### Pregunta 4 (página 267) · La curva de calentamiento · clave **B**
+### Pregunta 4 (página 306) · La curva de calentamiento · clave **B**
 **Fuente:** cuadernillo de preguntas de Ciencias Naturales Saber 11 (Icfes), pregunta 35. **Competencia:** Uso comprensivo del conocimiento científico. **Estrategia del cuaderno:** 4 · Cuando algo deja de cambiar: el equilibrio.
 
 > En un experimento, un sólido de identidad desconocida se calienta y se mide su temperatura hasta que se evapora, obteniendo la siguiente gráfica. Para identificar el sólido se cuenta con los datos de la tabla.
