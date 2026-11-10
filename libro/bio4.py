@@ -36,7 +36,7 @@ Cómo se resolvieron:
       otras tres contradicen el texto; A es la única defendible, pero mal redactada: hallazgo.
  10 · La IA identifica neoantígenos y con ellos se activan linfocitos T → A.
 
-Reparto: A 4 · B 1 · C 3 · D 1 (más de un tercio en A, y A en 9 y 10 seguidas). Registrado.
+Reparto: A 5 · B 1 · C 3 · D 1 (la mitad en A: 4, 6, 7, 9 y 10). Registrado.
 
 Estrategias:
     1 · ¿Se puede poner a prueba?                     (2, 5, 8     · ICFES 99)   azul

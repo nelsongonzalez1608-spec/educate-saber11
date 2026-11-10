@@ -367,7 +367,7 @@ AVISOS = {
       "Úsalo para ver si el instrumento se llena igual las dos veces."),
      ("preg. 5", "baja",
       "El texto dice que la extinción se declaró en 2015; según información pública, el registro en "
-      "la Lista Roja fue en 2016 y la oficialización en 2019.",
+      "la Lista Roja fue en 2016 y la declaración del gobierno australiano en 2019.",
       "No afecta la clave B. No des la fecha como dato."),
      ("preg. 8", "baja",
       "Pregunta por un «proceso» y las opciones describen rasgos.",
