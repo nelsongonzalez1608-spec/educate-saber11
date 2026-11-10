@@ -161,73 +161,121 @@ def portada_area(pag, n_area, nombre, c, titulo, comps, instr_titulo, instr_text
                  cajas=(EDU_ROJO, EDU_VERDE, EDU_ORO), borde_clase=None,
                  x_clase_sub=700, x_puntaje=520, paso_puntaje=330, claro=None,
                  nota_momentos="cada uno: 10 preguntas del libro + entrenamiento ICFES + simulacro"):
-    # claro: color de los textos secundarios sobre la banda (None → blanco translúcido)
-    cl, op_cl = (claro, 1) if claro else ("white", 0.78)
+    """Portada de área · estilo B · Bitácora (10 nov 2026). Misma información y misma geometría
+    de bloques que la portada anterior; cambia el entorno: cuadrícula de puntos, título en
+    Shantell Sans con resaltador del color del área, sello redondo «ÁREA n DE 7», recuadros a mano
+    que no se pasan de las esquinas y el pie de la bitácora. `titulo` y `sub_titulo` se escriben
+    en mayúscula inicial («Sociales» / «y Ciudadanas»). Los dibujos de la caja del instrumento son
+    los mismos (y gastan el mismo azar global: el trazo a mano de cada portada no cambia).
+    borde_clase y claro ya no se usan (eran de la banda de color)."""
+    import bitacora as BT
+    tinte = _tinte(c, 0.42)
     b = svg_open()
-    b.append(rect(0, 0, W, 760, c, r=0))
-    b.append(dots(60, 50, "white", r=3, step=38, cols=50, rows=18, op=0.10))
-    b.append(logo(M, 60, 70, chip=True, pad=14))
-    b.append(T(W - M, 110, [f"ÁREA {n_area} DE {N_AREAS}"], 26, cl, weight="700", anchor="end", ls=4, op=op_cl))
-    b.append(T(M, 400, [titulo], 150, "white", weight="700", ls=6))
+    BT.fondo_puntos(b)
+    b.append(rect(M - 14, 46, logo_w(84) + 28, 112, "white", r=4))
+    b.append(logo(M, 60, 84))
+    t = "CUADERNO DE TRABAJO · SABER 11"
+    wt = BT.twf(t, 22, BT.MONO, "700")
+    b.append(rect(W - M - wt - 12, 80, wt + 12, 40, "white", r=2))
+    b.append(BT.TX(W - M, 108, t, 22, BT.TINTA_B, BT.MONO, "700", anchor="end"))
+    # título
+    tt = titulo[0] + titulo[1:].lower() if titulo.isupper() else titulo
+    s = BT.fit(tt, 150, BT.SHA, "800", 1380)
+    wt = BT.twf(tt, s, BT.SHA, "800")
+    b.append(BT.resaltador(M, 400 - s * 0.74, wt, s * 0.72, tinte, seed=pag, rot=-1.2))
+    b.append(BT.TX(M - 6, 400, tt, s, BT.TINTA_B, BT.SHA, "800"))
     if sub_titulo:
-        b.append(T(M, 480, [sub_titulo], 56, "white", weight="700", ls=8, op=0.85))
+        st = sub_titulo if not sub_titulo.isupper() else sub_titulo.capitalize()
+        b.append(BT.TX(M, 478, st, 60, c, BT.SHA, "800"))
+    b.append(BT.estrellita(M + wt + 50, 240, 26, c, 3.4))
+    b.append(BT.estrellita(M + wt + 96, 300, 14, BT.TINTA_B, 2.6))
+    b.append(BT.sello_redondo(W - M - 190, 360, 150,
+                              ("ÁREA", f"{n_area:02d} DE {N_AREAS:02d}", "seis momentos", "ocho clases"),
+                              c, -10))
     for k, ln in enumerate(comps):
-        b.append(T(M, (540 if sub_titulo else 480) + k * 60, [ln], 28, cl, op=op_cl))
+        yy = (540 if sub_titulo else 480) + k * 50
+        ss = 26
+        while tw(ln, ss) > CW - 20 and ss > 18:
+            ss -= 0.5
+        b.append(rect(M - 8, yy - ss - 4, tw(ln, ss) + 16, ss * 1.5, "white", r=2))
+        b.append(T(M, yy, [ln], ss, GRAY))
     # instrumento
-    b.append(rect(M, 620, CW, 280, "white", r=26, stroke=c, sw=3))
+    b.append(BT.wob_rect(M, 620, CW, 280, BT.TINTA_B, 3, fill="white", seed=pag + 1))
     dibujo(b, M + 36, 650, iw, 220)
     tx = M + 80 + iw
-    b.append(T(tx, 690, [instr_titulo], 34, c, weight="700"))
+    b.append(BT.TX(tx, 690, instr_titulo, BT.fit(instr_titulo, 30, BT.SHA, "800", W - M - 40 - tx),
+                   c, BT.SHA, "800"))
     parrafo_j(b, tx, 712, instr_texto, W - M - 40 - tx, 24, color=INK, lh=34)
 
     # seis momentos
     y = 960
-    b.append(T(M, y + 40, ["Tus seis momentos"], 38, c, weight="700"))
-    b.append(T(M + 380, y + 40, [nota_momentos], 23, GRAY, style="italic"))
+    wt = BT.twf("Tus seis momentos", 38, BT.SHA, "800")
+    b.append(BT.resaltador(M, y + 14, wt, 34, BT.FOSFO, seed=pag + 2))
+    b.append(BT.TX(M, y + 40, "Tus seis momentos", 38, BT.TINTA_B, BT.SHA, "800"))
+    b.append(rect(M + wt + 24, y + 16, tw(nota_momentos, 23, style="italic") + 12, 34, "white", r=2))
+    b.append(T(M + wt + 30, y + 40, [nota_momentos], 23, GRAY, style="italic"))
     mw = (CW - 40) / 2
     for i, (nm, comp) in enumerate(momentos):
         x = M + (i % 2) * (mw + 40); yy = y + 90 + (i // 2) * 130
-        b.append(rect(x, yy, mw, 110, "white", r=18, stroke=c, sw=2.4))
-        b.append(num_badge(x + 50, yy + 55, i + 1, c, r=30, size=30))
+        b.append(BT.wob_rect(x, yy, mw, 110, BT.TINTA_B, 2.4, fill="white", seed=pag * 10 + i))
+        b.append(BT.wob_circle(x + 50, yy + 55, 30, c, 2.6, seed=i + 3))
+        b.append(BT.TX(x + 50, yy + 65, f"{i + 1:02d}", 26, c, BT.MONO, "700", anchor="middle"))
         if nm:
             b.append(T(x + 104, yy + 50, [nm], 26, c, weight="700"))
             b.append(T(x + 104, yy + 84, [comp], 20, GRAY))
         else:
-            b.append(line(x + 104, yy + 56, x + mw - 150, yy + 56, LGRAY, 2.4))
+            b.append(line(x + 104, yy + 56, x + mw - 150, yy + 56, LGRAY, 2.4))   # se escribe
             b.append(T(x + 104, yy + 88, [comp or "Momento " + str(i + 1)], 20, GRAY))
         for k in range(3):
-            b.append(checkbox(x + mw - 130 + k * 38, yy + 40, s=11, c=cajas[k]))
-    b.append(T(M, y + 90 + 3 * 130 + 20, ["casillas: libro · ICFES · simulacro"], 19, GRAY, style="italic"))
+            b.append(BT.wob_rect(x + mw - 130 + k * 38, yy + 40, 22, 22, cajas[k], 2.2, fill="white",
+                                 seed=i * 3 + k, amp=0.6))
+    t = "CASILLAS: LIBRO · ICFES · SIMULACRO"
+    b.append(rect(M - 6, y + 90 + 3 * 130 + 2, BT.twf(t, 16, BT.MONO) + 12, 26, "white", r=2))
+    b.append(BT.TX(M, y + 90 + 3 * 130 + 20, t, 16, GRAY, BT.MONO))
 
     # ocho clases
     y = y + 90 + 3 * 130 + 70
-    b.append(rect(M, y, CW, 560, SOFT, r=26))
-    b.append(T(M + 40, y + 56, [f"Mis ocho clases de {nombre}"], 36, c, weight="700"))
-    b.append(T(M + x_clase_sub, y + 56, [clase_sub], 23, GRAY, style="italic"))
+    b.append(BT.wob_rect(M, y, CW, 560, BT.TINTA_B, 3, fill="white", seed=pag + 3))
+    t = f"Mis ocho clases de {nombre}"
+    wt = BT.twf(t, 34, BT.SHA, "800")
+    b.append(BT.resaltador(M + 40, y + 30, wt, 32, tinte, seed=pag + 4))
+    b.append(BT.TX(M + 40, y + 56, t, 34, BT.TINTA_B, BT.SHA, "800"))
+    xs = max(M + x_clase_sub, M + 40 + wt + 30)
+    ss = 23
+    while xs + tw(clase_sub, ss, style="italic") > W - M - 30 and ss > 17:
+        ss -= 0.5
+    b.append(T(xs, y + 56, [clase_sub], ss, GRAY, style="italic"))
     cw_ = (CW - 80 - 3 * 20) / 4
     for i in range(8):
         x = M + 40 + (i % 4) * (cw_ + 20); yy = y + 90 + (i // 4) * 220
-        b.append(rect(x, yy, cw_, 200, "white", r=18, stroke=borde_clase or _tinte(c), sw=2))
-        b.append(num_badge(x + 34, yy + 34, i + 1, c, r=22, size=22))
+        b.append(BT.wob_rect(x, yy, cw_, 200, _tinte(c, 0.55), 2.2, fill="white", seed=pag * 20 + i, amp=1))
+        b.append(BT.wob_circle(x + 34, yy + 34, 22, c, 2.4, seed=i + 30))
+        b.append(BT.TX(x + 34, yy + 41, str(i + 1), 20, c, BT.MONO, "700", anchor="middle"))
         b.append(T(x + 70, yy + 42, ["fecha ________"], 20, GRAY))
         for k, lab in enumerate(["llegué", "salí"]):
             fy = yy + 90 + k * 46
             b.append(T(x + 24, fy + 8, [lab], 19, GRAY))
             for m_, mood in enumerate(["worried", "calm", "happy"]):
-                b.append(face(x + 110 + m_ * 54, fy, 18, mood, GRAY, "white", sw=2))
-        b.append(line(x + 24, yy + 184, x + cw_ - 24, yy + 184, LGRAY, 2))
+                b.append(face(x + 110 + m_ * 54, fy, 18, mood, BT.TINTA_B, "white", sw=2))
+        b.append(line(x + 24, yy + 184, x + cw_ - 24, yy + 184, LGRAY, 2))           # se escribe
         b.append(T(x + 24, yy + 176, [clase_lab], 16, GRAY, style="italic"))
 
     # puntaje del área
     y += 600
-    b.append(rect(M, y, CW, 150, "white", r=26, stroke=EDU_ORO, sw=3))
-    b.append(T(M + 40, y + 62, [f"Mi puntaje en {nombre}"], 30, c if c != "#1F4E8C" else EDU_ORO, weight="700"))
+    b.append(BT.wob_rect(M, y, CW, 150, EDU_ORO, 3, fill="white", seed=pag + 5))
+    t = f"Mi puntaje en {nombre}"
+    b.append(BT.TX(M + 40, y + 62, t, BT.fit(t, 30, BT.SHA, "800", x_puntaje - 60), c if c != "#1F4E8C" else EDU_ORO,
+                   BT.SHA, "800"))
     b.append(T(M + 40, y + 106, ["(de 0 a 100)"], 20, GRAY, style="italic"))
     for k, lab in enumerate(["simulacro 1", "simulacro 2", "simulacro 3", "META"]):
         x = M + x_puntaje + k * paso_puntaje
-        b.append(T(x, y + 62, [lab], 22, EDU_AZUL if lab == "META" else GRAY, weight="700" if lab == "META" else "400"))
-        b.append(line(x, y + 112, x + 260, y + 112, EDU_AZUL if lab == "META" else LGRAY, 2.6))
-    footer(b, pag, c, texto=f"{nombre if not sub_titulo else nombre + ' y Ciudadanas'} · área {n_area} de {N_AREAS}")
+        if lab == "META":
+            b.append(BT.resaltador(x, y + 42, BT.twf(lab, 22, BT.MONO, "700"), 26, BT.FOSFO, seed=pag + 6))
+            b.append(BT.TX(x, y + 62, lab, 22, EDU_AZUL, BT.MONO, "700"))
+        else:
+            b.append(T(x, y + 62, [lab], 22, GRAY))
+        b.append(line(x, y + 112, x + 260, y + 112, EDU_AZUL if lab == "META" else LGRAY, 2.6))  # se escribe
+    BT.pie_b(b, pag, c, texto=f"{nombre if not sub_titulo else nombre + ' y Ciudadanas'} · área {n_area} de {N_AREAS}")
     svg_close(b, OUT + archivo)
 
 
@@ -263,7 +311,7 @@ def _dib_soc(b, x, y, w, h):
 
 
 def portada_mate():
-    portada_area(10, 1, "Matemáticas", "#1F4E8C", "MATEMÁTICAS",
+    portada_area(10, 1, "Matemáticas", "#1F4E8C", "Matemáticas",
                  ["Interpretación y representación  ·  Formulación y ejecución  ·  Argumentación",
                   "Componentes: numérico-variacional  ·  geométrico-métrico  ·  aleatorio"],
                  "Tu instrumento de pensamiento: la cuadrícula de trabajo",
@@ -276,7 +324,7 @@ def portada_mate():
 
 
 def portada_lc():
-    portada_area(53, 2, "Lectura Crítica", "#A82424", "LECTURA CRÍTICA",
+    portada_area(53, 2, "Lectura Crítica", "#A82424", "Lectura Crítica",
                  ["Identificar contenidos locales  ·  Comprender el sentido global  ·  Reflexionar y evaluar",
                   "Textos continuos: literarios, filosóficos, informativos  ·  Textos discontinuos"],
                  "Tu instrumento de pensamiento: el texto marcado",
@@ -290,7 +338,7 @@ def portada_lc():
 
 
 def portada_soc():
-    portada_area(96, 3, "Sociales", "#C9821B", "SOCIALES",
+    portada_area(96, 3, "Sociales", "#C9821B", "Sociales",
                  ["Pensamiento social  ·  Interpretación de perspectivas  ·  Pensamiento reflexivo y sistémico"],
                  "Tu instrumento de pensamiento: el mapa de actores",
                  "Casi ninguna pregunta de esta área se resuelve recordando una fecha. Se resuelve preguntando quién "
@@ -300,7 +348,7 @@ def portada_soc():
                   ("", "Competencias ciudadanas"), ("", "Historia y cultura"), ("", "Espacio y ambiente"),
                   ("", "Ético-político")],
                  "fecha · cómo llegué · cómo salí · un caso que me marcó", "el caso:", "ap96_soc.svg",
-                 sub_titulo="Y CIUDADANAS", iw=330, cajas=(EDU_AZUL, EDU_VERDE, EDU_ORO),
+                 sub_titulo="y Ciudadanas", iw=330, cajas=(EDU_AZUL, EDU_VERDE, EDU_ORO),
                  x_clase_sub=760, x_puntaje=560, paso_puntaje=320)
 
 
@@ -319,7 +367,7 @@ def _dib_bio(b, x, y, w, h):
 
 
 def portada_bio():
-    portada_area(139, 4, "Biología", "#30843C", "BIOLOGÍA",
+    portada_area(139, 4, "Biología", "#30843C", "Biología",
                  ["Uso comprensivo del conocimiento científico  ·  Explicación de fenómenos  ·  Indagación",
                   "Componentes: celular  ·  organísmico  ·  ecosistémico  ·  ciencia, tecnología y sociedad"],
                  "Tu instrumento de pensamiento: el dato y su comparación",
@@ -354,7 +402,7 @@ def _dib_qui(b, x, y, w, h):
 
 
 def portada_qui():
-    portada_area(182, 5, "Química", "#0F7A68", "QUÍMICA",
+    portada_area(182, 5, "Química", "#0F7A68", "Química",
                  ["Uso comprensivo del conocimiento científico  ·  Explicación de fenómenos  ·  Indagación",
                   "Componentes: aspectos analíticos y fisicoquímicos de sustancias y de mezclas  ·  entorno químico"],
                  "Tu instrumento de pensamiento: la partícula y su unidad",
@@ -394,7 +442,7 @@ def _dib_fis(b, x, y, w, h):
 
 
 def portada_fis():
-    portada_area(225, 6, "Física", "#5C7A1E", "FÍSICA",
+    portada_area(225, 6, "Física", "#5C7A1E", "Física",
                  ["Uso comprensivo del conocimiento científico  ·  Explicación de fenómenos  ·  Indagación",
                   "Componentes: mecánica clásica  ·  termodinámica  ·  eventos ondulatorios  ·  electromagnetismo"],
                  "Tu instrumento de pensamiento: la flecha con su nombre",
@@ -430,7 +478,7 @@ def _dib_ing(b, x, y, w, h):
 
 
 def portada_ing():
-    portada_area(268, 7, "Inglés", "#1BA0A8", "INGLÉS",
+    portada_area(268, 7, "Inglés", "#1BA0A8", "Inglés",
                  ["Conocimiento léxico  ·  pragmático  ·  gramatical  ·  comprensión de lectura",
                   "Siete partes: avisos  ·  palabras  ·  conversaciones  ·  textos con espacios  ·  lectura"],
                  "Tu instrumento de pensamiento: la pista en el contexto",
@@ -452,5 +500,8 @@ def portada_ing():
 
 if __name__ == "__main__":
     psico_1(); psico_2(); portada_mate(); portada_lc(); portada_soc(); portada_bio(); portada_qui(); portada_fis()
+    # La portada de Inglés se entregó generada sola (import apertura3; portada_ing()): su flecha a
+    # lápiz sale del azar recién sembrado. Se vuelve a sembrar para conservar el mismo trazo.
+    random.seed(41)
     portada_ing()
     print("ok 8-10, 53, 96, 139, 182, 225, 268")

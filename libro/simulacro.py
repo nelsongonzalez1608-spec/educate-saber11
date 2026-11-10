@@ -41,7 +41,8 @@ import os
 import sys
 
 from lib import *            # noqa: F401,F403  (W, H_PAGE, M, CW, T, rect, line, tw, TJ, chip, face, …)
-import taller_base as tb     # solo colores (_mezcla), flotador y la paleta del salvavidas
+import taller_base as tb     # colores (_mezcla), flotador, paleta del salvavidas y la cabecera
+import bitacora as BT        # estilo B · Bitácora (10 nov): el entorno; los esquemas no cambian
 
 OUT = os.path.dirname(os.path.realpath(__file__)) + "/"
 LN_W = "#DDE2EA"             # renglón para escribir (no es texto)
@@ -152,29 +153,42 @@ def flecha(b, x1, y1, x2, y2, sw=3):
 
 # ───────── cabecera de la página: diario + membrete del simulacro ─────────
 def cabecera(b, a, p, n_hojas):
-    """p = página dentro del simulacro del área (1 … 2·n_hojas); cada hoja tiene dos caras."""
+    """p = página dentro del simulacro del área (1 … 2·n_hojas); cada hoja tiene dos caras.
+    Bitácora: la misma cabecera de las hojas de misión (sin banda ni barra) y el recuadro a mano
+    del estudiante."""
     c = C["c"]
-    b.append(rect(0, 0, W, 180, C["bg"], r=0))
-    b.append(rect(0, 180, W, 6, c, r=0))
-    b.append(logo(M, 44, 64))
-    b.append(T(M + 230, 78, [f"{a['area'].upper()} · SIMULACRO"], 24, c, weight="700", ls=3))
-    b.append(T(M + 230, 116, ["Clase 7: lo presento · Clase 8: socializo las preguntas que escojo "
-                              "o que me asignan"], 22, GRAY))
+    BT.fondo_puntos(b)
+    b.append(rect(M - 10, 30, logo_w(62) + 20, 82, "white", r=4))
+    b.append(logo(M, 40, 62))
+    x0 = M + 200
+    t = a["area"]
+    s = 50
+    while BT.twf(t, s, BT.SHA, "800") > 1240 - x0 - 220 and s > 30:
+        s -= 0.5
+    wt = BT.twf(t, s, BT.SHA, "800")
+    b.append(BT.resaltador(x0, 92 - s * 0.8, wt, s * 0.8, BT.FOSFO, seed=2))
+    b.append(BT.TX(x0, 88, t, s, BT.TINTA_B, BT.SHA, "800"))
+    b.append(BT.TX(x0 + wt + 22, 86, "/ SIMULACRO", 24, c, BT.MONO, "700"))
+    sub = "Clase 7: lo presento · Clase 8: socializo las preguntas que escojo o que me asignan"
+    b.append(rect(x0 - 6, 104, tw(sub, 21) + 12, 30, "white", r=2))
+    b.append(T(x0, 126, [sub], 21, GRAY))
     hoja_, cara = (p + 1) // 2, 2 - p % 2
-    b.append(T(M + 230, 150, [f"Simulacro · hoja {hoja_} de {n_hojas} · cara {cara} de 2 · "
-                              f"preguntas {3 * p - 2} a {3 * p} de {6 * n_hojas}"], 20, GRAY,
-               style="italic"))
-    b.append(T(W - M - 640, 78, ["Sábado ____ de ____________"], 24, INK))
-    b.append(T(W - M - 640, 130, ["Llego:"], 22, GRAY))
-    for i, mood in enumerate(["worried", "calm", "happy"]):
-        b.append(face(W - M - 540 + i * 70, 122, 24, mood, GRAY, "white", sw=2.2))
-    b.append(T(W - M - 300, 130, ["Salgo:"], 22, GRAY))
-    for i, mood in enumerate(["worried", "calm", "happy"]):
-        b.append(face(W - M - 200 + i * 70, 122, 24, mood, GRAY, "white", sw=2.2))
+    l3 = (f"Simulacro · hoja {hoja_} de {n_hojas} · cara {cara} de 2 · "
+          f"preguntas {3 * p - 2} a {3 * p} de {6 * n_hojas}").upper()
+    b.append(rect(x0 - 6, 140, BT.twf(l3, 15, BT.MONO) + 12, 26, "white", r=2))
+    b.append(BT.TX(x0, 159, l3, 15, GRAY, BT.MONO))
+    nx, ny, nw, nh = 1300, 24, W - M - 1300, 152
+    b.append(BT.wob_rect(nx, ny, nw, nh, BT.TINTA_B, 2.6, fill="white", seed=41))
+    b.append(T(nx + 28, ny + 52, ["Sábado ____ de ____________"], 24, INK))
+    b.append(BT.TX(nx + 28, ny + 116, "LLEGO", 15, GRAY, BT.MONO, "700"))
+    b.append(BT.TX(nx + 328, ny + 116, "SALGO", 15, GRAY, BT.MONO, "700"))
+    for base in (nx + 120, nx + 420):
+        for i, mood in enumerate(["worried", "calm", "happy"]):
+            b.append(face(base + i * 62, ny + 108, 22, mood, BT.TINTA_B, "white", sw=2.2))
+    b.append(BT.estrellita(nx - 34, ny + 30, 13, c))
     # membrete del estudiante: nombre, cuál simulacro, sesión
     y = 206
-    b.append(rect(M, y, CW, 78, "white", r=18, stroke=C["ln"], sw=2.2))
-    b.append(rect(M, y, 8, 78, c, r=4))
+    b.append(BT.wob_rect(M, y, CW, 78, BT.TINTA_B, 2.6, fill="white", seed=43))
     campos = [("Me llamo", 640), ("Simulacro", 470), ("Sesión", 230)]
     x = M + 34
     for txt, wl in campos:
@@ -281,7 +295,9 @@ def columna_cierre(b, x, y, w, h):
                   tb.SALV_LN, 1.8))
     b.append(line(x + 24, y + 222, x + w - 20, y + 222, tb.SALV_LN, 1.8))
     ly = y + sh + 36
-    b.append(T(x, ly, ["Lo que me llevo de esta pregunta"], 19, C["c"], weight="700"))
+    b.append(BT.TX(x, ly, "Lo que me llevo de esta pregunta", 21, C["c"], BT.SHA, "700"))
+    b.append(BT.estrellita(x + BT.twf("Lo que me llevo de esta pregunta", 21, BT.SHA, "700") + 20, ly - 7,
+                           9, EDU_ORO, 2.2))
     b.append(T(x, ly + 24, ["(una frase que me sirva en el examen de verdad)"], 15, GRAY, style="italic"))
     n = int((y + h - (ly + 70)) // STEP) + 1
     renglones(b, x, ly + 70, w, n)
@@ -825,17 +841,18 @@ HOJAS = dict(mate=5, lc=5, soc=5, bio=3, qui=3, fis=3, ing=3)
 # ───────── un esquema completo y la página ─────────
 def esquema(b, clave, a, y, h, n=1):
     c = C["c"]
-    b.append(rect(M, y, CW, h, "white", r=26, stroke=C["ln"], sw=2.4))
+    b.append(BT.wob_rect(M, y, CW, h, BT.TINTA_B, 3, fill="white", seed=50 + int(y), amp=1.6))
     tmp = []
     y_m = membrete_esquema(tmp, a, y)
-    hb = y_m - y + 6              # banda del membrete, debajo de lo que se marca
-    b.append(rect(M, y, CW, hb, C["bg"], r=26) + rect(M, y + hb - 30, CW, 30, C["bg"], r=0))
+    hb = y_m - y + 6              # el membrete; debajo, el divisor a mano (sin banda de color)
     b.extend(tmp)
     # cuerpo
     yb = y + hb + 22
     xe = M + 30
     we = 1270
-    b.append(T(xe, yb + 6, [a["titulo"]], 24, c, weight="700"))
+    wt = BT.twf(a["titulo"], 26, BT.SHA, "800")
+    b.append(BT.resaltador(xe, yb - 16, wt, 26, BT.FOSFO_2, seed=int(y)))
+    b.append(BT.TX(xe, yb + 6, a["titulo"], 26, BT.TINTA_B, BT.SHA, "800"))
     frag = []
     esq_v2(frag, clave, xe + 2, yb + 24, we - 4, y + h - 20 - (yb + 24))
     caja_ = tb.medir(frag)
@@ -845,7 +862,7 @@ def esquema(b, clave, a, y, h, n=1):
     # en <g class="instrumento"> para que verifica_cajas.py mida alto y borde derecho
     b.append(f'<g class="instrumento" data-n="{n}" data-ymax="{ylim:.0f}" data-xmax="{xe + we}">'
              + "".join(frag) + "</g>")
-    b.append(line(xe + we + 22, yb - 10, xe + we + 22, y + h - 30, "#E6EAF0", 2, "6,6"))
+    b.append(BT.wob_vline(xe + we + 22, yb - 10, y + h - 30, seed=int(y)))
     xr = xe + we + 44
     columna_cierre(b, xr, yb - 12, W - M - 30 - xr, y + h - 26 - yb + 12)
 
@@ -857,13 +874,13 @@ def hoja(clave, p, ruta, n_hojas=None):
     assert 1 <= p <= 2 * n_hojas, f"{clave}: la página {p} no existe (son {2 * n_hojas})"
     colores(a["area"])
     b = svg_open()
-    y = cabecera(b, a, p, n_hojas) + 22
+    y = cabecera(b, a, p, n_hojas) + 22      # la cabecera pone la cuadrícula de puntos
     fondo = H_PAGE - 90 - 26 - 24
     g = 22
     h = (fondo - y - 2 * g) / 3
     for i in range(3):
         esquema(b, clave, a, y + i * (h + g), h, n=3 * p - 2 + i)
-    footer(b, f"S{p}", C["c"], texto=f"{a['area']} · Simulacro · hoja {(p + 1) // 2} de {n_hojas}")
+    BT.pie_b(b, f"S{p}", C["c"], texto=f"{a['area']} · Simulacro · hoja {(p + 1) // 2} de {n_hojas}")
     svg_close(b, ruta)
     return ruta
 

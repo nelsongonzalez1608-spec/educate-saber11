@@ -181,16 +181,11 @@ def cabecera_icfes(linea):
 
 
 def _tarjeta_icfes_recorte(b, y, info, inst, k):
+    """Estilo B · Bitácora (10 nov): el encabezado es el mismo de taller_base.tarjeta_icfes()
+    (encabezado_icfes: «Pregunta para entrenar», membrete «Pregunta Saber 11», sello)."""
     est = info["est"]
-    c = tb._marco_tarjeta(b, y)
-    b.append(rect(M + 28, y + 22, 60, 60, c, r=12))
-    b.append(buoy(M + 58, y + 52, 15))
-    b.append(T(M + 112, y + 44, [TITULO_ICFES], 24, c, weight="700"))   # regla 7: no se copia
-    membrete(b, M + 112, y + 58)                                          # «Pregunta Saber 11»
-    chip_estrategia(b, M + 1275, y + 30, est, prefijo="entrena la estrategia", derecha=True)
-    if info["comp"]:
-        b.append(T(M + 1275, y + 92, [f"competencia · {info['comp']}"], 15, GRAY, style="italic", anchor="end"))
-    tb._primera_idea(b, y, M + 1460, "Mi primera idea:")
+    tb._marco_tarjeta(b, y)
+    tb.encabezado_icfes(b, y, est, info["comp"])
     tb._instrumento(b, f"icfes-{k}", inst, M + 30, y + 108, y + tb.BLK_H - 30)
     columna_derecha(b, y, est, cierre=("¿En qué se parece a lo del taller?",
                                        "(el libro y el ICFES preguntan lo mismo de otra forma)"))
@@ -226,13 +221,13 @@ def rehacer(pag, svg_nombre):
                    inst=_recorte(pag, i, yn, i["n"])) for i, yn in zip(infos, y_nuevas)]
         ruta = hoja_taller(svg_nombre, pag, hoja, qs[0], qs[1], vocab=vocab)
     else:
-        b = svg_open()
+        b = tb.hoja_nueva()                       # con la cuadrícula de puntos de la bitácora
         cabecera(b, cabecera_icfes(linea3))
         for k, (i, yn) in enumerate(zip(infos, y_nuevas), 1):
             _tarjeta_icfes_recorte(b, yn, i, _recorte(pag, i, yn, f"i{k}"), k)
         if vocab:
             franja_vocab(b)
-        footer(b, pag, color, texto=f"{nombre_area} · Misión {mis} · Entrenamiento ICFES")
+        tb.footer(b, pag, color, texto=f"{nombre_area} · Misión {mis} · Entrenamiento ICFES")
         ruta = OUT + svg_nombre + ".svg"
         svg_close(b, ruta)
     s = open(ruta, encoding="utf-8").read()

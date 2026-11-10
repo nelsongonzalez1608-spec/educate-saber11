@@ -31,7 +31,10 @@ Reglas que el motor hace cumplir solo:
   · la segunda tarjeta se ubica con y_bloque2(), que lee BLK_H en el momento (no congelado);
   · cada instrumento queda envuelto en <g class="instrumento" …> para que los verificadores
     lo encuentren; cada chip, en <g class="chip">;
-  · el pie del cuaderno dice «Aprende · Practica · Avanza» (lo busca render.verifica).
+  · el pie del cuaderno dice «Aprende → Practica → Avanza» (render.verifica busca «Aprende»).
+
+Estilo B · Bitácora (Nelson, 10 nov 2026): el entorno (cabecera, marco, sellos, columna
+derecha, notas, franja, pie) sale de bitacora.py. La geometría es la de antes.
 """
 import math
 import os
