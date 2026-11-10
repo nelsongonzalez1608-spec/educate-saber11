@@ -64,7 +64,7 @@ FASES = [
      "lectura en voz alta del fragmento: citar de memoria no cuenta.",
      "Cuaderno de cada estudiante y la tarjeta del reto del corte."),
     ("Evaluación individual", 20, ORO,
-     "Que el estudiante transfiera por sí solo la estrategia a preguntas reales del ICFES, con "
+     "Que el estudiante transfiera por sí solo la estrategia a preguntas tipo Saber 11, con "
      "textos que no trabajó en clase.",
      ["Entrega las dos hojas de entrenamiento ICFES del momento.",
       "Da el tiempo completo sin intervenir ni aclarar vocabulario.",
@@ -551,7 +551,7 @@ def h1():
         "registrado para el profe: por eso este planeador trae, clase por clase, lo que hay que "
         "instalar y lo que hay que proyectar.")
     cif = [("43", "páginas del cuaderno\\ncon la portada", LC), ("60", "preguntas del libro\\ncon su andamiaje", LC),
-           ("24", "preguntas oficiales\\ndel ICFES", VERDE), ("18", "sellos «aquí entra\\nel profe»", ORO),
+           ("24", "preguntas Saber 11\\npara entrenar", VERDE), ("18", "sellos «aquí entra\\nel profe»", ORO),
            ("21", "textos para\\nproyectar completos", "#1F4E8C")]
     an2 = (CW - 4 * 18) / 5
     for i, (v, l, c) in enumerate(cif):
@@ -633,7 +633,7 @@ def h2():
             ns, nt = len(sellos_de(mis)), len(textos_de(mis))
             b.append(T(colx[3] + 20, y + 46, [f"{ns} sellos · {nt} textos"], 22, INK, weight="700"))
             b.append(T(colx[3] + 20, y + 76, ["para instalar y proyectar"], 19, GRAY))
-            b.append(T(colx[4] + 20, y + 46, [f"{len(BANCO.get(mis, []))} preguntas oficiales"],
+            b.append(T(colx[4] + 20, y + 46, [f"{len(BANCO.get(mis, []))} preguntas Saber 11"],
                        22, VERDE, weight="700"))
             b.append(T(colx[4] + 20, y + 76, ["sin año verificado"], 19, GRAY))
         else:
@@ -792,7 +792,7 @@ def hoja_clase_b(mis):
         f"{t_pags[2]}, {t_pags[3]} y {t_pags[4]}. Cada 18 minutos, la dinámica del bloque.",
         f"Reto del corte: «{RETOS[mis][0]}». Equipos de tres, cada uno responde en SU cuaderno. "
         f"La defensa se hace leyendo el renglón en voz alta.",
-        f"Entrenamiento ICFES, páginas {i_pags[0]} y {i_pags[1]}. Cuatro preguntas oficiales, en "
+        f"Entrenamiento ICFES, páginas {i_pags[0]} y {i_pags[1]}. Cuatro preguntas Saber 11, en "
         f"silencio y con reloj.",
         f"Solo las falladas, con el renglón que las sostiene. Cada uno escribe la palabra nueva del "
         f"día, «lo que me llevo», su carita de salida y la casilla {mis} de la portada.",
@@ -838,9 +838,9 @@ def hoja_clase_b(mis):
 
     # ICFES
     banco = BANCO.get(mis, [])
-    y = seccion(b, y, "Las cuatro preguntas oficiales",
-        "Van sin año: no se pudieron cruzar contra un cuadernillo liberado, así que el membrete dice "
-        "«Pregunta oficial ICFES · Saber 11» y nada más.")
+    y = seccion(b, y, "Las cuatro preguntas Saber 11",
+        "Van sin año y sin «oficial»: el membrete dice «Pregunta Saber 11» y nada más (regla 7, "
+        "Nelson 10 nov).")
     for k, (x4, est, ins_, ctx) in enumerate(INS_ICFES.get(mis, [])):
         fila = banco[k] if k < len(banco) else {}
         ctx_ = fila.get("contexto", "—")
@@ -881,7 +881,7 @@ def h17():
         "tiene en su cuaderno, una por momento, y que hasta ahora resolvió de a poco.")
     dos = [("Clase 7 · el simulacro", ROJO, ROJO_BG, ROJO_LN,
             "Condiciones de prueba, 90 minutos de reloj, en silencio",
-            ["Las 24 preguntas oficiales del área, seguidas, con los textos completos.",
+            ["Las 24 preguntas Saber 11 del área, seguidas, con los textos completos.",
              "El estudiante SÍ puede subrayar: en la prueba real también puede, y es lo que entrenó.",
              "No se responde ninguna duda, ni de vocabulario.",
              "Los últimos 30 minutos: cada uno cuenta sus aciertos por competencia (CL, SG, RE)."]),

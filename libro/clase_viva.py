@@ -103,7 +103,7 @@ VERIFICAR
 import base64, html, json, os, re, types
 
 LOGO = "/home/claude/libro/logo_educate.png"
-FICFES = "Pregunta oficial ICFES · Saber 11"      # membrete siempre genérico (regla 7, 6 nov)
+FICFES = "Pregunta Saber 11"      # membrete: siempre este, sin año ni «oficial» (regla 7, Nelson 10 nov)
 E = lambda t: html.escape(str(t), quote=True)
 
 # Colores fijos de la plantilla. --area y --m1 toman el color del área. Un área puede cambiar
@@ -174,7 +174,7 @@ TEXTOS_UI = dict(
                  "«¿Qué subrayaste en el texto antes de mirar las opciones?»"],
     # clase 7 (propio de LC: subrayar y CL/SG/RE)
     c7_h1="Hoy nadie les va a decir si acertaron",
-    c7_lead=("Veinticuatro preguntas oficiales, seguidas, como en la prueba. Lo único que llevan es "
+    c7_lead=("Veinticuatro preguntas Saber 11, seguidas, como en la prueba. Lo único que llevan es "
              "lo que entrenaron: marcar el texto antes de marcar la opción."),
     c7_decir=["«Pueden subrayar: en la prueba real también pueden, y es lo que entrenamos.»"],
     c7_reglas=["En silencio y en filas individuales.", "No se responde ninguna duda, ni de vocabulario.",

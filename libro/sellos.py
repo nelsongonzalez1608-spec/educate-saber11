@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Criterio de rotulación: cómo se marca cada pregunta según lo que sabemos de ella."""
+"""Criterio de rotulación: cómo se marca cada pregunta según lo que sabemos de ella.
+
+HISTÓRICO (propuesta del 28 oct), SUPERADO: desde el 10 nov (regla 7, Nelson) el membrete es
+siempre «Pregunta Saber 11», sin año, sin «oficial» y sin «ICFES», porque varias preguntas del
+banco vienen del ASED y no del ICFES. Esta hoja no entra en el cuaderno: no la uses de modelo."""
 import math, random
 from lib import *
 

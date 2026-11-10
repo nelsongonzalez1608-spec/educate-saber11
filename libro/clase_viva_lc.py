@@ -21,7 +21,7 @@ from textos_lc import leer as leer_textos
 
 OUT = "/home/claude/libro/guias_lc/"
 LOGO = "/home/claude/libro/logo_educate.png"
-FICFES = "Pregunta oficial ICFES · Saber 11"      # sin año: ninguna se cruzó contra un cuadernillo
+FICFES = "Pregunta Saber 11"      # membrete: siempre este, sin año ni «oficial» (regla 7, Nelson 10 nov)
 E = lambda t: html.escape(str(t), quote=True)
 
 TEXTOS, ADVERTENCIAS = leer_textos()
@@ -385,7 +385,7 @@ def escenas_clase7():
         '<div class="logo-xl"><img src="__LOGO__" alt="EDUCATE · Para el Saber"></div>'
         '<div class="eyebrow"><span class="tag">Clase 7 de 8</span><span class="kicker">Lectura '
         'Crítica · simulacro del área</span></div><h1>Hoy nadie les va a decir si acertaron</h1>'
-        '<p class="lead">Veinticuatro preguntas oficiales, seguidas, como en la prueba. Lo único '
+        '<p class="lead">Veinticuatro preguntas Saber 11, seguidas, como en la prueba. Lo único '
         'que llevan es lo que entrenaron: marcar el texto antes de marcar la opción.</p>'),
         guia=dict(obj="Que el simulacro se viva en condiciones de prueba.", decir=[
             "«Pueden subrayar: en la prueba real también pueden, y es lo que entrenamos.»"],

@@ -151,7 +151,7 @@ Q = {5: dict(n=5, est=4, pag=348, ctx="Palacio de Justicia · qué función cump
              comp="Interpretación de perspectivas", inst=i5),
      6: dict(n=6, est=4, pag=348, ctx="Estado Social de Derecho · qué deber se cuestiona",
              comp="Pensamiento reflexivo y sistémico", inst=i6)}
-QA = dict(est=1, f="Pregunta oficial ICFES · Saber 11",
+QA = dict(est=1, f="Pregunta Saber 11",
           e="Las dos personas están a favor del vegetarianismo. ¿Cuál de las siguientes afirmaciones sobre la "
             "relación entre las opiniones presentadas NO es correcta?",
           o=["Son similares, porque ambas van en contra del consumo de carne.",
@@ -162,7 +162,7 @@ QA = dict(est=1, f="Pregunta oficial ICFES · Saber 11",
              "Son disímiles, porque la primera se centra en cómo el animal afecta al ser humano y la segunda, en "
              "cómo el ser humano afecta al animal."],
           datos=datos_veg, inst=ii1)
-QB = dict(est=2, f="Pregunta oficial ICFES · Saber 11",
+QB = dict(est=2, f="Pregunta Saber 11",
           e="El presidente puede hacerlo a través de alguno de los mecanismos de participación ciudadana que "
             "contempla la misma Constitución; este mecanismo debe ser",
           o=["El referendo.", "El plebiscito.", "La consulta popular.", "El cabildo abierto."],

@@ -310,7 +310,7 @@ Las imágenes son las hojas reales renderizadas, no maquetas.</footer>
       return s + a.misiones.filter(function(m){ return m.estado==='listo'; }).length; },0);
     c.appendChild(cifra(compl, ' / 36', 'misiones completas en las seis áreas'));
     c.appendChild(cifra(D.icfes.filter(function(r){return r.estado==='Usada';}).length, null,
-      'preguntas ICFES reales montadas, todas verificadas'));
+      'preguntas Saber 11 montadas, todas verificadas'));
     c.appendChild(cifra(D.hallazgos.length + D.externos.length, null,
       'hallazgos registrados: ' + D.hallazgos.length + ' nuestros y ' + D.externos.length + ' de los revisores'));
     f.appendChild(c);
@@ -318,7 +318,7 @@ Las imágenes son las hojas reales renderizadas, no maquetas.</footer>
     var h=el('h2',null,'Entra por el área'); f.appendChild(h);
     f.appendChild(el('p','nota','Cada área son 43 páginas: una portada y seis misiones de siete páginas. '
       + 'Dentro de cada misión, cinco hojas de taller con las diez preguntas del libro y dos de '
-      + 'entrenamiento con cuatro preguntas reales del ICFES. Las misiones listas se abren hoja por hoja.'));
+      + 'entrenamiento con cuatro preguntas tipo Saber 11. Las misiones listas se abren hoja por hoja.'));
 
     var g = el('div','areas');
     D.areas.forEach(function(a){
@@ -387,7 +387,7 @@ Las imágenes son las hojas reales renderizadas, no maquetas.</footer>
         var vz = el('div','vacia');
         vz.appendChild(el('b', null, 'Misión ' + m.n));
         vz.appendChild(document.createTextNode(' · todavía no construida. Siete páginas: '
-          + 'cinco de taller con las diez preguntas del libro y dos de entrenamiento con cuatro preguntas reales del ICFES.'));
+          + 'cinco de taller con las diez preguntas del libro y dos de entrenamiento con cuatro preguntas tipo Saber 11.'));
         f.appendChild(vz); return;
       }
       var d = el('div','mision');
@@ -647,8 +647,8 @@ Las imágenes son las hojas reales renderizadas, no maquetas.</footer>
   function vistaIcfes(){
     var f = document.createDocumentFragment();
     f.appendChild(el('h2',null,'Banco de preguntas ICFES'));
-    f.appendChild(el('p','nota','El membrete lleva año solo si la pregunta se verificó contra el cuadernillo '
-      + 'liberado, una por una. «Sin año» significa que la pregunta es real pero su origen no se pudo cruzar.'));
+    f.appendChild(el('p','nota','El membrete es siempre «Pregunta Saber 11», sin año ni «oficial» (regla 7, 10 nov). '
+      + 'La procedencia verificada de cada pregunta queda en la columna fuente.'));
     f.appendChild(tabla([
       {k:'membrete', et:'Membrete'}, {k:'contexto', et:'Contexto'},
       {k:'mision', et:'Misión'}, {k:'clave', et:'Clave'}, {k:'estado', et:'Estado', pill:'estado'}

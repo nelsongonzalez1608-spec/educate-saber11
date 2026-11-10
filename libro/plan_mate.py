@@ -145,8 +145,8 @@ FASES = [
      "respuesta colectiva, el reto no cuenta: el producto es individual, la discusión es compartida.",
      "Cuaderno de cada estudiante y la tarjeta del reto del corte."),
     ("Evaluación individual", 20, ORO,
-     "Que el estudiante transfiera por sí solo la estrategia aprendida a preguntas reales del "
-     "ICFES, sin acompañamiento del docente ni de sus compañeros.",
+     "Que el estudiante transfiera por sí solo la estrategia aprendida a preguntas tipo "
+     "Saber 11, sin acompañamiento del docente ni de sus compañeros.",
      ["Entrega las dos hojas de entrenamiento ICFES del momento.",
       "Da el tiempo completo sin intervenir ni resolver dudas de contenido.",
       "Registra quién llena el instrumento y quién salta directo a marcar."],
@@ -188,7 +188,7 @@ MISIONES = {
    ojo="En el libro de grado 10 el revisor pidió justamente esto: que «tasa de cambio "
        "promedio» se relacione de inmediato con la pendiente. Aquí vale igual.",
    clave_est="La estrategia 1 cubre la parábola completa (subir, vértice, bajar). El banco "
-             "ICFES verificado no tiene todavía una pregunta oficial de parábola completa, "
+             "verificado no tiene todavía una pregunta Saber 11 de parábola completa, "
              "así que el entrenamiento de este momento refuerza las otras tres."),
  2: dict(comp="Numérico-variacional", pags="18 a 24",
    estr=["Encontrar el techo", "Refutar con el modelo",
@@ -198,7 +198,7 @@ MISIONES = {
            "pregunta 1 de este momento.",
    ojo="Refutar es una operación matemática, no una opinión. Un solo contraejemplo numérico "
        "tumba la afirmación: hay que hacerlo en el tablero una vez para que lo crean.",
-   clave_est="Las cuatro preguntas ICFES de este momento son oficiales y están verificadas "
+   clave_est="Las cuatro preguntas Saber 11 de este momento están verificadas "
              "una por una."),
  3: dict(comp="Espacial-métrico", pags="25 a 31",
    estr=["Partir el cuerpo en piezas", "La misma razón para los dos",
@@ -366,7 +366,7 @@ def h1():
         "en el cuaderno, para la clase y escríbelo: el material se corrige, la clase no se repite.")
     cif = [("42", "páginas del cuaderno", AZ), ("6", "momentos de contenido", AZ),
            ("60", "preguntas del libro\ncon su andamiaje", ORO),
-           ("24", "preguntas oficiales\ndel ICFES", VERDE),
+           ("24", "preguntas Saber 11\npara entrenar", VERDE),
            ("84", "instrumentos distintos\nninguno repetido", AZ)]
     an2 = (CW - 4 * 18) / 5
     for i, (v, l, c) in enumerate(cif):
@@ -457,7 +457,7 @@ def h2():
             b.append(T(colx[2] + 20, y + 58, ["páginas " + d["pags"]], 23, INK))
             b.append(T(colx[3] + 20, y + 58, [d["comp"]], 22, GRAY))
             banco = BANCO.get(mis, [])
-            txt = f"{len(banco)} preguntas oficiales"
+            txt = f"{len(banco)} preguntas Saber 11"
             b.append(T(colx[4] + 20, y + 46, [txt], 22, VERDE, weight="700"))
             b.append(T(colx[4] + 20, y + 76, ["verificadas una por una"], 19, GRAY))
         else:
@@ -659,7 +659,7 @@ def hoja_clase(mis):
         f"de la estrategia del bloque.",
         f"Reto del corte de la misión {mis}: «{RETOS[mis][0]}». Equipos de tres, pero cada uno "
         f"responde en SU cuaderno. Tres minutos de defensa por equipo, citando un dato.",
-        f"Entrenamiento ICFES, páginas {i_pags[0]} y {i_pags[1]}. Cuatro preguntas oficiales, "
+        f"Entrenamiento ICFES, páginas {i_pags[0]} y {i_pags[1]}. Cuatro preguntas Saber 11, "
         f"en silencio y con reloj. Unos cinco minutos cada una.",
         f"Se socializan solo las falladas. Cada uno lee su salvavidas, escribe «lo que me llevo "
         f"de esta pregunta», marca su carita de salida y la casilla {mis} de la portada del área.",
@@ -692,9 +692,9 @@ def hoja_clase_b(mis):
                  "PLANEADOR DEL DOCENTE", "25", "min de evaluación")
 
     banco = BANCO.get(mis, [])
-    y = seccion(b, y, "Las cuatro preguntas oficiales del momento",
+    y = seccion(b, y, "Las cuatro preguntas Saber 11 del momento",
         "Van en las dos hojas de entrenamiento del cuaderno. Todas verificadas una por una: el "
-        "membrete es siempre «Pregunta oficial ICFES · Saber 11».")
+        "membrete es siempre «Pregunta Saber 11».")
     for k, (x4, est, ins, ctx) in enumerate(INS_ICFES.get(mis, [])):
         fila = banco[k] if k < len(banco) else {}
         l_ins = wrap_px(ins, 23, CW - 700)
@@ -703,7 +703,7 @@ def hoja_clase_b(mis):
         b.append(rect(M + 14, y + 14, 5, h - 28, VERDE, r=3))
         b.append(T(M + 40, y + 42, [f"PREGUNTA {x4}"], 17, VERDE, weight="700", ls=1.3))
         b.append(T(M + 40, y + 76, [fila.get("contexto", "—")[:40]], 23, INK, weight="700"))
-        mb = fila.get("membrete", "Pregunta oficial ICFES · Saber 11")
+        mb = "Pregunta Saber 11"          # regla 7 (10 nov): siempre este, diga lo que diga la tabla
         b.append(T(M + 40, y + 104, [mb], 20, GRAY, style="italic"))
         parrafo_j(b, M + 640, y + 32, ins, CW - 700, 23, INK, lh=32)
         cl = fila.get("clave", "").strip()
@@ -760,10 +760,10 @@ def hoja_clase_b(mis):
 
     # ── puntaje del momento
     y = nota(b, M, y, CW,
-        "Diez preguntas del libro y cuatro oficiales del ICFES. La nota del momento sale de las "
-        "cuatro oficiales, no de las diez: las diez son para aprender, las cuatro son para medir. "
-        "Un estudiante con el andamiaje completo y dos oficiales falladas no está mal; uno con "
-        "cuatro oficiales buenas y el cuaderno en blanco sí, porque adivinó.",
+        "Diez preguntas del libro y cuatro Saber 11. La nota del momento sale de las cuatro, no "
+        "de las diez: las diez son para aprender, las cuatro son para medir. Un estudiante con el "
+        "andamiaje completo y dos de las cuatro falladas no está mal; uno con las cuatro buenas y "
+        "el cuaderno en blanco sí, porque adivinó.",
         VERDE, VERDE_BG, VERDE_LN, "Cómo se califica este momento", 25)
 
     pie(b, 4 + mis * 2, TOT)
@@ -782,7 +782,7 @@ def h16():
 
     dos = [("Clase 7 · el simulacro", ROJO, ROJO_BG, ROJO_LN,
             "Condiciones de prueba, 90 minutos de reloj, en silencio",
-            ["Las 24 preguntas oficiales del área, seguidas, sin instrumento a la vista.",
+            ["Las 24 preguntas Saber 11 del área, seguidas, sin instrumento a la vista.",
              "El estudiante tapa la columna del andamiaje con una hoja. Eso es parte de la prueba.",
              "No se responde ninguna duda, ni de vocabulario. Las dudas se anotan en el margen.",
              "Los últimos 30 minutos: cada uno cuenta sus aciertos por componente y los escribe "

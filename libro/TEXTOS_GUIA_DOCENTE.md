@@ -636,7 +636,7 @@ que la competencia no se dedujo. Van con membrete genérico, como todas.
 
 ⚠ **Aviso para la Gerencia (9 nov):** la presentación del ASED dice que sus preguntas fueron
 «concebidas específicamente» por la Corporación ASED: **no son del ICFES**. Estas cuatro
-llevan el membrete oficial y están en la lista de las que Nelson tiene que decidir si salen.
+llevan el membrete de entrenamiento («Pregunta Saber 11») y están en la lista de las que Nelson tiene que decidir si salen.
 Solo la 4 trae una referencia a un cuadernillo del ICFES (2018), sin verificar.
 
 **Sobre el texto:** las páginas de Sociales del ASED en Drive son imagen y no se pudieron
@@ -787,7 +787,7 @@ Congreso (artículos 114 y 135 de la Constitución). Es la D.
 
 Estas cuatro entrenan las estrategias **1, 2 y 4**. La **3** —«si pasa esto, qué pasa
 después»— se entrena solo en las cinco hojas del taller, porque en el banco disponible
-no hay todavía una pregunta oficial de efectos sobre dimensiones que esté limpia. Está
+no hay todavía una pregunta Saber 11 de efectos sobre dimensiones que esté limpia. Está
 en pendientes.
 
 ---
@@ -1093,7 +1093,7 @@ defensa del orden democrático.
 Dice que el Estado de Conmoción Interior «faculta al Estado para **suspender**
 temporalmente los derechos humanos». **Eso es falso.** El artículo 213 dice *limitar, más
 no suspender*. Y hay una coincidencia que vale oro para la clase: **en la página 99 de este
-mismo cuaderno** hay una pregunta oficial del ICFES cuya respuesta correcta es exactamente
+mismo cuaderno** hay una pregunta Saber 11 cuya respuesta correcta es exactamente
 esa distinción. El instrumento manda al estudiante a su propia página 99 a comprobarlo.
 
 Es la primera vez que el cuaderno se usa a sí mismo como fuente, y conviene aprovecharlo:
@@ -1321,7 +1321,7 @@ Saber 11, aplicación **2016-1**, fotocopiados con su portada en el Drive de Nel
 El texto de cada entrada se cotejó el 9 nov contra el cuadernillo. El cuaderno imprime
 completas estas preguntas (son cortas); aquí van para proyectarlas en la socialización y con
 lo que el profesor tiene que hacer notar. El membrete en pantalla y en papel es siempre
-«Pregunta oficial ICFES · Saber 11»; el cuadernillo y el ítem quedan en `tablero/icfes.csv`.
+«Pregunta Saber 11» (regla 7, Nelson 10 nov); el cuadernillo y el ítem quedan en `tablero/icfes.csv`.
 
 ## SOCIALES · MISIÓN 3 · páginas 113 y 117 (entrenamiento ICFES)
 

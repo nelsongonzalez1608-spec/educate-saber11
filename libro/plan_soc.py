@@ -93,7 +93,7 @@ FASES = [
      "que diga «es que así es»: se nombra quién, qué derecho o qué parte del caso.",
      "Cuaderno de cada estudiante y la tarjeta del reto del corte."),
     ("Evaluación individual", 20, ROJO,
-     "Que el estudiante transfiera por sí solo la estrategia a preguntas reales del ICFES, con "
+     "Que el estudiante transfiera por sí solo la estrategia a preguntas tipo Saber 11, con "
      "casos que no trabajó en clase.",
      ["Entrega las dos hojas de entrenamiento ICFES del momento.",
       "Da el tiempo completo sin intervenir ni explicar conceptos.",
@@ -119,7 +119,7 @@ CLASES = [
     (4, "Momento 4 · Historia y cultura", "páginas 118 a 124 del cuaderno"),
     (5, "Momento 5 · Espacio y ambiente", "páginas 125 a 131 del cuaderno"),
     (6, "Momento 6 · Ético-político · cierre del área", "páginas 132 a 138 del cuaderno"),
-    (None, "Simulacro del área", "las 24 preguntas oficiales, en condiciones de prueba"),
+    (None, "Simulacro del área", "las 24 preguntas Saber 11, en condiciones de prueba"),
     (None, "Socialización del simulacro", "devolución, reparación y cierre del área"),
 ]
 
@@ -146,7 +146,7 @@ MISIONES = {
    ojo="⚠ Dos textos de esta misión nombran al presidente en ejercicio (preguntas 1 y 5). Se "
        "trabajan como lectura del argumento, no como opinión sobre el personaje. No agregues "
        "ejemplos ni casos con nombres de la política.",
-   cierre="La estrategia 3 —si pasa esto, qué pasa después— no tiene pregunta oficial en el "
+   cierre="La estrategia 3 —si pasa esto, qué pasa después— no tiene pregunta Saber 11 en el "
           "entrenamiento: se entrena solo en el taller, en las preguntas 3, 6 y 9. Dale ahí el "
           "tiempo que el ICFES no le da."),
  2: dict(comp="Competencias ciudadanas", pags="104 a 110",
@@ -241,7 +241,7 @@ AVISOS = {
       "por su propósito, no por su nombre.",
       "Usa el sello: la igualdad real y no solo formal es lo que separa la B de la D."),
      ("ICFES", "atención",
-      "El banco no trae una pregunta oficial limpia de efectos sobre dimensiones: la estrategia 3 "
+      "El banco no trae una pregunta Saber 11 limpia de efectos sobre dimensiones: la estrategia 3 "
       "no aparece en el entrenamiento ICFES.",
       "Dale tiempo completo a las preguntas 3, 6 y 9 del taller.")],
  2: [("preg. 6", "media",
@@ -272,7 +272,7 @@ AVISOS = {
       "texto no lo dice.",
       "Es la mejor de las cuatro. Quien dude de esa mitad con el texto en la mano, leyó bien."),
      ("ICFES 3", "atención",
-      "La pregunta oficial trata de una niña wayú de 11 años, víctima de violación, que pide "
+      "La pregunta Saber 11 trata de una niña wayú de 11 años, víctima de violación, que pide "
       "interrumpir el embarazo.",
       "Encuádralo como conflicto de principios. No pidas opiniones personales sobre el aborto."),
      ("reparto de claves", "media",
@@ -897,7 +897,7 @@ def h1():
     y = seccion(b, y, "El área en números")
     na = sum(len(v) for v in AVISOS.values())
     cif = [("43", "páginas del cuaderno\\ncon la portada", SOC), ("60", "preguntas del libro\\ncon su instrumento", SOC),
-           ("24", "preguntas oficiales\\ndel ICFES", VERDE), (str(len(SELLOS)), "sellos «aquí entra\\nel profe»", ORO),
+           ("24", "preguntas Saber 11\\npara entrenar", VERDE), (str(len(SELLOS)), "sellos «aquí entra\\nel profe»", ORO),
            (str(na), "avisos del libro\\nantes de entrar", ROJO)]
     an2 = (CW - 4 * 18) / 5
     for i, (v, l, c) in enumerate(cif):
@@ -986,7 +986,7 @@ def h2():
             tx = {0: "sin sellos", 1: "1 sello"}.get(ns, f"{ns} sellos")
             b.append(T(colx[3] + 20, y + 46, [f"{tx} · {na} avisos"], 22, INK, weight="700"))
             b.append(T(colx[3] + 20, y + 76, ["para preparar antes"], 19, GRAY))
-            b.append(T(colx[4] + 20, y + 46, [f"{len(BANCO.get(mis, []))} preguntas oficiales"],
+            b.append(T(colx[4] + 20, y + 46, [f"{len(BANCO.get(mis, []))} preguntas Saber 11"],
                        22, VERDE, weight="700"))
             b.append(T(colx[4] + 20, y + 76, [f"páginas {BASE[mis]+2} y {BASE[mis]+6}"], 19, GRAY))
         else:
@@ -1168,7 +1168,7 @@ def hoja_clase_b(mis):
         + (f" Sello en {'la pregunta' if ',' not in sel else 'las preguntas'} {sel}." if sel else ""),
         f"Reto del corte: «{RETOS[mis][0]}». Equipos de tres; cada uno registra en SU tarjeta. La "
         f"defensa nombra el actor, el derecho o el renglón.",
-        f"Entrenamiento ICFES, páginas {i_pags[0]} y {i_pags[1]}. Cuatro preguntas oficiales, en "
+        f"Entrenamiento ICFES, páginas {i_pags[0]} y {i_pags[1]}. Cuatro preguntas Saber 11, en "
         f"silencio y con reloj.",
         f"Solo las falladas, con el actor o el principio que las resuelve. «Palabras que me "
         f"frenaron», «lo que me llevo», carita de salida y la clase {mis} en la portada del área.",
@@ -1207,8 +1207,8 @@ def hoja_clase_b(mis):
     y += 16
     # ICFES
     banco = BANCO.get(mis, [])
-    y = seccion(b, y, "Las cuatro preguntas oficiales y su clave",
-        "Van con el membrete «Pregunta oficial ICFES · Saber 11», sin año. Claves verificadas "
+    y = seccion(b, y, "Las cuatro preguntas Saber 11 y su clave",
+        "Van con el membrete «Pregunta Saber 11», sin año. Claves verificadas "
         "resolviendo cada pregunta.")
     for k, (x4, est, ins_, ctx) in enumerate(INS_ICFES.get(mis, [])):
         fila = banco[k] if k < len(banco) else {}
@@ -1248,11 +1248,11 @@ def h17():
     y = cabecera(b, "Clases 7 y 8", "El simulacro del área y su devolución",
                  derecha="24", dsub="preguntas del simulacro")
     y = seccion(b, y, "Qué son estas dos clases",
-        "No traen contenido nuevo. Trabajan las 24 preguntas oficiales que el estudiante ya tiene en "
+        "No traen contenido nuevo. Trabajan las 24 preguntas Saber 11 que el estudiante ya tiene en "
         "su cuaderno, cuatro por momento, y que hasta ahora resolvió de a poco y con instrumento.")
     dos = [("Clase 7 · el simulacro", ROJO, ROJO_BG, ROJO_LN,
             "Condiciones de prueba, 90 minutos de reloj, en silencio",
-            ["Las 24 preguntas oficiales del área, seguidas, en el orden del cuaderno.",
+            ["Las 24 preguntas Saber 11 del área, seguidas, en el orden del cuaderno.",
              "El estudiante SÍ puede escribir quién gana, quién pierde y quién decide al margen: en "
              "la prueba real también puede, y es lo que entrenó.",
              "No se responde ninguna duda, ni de conceptos.",
