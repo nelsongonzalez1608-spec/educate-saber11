@@ -51,30 +51,30 @@ code { font-family: "Space Mono"; font-size: 8.4pt; color: #242478; background: 
   padding: 0 3px; border-radius: 3px; hyphens: none; }
 
 /* ── títulos ── */
-h1 { counter-increment: sec; break-before: auto; margin-top: 30pt !important; break-after: avoid; font-family: "Shantell Sans"; font-weight: 800;
-  font-size: 25pt; line-height: 1.12; color: #242478; margin: 0 0 14pt 0; display: table;
-  background: linear-gradient(transparent 58%, #FFE94A 58%, #FFE94A 92%, transparent 92%);
-  padding: 0 4px; }
+h1 { counter-increment: sec; break-before: auto; break-inside: avoid; margin-top: 30pt !important; break-after: avoid; font-family: "Shantell Sans"; font-weight: 800;
+  font-size: 25pt; line-height: 1.18; color: #242478; margin: 0 0 14pt 0; hyphens: none;
+  text-align: left; }
+h1 .hl { background: linear-gradient(transparent 58%, #FFE94A 58%, #FFE94A 92%, transparent 92%);
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; padding: 0 4px; }
 h1::before { content: "SECCIÓN " counter(sec); display: block; font-family: "Space Mono";
-  font-weight: 700; font-size: 8.5pt; letter-spacing: .14em; color: #A82424; margin-bottom: 4pt;
-  background: #fff; }
+  font-weight: 700; font-size: 8.5pt; letter-spacing: .14em; color: #A82424; margin-bottom: 4pt; }
 h1.sin-numero, h1.anexos { counter-increment: none; }
-h1.sin-numero, h1.anexos, h1#el-problema-y-la-idea, h1#anatomía-de-una-hoja, h1#el-planeador-del-docente, h1#lo-socioemocional { break-before: page; margin-top: 0 !important; }
+h1.sin-numero, h1.anexos, h1#el-problema-y-la-idea, h1#lo-socioemocional, h1#decisiones-abiertas { break-before: page; margin-top: 0 !important; }
 h1.sin-numero::before { content: "PARA EMPEZAR"; }
 h1.anexos::before { content: "AL FINAL"; }
-h2 { font-family: "Shantell Sans"; font-weight: 700; font-size: 14pt; line-height: 1.2;
+h2 { hyphens: none; text-align: left; font-family: "Shantell Sans"; font-weight: 700; font-size: 14pt; line-height: 1.2;
   color: #242478; margin: 15pt 0 6pt 0; break-after: avoid; }
 h3 { font-family: "Space Mono"; font-size: 9pt; letter-spacing: .08em; text-transform: uppercase;
   color: #A82424; margin: 12pt 0 4pt 0; break-after: avoid; }
 ul, ol { margin: 0 0 8pt 0; padding-left: 18pt; }
-li { margin-bottom: 3pt; }
+li { margin-bottom: 3pt; orphans: 2; widows: 2; }
 
 /* ── tablas: sin rayas; cabecera de color y filas alternas ── */
 table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 4pt 0 11pt 0;
   font-size: 9.6pt; line-height: 1.3; break-inside: auto; }
 thead th { background: #242478; color: #fff; font-family: "Space Mono"; font-weight: 700;
   font-size: 7.6pt; letter-spacing: .05em; text-transform: uppercase; text-align: left;
-  padding: 5pt 7pt; }
+  padding: 5pt 7pt; hyphens: none; }
 thead th:first-child { border-radius: 5px 0 0 0; } thead th:last-child { border-radius: 0 5px 0 0; }
 td { padding: 4.5pt 7pt; vertical-align: top; text-align: left; hyphens: manual; }
 tbody tr:nth-child(odd) td { background: #F3F4F8; }
@@ -107,10 +107,10 @@ td code { font-size: 7.8pt; }
 
 /* ── figuras ── */
 figure { margin: 6pt 0 12pt 0; break-inside: avoid; text-align: center; }
-figure img { max-width: 100%; max-height: 92mm; border-radius: 4px; box-shadow: 0 0 0 1px #D8DEE6; }
+figure img { max-width: 100%; max-height: 92mm; }
 figcaption { font-size: 8.8pt; font-style: italic; color: #4A5060; margin-top: 4pt;
   text-align: center; line-height: 1.3; hyphens: none; }
-figure:has(img.media) img { width: auto; max-height: 120mm; }
+figure:has(img.media) img { width: auto; max-height: 150mm; }
 figure:has(img.chica) img { max-height: 62mm; }
 .dos { display: flex; gap: 12pt; align-items: flex-start; margin: 6pt 0 10pt 0; break-inside: avoid; }
 .dos > figure { flex: 1; margin: 0; }
@@ -121,11 +121,14 @@ figure:has(img.chica) img { max-height: 62mm; }
 /* ── anatomía: tarjeta con números ── */
 .anatomia { position: relative; margin: 4pt 0 6pt 0; break-inside: avoid; }
 .anatomia figure { margin: 0; }
+.anatomia > p { margin: 0; }
+.anatomia > p:has(.m) { height: 0; line-height: 0; font-size: 0; }
+.anatomia figcaption { display: none; }
 .anatomia img { width: 100%; max-height: none; }
-.anatomia .m { position: absolute; width: 17pt; height: 17pt; border-radius: 50%;
+.anatomia .m { position: absolute; transform: translate(-50%,-50%); width: 17pt; height: 17pt; border-radius: 50%;
   background: #E4572E; color: #fff; font-family: "Space Mono"; font-weight: 700; font-size: 8.5pt;
   line-height: 17pt; text-align: center; box-shadow: 0 0 0 2px #fff; }
-.leyenda ol { columns: 2; column-gap: 16pt; font-size: 9.8pt; margin-top: 2pt; }
+.leyenda ol { columns: 2; column-gap: 26pt; font-size: 9.8pt; margin-top: 2pt; }
 .leyenda li { break-inside: avoid; text-align: left; }
 .leyenda li::marker { font-family: "Space Mono"; font-weight: 700; color: #E4572E; }
 
@@ -142,7 +145,7 @@ figure:has(img.chica) img { max-height: 62mm; }
 .portada-pag .titulo span { background: linear-gradient(transparent 55%, #FFE94A 55%, #FFE94A 92%, transparent 92%); }
 .portada-pag .sub { font-size: 16pt; line-height: 1.3; color: #1E2230; margin: 9mm 0 0 0;
   max-width: 140mm; text-align: left; }
-.portada-pag .areas { display: flex; flex-wrap: wrap; gap: 6pt 14pt; margin-top: 16mm; }
+.portada-pag .areas { display: flex; flex-wrap: wrap; gap: 6pt 11pt; margin-top: 16mm; }
 .portada-pag .areas div { font-family: "Space Mono"; font-size: 8.5pt; color: #1E2230;
   display: flex; align-items: center; gap: 5pt; }
 .portada-pag .areas i { display: inline-block; width: 11pt; height: 11pt; border-radius: 50%; }
@@ -228,6 +231,7 @@ def cuerpo():
     out = subprocess.run(["pandoc", MD, "-f", "markdown", "-t", "html5", "--wrap=none"],
                          capture_output=True, text=True, check=True).stdout
     out = re.sub(r'<div class="portada">\s*</div>', "", out)
+    out = re.sub(r"(<h1[^>]*>)(.*?)(</h1>)", r'\1<span class="hl">\2</span>\3', out, flags=re.S)
     titulos = [html.unescape(re.sub(r"<[^>]+>", "", m))
                for m in re.findall(r"<h1[^>]*>(.*?)</h1>", out, flags=re.S)]
     return out, titulos

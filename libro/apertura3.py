@@ -317,12 +317,17 @@ def _dib_soc(b, x, y, w, h):
 def portada_mate():
     portada_area(10, 1, "Matemáticas", "#1F4E8C", "Matemáticas",
                  ["Interpretación y representación  ·  Formulación y ejecución  ·  Argumentación",
-                  "Componentes: numérico-variacional  ·  geométrico-métrico  ·  aleatorio"],
+                  "Componentes: numérico-variacional  ·  espacial-métrico  ·  aleatorio"],
                  "Tu instrumento de pensamiento: la cuadrícula de trabajo",
                  "En Matemáticas nada se resuelve «en la cabeza». La cuadrícula es donde pones la tabla, la "
                  "diferencia entre un valor y el siguiente, el dibujo de la gráfica, la cuenta. Si la cuadrícula está vacía, "
                  "la respuesta no es tuya todavía.", _dib_mate,
-                 [("Patrones y relaciones de cambio", "Componente numérico-variacional")] + [("", "")] * 5,
+                 [("Patrones y relaciones de cambio", "Componente numérico-variacional"),
+                  ("Máximos, aumento constante y datos que desmienten", "Componente numérico-variacional"),
+                  ("Volumen, semejanza y recubrimiento", "Componente espacial-métrico"),
+                  ("Escalas, trigonometría y volúmenes", "Componente espacial-métrico"),
+                  ("Tendencia central, dispersión y probabilidad", "Componente aleatorio"),
+                  ("Probabilidad compuesta y argumentación", "Componente aleatorio")],
                  "fecha · cómo llegué · cómo salí · una cosa que aprendí", "aprendí:", "ap10_mate.svg",
                  borde_clase=AZ_LN, claro="#BFD4F2")
 
@@ -336,7 +341,11 @@ def portada_lc():
                  "cuadrícula es el subrayado y la pregunta escrita al margen. Si la hoja está limpia, no leíste: "
                  "pasaste los ojos.", _dib_lc,
                  [("El sentido de las palabras", "Componente semántico"),
-                  ("La arquitectura del texto", "Componente semántico")] + [("", "")] * 4,
+                  ("La arquitectura del texto", "Componente semántico"),
+                  ("Dónde gira, dónde sube, dónde remata", "Componente sintáctico"),
+                  ("Lo que el texto dice con todas sus letras", "Componente sintáctico"),
+                  ("Qué quiere el autor de mí y desde dónde", "Componente pragmático"),
+                  ("Cómo se arma el sentido de un texto completo", "Componente pragmático")],
                  "fecha · cómo llegué · cómo salí · una palabra nueva", "palabra nueva:", "ap53_lc.svg",
                  cajas=(EDU_AZUL, EDU_VERDE, EDU_ORO), x_clase_sub=760, x_puntaje=560, paso_puntaje=320)
 

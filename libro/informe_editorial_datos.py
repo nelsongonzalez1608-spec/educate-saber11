@@ -7,7 +7,8 @@ tono formal, sin decisiones internas de EDUCATE. La genera libro/informe_editori
 H(n, area, mision, preguntas, pagina, severidad, que_pasa, propuesta, cuaderno)
   severidad : Alta · Media · Baja · Atención · Considerar (contenido de actualidad, sin severidad)
   cuaderno  : "C" Corrección EDUCATE impresa en la tarjeta · "A" advertido en el cuaderno
-              (recuadro, sello o instrumento) · "" sin intervención
+              (recuadro, sello o instrumento) · "G" advertido al docente en el planeador y la guía
+              · "" sin intervención
 """
 
 H = []
@@ -44,29 +45,29 @@ h(8, "MAT", 6, "Pregunta 2", "325", "Alta",
   "La opción C trae la expresión correcta, (4 sobre 3)·(0,85)³·(0,15) + (0,85)⁴, pero el valor impreso "
   "es «≈ 0,833». La cuenta da ≈ 0,890 (0,368 + 0,522): el estudiante que calcula bien no encuentra su "
   "resultado entre las opciones.",
-  "Corregir el valor de la opción C a ≈ 0,890.", "A")
+  "Corregir el valor de la opción C a ≈ 0,890.", "G")
 h(7, "MAT", 4, "Pregunta 1", "303", "Media",
   "Dos opciones llegan al mismo número y las dos son matemáticamente correctas: la C también alcanza "
   "el resultado; la D es el procedimiento con menos pasos.",
   "Si la pregunta busca el procedimiento más eficiente, decirlo en el enunciado; si no, introducir un "
-  "error en la C.", "A")
+  "error en la C.", "G")
 h(9, "MAT", 6, "Pregunta 10", "328", "Media",
   "Dos opciones son ciertas a la vez: una descarta al analista y la otra respalda al experto. La C "
   "gana porque valora las dos posturas, pero la B también es verdadera.",
   "Ajustar la B para que deje de ser verdadera, o precisar en el enunciado que se pide valorar las "
-  "dos posturas.", "A")
+  "dos posturas.", "G")
 h(5, "MAT", 3, "Pregunta 2", "293", "Media",
   "La cuarta opción está rotulada «A.» en lugar de «D.». Confunde al marcar la hoja de respuestas.",
-  "Corregir el rótulo.", "A")
+  "Corregir el rótulo.", "G")
 h(6, "MAT", 3, "Pregunta 8", "295", "Baja",
   "La opción correcta dice que «se multiplican los volúmenes de 32 cubos»; lo que se quiere decir es "
   "que el volumen de un cubo se multiplica por 32.",
-  "Reescribir: «se multiplica por 32 el volumen de un cubo».", "A")
+  "Reescribir: «se multiplica por 32 el volumen de un cubo».", "G")
 h(341, "MAT", 6, "Pregunta 3", "326", "Atención",
   "El primer investigador calcula (800 + 600) ÷ 2.000 = 0,7 para «al menos una vez por semana», y la "
   "cuenta es correcta. La clave D le da la razón y pide nombrar con precisión el evento; la A también "
   "le da la razón con un argumento válido.",
-  "Precisar la A o el enunciado para que una sola opción sea la mejor.", "A")
+  "Precisar la A o el enunciado para que una sola opción sea la mejor.", "G")
 
 # ───────────────────────────── LECTURA CRÍTICA ─────────────────────────────
 h(11, "LC", 3, "Pregunta 10", "35", "Media",

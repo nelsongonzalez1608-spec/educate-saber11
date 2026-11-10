@@ -73,7 +73,7 @@ Cada área suma así 43 páginas (una portada y seis misiones de siete), más su
 Cada área tiene **ocho clases** de 120 minutos. El número es fijo y no se recorta aunque una misión quede larga:
 
 | Clase | Qué se hace |
-|---|---|
+|----|------------------------|
 | 1 a 6 | Una misión por clase: las diez preguntas del libro, el reto del corte y las cuatro de entrenamiento. |
 | 7 | El simulacro del área, en condiciones de examen. Lo escoge EDUCATE y no está en el cuaderno. |
 | 8 | La devolución: se socializan preguntas del simulacro en las hojas de simulacro del cuaderno. |
@@ -94,7 +94,7 @@ Cada clase de contenido se reparte en seis fases con tiempos **aprobados en el p
 </div>
 
 | Fase | Minutos | Qué pasa | Cuaderno |
-|---|---|---|---|
+|------------|--------|------------------------|------------|
 | Activación | 15 | Un caso corto, una tabla o una frase proyectada; la dinámica de la primera estrategia. | Cerrado |
 | Pregunta problematizadora | 20 | La pregunta modelo del libro, a la vista. Manos alzadas antes de razonar; la clave solo al final. | Solo «mi primera idea» |
 | Desarrollo guiado | 35 | Las diez preguntas del libro en cinco bloques de dos, con las dinámicas de las estrategias 2, 3 y 4 entre bloques. | Las cinco páginas de taller |
@@ -153,17 +153,17 @@ Todas las páginas de taller del cuaderno, en las siete áreas, tienen las misma
 ::: {.anatomia}
 ![](img/tarjeta_anatomia.jpg)
 
-[1]{.m style="left:2.2%;top:4%"}
-[2]{.m style="left:30.5%;top:3%"}
-[3]{.m style="left:57%;top:2.5%"}
-[4]{.m style="left:66.5%;top:3%"}
-[5]{.m style="left:1%;top:14%"}
-[6]{.m style="left:67.5%;top:13.5%"}
-[7]{.m style="left:67.5%;top:26%"}
-[8]{.m style="left:68%;top:37%"}
-[9]{.m style="left:1%;top:57%"}
-[10]{.m style="left:68%;top:70%"}
-[11]{.m style="left:1%;top:71%"}
+[1]{.m style="left:34.6%;top:5.5%"}
+[2]{.m style="left:21%;top:9.4%"}
+[3]{.m style="left:58.6%;top:6%"}
+[4]{.m style="left:87.7%;top:5.1%"}
+[5]{.m style="left:26%;top:13.6%"}
+[6]{.m style="left:79.3%;top:15.5%"}
+[7]{.m style="left:95.6%;top:30%"}
+[8]{.m style="left:84.3%;top:40.6%"}
+[9]{.m style="left:32.4%;top:57.1%"}
+[10]{.m style="left:93.5%;top:70.7%"}
+[11]{.m style="left:17.6%;top:73.2%"}
 :::
 
 ::: {.leyenda}
@@ -206,7 +206,7 @@ La letra se marca después del instrumento, en círculos todos iguales. Al lado,
 
 ## El salvavidas
 
-El salvavidas es la ruta mínima para desbloquearse. Tiene tres renglones: **«Lo mínimo que sí tenía claro»**, **«→ entonces tenía que ser…»** y **«y no podía ser ___ porque…»**. Enseña a avanzar con lo poco que se sabe y a descartar con una razón, que es lo que salva una pregunta difícil en el examen.
+El salvavidas es la ruta mínima para desbloquearse. Tiene tres renglones: **«Lo mínimo que sí tenía claro»**, **«→ entonces tenía que ser…»** y **«y no podía ser \_\_\_ porque…»**. Enseña a avanzar con lo poco que se sabe y a descartar con una razón, que es lo que salva una pregunta difícil en el examen.
 
 Es igual en las siete áreas, por decisión de Nelson González: fondo claro, borde y flotador coral, renglones grises. El estudiante lo llena con lápiz, así que nunca va sobre un fondo oscuro. En la apertura el cuaderno lo dice de frente: «Pedirlo no resta; no pedirlo cuando lo necesitas, sí».
 
@@ -224,7 +224,7 @@ Muchas páginas de taller llevan al pie una franja para las palabras que frenaro
 
 ![La cabecera de cada página: área, misión, componente del ICFES, hoja y preguntas; a la derecha, la fecha y las caritas «llego / salgo».](img/cabecera.jpg)
 
-Cada página empieza con **«Sábado ___ de ___»** y dos filas de caritas: **cómo llego** y **cómo salgo**. Son la parte de diario personal del cuaderno: el estudiante registra su estado al empezar y al terminar, y con las semanas ve que cansado no es lo mismo que perdido. La cabecera dice además el área, la misión, el componente del ICFES que se entrena y qué preguntas trae la hoja.
+Cada página empieza con **«Sábado \_\_\_ de \_\_\_»** y dos filas de caritas: **cómo llego** y **cómo salgo**. Son la parte de diario personal del cuaderno: el estudiante registra su estado al empezar y al terminar, y con las semanas ve que cansado no es lo mismo que perdido. La cabecera dice además el área, la misión, el componente del ICFES que se entrena y qué preguntas trae la hoja.
 
 ## Por qué un diario y no un taller
 
@@ -243,7 +243,7 @@ El cuaderno está pensado para sentirse como **un diario personal**, no como un 
 Una estrategia es **el movimiento mental que resuelve un tipo de pregunta, dicho con palabras de estudiante.** No es un tema («la parábola», «la célula») ni una competencia del ICFES («argumentación»): es lo que hay que hacer con la cabeza. Por eso los nombres son frases cortas que se pueden decir en voz alta en el salón:
 
 | Área | Algunas estrategias, tal como aparecen en el cuaderno |
-|---|---|
+|--------|----------------------------|
 | Matemáticas | Subir, llegar y volver · Lo fijo y lo que crece · Juzgar el procedimiento · Hasta dónde llega el dato |
 | Lectura Crítica | La palabra exacta · Lo que no se dice · Qué se cae si quito esto · Dice una cosa y hace la contraria |
 | Sociales y Ciudadanas | Quién dice qué y por qué · Quién gana y quién paga · Eficaz no es lo mismo que legítimo |
@@ -312,10 +312,10 @@ Y una regla de Nelson para escoger: **una pregunta con cualquier falla no se usa
 El simulacro no está en el cuaderno. EDUCATE escoge la prueba (un cuadernillo o una prueba digital) y la aplica en condiciones de examen: puestos separados, sin celular, en silencio y de corrido. No repite las 24 preguntas de entrenamiento del área, que el estudiante ya resolvió con instrumento.
 
 | Tramo | Qué pasa |
-|---|---|
-| 00′–10′ | Condiciones de examen. Hora de inicio y de cierre en el tablero. Cuaderno cerrado. |
-| 10′–100′ | La prueba, de corrido. Las respuestas, solo en la hoja de respuestas. |
-| 100′–120′ | Se recogen las hojas. Cada estudiante abre su primera hoja de simulacro y anota el número de las tres preguntas que quiere socializar. |
+|----|------------------------|
+| 0–10 min | Condiciones de examen. Hora de inicio y de cierre en el tablero. Cuaderno cerrado. |
+| 10–100 min | La prueba, de corrido. Las respuestas, solo en la hoja de respuestas. |
+| 100–120 min | Se recogen las hojas. Cada estudiante abre su primera hoja de simulacro y anota el número de las tres preguntas que quiere socializar. |
 
 En la semana, el profesor cuenta cuántos fallaron cada pregunta y los aciertos por competencia. Ese conteo decide el refuerzo; no es una nota. Todo reclamo sobre una pregunta del simulacro (un dato que no cuadra, dos opciones posibles) se anota y va al registro de hallazgos; no se discute durante la prueba.
 
@@ -348,7 +348,7 @@ Un esquema con la opción marcada y el resto en blanco no cuenta como socializad
 Cada área tiene un planeador de **24 hojas**. Su función es una: decirle al profesor qué hacer con el libro y con el cuaderno en cada uno de los 120 minutos, y dónde termina lo fijo y empieza su aporte. No le pide ser experto en el área.
 
 | Hojas | Qué trae |
-|---|---|
+|----|----------------------------|
 | 1 | Para qué existe el documento, el instrumento del área, el área en números, las competencias del ICFES, avisos antes de empezar, «Si el área no es tu fuerte» y lo que revisa la coordinación. |
 | 2 | Las ocho clases de un vistazo y las 24 estrategias del área. |
 | 3 y 4 | Los 120 minutos: las seis fases con su objetivo específico, qué hace el docente, cómo lo hace y su espacio de aporte. |
@@ -360,7 +360,7 @@ Cada área tiene un planeador de **24 hojas**. Su función es una: decirle al pr
 ::: {.dos}
 ![Planeador de Sociales, hoja 3: los 120 minutos, fase por fase, con «TU APORTE».](img/planeador_soc_hoja3.jpg)
 
-![Planeador de Sociales, hoja 19: las dinámicas de la Misión 3 y su reto del corte.](img/planeador_soc_hoja19.jpg)
+![Planeador de Sociales, hoja 19: las dinámicas de la Misión 2 y su reto del corte.](img/planeador_soc_hoja19.jpg)
 :::
 
 ## Lo fijo y «TU APORTE»
@@ -420,7 +420,7 @@ La barra superior muestra siempre **la fase actual** (un círculo de color con s
 ## Las teclas
 
 | Tecla | Qué hace |
-|---|---|
+|--------|------------------------|
 | ← → o espacio | Avanza o retrocede una diapositiva |
 | Inicio / Fin | Va a la primera o a la última |
 | G | Abre o cierra la guía del profe |
@@ -447,6 +447,12 @@ El Saber 11 no se juega solo en lo que el estudiante sabe, sino en cómo se sost
 
 ## La apertura (páginas 1 a 6)
 
+::: {.dos}
+![Página 1: la portada del cuaderno.](img/p001_portada.jpg)
+
+![Página 5: «Lo que pasa en tu cabeza».](img/p005_cabeza.jpg)
+:::
+
 - **Página 1 · Portada.** «Esta bitácora es de»: el nombre, el colegio, la meta. Y una frase: «Este cuaderno no trae las respuestas. Trae la forma de pensarlas».
 - **Página 2 · Antes de la primera pregunta.** Por qué existe el cuaderno, contado al estudiante: «El puntaje de esta prueba no dice quién eres; dice qué puertas se abren sin que tengas que pedir permiso». Las **cuatro reglas que no cambian**: primero el andamiaje; el error escrito vale más que el acierto callado; nadie resuelve por ti, nadie te deja solo; la bitácora se llena siempre.
 - **Página 3 · Ponle un número a tu meta.** La escala del puntaje, una cuenta de cuántos puntos por semana le faltan y **«Mi tablero de metas»** en cuatro casillas: deseo, resultado, obstáculo y plan. Se basa en la investigación de la psicóloga Gabriele Oettingen (el método WOOP): visualizar la meta no basta; la meta se mueve cuando el estudiante nombra **su** obstáculo y decide qué hará cuando aparezca («si… entonces…»). El obstáculo tiene que estar en él, no en el profesor ni en el colegio.
@@ -454,27 +460,21 @@ El Saber 11 no se juega solo en lo que el estudiante sabe, sino en cómo se sost
 - **Página 5 · Lo que pasa en tu cabeza.** Cuatro estados frente a una pregunta difícil (bloqueo, prisa, pánico, cansancio), cada uno con qué hacer; «El error no es una nota. Es un dato», con tres preguntas para cada error; tres micro hábitos del sábado.
 - **Página 6 · Para la coordinación.** Cómo leer el cuaderno sin entrar al salón, y **cómo hablar de la meta con el estudiante**: no «¿cuánto sacaste?» sino «¿en qué paso te perdiste?»; no «tienes que estudiar más» sino «¿qué vas a hacer distinto el sábado?».
 
-::: {.dos}
-![Página 5: «Lo que pasa en tu cabeza».](img/p005_cabeza.jpg)
-
-![Página 1: la portada del cuaderno.](img/p001_portada.jpg)
-:::
-
 ## En cada página y en cada área
 
 Lo socioemocional no se queda en la apertura. Cada página pregunta cómo llega y cómo sale el estudiante. Cada portada de área registra las ocho clases (fecha, cómo llegué, cómo salí, una cosa que aprendí) y los puntajes del área frente a la meta. El salvavidas convierte el bloqueo en un procedimiento. Inglés, el área donde más pesa el miedo al error, abre diciéndolo en su propio idioma: *Mistakes are proof that you are trying*.
 
 ## El cierre (páginas 396 a 398)
 
-- **Página 396 · Ya lo presentaste.** Se llena después del examen de verdad: cómo salí, mi puntaje frente a mi meta, y qué funcionó del método y qué no, casilla por casilla. «Lo que no te sirvió no es un fracaso tuyo: también es un dato.»
-- **Página 397 · Lo que me llevo.** Una forma de pensar que el estudiante se lleva para la universidad o el trabajo, dónde la va a necesitar, y una **carta a quien empieza este cuaderno el próximo año**.
-- **Página 398 · El mensaje final.** «Llegaste hasta aquí escribiendo cómo pensabas, no solo qué marcabas. Eso ya es tuyo. Ningún puntaje te lo quita.» Y un espacio en blanco para que el estudiante escriba lo que se diría hoy, al terminar.
-
 ::: {.dos}
 ![Página 396: «Ya lo presentaste».](img/p396_cierre.jpg)
 
 ![Página 398: el mensaje final.](img/p398_final.jpg)
 :::
+
+- **Página 396 · Ya lo presentaste.** Se llena después del examen de verdad: cómo salí, mi puntaje frente a mi meta, y qué funcionó del método y qué no, casilla por casilla. «Lo que no te sirvió no es un fracaso tuyo: también es un dato.»
+- **Página 397 · Lo que me llevo.** Una forma de pensar que el estudiante se lleva para la universidad o el trabajo, dónde la va a necesitar, y una **carta a quien empieza este cuaderno el próximo año**.
+- **Página 398 · El mensaje final.** «Llegaste hasta aquí escribiendo cómo pensabas, no solo qué marcabas. Eso ya es tuyo. Ningún puntaje te lo quita.» Y un espacio para que el estudiante escriba lo que se diría hoy.
 
 La página 396 cumple además una función para EDUCATE: si se recogen, los «qué funcionó del método y qué no» son la primera opinión estructurada de los estudiantes sobre el método.
 
@@ -487,7 +487,7 @@ El material se produce con un sistema de controles que existe porque cada error 
 Antes de entregar cualquier pieza se corren estos verificadores:
 
 | Qué revisa | Verificador |
-|---|---|
+|------------------------|--------|
 | Que cada instrumento quepa en su espacio, sin pasarse de alto ni de ancho; que ningún texto vaya en el gris de las líneas (no se lee en papel); que los rótulos tengan su ancho real | `verifica_cajas.py` |
 | Que ningún instrumento delate la respuesta (bordes, tipografía) | `verifica_pistas.py` |
 | Que no haya dos instrumentos con el mismo título | `extrae_instrumentos.py` |
@@ -535,7 +535,7 @@ Para poder decir algún día cuánto mejora el método, conviene definir antes d
 Estas decisiones no están en manos del equipo que construyó el material:
 
 | Decisión | Quién | Por qué importa |
-|---|---|---|
+|----------------|--------|------------------------|
 | Aprobar la ampliación: de 6 a 7 áreas, de unas 270 a 398 páginas, de 48 a 56 clases | Gerente General | Cambia el costo de impresión y el tiempo. Viene de seguir el libro (Biología y Química por separado), de trabajar todas las preguntas de Inglés y de las hojas de simulacro. |
 | Nombres de políticos colombianos vivos en preguntas del libro | Gerente General | Varias preguntas de Sociales y una de Lectura Crítica los nombran. Mientras se decide, no se agregan preguntas con nombres propios de la política y en clase se lee el argumento, no al personaje. |
 | Reemplazar las 15 preguntas de entrenamiento que salen del compilado ASED | Nelson González | El ASED no es del ICFES. El membrete genérico ya no promete otra cosa, pero conviene que el banco salga de cuadernillos liberados. |
@@ -562,7 +562,7 @@ La propuesta prometió un sistema que EDUCATE pueda mantener sin asesoría exter
 ## Anexo A · Mapa de páginas del cuaderno
 
 | Páginas | Sección | Cuántas |
-|---|---|---|
+|----|------------------------|----|
 | 1–6 | Apertura | 6 |
 | 7–59 | Matemáticas: portada (7), seis misiones (8–49), simulacro (50–59) | 53 |
 | 60–112 | Lectura Crítica: portada (60), misiones (61–102), simulacro (103–112) | 53 |
@@ -580,7 +580,7 @@ En el Saber 11, Biología, Química y Física se evalúan juntas en Ciencias Nat
 ## Anexo B · Entregables
 
 | Entregable | Comprometido en la propuesta | Estado al 10 de noviembre |
-|---|---|---|
+|------------|------------|----------------|
 | Cuaderno combinado | 6 áreas, unas 270 páginas | 7 áreas, 398 páginas, completo (ampliación por aprobar) |
 | Planeadores del docente | 6, uno por área | 7, de 24 hojas cada uno |
 | Guías de clase proyectables | 48, una por clase | 56 |
@@ -591,12 +591,12 @@ En el Saber 11, Biología, Química y Física se evalúan juntas en Ciencias Nat
 ## Anexo C · Las decisiones que sostienen el método
 
 | Decisión | Origen |
-|---|---|
+|------------------------|------------|
 | El reparto de la clase: 15 · 20 · 35 · 20 · 20 · 10 | Aprobado en el piloto de Matemáticas |
 | Cada pregunta con su propio instrumento | Nelson González |
 | El cuaderno es un diario personal: fecha, caritas, primera idea, lo que me llevo | Nelson González |
 | Nada de líneas horizontales decorativas; texto justificado; EDUCATE en mayúsculas | Nelson González |
-| El instrumento no resalta la opción correcta | 2 de noviembre |
+| El instrumento no resalta la opción correcta | Corrección del 2 de noviembre |
 | El cuaderno sigue al libro: Biología y Química por separado, siete áreas | Nelson González, 6 de noviembre |
 | Cada área tiene su color; las tres ciencias en verdes | Nelson González, 6 de noviembre |
 | Salvavidas claro y único en todas las áreas | Nelson González, 6 de noviembre |

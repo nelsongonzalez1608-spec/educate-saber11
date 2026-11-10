@@ -136,7 +136,9 @@ def descargas(out):
               ("EDUCATE_Planeador_Quimica.pdf", "Planeador_Quimica.pdf"),
               ("EDUCATE_Planeador_Fisica.pdf", "Planeador_Fisica.pdf"),
               ("EDUCATE_Planeador_Ingles.pdf", "Planeador_Ingles.pdf"),
-              ("EDUCATE_Informe_hallazgos.pdf", "Informe_hallazgos_6nov.pdf"),
+              ("EDUCATE_Informe_hallazgos_editorial_10nov.pdf", "Informe_hallazgos_editorial_10nov.pdf"),
+              ("EDUCATE_Hallazgos_internos_10nov.pdf", "Hallazgos_internos_10nov.pdf"),
+              ("EDUCATE_Documento_maestro_metodologia.pdf", "Documento_maestro_metodologia.pdf"),
               # la matriz .xlsx no se puede servir desde la página (solo PDF, imágenes, HTML…): queda en GitHub
               ("EDUCATE_Estado_del_proyecto.pdf", "Estado_del_proyecto_6nov.pdf"),
               ("EDUCATE_Muestra_reunion.pdf", "Muestra_reunion.pdf")]
@@ -147,6 +149,9 @@ def descargas(out):
     titulos.update({"Planeador_Matematicas": "Planeador del docente · Matemáticas",
                "Planeador_LecturaCritica": "Planeador del docente · Lectura Crítica",
                "Planeador_Quimica": "Planeador del docente · Química",
+               "Informe_hallazgos_editorial_10nov": "Informe de hallazgos para la editorial (10 nov)",
+               "Hallazgos_internos_10nov": "Hallazgos internos de EDUCATE (10 nov)",
+               "Documento_maestro_metodologia": "Documento maestro de metodología (borrador para aprobar)",
                "Planeador_Fisica": "Planeador del docente · Física",
                "Planeador_Ingles": "Planeador del docente · Inglés",
                "Planeador_Sociales": "Planeador del docente · Sociales y Ciudadanas",
