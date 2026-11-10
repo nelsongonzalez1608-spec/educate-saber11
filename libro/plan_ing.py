@@ -293,7 +293,7 @@ MISIONES = {
    cierre="La misión no deja tarea: diez tarjetas en clase y seis en el reto. Son preguntas largas: en el "
           "desarrollo guiado cada texto se lee una vez, entero, antes de su primer bloque de tarjetas."),
  6: dict(comp="gramatical · léxico", parte="Parte 7",
-   tema="El texto entero decide el espacio",
+   tema="Leer todo el texto antes de llenar el espacio",
    pasos=["leo el texto entero", "¿qué pieza falta?", "la pista: cerca o lejos",
           "pruebo la opción en la oración completa"],
    competencia="Parte 7 · texto con espacios",

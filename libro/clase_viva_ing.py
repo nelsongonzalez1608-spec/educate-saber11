@@ -67,7 +67,7 @@ TITULOS = {
     3: "Escucha a los vecinos del hueco",
     4: "Lo que el texto dice, dato por dato",
     5: "Leer entre líneas, con la prueba en la mano",
-    6: "El texto entero decide el espacio",
+    6: "Leer todo el texto antes de llenar el espacio",
 }
 LEADS = {
     1: "Hoy las palabras se encuentran por piezas: ¿es una persona, un lugar o una cosa? ¿Qué verbo la "
