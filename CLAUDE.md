@@ -116,6 +116,11 @@ Son de Nelson, textuales. Romper una es retroceder.
    año esté verificado: Nelson no tiene certeza del año ni de la aplicación de cada pregunta del
    banco. El cuadernillo y el número verificados se guardan en `tablero/icfes.csv`, columna `fuente`.
    `taller_base.membrete()` ya no imprime otra cosa.
+   **Desde el 10 nov (Nelson): el membrete es solo «Pregunta Saber 11»**, sin año, sin «oficial» y sin «ICFES»,
+   en todo el material (cuaderno, planeadores y guías). La tarjeta dice «Pregunta para entrenar» (no «real»), y
+   en ningún lugar que vea el estudiante se dice «preguntas reales del ICFES»: varias vienen del ASED, que no es del
+   ICFES. La procedencia verificada sigue en `tablero/icfes.csv`, columna `fuente`; en la guía del profe, una pregunta
+   del ASED dice «Fuente: compilado ASED (no es del ICFES)».
 
 Y estas, que salieron del trabajo y también son reglas:
 
