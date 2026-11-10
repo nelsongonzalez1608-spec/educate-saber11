@@ -131,7 +131,7 @@ CLASES = [
     (4, "Misión 4 · Parte 5", "lectura literal · 16 preguntas"),
     (5, "Misión 5 · Parte 6", "lectura inferencial · 16 preguntas"),
     (6, "Misión 6 · Parte 7", "texto con espacios · 24 preguntas"),
-    (None, "Simulacro del área", "las 24 preguntas tipo Saber 11, en condiciones de prueba"),
+    (None, "Simulacro del área", "en condiciones de prueba"),
     (None, "Socialización del simulacro", "devolución, reparación y cierre del área"),
 ]
 
@@ -202,8 +202,19 @@ def rango(ps):
 
 
 def nums(ns):
-    """[8, 9, 10, 11] → «8 a 11»; [1, 3, 12] → «1, 3 y 12»."""
-    return rango(ns)
+    """[8, 9, 10, 11] → «8 a 11»; [1, 2, 5, 6] → «1, 2, 5 y 6»: solo se juntan tramos de tres o más."""
+    ns = sorted(set(ns))
+    partes, i = [], 0
+    while i < len(ns):
+        j = i
+        while j + 1 < len(ns) and ns[j + 1] == ns[j] + 1:
+            j += 1
+        if j - i >= 2:
+            partes.append(f"{ns[i]} a {ns[j]}")
+        else:
+            partes += [str(x) for x in ns[i:j + 1]]
+        i = j + 1
+    return ", ".join(partes[:-1]) + (" y " if len(partes) > 1 else "") + partes[-1]
 
 
 # ─────────────────────────────── las misiones ───────────────────────────────
@@ -1393,7 +1404,7 @@ def hoja_clase_b(mis):
         alto_reg = int(min(200, 2470 - y - 4))
         registro_docente(b, y, alto=alto_reg, campos=[
             ("¿Qué tarjeta hubo que explicar dos veces?", "y con qué ejemplo funcionó"),
-            ("¿Qué pregunta no supiste responder?", "tráela resuelta la próxima clase")][:2] if True else None)
+            ("¿Qué pregunta no supiste responder?", "tráela resuelta la próxima clase")])
     pie(b, 4 + mis * 2)
     svg_close(b, OUTP + f"{4 + mis * 2:02d}.svg")
     return y
