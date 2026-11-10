@@ -365,6 +365,12 @@ clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión)
 
 ## 9. Lo que falta (en orden)
 
+**Estado al 10 nov (madrugada):** cuaderno de 398 páginas en estilo B, 7 planeadores y 56 guías al día (clases 7 y 8
+nuevas: `plan_simulacro.py` y el motor `clase_viva.py`), informe para la editorial (`libro/informe_editorial.py`),
+documento maestro de metodología (`docs/metodologia/arma_documento.py`), prueba de imprenta (`libro/imprenta.py`).
+Lo que Nelson tiene que decidir está en `docs/RESUMEN_10nov_para_Nelson.md`. **El riesgo mayor es el tamaño de letra**
+(texto 6,1 pt; rótulos 4,3–4,6 pt): esperar la prueba impresa. Lo que sigue abajo es la lista histórica.
+
 1. ~~Reconstruir el motor del cuaderno~~ — hecho el 6 nov. ~~Hallazgos 35 y 36~~ — corregidos: las
    98 páginas de misión entregadas se rehicieron con `rehace_hojas.py` (marco nuevo, salvavidas claro,
    Matemáticas en azul) y `arma_pdf.py` arma `entregables/Cuaderno_Saber11_paginas_1_a_110_v2.pdf`.
