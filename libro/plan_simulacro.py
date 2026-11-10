@@ -99,7 +99,8 @@ def esquema(clave):
     usa = (f"«{iz_t[0].upper() + iz_t[1:].lower()}»: {iz_d}. Después marca una herramienta de la caja "
            f"({_q(herr, 'o')}) y razona con ella en «{centro.lower()}».")
     d = v["der"]
-    der_t, der_d = (d[0].capitalize(), d[1]) if isinstance(d, tuple) else DER[d]
+    der_t, der_d = ((d[0].capitalize(), d[1] + ": lo escribe en una línea; es lo que decide la pregunta")
+                    if isinstance(d, tuple) else DER[d])
     der_t = der_t[0].upper() + der_t[1:].lower()
     if v.get("pie") == "ing":
         tacho = ("Descarté", "Una razón por cada opción que descarta, y una palabra nueva con su "
