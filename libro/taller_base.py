@@ -40,6 +40,7 @@ import xml.etree.ElementTree as ET
 
 from lib import *   # noqa: F401,F403  (W, H_PAGE, M, CW, T, rect, line, tw, TJ, chip, …)
 import lib as _lib
+import bitacora as BT  # estilo B · Bitácora (10 nov): el entorno de la hoja; no se exporta con *
 
 OUT = os.path.dirname(os.path.realpath(__file__)) + "/"
 
@@ -224,39 +225,65 @@ def encajar(frag, x, y, w, h_max):
             y + h_max, k)
 
 
-# ───────── piezas de la hoja ─────────
+# ───────── piezas de la hoja · estilo B · Bitácora (10 nov 2026) ─────────
+# Solo cambia el ENTORNO. La geometría (IW, BLK_H, Y0, columna derecha, renglones) es la de
+# antes: los instrumentos de todos los módulos caben igual. Sin la barra de 6 px bajo la
+# cabecera ni la línea del pie (regla 1). Nada de esto usa el azar global (ver bitacora.py).
+def _ajusta(txt, size, maxw, fam=None, weight="400", style="normal", minimo=12):
+    while size > minimo and ((BT.twf(txt, size, fam, weight) if fam else
+                              tw(txt, size, weight, style)) > maxw):
+        size -= 0.5
+    return size
+
+
 def cabecera(b, linea3):
-    """Banda del diario: logo, área · misión, tema · componente, hoja; fecha y caritas."""
+    """Bitácora: logo, área con resaltador, / MISIÓN 0n, tema · componente, línea de la hoja en
+    Space Mono; a la derecha, el recuadro a mano de la fecha y de cómo llego y cómo salgo."""
     c = A["color"]
-    b.append(rect(0, 0, W, 180, A["bg"], r=0))
-    b.append(rect(0, 180, W, 6, c, r=0))
-    b.append(logo(M, 44, 64))
-    b.append(T(M + 230, 78, [f"{A['area'].upper()} · MISIÓN {A['mision']}"], 24, c,
-               weight="700", ls=3))
-    sub = " · ".join(s for s in (A["tema"], f"componente {A['componente']}" if A["componente"]
-                                  else "") if s)
-    b.append(T(M + 230, 116, [sub], 22, GRAY))
-    b.append(T(M + 230, 150, [linea3], 20, GRAY, style="italic"))
-    b.append(T(W - M - 640, 78, ["Sábado ____ de ____________"], 24, INK))
-    b.append(T(W - M - 640, 130, ["Llego:"], 22, GRAY))
-    for k, mood in enumerate(["worried", "calm", "happy"]):
-        b.append(face(W - M - 540 + k * 70, 122, 24, mood, GRAY, "white", sw=2.2))
-    b.append(T(W - M - 300, 130, ["Salgo:"], 22, GRAY))
-    for k, mood in enumerate(["worried", "calm", "happy"]):
-        b.append(face(W - M - 200 + k * 70, 122, 24, mood, GRAY, "white", sw=2.2))
+    b.append(rect(M - 10, 30, logo_w(62) + 20, 82, "white", r=4))
+    b.append(logo(M, 40, 62))
+    x0 = M + 200
+    lim = 1300 - 60                      # antes de la chispa y del recuadro de la fecha
+    t = A["area"]
+    mis = f"/ MISIÓN {A['mision']:02d}"
+    w_mis = BT.twf(mis, 24, BT.MONO, "700")
+    s = _ajusta(t, 50, lim - x0 - w_mis - 22, BT.SHA, "800")
+    wt = BT.twf(t, s, BT.SHA, "800")
+    b.append(BT.resaltador(x0, 92 - s * 0.8, wt, s * 0.8, BT.FOSFO, seed=2))
+    b.append(BT.TX(x0, 88, t, s, BT.TINTA_B, BT.SHA, "800"))
+    b.append(BT.TX(x0 + wt + 22, 86, mis, 24, c, BT.MONO, "700"))
+    sub = " · ".join(x for x in (A["tema"], f"componente {A['componente']}" if A["componente"]
+                                  else "") if x)
+    if sub:
+        s2 = _ajusta(sub, 21, lim - x0)
+        b.append(rect(x0 - 6, 104, tw(sub, s2) + 12, 30, "white", r=2))
+        b.append(T(x0, 126, [sub], s2, GRAY))
+    l3 = linea3.upper()
+    s3 = _ajusta(l3, 15, lim - x0, BT.MONO)
+    b.append(rect(x0 - 6, 140, BT.twf(l3, s3, BT.MONO) + 12, 26, "white", r=2))
+    b.append(BT.TX(x0, 159, l3, s3, GRAY, BT.MONO))
+    # fecha y registro de ánimo: aquí se escribe, recuadro blanco
+    nx, ny, nw, nh = 1300, 24, W - M - 1300, 152
+    b.append(BT.wob_rect(nx, ny, nw, nh, BT.TINTA_B, 2.6, fill="white", seed=41))
+    b.append(T(nx + 28, ny + 52, ["Sábado ____ de ____________"], 24, INK))
+    b.append(BT.TX(nx + 28, ny + 116, "LLEGO", 15, GRAY, BT.MONO, "700"))
+    b.append(BT.TX(nx + 328, ny + 116, "SALGO", 15, GRAY, BT.MONO, "700"))
+    for base in (nx + 120, nx + 420):
+        for k, mood in enumerate(["worried", "calm", "happy"]):
+            b.append(face(base + k * 62, ny + 108, 22, mood, BT.TINTA_B, "white", sw=2.2))
+    b.append(BT.estrellita(nx - 34, ny + 30, 13, c))
 
 
 def _marco_tarjeta(b, y):
-    c = A["color"]
-    b.append(rect(M, y, CW, BLK_H, "white", r=26, stroke=A["ln"], sw=2.4))
-    b.append(rect(M, y, CW, 104, A["bg"], r=26))
-    b.append(rect(M, y + 60, CW, 44, A["bg"], r=0))
-    return c
+    """Recuadro a mano, blanco, que no se pasa de las esquinas. Devuelve el color del área."""
+    b.append(BT.wob_rect(M, y, CW, BLK_H, BT.TINTA_B, 3, fill="white", seed=50 + int(y), amp=1.6))
+    return A["color"]
 
 
 def _primera_idea(b, y, x, texto):
+    b.append(BT.flechita(x - 38, y + 54, x - 4, y + 40, A["color"], sw=2.6, seed=int(y)))
     b.append(T(x, y + 44, [texto], 20, GRAY))
-    b.append(line(x, y + 86, W - M - 30, y + 86, LGRAY, 2.2))
+    b.append(line(x, y + 86, W - M - 30, y + 86, LGRAY, 2.2))      # renglón para escribir
 
 
 def columna_derecha(b, y, est, cierre=("Lo que me llevo de esta pregunta",
@@ -268,29 +295,36 @@ def columna_derecha(b, y, est, cierre=("Lo que me llevo de esta pregunta",
     rx = M + RX_OFF
     rw = W - M - rx - 24
     ry = y + 130
-    b.append(line(rx - 18, ry, rx - 18, y + BLK_H - 30, "#E6EAF0", 2, "6,6"))
-    b.append(T(rx, ry + 20, ["MARCO AL FINAL"], 18, c, weight="700", ls=2))
+    b.append(BT.wob_vline(rx - 18, ry, y + BLK_H - 30, seed=int(y)))
+    b.append(BT.TX(rx, ry + 20, "MARCO AL FINAL", 16, BT.TINTA_B, BT.MONO, "700"))
     paso = min(92, (rw - 72) / max(len(letras) - 1, 1))
     r = min(30, paso / 2 - 4)
     for k, L in enumerate(letras):
-        cx = rx + 36 + k * paso
-        b.append(f'<circle cx="{cx:.1f}" cy="{ry + 80}" r="{r:.1f}" fill="white" stroke="{c}" '
-                 f'stroke-width="2.6"/>')
-        b.append(T(cx, ry + 80 + r / 3, [L], round(26 * r / 30), c, weight="700", anchor="middle"))
+        cx = round(rx + 36 + k * paso, 1)
+        b.append(BT.wob_circle(cx, ry + 80, round(r, 1), c, 2.4, seed=k + 60, fill="white"))
+        b.append(BT.TX(cx, round(ry + 80 + r / 3, 1), L, round(25 * r / 30), c, BT.SHA, "700",
+                       anchor="middle"))
     b.append(T(rx, ry + 144, ["¿Qué tan seguro estoy?"], 18, GRAY))
     for k, lab in enumerate(["adiviné", "casi", "seguro"]):
-        b.append(checkbox(rx + k * 150, ry + 164, s=11, c=GRAY))
+        b.append(BT.wob_rect(rx + k * 150, ry + 164, 22, 22, GRAY, 2, fill="white", seed=k + 70,
+                             amp=0.7))
         b.append(T(rx + 30 + k * 150, ry + 182, [lab], 18, GRAY))
     sy = ry + 231
     salvavidas(b, rx, sy, rw)
     ly = sy + 352
-    b.append(T(rx, ly, [cierre[0]], 20, c, weight="700"))
+    b.append(BT.TX(rx, ly + 2, cierre[0], 22, c, BT.SHA, "700"))
+    b.append(BT.estrellita(rx + BT.twf(cierre[0], 22, BT.SHA, "700") + 22, ly - 6, 10, EDU_ORO, 2.2))
     b.append(T(rx, ly + 28, [cierre[1]], 16, GRAY, style="italic"))
     b.append(wlines(rx, sy + 438, rw, 4, c="#E3E8EF", step=48))
+    marca_est(b, W - M - 60, y + BLK_H - 50, est)
+
+
+def marca_est(b, cx, cy, est):
+    """Sello redondo con el número de la estrategia, en su color."""
     ec = EST[est][1]
-    b.append(f'<circle cx="{W - M - 60}" cy="{y + BLK_H - 50}" r="18" fill="{ec}"/>')
-    b.append(T(W - M - 60, y + BLK_H - 43, [str(est)], 18, "white", weight="700",
-               anchor="middle"))
+    b.append(f'<circle cx="{cx}" cy="{cy}" r="22" fill="white" stroke="{ec}" stroke-width="2.6"/>')
+    b.append(f'<circle cx="{cx}" cy="{cy}" r="16" fill="none" stroke="{ec}" stroke-width="1.2"/>')
+    b.append(BT.TX(cx, cy + 7, str(est), 18, ec, BT.MONO, "700", anchor="middle"))
 
 
 # El salvavidas es igual en todas las áreas: fondo claro para escribir con lápiz (Nelson, 6 nov).
@@ -328,19 +362,18 @@ def salvavidas(b, rx, sy, rw, h=300):
 
 
 def chip_estrategia(b, x, y, est, prefijo="Estrategia", derecha=False):
+    """La estrategia como SELLO de caucho (doble borde, tinta del color de la estrategia).
+    Ancho medido con tw(): lo revisa verifica_cajas.py."""
     nombre, ec = EST[est]
     txt = f"{prefijo} {est} · {nombre}"
-    w = tw(txt, 19, "700") + 36
-    x0 = x - w if derecha else x
-    chip(b, x0, y, txt, ec, size=19, h=44)
-    return x0, w
+    return BT.sello(b, x, y, txt, ec, size=19, h=44, derecha=derecha)
 
 
 def notas(b, x, y, w, h, rotulo=None):
     """Recuadro «lo que subrayé en el texto» / «lo que anoté del caso»: llena lo que sobra."""
     c = A["color"]
-    b.append(rect(x, y, w, h, "white", r=14, stroke="#E6E1E4", sw=2))
-    b.append(T(x + 16, y + 28, [rotulo or A["nota"]], 15, c, weight="700", ls=1.5))
+    b.append(BT.wob_rect(x, y, w, h, BT.LN_GRIS, 2, fill="white", seed=int(y), amp=1.2))
+    b.append(BT.TX(x + 18, y + 30, rotulo or A["nota"], 14, c, BT.MONO, "700"))
     n = int((h - 70) // 48) + 1
     if n > 0:
         b.append(wlines(x + 18, y + 60, w - 36, n, c="#E6EAF0", step=48))
@@ -358,17 +391,30 @@ def _instrumento(b, n, inst, x, y, limite):
     return y_fin
 
 
+def encabezado_tarjeta(b, y, n, pag, ctx, est, comp=None):
+    """Número en un círculo a mano, «Pregunta n» con resaltador, la página del libro, el contexto,
+    el sello de la estrategia y «mi primera idea»."""
+    c = A["color"]
+    cx, cy = M + 62, y + 56
+    b.append(BT.wob_circle(cx, cy, 38, c, 2.8, seed=n if isinstance(n, int) else 1))
+    b.append(BT.TX(cx, cy + 12, f"{n:02d}" if isinstance(n, int) else str(n), 32, c, BT.MONO, "700",
+                   anchor="middle"))
+    t1 = f"Pregunta {n}"
+    w1 = BT.twf(t1, 34, BT.SHA, "800")
+    b.append(BT.resaltador(M + 118, y + 22, w1, 34, BT.FOSFO, seed=(n if isinstance(n, int) else 1) + 3))
+    b.append(BT.TX(M + 118, y + 52, t1, 34, BT.TINTA_B, BT.SHA, "800"))
+    b.append(T(M + 118 + w1 + 16, y + 50, [f"la lees en tu libro, página {pag}"], 21, c, weight="700"))
+    b.append(T(M + 118, y + 88, [ctx], 20, GRAY, style="italic"))
+    chip_estrategia(b, M + 760, y + 26, est, prefijo=A.get("prefijo", "Estrategia"))
+    if comp:
+        b.append(BT.TX(M + 764, y + 100, f"COMPETENCIA · {comp.upper()}", 14, GRAY, BT.MONO))
+    _primera_idea(b, y, M + 1300, "Mi primera idea, antes de hacer nada:")
+
+
 def tarjeta(b, y, n, est, pag, ctx, inst, comp=None, letras="ABCD", **_):
     """Una pregunta del libro. inst(b, x, y, w, h) dibuja su instrumento y devuelve su final."""
     c = _marco_tarjeta(b, y)
-    b.append(num_badge(M + 60, y + 52, n, c, r=34, size=34))
-    b.append(T(M + 112, y + 44, [f"Pregunta {n} · la lees en tu libro, página {pag}"], 24, c,
-               weight="700"))
-    b.append(T(M + 112, y + 78, [ctx], 21, GRAY, style="italic"))
-    cx, cw = chip_estrategia(b, M + 760, y + 30, est, prefijo=A.get("prefijo", "Estrategia"))
-    if comp:
-        b.append(T(cx + 4, y + 92, [f"competencia · {comp}"], 15, GRAY, style="italic"))
-    _primera_idea(b, y, M + 1300, "Mi primera idea, antes de hacer nada:")
+    encabezado_tarjeta(b, y, n, pag, ctx, est, comp)
     ix, iy = M + 30, y + 130
     fondo = y + BLK_H - 40
     y_fin = _instrumento(b, n, inst, ix, iy, fondo)
