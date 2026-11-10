@@ -19,7 +19,8 @@ No modifica taller_base.py, lib.py, apertura*.py ni bio2.py: los importa y redib
 Tipografías de títulos (todas SIL OFL 1.1, en fuentes/propuesta/): DM Serif Display (A),
 Shantell Sans + Space Mono (B), Bricolage Grotesque (C). El texto de lectura sigue en Carlito.
 Se mide con twf(), la misma idea de tw() pero con el archivo de la fuente de títulos.
-Sin filtros ni transparencias: todo color plano y vectorial (apto para PDF/X-1a).
+El entorno no usa filtros ni transparencias: color plano y vectorial. Lo que queda con opacidad
+(caritas al 90 %, rayados de algunos instrumentos) viene del motor actual. El único raster es el logo.
 """
 import math
 import os
@@ -1235,6 +1236,72 @@ def metas(k):
 
 PORTADAS = {"A": portada_A, "B": portada_B, "C": portada_C}
 
+# ════════════════════════════ lámina resumen ════════════════════════════
+FICHAS = {
+    "A": dict(nombre="Recortes", tipo="scrapbook · diario de collage",
+              palabras="hecho a mano · cálido · íntimo · de colección", fam=DMS, peso="400",
+              tipo_txt="DM Serif Display (títulos) + Caveat (rótulos a mano)",
+              acentos=[(PAPEL_A, "papel"), (KRAFT, "kraft"), (NOTA, "nota"), (CINTAS[0], "cinta"),
+                       (CINTAS[1], "cinta"), (CINTAS[3], "cinta")]),
+    "B": dict(nombre="Bitácora", tipo="bullet journal · zine",
+              palabras="ordenado · ingenioso · de estudio · con garabatos", fam=SHA, peso="800",
+              tipo_txt="Shantell Sans (títulos) + Space Mono (rótulos)",
+              acentos=[(FOSFO, "resaltador"), (FOSFO_2, "menta"), (DOT, "puntos"), (TINTA_B, "tinta")]),
+    "C": dict(nombre="Bloque", tipo="neo-brutalismo · tarjetas de color",
+              palabras="directo · gráfico · seguro · con energía", fam=BRI, peso="800",
+              tipo_txt="Bricolage Grotesque ExtraBold (títulos)",
+              acentos=[(TINTA_C, "tinta"), (AMARILLO, "amarillo"), (LILA, "lila")]),
+}
+
+
+def _anidar(ruta, x, y, w):
+    """Mete una hoja SVG entera, en vectores, como miniatura."""
+    s = open(ruta, encoding="utf-8").read()
+    ini = s.index(">", s.index("<svg")) + 1
+    cuerpo = s[ini:s.rindex("</svg>")]
+    h = w * H_PAGE / W
+    return (rect(x - 3, y - 3, w + 6, h + 6, "#C9CED6", r=4)
+            + f'<svg x="{x}" y="{y}" width="{w}" height="{h:.1f}" viewBox="0 0 {W} {H_PAGE}">{cuerpo}</svg>')
+
+
+def resumen():
+    b = pagina("#FFFFFF")
+    b.append(logo(M, 46, 64))
+    b.append(TX(M + 210, 92, "Tres direcciones para el entorno del cuaderno", 44, EDU_AZUL, weight="700"))
+    b.append(TX(M + 210, 132, "Mismo contenido, mismo instrumento, mismo salvavidas. Cambia la cabecera, el marco, "
+                "los rótulos, los títulos y los adornos.", 22, GRAY, style="italic"))
+    y = 200
+    for k in "ABC":
+        f = FICHAS[k]
+        b.append(rect(M, y, CW, 740, "#F6F7FA", r=24))
+        b.append(rect(M, y, 10, 740, EDU_AZUL, r=5))
+        b.append(TX(M + 50, y + 92, k, 72, EDU_AZUL, f["fam"], f["peso"]))
+        b.append(TX(M + 130, y + 88, f["nombre"], fit(f["nombre"], 64, f["fam"], f["peso"], 560),
+                    TINTA_C, f["fam"], f["peso"]))
+        b.append(TX(M + 50, y + 140, f["tipo"], 24, GRAY, style="italic"))
+        b.append(TX(M + 50, y + 210, "Cómo se siente", 18, EDU_AZUL, weight="700", ls=1.5))
+        b.append(TX(M + 50, y + 246, f["palabras"], 25, INK))
+        b.append(TX(M + 50, y + 316, "Acentos que se suman", 18, EDU_AZUL, weight="700", ls=1.5))
+        for i, (hx, nm) in enumerate(f["acentos"]):
+            cx = M + 82 + i * 112
+            b.append(f'<circle cx="{cx}" cy="{y + 370}" r="32" fill="{hx}" stroke="#C9CED6" stroke-width="2"/>')
+            b.append(TX(cx, y + 428, nm, 16, GRAY, anchor="middle"))
+            b.append(TX(cx, y + 450, hx.upper(), 14, GRAY, anchor="middle"))
+        b.append(TX(M + 50, y + 512, "Títulos", 18, EDU_AZUL, weight="700", ls=1.5))
+        b.append(TX(M + 50, y + 590, "Aa · Pregunta 7", 60, TINTA_C, f["fam"], f["peso"]))
+        b.append(TX(M + 50, y + 632, f["tipo_txt"], 20, INK))
+        b.append(TX(M + 50, y + 662, "licencia SIL Open Font License 1.1 · texto de lectura sigue en Carlito",
+                    17, GRAY, style="italic"))
+        for n in (1, 2, 3):
+            b.append(_anidar(OUTD + f"estilo_{k}_{n}.svg", M + 790 + (n - 1) * 350, y + 52, 322))
+            b.append(TX(M + 790 + (n - 1) * 350 + 161, y + 52 + 417 + 40,
+                        ("portada", "metas · página 4", "taller · Biología, página 151")[n - 1], 19, GRAY,
+                        anchor="middle"))
+        y += 770
+    b.append(TX(M, H_PAGE - 62, "Los siete colores de área no cambian. El salvavidas conserva #FFF7F2 y #E4572E en las tres. "
+                "Todo es vectorial y sin filtros; el único raster es el logo.", 20, GRAY, style="italic"))
+    return b
+
 
 def construir():
     rutas = []
@@ -1247,9 +1314,18 @@ def construir():
         random.seed(17)
         r3 = S.hoja_taller(f"estilo_{k}_3", 151, 4, bio2.Q[7], bio2.Q[8])
         rutas += [r1, r2, r3]
+    b = resumen()
+    r = OUTD + "estilo_resumen.svg"
+    svg_close(b, r)
+    rutas.append(r)
     return rutas
 
 
 if __name__ == "__main__":
-    for r in construir():
+    import render
+    rutas = construir()
+    os.makedirs(PDF_DIR, exist_ok=True)
+    pdf = render.unir(rutas, os.path.join(PDF_DIR, "Propuesta_estilos.pdf"))
+    for r in rutas:
         print(r)
+    print(pdf)
