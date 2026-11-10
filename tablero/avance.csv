@@ -1,5 +1,5 @@
 seccion,orden,listas,total
-Apertura del cuaderno,1,9,9
+Apertura del cuaderno,1,6,6
 Portadas de área,2,7,7
 Matemáticas,3,42,42
 Lectura Crítica,4,42,42
@@ -8,4 +8,6 @@ Biología,6,42,42
 Química,7,42,42
 Física,8,42,42
 Inglés,9,76,76
-Cierre post-prueba,10,0,3
+Simulacro (al final de cada área),10,54,54
+Cierre post-prueba,11,2,2
+Mensaje final,12,1,1

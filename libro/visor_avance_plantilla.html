@@ -211,16 +211,17 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
 <script>
 const D = __DATOS__;
 const AREAS = [
-  {k:"ap", n:"Apertura", c:"#242478", a:1, b:9},
-  {k:"m", n:"Matemáticas", c:"#1F4E8C", a:10, b:52},
-  {k:"lc", n:"Lectura Crítica", c:"#A82424", a:53, b:95},
-  {k:"soc", n:"Sociales y Ciudadanas", c:"#C9821B", a:96, b:138},
-  {k:"bio", n:"Biología", c:"#30843C", a:139, b:181},
-  {k:"qui", n:"Química", c:"#0F7A68", a:182, b:224},
-  {k:"fis", n:"Física", c:"#5C7A1E", a:225, b:267},
-  {k:"ing", n:"Inglés", c:"#1BA0A8", a:268, b:344},
-  {k:"cie", n:"Cierre", c:"#6E7480", a:345, b:347},
+  {k:"ap", n:"Apertura", c:"#242478", a:1, b:6},
+  {k:"m", n:"Matemáticas", c:"#1F4E8C", a:7, b:59},
+  {k:"lc", n:"Lectura Crítica", c:"#A82424", a:60, b:112},
+  {k:"soc", n:"Sociales y Ciudadanas", c:"#C9821B", a:113, b:165},
+  {k:"bio", n:"Biología", c:"#30843C", a:166, b:214},
+  {k:"qui", n:"Química", c:"#0F7A68", a:215, b:263},
+  {k:"fis", n:"Física", c:"#5C7A1E", a:264, b:312},
+  {k:"ing", n:"Inglés", c:"#1BA0A8", a:313, b:395},
+  {k:"cie", n:"Cierre", c:"#6E7480", a:396, b:398},
 ];
+const TOTAL = 398;
 const ROL = ["taller","taller","ICFES","taller","taller","taller","ICFES"];
 const porNum = new Map(D.pags.map(p => [p.n, p]));
 const hechas = D.pags.map(p => p.n).sort((x,y)=>x-y);
@@ -229,8 +230,8 @@ const imgPag = n => `pag/${String(n).padStart(3,"0")}.jpg`;
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 document.getElementById("cifras").innerHTML = [
-  [`${hechas.length} / 347`, "páginas hechas"],
-  [`${Math.round(hechas.length/347*100)} %`, "del cuaderno"],
+  [`${hechas.length} / ${TOTAL}`, "páginas hechas"],
+  [`${Math.round(hechas.length/TOTAL*100)} %`, "del cuaderno"],
   [D.instrumentos, "instrumentos de pensamiento"],
   [D.icfes, "preguntas Saber 11"],
   [D.hallazgos.length, "hallazgos registrados"],
@@ -253,7 +254,7 @@ const abrirPag = n => verLista(listaCuaderno, hechas.indexOf(n));
 
 /* ---------- cuaderno ---------- */
 const mapa = document.getElementById("mapa");
-for (let n = 1; n <= 347; n++) {
+for (let n = 1; n <= TOTAL; n++) {
   const a = areaDe(n), ok = porNum.has(n);
   const el = document.createElement("button");
   el.type = "button"; el.className = "celda" + (ok ? " lista" : "");
@@ -271,6 +272,7 @@ const mini = n => {
   return `<button class="mini" type="button" data-n="${n}"><img loading="lazy" src="${imgPag(n)}" alt="Página ${n}: ${esc(p.tit)}"><span>pág. ${n}</span></button>`;
 };
 const paginasMision = (a, m) => hechas.filter(n => n >= a.a && n <= a.b && porNum.get(n).m === m);
+const paginasSimulacro = a => hechas.filter(n => n >= a.a && n <= a.b && porNum.get(n).rol === "Simulacro");
 const misionKey = (a, m) => ({m:`Misión ${m}`, lc:`LC Misión ${m}`, soc:`SOC Misión ${m}`, bio:`BIO Misión ${m}`, qui:`QUI Misión ${m}`, fis:`FIS Misión ${m}`, ing:`ING Misión ${m}`})[a.k];
 let html = "";
 for (const a of AREAS) {
@@ -294,6 +296,10 @@ for (const a of AREAS) {
         ${info.est ? `<small>Estrategias: ${esc(info.est)}</small>` : ""}
         <div class="tiras">${ns.map(mini).join("")}</div></div>`;
     }
+    const sim = paginasSimulacro(a);
+    if (sim.length) html += `<div class="mision"><h3>Simulacro · <small>${sim.length / 2} hojas a doble cara, al final del área</small>
+        <button class="boton mini-b" type="button" data-sim-pdf="${a.k}" style="margin-left:8px">PDF del simulacro</button></h3>
+        <div class="tiras">${sim.map(mini).join("")}</div></div>`;
   } else if (tot !== 43 || !hay) {
     const ns = []; for (let n = a.a; n <= a.b; n++) ns.push(n);
     html += `<div class="sueltas">${ns.map(mini).join("")}</div>`;
@@ -439,7 +445,7 @@ function pintarChips() {
   document.getElementById("chips-areas").innerHTML = items.map(a => `<button class="chip-a" type="button" data-sel="${a.k}" aria-pressed="${a.k === areaSel}" style="--c:${a.c}"><i></i>${esc(a.n)}</button>`).join("");
   const pa = document.getElementById("panel-area");
   if (areaSel === "todo") {
-    const faltan = 347 - hechas.length;
+    const faltan = TOTAL - hechas.length;
     pa.innerHTML = `<div class="panel-area" style="--c:#242478"><h3>Todo el cuaderno</h3>
       <p class="nota">Un solo PDF con las ${hechas.length} páginas hechas, en orden.${faltan ? ` Faltan ${faltan} (${AREAS.filter(a => !rango(a.a, a.b).every(n => porNum.has(n))).map(a => a.n).join(", ")}).` : ""} Pesa unos ${Math.round(D.fuentes.reduce((s, f) => s + (D.descargas.find(d => d.f === f.f)?.mb || 0), 0))} MB: tarda un poco en armarse.</p>
       <div class="fila"><button class="boton fuerte" type="button" data-todo="1">Descargar el cuaderno completo</button></div>
@@ -464,6 +470,7 @@ function pintarChips() {
 document.getElementById("chips-areas").addEventListener("click", e => { const b = e.target.closest("[data-sel]"); if (b) { areaSel = b.dataset.sel; history.replaceState(null, "", "#descargas" + (areaSel === "todo" ? "" : "/" + areaSel)); pintarChips(); } });
 document.addEventListener("click", e => {
   const ap = e.target.closest("[data-area-pdf]"); if (ap) return pdfArea(AREAS.find(a => a.k === ap.dataset.areaPdf));
+  const sp = e.target.closest("[data-sim-pdf]"); if (sp) { const a = AREAS.find(x => x.k === sp.dataset.simPdf), ns = paginasSimulacro(a); return armar(ns, `EDUCATE_${nomArea(a)}_Simulacro_p${ns[0]}-${ns[ns.length - 1]}.pdf`); }
   const mp = e.target.closest("[data-mis-pdf]"); if (mp) { const [k, m] = mp.dataset.misPdf.split(":"); return pdfMision(AREAS.find(a => a.k === k), +m); }
   if (e.target.closest("[data-todo]")) return pdfTodo();
   if (e.target.id === "dlg-pdf" && e.target.dataset.n) return pdfPagina(+e.target.dataset.n);

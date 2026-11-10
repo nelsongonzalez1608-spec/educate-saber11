@@ -13,12 +13,18 @@ import csv, json, os, subprocess, sys, datetime
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 ENT, TAB, LIB = (os.path.join(RAIZ, d) for d in ("entregables", "tablero", "libro"))
-PDFS = [("Cuaderno_Saber11_paginas_1_a_110_v2.pdf", 1, 110, 0),
-        ("Sociales_completo_paginas_96_a_138.pdf", 111, 138, 95),
-        ("Biologia_completo_paginas_139_a_181.pdf", 139, 181, 138),
-        ("Quimica_completo_paginas_182_a_224.pdf", 182, 224, 181),
-        ("Fisica_completo_paginas_225_a_267.pdf", 225, 267, 224),
-        ("Ingles_completo_paginas_268_a_344.pdf", 268, 344, 267)]
+# armado final (10 nov): un solo PDF con las 398 páginas; (archivo, primera, última, desplazamiento)
+PDFS = [("Cuaderno_Saber11_completo_398_paginas.pdf", 1, 398, 0)]
+# los PDF por sección (arma_pdf.PARTES): se copian tal cual a descargas/
+CUADERNO = [("Cuaderno_01_Apertura_p1-6.pdf", "Apertura", 1, 6),
+            ("Cuaderno_02_Matematicas_p7-59.pdf", "Matemáticas", 7, 59),
+            ("Cuaderno_03_LecturaCritica_p60-112.pdf", "Lectura Crítica", 60, 112),
+            ("Cuaderno_04_Sociales_p113-165.pdf", "Sociales y Ciudadanas", 113, 165),
+            ("Cuaderno_05_Biologia_p166-214.pdf", "Biología", 166, 214),
+            ("Cuaderno_06_Quimica_p215-263.pdf", "Química", 215, 263),
+            ("Cuaderno_07_Fisica_p264-312.pdf", "Física", 264, 312),
+            ("Cuaderno_08_Ingles_p313-395.pdf", "Inglés", 313, 395),
+            ("Cuaderno_09_Cierre_p396-398.pdf", "Cierre", 396, 398)]
 
 
 def imagenes(out, pags):
@@ -109,22 +115,10 @@ def docente(out):
 def descargas(out):
     """Archivos para descargar desde la página. El cuaderno, por área (pikepdf comparte las fuentes:
     partido con pdfseparate cada área pesaba 22 MB)."""
-    import shutil, pikepdf
+    import shutil
     d = os.path.join(out, "descargas")
     os.makedirs(d, exist_ok=True)
-    v2 = pikepdf.open(os.path.join(ENT, "Cuaderno_Saber11_paginas_1_a_110_v2.pdf"))
-    for nom, a, b in (("Cuaderno_01_Apertura_p1-9.pdf", 1, 9), ("Cuaderno_02_Matematicas_p10-52.pdf", 10, 52),
-                      ("Cuaderno_03_LecturaCritica_p53-95.pdf", 53, 95)):
-        n = pikepdf.new()
-        for i in range(a - 1, b):
-            n.pages.append(v2.pages[i])
-        n.remove_unreferenced_resources()
-        n.save(os.path.join(d, nom), compress_streams=True, object_stream_mode=pikepdf.ObjectStreamMode.generate)
-    copias = [("Sociales_completo_paginas_96_a_138.pdf", "Cuaderno_04_Sociales_p96-138.pdf"),
-              ("Biologia_completo_paginas_139_a_181.pdf", "Cuaderno_05_Biologia_p139-181.pdf"),
-              ("Quimica_completo_paginas_182_a_224.pdf", "Cuaderno_06_Quimica_p182-224.pdf"),
-              ("Fisica_completo_paginas_225_a_267.pdf", "Cuaderno_07_Fisica_p225-267.pdf"),
-              ("Ingles_completo_paginas_268_a_344.pdf", "Cuaderno_08_Ingles_p268-344.pdf"),
+    copias = [(f, f) for f, *_ in CUADERNO] + [
               ("EDUCATE_Planeador_Matematicas.pdf", "Planeador_Matematicas.pdf"),
               ("EDUCATE_Planeador_LecturaCritica.pdf", "Planeador_LecturaCritica.pdf"),
               ("EDUCATE_Planeador_Sociales.pdf", "Planeador_Sociales.pdf"),
@@ -136,9 +130,8 @@ def descargas(out):
     for a, b in copias:
         if os.path.exists(os.path.join(ENT, a)):
             shutil.copy(os.path.join(ENT, a), os.path.join(d, b))
-    titulos = {"Cuaderno_01": "Cuaderno · Apertura (páginas 1–9)", "Cuaderno_02": "Cuaderno · Matemáticas (10–52)",
-               "Cuaderno_03": "Cuaderno · Lectura Crítica (53–95)", "Cuaderno_04": "Cuaderno · Sociales y Ciudadanas (96–138)",
-               "Cuaderno_05": "Cuaderno · Biología (139–181)", "Cuaderno_06": "Cuaderno · Química (182–224)", "Cuaderno_07": "Cuaderno · Física (225–267)", "Cuaderno_08": "Cuaderno · Inglés (268–344)", "Planeador_Matematicas": "Planeador del docente · Matemáticas",
+    titulos = {f[:11]: f"Cuaderno · {n} (páginas {a}–{b})" for f, n, a, b in CUADERNO}
+    titulos.update({"Planeador_Matematicas": "Planeador del docente · Matemáticas",
                "Planeador_LecturaCritica": "Planeador del docente · Lectura Crítica",
                "Planeador_Sociales": "Planeador del docente · Sociales y Ciudadanas",
                "Planeador_Biologia": "Planeador del docente · Biología",
@@ -146,7 +139,7 @@ def descargas(out):
                "Guias_Sociales": "Las 8 presentaciones de Sociales y Ciudadanas (.zip)",
                "Informe_hallazgos_6nov": "Informe de hallazgos del libro (versión del 6 nov)",
                "Matriz_del_proyecto_6nov": "Matriz del proyecto (versión del 6 nov)",
-               "Estado_del_proyecto_6nov": "Estado del proyecto (versión del 6 nov)", "Muestra_reunion": "Muestra para la reunión"}
+               "Estado_del_proyecto_6nov": "Estado del proyecto (versión del 6 nov)", "Muestra_reunion": "Muestra para la reunión"})
     out_l = []
     for f in sorted(os.listdir(d)):
         clave = next((k for k in titulos if f.startswith(k)), f)
