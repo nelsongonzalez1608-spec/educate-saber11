@@ -10,8 +10,19 @@ Una hoja con la respuesta correcta y el andamiaje vacío no cuenta como resuelta
 
 Mismo motor que el cuaderno (lib.py, SVG 2000 × 2588 → PDF carta). Sin líneas
 horizontales decorativas: los acentos son verticales o bandas sólidas de cabecera.
+
+Numeración (10 nov): el cuaderno tiene 398 páginas y Matemáticas va de la 7 a la 59 (portada, seis
+misiones y, al final, las hojas de simulacro, 50–59). Las páginas salen de paginas.py: BASE_VIEJA es la
+numeración con la que se construyeron las misiones y BASE la impresa.
+
+Clases 7 y 8 (decisión de Nelson, 10 nov): C7 y C8, de plan_simulacro.py, para el agente de las guías.
+La Misión 6 numera las estrategias como el cuaderno (10 nov): E1 «Todos los casos que cuentan»,
+E2 «Lo que cambia el total», E3 «Juzgar el procedimiento», E4 «Hasta dónde llega el dato».
+
+    python3 plan_mate.py --pdf     → entregables/EDUCATE_Planeador_Matematicas.pdf
 """
 from lib import *
+import paginas as PG          # la numeración final del cuaderno (398 páginas, 10 nov): única fuente
 
 AZ = "#1F4E8C"            # Matemáticas
 AZ_D = "#13325C"
@@ -24,7 +35,7 @@ VERDE = "#2E7A39"; VERDE_BG = "#EDF5EE"; VERDE_LN = "#C3DEC8"
 PIZ = "#28313F"           # banda de cabecera
 OUT = "/home/claude/libro/"
 TOT = 24                  # 2 de entrada · 2 de momentos · 12 de clase · 1 de
-                          # simulacro · 6 de dinámicas · 1 de cierre
+                          # simulacro (hoja 17) · 6 de dinámicas · 1 de cierre (hoja 24)
 PAGS = []                 # nombres de las hojas, en orden
 
 
@@ -165,21 +176,48 @@ FASES = [
      "Cuaderno: «lo que me llevo de esta pregunta», carita de salida y casilla de la portada."),
 ]
 
+# Páginas del cuaderno: la numeración vieja (mapa de 347) → la impresa (398), con paginas.nueva().
+BASE_VIEJA = {1: 11, 2: 18, 3: 25, 4: 32, 5: 39, 6: 46}
+BASE = {m: PG.nueva(b) for m, b in BASE_VIEJA.items()}
+AREA_PAGS = PG.rango_area("mate")                     # (7, 59)
+SIMULACRO_PAGS = PG.paginas_simulacro("mate")         # [50 … 59]
+SIM = f"{SIMULACRO_PAGS[0]} a {SIMULACRO_PAGS[-1]}"
+
+
+def _pags(m):
+    return f"{BASE[m]} a {BASE[m] + 6}"
+
+
 # Las ocho clases del área. clase -> (misión de contenido o None, título, subtítulo)
 CLASES = [
-    (1, "Momento 1 · Numérico-variacional", "páginas 11 a 17 del cuaderno"),
-    (2, "Momento 2 · Numérico-variacional", "páginas 18 a 24 del cuaderno"),
-    (3, "Momento 3 · Espacial-métrico", "páginas 25 a 31 del cuaderno"),
-    (4, "Momento 4 · Espacial-métrico", "páginas 32 a 38 del cuaderno"),
-    (5, "Momento 5 · Aleatorio", "páginas 39 a 45 del cuaderno"),
-    (6, "Momento 6 · Aleatorio avanzado", "páginas 46 a 52 del cuaderno"),
-    (None, "Simulacro del área", "las 6 franjas de simulacro, en condiciones de prueba"),
-    (None, "Socialización del simulacro", "devolución, reparación y cierre del área"),
+    (1, "Momento 1 · Numérico-variacional", f"páginas {_pags(1)} del cuaderno"),
+    (2, "Momento 2 · Numérico-variacional", f"páginas {_pags(2)} del cuaderno"),
+    (3, "Momento 3 · Espacial-métrico", f"páginas {_pags(3)} del cuaderno"),
+    (4, "Momento 4 · Espacial-métrico", f"páginas {_pags(4)} del cuaderno"),
+    (5, "Momento 5 · Aleatorio", f"páginas {_pags(5)} del cuaderno"),
+    (6, "Momento 6 · Aleatorio avanzado", f"páginas {_pags(6)} del cuaderno"),
+    (None, "Simulacro del área", "el simulacro que aplica EDUCATE, en condiciones de examen"),
+    (None, "Socialización del simulacro", f"hojas de simulacro del cuaderno, páginas {SIM}"),
 ]
+
+# Clases 7 y 8 (decisión de Nelson, 10 nov): el simulacro es una prueba que escoge EDUCATE y no está en
+# el cuaderno; la clase 8 socializa sus preguntas en las hojas de simulacro. C7 y C8: plan_simulacro.py.
+import plan_simulacro as PS
+C7, C8 = PS.datos("mate", conteo="contenido (estadística, geometría, álgebra y cálculo)", dinamica=dict(
+    nombre="El abogado del resultado", formato="en parejas",
+    pasos=["Parejas con la segunda pregunta asignada. Cada uno la trabaja en su esquema hasta «la "
+           "comprobación», sin marcar la opción.",
+           "Intercambian cuadernos. El compañero intenta tumbar el resultado: un dato que sobró, una unidad "
+           "que no cuadra o un número que lo contradiga.",
+           "El dueño lo defiende con su comprobación. Si se lo tumban, corrige y escribe en el salvavidas "
+           "dónde se perdió.",
+           "Recién entonces cada uno tacha con razón las opciones que descartó y marca."],
+    entrena="Comprobar antes de marcar: reemplazar el resultado en el enunciado y buscar el caso que lo "
+            "tumba. Son «los datos que sí uso» y «la comprobación» del esquema."))
 
 # Por misión: componente, páginas, las cuatro estrategias y qué tiene que instalar el profe.
 MISIONES = {
- 1: dict(comp="Numérico-variacional", pags="11 a 17",
+ 1: dict(comp="Numérico-variacional", pags=_pags(1),
    estr=["Subir, llegar y volver", "Lo fijo y lo que crece",
          "Un modelo, tres preguntas", "El patrón que continúa"],
    instala="Qué es una razón de cambio y por qué es la misma cosa que la pendiente de una "
@@ -190,7 +228,7 @@ MISIONES = {
    clave_est="La estrategia 1 cubre la parábola completa (subir, vértice, bajar). El banco "
              "verificado no tiene todavía una pregunta Saber 11 de parábola completa, "
              "así que el entrenamiento de este momento refuerza las otras tres."),
- 2: dict(comp="Numérico-variacional", pags="18 a 24",
+ 2: dict(comp="Numérico-variacional", pags=_pags(2),
    estr=["Encontrar el techo", "Refutar con el modelo",
          "El aumento constante", "Los datos mandan"],
    instala="La diferencia entre el máximo de una función y el punto donde se alcanza. Es el "
@@ -200,7 +238,7 @@ MISIONES = {
        "tumba la afirmación: hay que hacerlo en el tablero una vez para que lo crean.",
    clave_est="Las cuatro preguntas Saber 11 de este momento están verificadas "
              "una por una."),
- 3: dict(comp="Espacial-métrico", pags="25 a 31",
+ 3: dict(comp="Espacial-métrico", pags=_pags(3),
    estr=["Partir el cuerpo en piezas", "La misma razón para los dos",
          "Cuántas veces cabe", "Antes de mover, mide"],
    instala="Semejanza: qué cambia y qué no cambia entre dos figuras semejantes. Y que "
@@ -210,7 +248,7 @@ MISIONES = {
        "metros contra centímetros, no geometría.",
    clave_est="«Cuántas veces cabe» no es dividir volúmenes a ciegas: hay que medir el hueco "
              "y medir lo que se va a meter, y comprobar que encaje en las tres dimensiones."),
- 4: dict(comp="Espacial-métrico", pags="32 a 38",
+ 4: dict(comp="Espacial-métrico", pags=_pags(4),
    estr=["Dimensión por dimensión", "Nombra los lados primero",
          "Cada cuerpo, su fórmula", "Juzgar lo que afirman"],
    instala="Las razones trigonométricas y, con ellas, qué par de lados forma la esquina "
@@ -221,7 +259,7 @@ MISIONES = {
        "la prueba sí evalúa.",
    clave_est="«Juzgar lo que afirman» es la estrategia que más aparece en el ICFES de este "
              "componente: hay que seguir el procedimiento paso por paso, no estimar a ojo."),
- 5: dict(comp="Aleatorio", pags="39 a 45",
+ 5: dict(comp="Aleatorio", pags=_pags(5),
    estr=["Cuál medida responde", "De porcentaje a personas",
          "Afirmación por afirmación", "Probar los cuatro casos"],
    instala="Que media, mediana, moda y rango responden preguntas distintas, y que la "
@@ -231,9 +269,10 @@ MISIONES = {
        "personas. Al revés se acumulan los redondeos y el número no cuadra.",
    clave_est="Las cuatro ICFES de este momento son de lectura de tablas y gráficos: el "
              "estudiante tiene que armar la tabla completa antes de dividir."),
- 6: dict(comp="Aleatorio avanzado", pags="46 a 52",
-   estr=["Juzgar el procedimiento", "Todos los casos que cuentan",
-         "Hasta dónde llega el dato", "Lo que cambia el total"],
+ 6: dict(comp="Aleatorio avanzado", pags=_pags(6),
+   # En el orden del cuaderno (páginas 43–49): E1 todos los casos, E2 el total, E3 juzgar, E4 el dato.
+   estr=["Todos los casos que cuentan", "Lo que cambia el total",
+         "Juzgar el procedimiento", "Hasta dónde llega el dato"],
    instala="Conteo y combinatoria: cuándo importa el orden y cuándo no. Sin esto, «todos los "
            "casos que cuentan» es adivinar. Es el vacío teórico más grande del área.",
    ojo="El revisor de grado 10 lo dijo sin rodeos: en el componente aleatorio no hay "
@@ -364,7 +403,7 @@ def h1():
     y = seccion(b, y, "El área en números",
         "Lo que ya está construido y verificado. Si algo de esto no te cuadra con lo que ves "
         "en el cuaderno, para la clase y escríbelo: el material se corrige, la clase no se repite.")
-    cif = [("42", "páginas del cuaderno", AZ), ("6", "momentos de contenido", AZ),
+    cif = [(str(AREA_PAGS[1] - AREA_PAGS[0] + 1), "páginas del cuaderno\ncon portada y simulacro", AZ), ("6", "momentos de contenido", AZ),
            ("60", "preguntas del libro\ncon su andamiaje", ORO),
            ("24", "preguntas Saber 11\npara entrenar", VERDE),
            ("84", "instrumentos distintos\nninguno repetido", AZ)]
@@ -428,7 +467,7 @@ def h1():
 def h2():
     b = svg_open()
     y = cabecera(b, "Las ocho clases", "Mapa del área de un vistazo", "PLANEADOR DEL DOCENTE",
-                 "42", "páginas del cuaderno")
+                 str(AREA_PAGS[1] - AREA_PAGS[0] + 1), f"páginas · {AREA_PAGS[0]} a {AREA_PAGS[1]}")
     y = seccion(b, y, "Qué se ve en cada sábado",
         "Seis clases de contenido, una por momento, y dos para el simulacro del área. "
         "El número de clases es fijo: no se recorta aunque un momento quede largo.")
@@ -461,17 +500,20 @@ def h2():
             b.append(T(colx[4] + 20, y + 46, [txt], 22, VERDE, weight="700"))
             b.append(T(colx[4] + 20, y + 76, ["verificadas una por una"], 19, GRAY))
         else:
-            b.append(T(colx[2] + 20, y + 58, ["las 6 franjas"], 23, GRAY, style="italic"))
+            b.append(T(colx[2] + 20, y + 58, ["no está en el cuaderno" if n == 7 else f"páginas {SIM}"],
+                       23, GRAY, style="italic"))
             b.append(T(colx[3] + 20, y + 58, ["todo el área"], 22, GRAY))
-            b.append(T(colx[4] + 20, y + 58, ["24 preguntas ya resueltas"], 22, GRAY))
+            b.append(T(colx[4] + 20, y + 58, ["condiciones de examen" if n == 7 else "6 preguntas por estudiante"],
+                       22, GRAY))
         y += alto + 10
 
     y += 24
     y = nota(b, M, y, CW,
-        "Las clases 7 y 8 no traen contenido nuevo: trabajan las seis franjas de simulacro que "
-        "el estudiante ya tiene en su cuaderno. La 7 es en condiciones de prueba, con reloj. La "
-        "8 es la devolución: se reparan las preguntas falladas con el mismo instrumento con el "
-        "que se trabajaron la primera vez, para que el estudiante vea su propio avance escrito.",
+        "Las clases 7 y 8 no traen contenido nuevo. En la 7 el estudiante presenta el simulacro "
+        "del área que aplica EDUCATE —un cuadernillo o un PTD que escoge el instituto y que no está "
+        "en el cuaderno—, en condiciones de examen. La 8 es la socialización: cada estudiante "
+        "trabaja seis preguntas de ese simulacro, tres que escoge y tres que le asignas, en las "
+        f"hojas de simulacro del cuaderno (páginas {SIM}).",
         ORO, ORO_BG, ORO_LN, "Por qué ocho clases y no seis", 25) + 34
 
     y = seccion(b, y, "Las 24 estrategias del área, agrupadas por componente",
@@ -643,7 +685,7 @@ def hoja_clase(mis):
     y += 56
 
     # ── el sábado, minuto a minuto, con el contenido de ESTE momento
-    base = 11 + (mis - 1) * 7          # primera página del momento en el cuaderno
+    base = BASE[mis]                   # primera página del momento en el cuaderno (398 páginas)
     t_pags = [base, base + 1, base + 3, base + 4, base + 5]   # las cinco de taller
     i_pags = [base + 2, base + 6]                              # las dos de ICFES
     ins = {p: i for p, e, i, c in TALLER.get(mis, [])}
@@ -770,95 +812,19 @@ def hoja_clase_b(mis):
     svg_close(b, OUT + f"plan_mate_{4 + mis * 2:02d}.svg")
 
 
-# ═══════════════════ hoja 16 · clases 7 y 8 · el simulacro ═══════════════════
+# ═══════════════════ hoja 17 · clases 7 y 8 · el simulacro ═══════════════════
 def h16():
+    """Clases 7 y 8 · el simulacro de EDUCATE y su socialización en el cuaderno (C7 y C8).
+    Va en la hoja 17, después de las clases y antes del banco de dinámicas, como en las otras áreas."""
     b = svg_open()
-    y = cabecera(b, "Clases 7 y 8", "El simulacro del área y su devolución",
-                 "PLANEADOR DEL DOCENTE", "24", "preguntas del simulacro")
-
-    y = seccion(b, y, "Qué son estas dos clases",
-        "No traen contenido nuevo. Trabajan las seis franjas de simulacro que el estudiante ya "
-        "tiene en su cuaderno, una por momento, y que hasta ahora resolvió de a poco.")
-
-    dos = [("Clase 7 · el simulacro", ROJO, ROJO_BG, ROJO_LN,
-            "Condiciones de prueba, 90 minutos de reloj, en silencio",
-            ["Las 24 preguntas Saber 11 del área, seguidas, sin instrumento a la vista.",
-             "El estudiante tapa la columna del andamiaje con una hoja. Eso es parte de la prueba.",
-             "No se responde ninguna duda, ni de vocabulario. Las dudas se anotan en el margen.",
-             "Los últimos 30 minutos: cada uno cuenta sus aciertos por componente y los escribe "
-             "en la portada del área."]),
-           ("Clase 8 · la devolución", VERDE, VERDE_BG, VERDE_LN,
-            "Reparación con el mismo instrumento de la primera vez",
-            ["Se eligen las cinco preguntas que más falló el grupo, no las que a ti te parecen "
-             "más interesantes.",
-             "Cada una se vuelve a trabajar con el instrumento con el que se trabajó la primera "
-             "vez: el estudiante ve su letra de hace seis semanas al lado de la de hoy.",
-             "Ese contraste es el cierre del área. No hay que explicarlo: hay que señalarlo.",
-             "Al final, la página de cierre del cuaderno y el pacto para la siguiente área."])]
-    an = (CW - 20) / 2
-    for i, (tit, c, bg, ln, sub_, pasos) in enumerate(dos):
-        x = M + i * (an + 20)
-        lin_tot = sum(len(wrap_px(p_, 22, an - 110)) for p_ in pasos)
-        h = 120 + lin_tot * 31 + len(pasos) * 22
-        b.append(rect(x, y, an, h, bg, r=18, stroke=ln, sw=2.2))
-        b.append(rect(x + 14, y + 16, 5, h - 32, c, r=3))
-        b.append(T(x + 40, y + 52, [tit], 27, c, weight="700"))
-        b.append(T(x + 40, y + 86, [sub_], 20, GRAY, style="italic"))
-        yy = y + 112
-        for p_ in pasos:
-            b.append(f'<circle cx="{x+52}" cy="{yy+12}" r="6" fill="{c}"/>')
-            yy = parrafo_j(b, x + 76, yy - 6, p_, an - 110, 22, INK, lh=31) + 22
-    y += max(120 + sum(len(wrap_px(p_, 22, an - 110)) for p_ in d[5]) * 31 + len(d[5]) * 22
-             for d in dos) + 34
-
-    y = nota(b, M, y, CW,
-        "El simulacro no se califica con nota. Se cuenta por componente: numérico-variacional, "
-        "espacial-métrico y aleatorio. Lo que importa es que el estudiante vea en cuál de los "
-        "tres se le va el puntaje, porque ahí es donde tiene que invertir las semanas que le "
-        "quedan antes de la prueba real.",
-        ORO, ORO_BG, ORO_LN, "Cómo se lee el resultado", 26) + 34
-
-    y = seccion(b, y, "Conteo por componente",
-        "Llénalo con el grupo en el tablero al final de la clase 7. Es el dato que la "
-        "coordinación necesita para decidir el refuerzo.")
-    comp = [("Numérico-variacional", "momentos 1 y 2", 8),
-            ("Espacial-métrico", "momentos 3 y 4", 8),
-            ("Aleatorio", "momentos 5 y 6", 8)]
-    an2 = (CW - 2 * 18) / 3
-    for i, (nom, de, n) in enumerate(comp):
-        x = M + i * (an2 + 18)
-        b.append(rect(x, y, an2, 212, "white", r=16, stroke=AZ_LN, sw=2))
-        b.append(rect(x + 14, y + 14, 5, 184, AZ, r=3))
-        b.append(T(x + 40, y + 46, [nom], 23, INK, weight="700"))
-        b.append(T(x + 40, y + 76, [de + f" · {n} preguntas"], 20, GRAY, style="italic"))
-        b.append(T(x + 40, y + 124, ["aciertos del grupo"], 19, GRAY))
-        b.append(rect(x + 40, y + 136, an2 - 80, 56, AZ_BG, r=12, stroke=AZ_LN, sw=1.8))
-        b.append(T(x + an2 / 2, y + 174, [f"de {n * 1}"], 22, GRAY, anchor="middle"))
-    y += 212 + 34
-
-    y = seccion(b, y, "Las cinco preguntas que se reparan en la clase 8",
-        "Se eligen con el conteo de arriba, el mismo sábado de la clase 7. Anota aquí cuáles son "
-        "y con qué instrumento se trabajaron la primera vez: el estudiante va a necesitar volver "
-        "a esa página de su cuaderno.")
-    cx = [M, M + 200, M + 560, M + 1160]
-    b.append(rect(M, y, CW, 50, PIZ, r=12))
-    for x, e in zip(cx, ["N.º", "MOMENTO Y PÁGINA", "CON QUÉ INSTRUMENTO SE TRABAJÓ",
-                         "QUÉ FALLÓ EL GRUPO"]):
-        b.append(T(x + 18, y + 33, [e], 17, "white", weight="700", ls=1.2))
-    y += 50 + 8
-    for k in range(1, 6):
-        b.append(rect(M, y, CW, 84, "white", r=12, stroke=AZ_LN, sw=1.8))
-        b.append(rect(M + 10, y + 10, 4, 64, VERDE, r=2))
-        b.append(T(cx[0] + 54, y + 54, [str(k)], 26, VERDE, weight="700", anchor="middle"))
-        for xi, xf in [(cx[1] + 18, cx[2] - 20), (cx[2] + 18, cx[3] - 20), (cx[3] + 18, W - M - 30)]:
-            b.append(line(xi, y + 58, xf, y + 58, "#E6EAF0", 2))
-        y += 84 + 7
-
-    pie(b, 24, TOT)
-    svg_close(b, OUT + "plan_mate_24.svg")
+    y = cabecera(b, "Clases 7 y 8", "El simulacro de EDUCATE y su socialización en el cuaderno",
+                 "PLANEADOR DEL DOCENTE", str(C8["preguntas_cuaderno"]), "preguntas caben en el cuaderno")
+    PS.hoja(b, y, C7, C8, AZ, AZ_BG, AZ_LN, seccion, nota)
+    pie(b, 17, TOT)
+    svg_close(b, OUT + "plan_mate_17.svg")
 
 
-# ═══════════════════ hoja 17 · cierre del área ═══════════════════
+# ═══════════════════ hoja 24 · cierre del área ═══════════════════
 def h17():
     b = svg_open()
     y = cabecera(b, "Cierre del área", "Los nueve avisos del libro, juntos, y lo que hay que devolver",
@@ -895,7 +861,7 @@ def h17():
 
     y = seccion(b, y, "Qué tienes que devolver al terminar el área")
     dev = [("Los cuatro registros de clase", "uno por cada clase de contenido, con nombres"),
-           ("El conteo por componente del simulacro", "el dato que decide el refuerzo"),
+           ("El conteo por contenido del simulacro", "el dato que decide el refuerzo"),
            ("Lo que cambiarías", "va al reporte de los especialistas, que es entregable del proyecto"),
            ("Los avisos nuevos que encuentres", "si hallas un error que no está en esta lista, "
             "escríbelo: la lista se construyó resolviendo, y seguro falta alguno")]
@@ -909,8 +875,8 @@ def h17():
         parrafo_j(b, M + 580, y + (h - len(lin) * 32) / 2 - 4, s_, CW - 620, 23, GRAY, lh=32)
         y += h + 12
 
-    pie(b, 17, TOT)
-    svg_close(b, OUT + "plan_mate_17.svg")
+    pie(b, 24, TOT)
+    svg_close(b, OUT + "plan_mate_24.svg")
 
 
 # ═══════════════════════ banco de dinámicas ═══════════════════════
@@ -1088,15 +1054,8 @@ DINAMICAS = {
       "Probar los cuatro casos en vez de quedarse con el que suena bien. Es el movimiento de "
       "las preguntas 8 y 10.",
       "Cuatro zonas marcadas en el piso")],
- 6: [("Dos métodos, un resultado", 8,
-      ["Se plantea un conteo y dos procedimientos distintos para resolverlo.",
-       "Dos estudiantes los ejecutan en el tablero al mismo tiempo, uno cada uno.",
-       "Cuando dan resultados distintos, el grupo no dice cuál está bien.",
-       "Tiene que decir QUÉ SUPONE cada método: si cuenta el orden, si permite repetir."],
-      "Juzgar qué supone cada método antes de decidir cuál sirve. Es el movimiento de las "
-      "preguntas 1, 3 y 4.",
-      "Tablero dividido en dos · dos marcadores"),
-     ("La lista con los dedos", 10,
+# Misión 6, en el orden de las estrategias del cuaderno: todos los casos, el total, juzgar, el dato.
+ 6: [("La lista con los dedos", 10,
       ["Se plantea un conteo pequeño: tres dígitos, dos colores, algo que se pueda listar.",
        "El grupo escribe a mano la lista COMPLETA de casos que sirven. Nadie dice una fórmula.",
        "Se cuenta la lista en voz alta.",
@@ -1104,14 +1063,6 @@ DINAMICAS = {
       "Escribir la lista de los casos que sirven antes de buscar la fórmula, que es lo único "
       "que evita adivinar. Es el movimiento de las preguntas 2 y 9, y de la del candado.",
       "Hojas y lápiz · nada de calculadora"),
-     ("Lo que midió y lo que dijo", 8,
-      ["Se escribe en el tablero un dato real de encuesta y se deja a la vista.",
-       "Dos zonas en el piso: LO DICE EL DATO y LO AGREGA EL ANALISTA.",
-       "El docente lee cuatro afirmaciones; cada uno se para en una zona.",
-       "Para quedarse hay que señalar la palabra exacta que lo hizo decidir."],
-      "Separar lo que la encuesta midió de lo que el analista afirmó, y ver que riesgo no es "
-      "pérdida. Es el movimiento de las preguntas 5, 7 y 10.",
-      "Tablero con el dato · dos zonas marcadas"),
      ("La caja antes y después", 8,
       ["Una caja con fichas de dos colores, contadas a la vista de todos.",
        "Se pregunta la probabilidad de sacar un color. Cada uno la escribe.",
@@ -1119,7 +1070,23 @@ DINAMICAS = {
        "Antes de dar la nueva probabilidad hay que escribir el nuevo total."],
       "Ver que el total cambia cuando quitas lo que te dieron, y que hay que redibujar la caja. "
       "Es el movimiento de las preguntas 6 y 8.",
-      "Una caja opaca · fichas de dos colores")],
+      "Una caja opaca · fichas de dos colores"),
+     ("Dos métodos, un resultado", 8,
+      ["Se plantea un conteo y dos procedimientos distintos para resolverlo.",
+       "Dos estudiantes los ejecutan en el tablero al mismo tiempo, uno cada uno.",
+       "Cuando dan resultados distintos, el grupo no dice cuál está bien.",
+       "Tiene que decir QUÉ SUPONE cada método: si cuenta el orden, si permite repetir."],
+      "Juzgar qué supone cada método antes de decidir cuál sirve. Es el movimiento de las "
+      "preguntas 1, 3 y 4.",
+      "Tablero dividido en dos · dos marcadores"),
+     ("Lo que midió y lo que dijo", 8,
+      ["Se escribe en el tablero un dato real de encuesta y se deja a la vista.",
+       "Dos zonas en el piso: LO DICE EL DATO y LO AGREGA EL ANALISTA.",
+       "El docente lee cuatro afirmaciones; cada uno se para en una zona.",
+       "Para quedarse hay que señalar la palabra exacta que lo hizo decidir."],
+      "Separar lo que la encuesta midió de lo que el analista afirmó, y ver que riesgo no es "
+      "pérdida. Es el movimiento de las preguntas 5, 7 y 10.",
+      "Tablero con el dato · dos zonas marcadas")],
 }
 
 RETOS = {
@@ -1226,6 +1193,14 @@ def build():
     return [f"plan_mate_{i:02d}" for i in range(1, TOT + 1)]
 
 
+PDF = "/home/user/educate-saber11/entregables/EDUCATE_Planeador_Matematicas.pdf"
+
 if __name__ == "__main__":
+    import sys
+    import render
     hojas = build()
     print(len(hojas), "hojas del planeador de Matemáticas")
+    if "--pdf" in sys.argv:
+        render.unir([OUT + h + ".svg" for h in hojas], PDF)
+        n, sin = render.verifica(PDF, "PLANEADOR")
+        print(f"{PDF}: {n} páginas · sin pie: {sin or 'ninguna'}")
