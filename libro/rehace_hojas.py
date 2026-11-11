@@ -30,6 +30,10 @@ del ICFES», «Pregunta oficial ICFES · Saber 11» (o con año) y «· 2 pregun
 arma_pdf.py, además, borra de la página original incrustada todo el texto que queda fuera de
 los recortes, para que el texto viejo no siga debajo (invisible pero buscable).
 
+Lectura Crítica, entrenamiento (11 nov): las 12 hojas lc*_i* no salen de aquí sino de
+lc_entrenamiento.rehacer_lc(): traen el TEXTO COMPLETO de cada pregunta (pedido de Nelson) y de la
+tarjeta original solo se recortan el enunciado, las opciones y el instrumento.
+
 Numeración (armado final, 10 nov · 398 páginas): el PDF entregado sigue con su numeración vieja
 (1–110). Cada hoja se LEE de su página vieja (`pagina_anterior` del manifiesto; también el id
 `orig<vieja>` del original incrustado, que usa arma_pdf.py) y el PIE lleva la página nueva
@@ -202,6 +206,10 @@ def rehacer(pag, svg_nombre, pag_nueva=None):
     if pag_nueva is None:
         import paginas
         pag_nueva = paginas.nueva(pag)
+    if re.fullmatch(r"lc\d_i\d", svg_nombre):
+        # 11 nov 2026 (Nelson): las de Lectura Crítica llevan el texto completo de la pregunta
+        import lc_entrenamiento
+        return lc_entrenamiento.rehacer_lc(pag, svg_nombre, pag_nueva)
     area, mis, tipo, num = re.fullmatch(r"([a-z]+)(\d)_([ti])(\d)", svg_nombre).groups()
     mis = int(mis)
     nombre_area, color = AREAS[area]

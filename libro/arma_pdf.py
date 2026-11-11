@@ -187,6 +187,39 @@ def _pagina_mision(nuevo, orig, svg, p_vieja, tmp):
     return marco
 
 
+def _pagina_por_recorte(nuevo, orig, svg, p_vieja, tmp):
+    """Lectura Crítica · entrenamiento con texto completo (11 nov, lc_entrenamiento.py): cada tarjeta
+    trae dos o tres recortes del original movidos a sitios distintos. Si todos usaran la misma página
+    incrustada, el texto que se ve en un recorte quedaría, invisible, debajo de los otros (y debajo
+    del texto completo, donde pdftotext lo leería). Por eso cada recorte lleva SU versión de la página
+    original (un Form XObject con los mismos recursos), con solo el texto que cae dentro de él.
+    Devuelve el PDF del marco (tiene que seguir abierto hasta save())."""
+    txt = open(svg, encoding="utf-8").read()
+    marco_svg = os.path.join(tmp, f"m{p_vieja}.svg")
+    open(marco_svg, "w", encoding="utf-8").write(_sin_original(txt, p_vieja))
+    marco_pdf = os.path.join(tmp, f"m{p_vieja}.pdf")
+    render.conv(marco_svg, marco_pdf)
+    marco = pikepdf.open(marco_pdf)
+    nuevo.pages.append(marco.pages[0])
+    pg = pikepdf.Page(nuevo.pages[-1])
+    page = orig.pages[p_vieja - 1]
+    intacto = pikepdf.unparse_content_stream(pikepdf.parse_content_stream(page))
+    ops = b""
+    for r in _recortes(txt):
+        page.Contents = orig.make_stream(intacto)
+        _solo_texto_visible(orig, page, [r])
+        fx = pikepdf.Stream(orig, page.Contents.read_bytes())
+        fx.Type, fx.Subtype = pikepdf.Name.XObject, pikepdf.Name.Form
+        fx.BBox = page.MediaBox
+        fx.Resources = page.Resources
+        nombre = pg.add_resource(nuevo.copy_foreign(fx), pikepdf.Name.XObject, prefix="Orig")
+        ops += _capa_original(*r, nombre=str(nombre)[1:])
+    page.Contents = orig.make_stream(intacto)
+    pg.contents_add(pikepdf.Stream(nuevo, b"q\n"), prepend=True)
+    pg.contents_add(pikepdf.Stream(nuevo, b"Q\n" + ops), prepend=False)
+    return marco
+
+
 # ───────── armado final · 398 páginas (10 nov 2026) ─────────
 ENT = os.path.join(RAIZ, "entregables")
 COMPLETO = os.path.join(ENT, "Cuaderno_Saber11_completo_398_paginas.pdf")
@@ -217,6 +250,10 @@ def armar(dest=COMPLETO):
             if not os.path.exists(svg):
                 raise FileNotFoundError(f"página {h['pagina']}: falta {svg}")
             pv = h.get("pagina_anterior")
+            if pv and pv <= len(orig.pages) and re.fullmatch(r"lc\d_i\d", h["svg"]):
+                vivos.append(_pagina_por_recorte(nuevo, orig, svg, pv, tmp))
+                rehechas += 1
+                continue
             if pv and pv <= len(orig.pages) and re.fullmatch(r"(m|lc|soc)\d_[ti]\d", h["svg"]):
                 vivos.append(_pagina_mision(nuevo, orig, svg, pv, tmp))
                 rehechas += 1
