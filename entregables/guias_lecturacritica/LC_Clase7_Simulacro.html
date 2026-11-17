@@ -117,6 +117,35 @@ p{margin:.35em 0 .6em}
 .herrs{display:grid;gap:clamp(12px,1.4vw,22px);grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
 .herr{display:flex;align-items:center;gap:14px;background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--area);border-radius:16px;padding:14px 18px;font-size:1.12em}
 .herr svg{flex:none}
+
+.cv-voc{display:grid;gap:clamp(10px,1.2vw,18px);grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));margin-top:clamp(14px,1.8vw,26px)}
+.cv-voc div{background:#fff;border:1.5px solid var(--line);border-top:5px solid var(--acc,var(--area));border-radius:14px;padding:12px 16px;box-shadow:4px 4px 0 rgba(30,34,48,.08)}
+.cv-voc b{display:block;font-family:var(--display);font-size:1.18em;color:var(--ink)}
+.cv-voc span{color:var(--muted)}
+.cv-voc.tapar span{visibility:hidden}
+.cv-mapa{position:relative;display:grid;gap:clamp(14px,2vw,34px);grid-template-columns:1fr 1.1fr 1fr;grid-template-areas:"a . b" ". c ." "d . e";margin-top:clamp(12px,1.6vw,22px)}
+.cv-mapa>svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.cv-nodo{font:inherit;text-align:left;cursor:pointer;background:#fff;border:2px solid var(--acc);border-radius:16px;padding:12px 16px;box-shadow:6px 6px 0 var(--acc);transition:transform .15s, box-shadow .15s;position:relative}
+.cv-nodo:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--acc)}
+.cv-nodo .n{display:inline-grid;place-items:center;width:1.7em;height:1.7em;border-radius:50%;background:var(--acc);color:#fff;font-family:var(--display);font-weight:800;margin-right:8px}
+.cv-nodo b{font-family:var(--display);font-size:1.12em}
+.cv-nodo small{display:block;color:var(--muted);font-size:.9em;margin-top:4px}
+.cv-centro{grid-area:c;text-align:center;border-width:3px}
+.cv-centro b{font-size:1.35em;color:var(--acc)}
+.cv-det{margin-top:clamp(14px,1.8vw,26px);display:grid;gap:clamp(14px,2vw,30px);grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);align-items:center;background:#fff;border:1.5px solid var(--line);border-left:6px solid var(--acc);border-radius:18px;padding:clamp(14px,1.8vw,28px)}
+.cv-det svg{width:100%;height:auto;max-height:52vh}
+.cv-mapa[hidden],.cv-det[hidden]{display:none}
+.cv-det h3{color:var(--acc)}
+.cv-f{display:inline-block;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:1.12em;border:2px dashed var(--acc);border-radius:10px;padding:4px 12px;margin:4px 0 8px}
+.cv-ej{color:var(--muted)}
+.cv-ojo{margin-top:8px;padding-left:12px;border-left:4px solid var(--oro)}
+.cv-ojo b{color:var(--oro)}
+#wrap{position:relative}
+.cv-motivo{position:absolute;top:-6px;right:0;width:clamp(110px,13vw,220px);opacity:.22;pointer-events:none;z-index:0}
+.cv-motivo svg{width:100%;height:auto;display:block}
+.cv-motivo~*{position:relative;z-index:1}
+@media (max-width:760px){.cv-motivo{display:none}}
+@media (max-width:760px){.cv-mapa{grid-template-columns:1fr;grid-template-areas:"c" "a" "b" "d" "e"}.cv-mapa>svg{display:none}.cv-det{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -281,6 +310,17 @@ wrap.addEventListener("click", function(e){
     if(k>=0) elegidas.splice(k,1); else if(elegidas.length<5) elegidas.push(t);
     b.setAttribute("aria-pressed", elegidas.indexOf(t)>=0 ? "true" : "false");
   }
+});
+
+wrap.addEventListener("click", function(e){
+  var b = e.target.closest("[data-cv]"), v = e.target.closest("[data-cvback]");
+  if(b){ var d = document.getElementById(b.dataset.cv), m = document.getElementById(b.dataset.cvg);
+    if(d && m){ m.hidden = true; d.hidden = false; } }
+  if(v){ var d2 = document.getElementById(v.dataset.cvback), m2 = document.getElementById(v.dataset.cvg);
+    if(d2 && m2){ d2.hidden = true; m2.hidden = false; } }
+  var t = e.target.closest("[data-tapar]");
+  if(t){ var x = document.getElementById(t.dataset.tapar); x.classList.toggle("tapar");
+    t.textContent = x.classList.contains("tapar") ? "Destapar las definiciones" : "Tapar las definiciones"; }
 });
 function setGuia(on){ $("#guia").classList.toggle("open", on); $("#scrim").classList.toggle("on", on);
   $("#gbtn").setAttribute("aria-pressed", on ? "true" : "false"); }

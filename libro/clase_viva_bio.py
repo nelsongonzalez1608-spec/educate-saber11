@@ -333,8 +333,8 @@ def con_figura(sc, mis, k):
 
 
 def escenas_contenido(A, mis, general):
-    sc = CV.escenas_clase(A, mis)
-    assert len(sc) == 19, f"clase {mis}: {len(sc)} diapositivas"
+    sc = CV.escenas_clase(A, mis, con_conceptos=False)
+    assert len(sc) in (19, 21), f"clase {mis}: {len(sc)} diapositivas"   # 21 con la conceptualización
     sc[0]["guia"]["apoyo"] = apoyo_portada(mis, general) + sc[0]["guia"]["apoyo"]
     l0 = P.PAG_LIBRO[mis][0]
     h = sc[4]["html"].replace(f"Abran el libro en la pregunta modelo del momento {mis}",
@@ -355,7 +355,8 @@ def escenas_contenido(A, mis, general):
     sc[-1]["html"] = sc[-1]["html"].replace(viejo, FRANJA).replace(
         "¿En qué se parecía la pregunta del ICFES a la de tu libro?",
         "¿En qué se parecía la pregunta tipo Saber 11 a la de tu libro?")
-    return sc
+    import conceptos
+    return conceptos.para_guia(A, mis, sc)
 
 
 

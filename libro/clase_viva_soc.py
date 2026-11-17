@@ -405,7 +405,7 @@ def apoyo_portada(mis, general):
 
 
 def escenas_contenido(A, mis, general):
-    sc = CV.escenas_clase(A, mis)
+    sc = CV.escenas_clase(A, mis, con_conceptos=False)
     sc[0]["guia"]["apoyo"] = apoyo_portada(mis, general) + sc[0]["guia"]["apoyo"]
     l0 = P.PAG_LIBRO[mis][0]
     h = sc[4]["html"].replace(f"Abran el libro en la pregunta modelo del momento {mis}",
@@ -418,7 +418,8 @@ def escenas_contenido(A, mis, general):
     viejo = "La palabra nueva del día, en la franja de vocabulario, con tus palabras."
     assert viejo in sc[-1]["html"]
     sc[-1]["html"] = sc[-1]["html"].replace(viejo, FRANJA)
-    return sc
+    import conceptos
+    return conceptos.para_guia(A, mis, sc)
 
 
 

@@ -353,15 +353,27 @@ activación y antes de la dinámica E1 (vocabulario «las palabras de hoy» y «
 estrategia que se abre en infografía). Toma **3 de los 15 minutos de la Activación**: el reparto no cambia. Primero
 descubren, después se nombra, después se entrena. Sin teoría profunda: definición corta, fórmula, un ejemplo **propio**
 (nunca datos del taller ni del entrenamiento) y el «ojo». Estilo: fondo claro, colores institucionales solo como acento.
-Motor: `libro/conceptos.py` (diapositivas, CSS, JS y la hoja del planeador `hoja_planeador`). Datos por área:
-`conceptos_mate.py` (hecho). En el planeador entra una hoja «Clase N · conceptualización» antes de cada clase: el de
-Matemáticas pasó de 24 a **30 hojas** (`plan_mate.NUM` numera). Faltan las otras seis áreas.
+Motor: `libro/conceptos.py` (diapositivas, CSS, JS, `armar()`, `para_guia()` y la hoja del planeador
+`hoja_planeador`). Datos por área: `conceptos_mate.py` (su propio cargador) y `conceptos_lc/soc/bio/qui/fis/ing.py`
+(`DATOS = {misión: dict(...)}`, figuras con `conceptos_figs.py`), que carga y ordena `conceptos_area.py`
+(`python3 conceptos_area.py <área> <carpeta>` dibuja la prueba visual). **Las siete áreas están hechas (17 nov).**
+Las guías la reciben solas: `clase_viva.escenas_clase` llama a `conceptos.para_guia` (las áreas que retocan escenas
+por posición la piden con `con_conceptos=False` y la insertan al final). En el planeador entra una hoja
+«Clase N · conceptualización» antes de cada clase: **todos los planeadores pasaron de 24 a 30 hojas**
+(`plan_piezas.activar_conceptos()` traduce la numeración vieja en `pie()` y `con_conceptos()` ordena; Matemáticas usa
+`plan_mate.NUM`).
+
+**El toque de cada área (Nelson, 17 nov):** `libro/motivos.py` dibuja un motivo en trazo fino (Matemáticas compás y π,
+LC libro y comillas, Sociales rosa de los vientos y columna, Biología hoja y ADN, Química matraz y benceno, Física átomo y
+péndulo, Inglés Big Ben, Estatua de la Libertad y las banderas). Va tenue (opacidad 0,22) en la esquina de la portada de
+cada guía y de las dos diapositivas de conceptualización, y en blanco sobre la banda de la cabecera de la hoja de
+conceptualización del planeador. Sutil: nunca detrás del texto ni como fondo.
 
 ## 8. El planeador del docente
 
 Modelo aprobado: `piloto/paquete_mision1_aprobado/2_docente/Mate_Mision1_PLANEADOR.pdf` (4 hojas).
-Por área son 24 hojas: cómo se usa · las 8 clases · los 120 minutos (2 hojas) · 2 hojas por
-clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión) · cierre.
+Por área son 30 hojas (desde el 17 nov): cómo se usa · las 8 clases · los 120 minutos (2 hojas) · conceptualización
+y 2 hojas por clase de contenido · clases 7 y 8 · banco de dinámicas (una hoja por misión) · cierre.
 
 - En cada momento: objetivo específico, «qué hace el docente» / «cómo lo hace» y
   **«TU APORTE»**: el ejemplo o la variación del profe, declarado y acotado, *sin reemplazar

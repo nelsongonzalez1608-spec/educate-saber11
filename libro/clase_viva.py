@@ -760,7 +760,7 @@ def escenas_clase8(A, antes=()):
     return sc
 
 
-def escenas_clase(A, mis):
+def escenas_clase(A, mis, con_conceptos=True):
     claves = A.claves_libro(mis)
     avisos = avisos_por_pregunta(A, mis)
     qs = A.preguntas_icfes(mis)
@@ -776,6 +776,8 @@ def escenas_clase(A, mis):
     for k, q in enumerate(qs, 1):
         sc.append(esc_icfes(A, mis, k, q, banco[k - 1]["clave"], A.textos.get((mis, k), {})))
     sc.append(esc_cierre(A, mis))
+    if not con_conceptos:            # el área retoca escenas por posición y la inserta ella al final
+        return sc
     import conceptos
     return conceptos.para_guia(A, mis, sc)
 
