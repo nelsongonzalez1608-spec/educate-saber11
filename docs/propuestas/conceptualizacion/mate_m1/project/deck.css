@@ -1,0 +1,41 @@
+:root {
+  --tinta: #1E2230;
+  --suave: #4A5068;
+  --papel: #FBF9F4;
+  --papel2: #EEF3FA;
+  --mate: #1F4E8C;
+  --mate-claro: #D6E3F5;
+  --resaltador: #FFE94A;
+  --menta: #B8F2D2;
+  --coral: #E4572E;
+}
+body { font-family: 'Nunito Sans', Arial, sans-serif; color: var(--tinta); }
+section { padding: 128px; background: var(--papel); counter-increment: page; }
+section.oscuro { background: var(--mate); color: #F4F7FC; }
+section.claro2 { background: var(--papel2); }
+
+.ojo { font-family: 'Space Mono', 'Courier New', monospace; font-size: 26px; font-weight: 700; letter-spacing: 3px; color: var(--mate); text-transform: uppercase; }
+.oscuro .ojo { color: var(--resaltador); }
+.titulo { font-family: 'Shantell Sans', 'Trebuchet MS', sans-serif; font-size: 72px; font-weight: 800; line-height: 1.1; color: var(--tinta); }
+.oscuro .titulo { color: #FFFFFF; }
+.resalta { background: var(--resaltador); padding: 0 12px; border-radius: 6px; color: var(--tinta); }
+.texto { font-size: 32px; line-height: 1.4; color: var(--suave); }
+.oscuro .texto { color: #D9E4F5; }
+.chico { font-size: 26px; line-height: 1.35; color: var(--suave); }
+
+.cabeza { display: flex; flex-direction: column; gap: 16px; }
+
+/* tarjeta con sombra sólida: el «3D» liviano */
+.tarjeta { background: #FFFFFF; border: 3px solid var(--tinta); border-radius: 22px; box-shadow: 10px 10px 0 var(--mate); padding: 32px 36px; display: flex; flex-direction: column; gap: 12px; }
+.tarjeta h3 { font-family: 'Shantell Sans', 'Trebuchet MS', sans-serif; font-size: 40px; font-weight: 800; color: var(--mate); }
+.tarjeta p { font-size: 28px; line-height: 1.35; color: var(--tinta); }
+.tarjeta .formula { font-family: 'Space Mono', 'Courier New', monospace; font-size: 30px; font-weight: 700; color: var(--tinta); background: var(--mate-claro); border-radius: 12px; padding: 10px 16px; }
+.tarjeta .ejemplo { font-size: 26px; line-height: 1.35; color: var(--suave); }
+
+.sello { font-family: 'Space Mono', 'Courier New', monospace; font-size: 24px; font-weight: 700; color: var(--mate); border: 3px solid var(--mate); border-radius: 10px; padding: 6px 14px; }
+.pie { position: absolute; left: 128px; bottom: 64px; width: 1664px; font-family: 'Space Mono', 'Courier New', monospace; font-size: 24px; color: var(--suave); }
+.oscuro .pie { color: #BFD0EA; }
+
+/* llegada escalonada */
+@keyframes sube { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.llega { animation: sube 600ms ease-out both; animation-delay: calc(var(--i, 0) * 140ms); }
