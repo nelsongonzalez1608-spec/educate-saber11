@@ -95,7 +95,8 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
 .visor{display:grid;gap:10px;padding:12px max(12px,env(safe-area-inset-left,0px));color:#fff}
 .visor img{width:100%;height:auto;border-radius:8px;background:#fff;max-height:calc(100vh - 120px);object-fit:contain;display:block;margin:0 auto}
 .lienzo{overflow:auto;max-height:calc(100vh - 120px);border-radius:8px;touch-action:pan-x pan-y pinch-zoom}
-.lienzo.zoom img{max-height:none;max-width:none;cursor:zoom-out}
+.lienzo.zoom img{max-height:none;max-width:none;cursor:grab;user-select:none;-webkit-user-drag:none}
+.lienzo.zoom.arrastrando img{cursor:grabbing}
 .lienzo:not(.zoom) img{cursor:zoom-in}
 .zoom-b{display:inline-flex;gap:4px}
 .zoom-b button{min-width:40px;padding:8px 10px}
@@ -197,7 +198,7 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
 
 <dialog id="dlg" aria-label="Página">
   <div class="visor">
-    <div class="lienzo" id="lienzo"><img id="dlg-img" alt=""></div>
+    <div class="lienzo" id="lienzo"><img id="dlg-img" alt="" draggable="false"></div>
     <div class="mando">
       <button id="ant" type="button">← Anterior</button>
       <p id="dlg-txt"></p>
@@ -273,6 +274,15 @@ document.getElementById("z-mas").onclick = () => zoom(zActual + .5);
 document.getElementById("z-menos").onclick = () => zoom(zActual - .5);
 document.getElementById("z-ajustar").onclick = () => zoom(1);
 dimg.addEventListener("dblclick", e => zoom(zActual > 1 ? 1 : 2, e.clientX, e.clientY));
+/* la manito: con zoom, se arrastra la página para moverla */
+let arr = null;
+lienzo.addEventListener("pointerdown", e => { if (zActual === 1 || e.button !== 0) return;
+  arr = {x: e.clientX, y: e.clientY, l: lienzo.scrollLeft, t: lienzo.scrollTop, id: e.pointerId};
+  lienzo.classList.add("arrastrando"); lienzo.setPointerCapture(e.pointerId); e.preventDefault(); });
+lienzo.addEventListener("pointermove", e => { if (!arr || e.pointerId !== arr.id) return;
+  lienzo.scrollLeft = arr.l - (e.clientX - arr.x); lienzo.scrollTop = arr.t - (e.clientY - arr.y); });
+const soltar = e => { if (!arr) return; arr = null; lienzo.classList.remove("arrastrando"); };
+lienzo.addEventListener("pointerup", soltar); lienzo.addEventListener("pointercancel", soltar);
 lienzo.addEventListener("wheel", e => { if (!e.ctrlKey) return; e.preventDefault(); zoom(zActual + (e.deltaY < 0 ? .25 : -.25), e.clientX, e.clientY); }, {passive: false});
 document.addEventListener("keydown", e => { if (!dlg.open) return;
   if (e.key === "+" || e.key === "=") zoom(zActual + .5); if (e.key === "-") zoom(zActual - .5); if (e.key === "0") zoom(1); });
