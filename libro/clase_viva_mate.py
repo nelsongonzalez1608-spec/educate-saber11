@@ -39,6 +39,7 @@ Antes de escribir comprueba que las claves de entrenamiento coinciden con tabler
 las 60 preguntas del libro tienen clave y camino, y que no aparece ningún nombre de la lista
 PROHIBIDOS.
 """
+import conceptos, conceptos_mate
 import csv, os, re, sys, types, zipfile
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
@@ -1036,6 +1037,9 @@ def escenas_contenido(mis):
     sc = [CV.esc_portada(A, mis), CV.esc_reglas(A, mis), esc_activacion(A, mis),
           esc_dinamica(A, mis, 0, 0), esc_problematizadora(A, mis)]
     sc[0]["guia"]["apoyo"] = apoyo_portada(mis) + sc[0]["guia"]["apoyo"]
+    D = conceptos_mate.de(mis, ESTR, EST_COL)                   # conceptualización (Nelson, 17 nov): tras la activación
+    if D:
+        sc[3:3] = conceptos.escenas(A, mis, D, EST_COL[mis])
     for j, (a, b_) in enumerate([(1, 2), (3, 4), (5, 6), (7, 8), (9, 10)]):
         sc.append(esc_bloque(A, mis, a, b_))
         if j in (1, 2, 3):                       # cada 18 minutos, la dinámica del bloque (como el motor)
@@ -1117,7 +1121,8 @@ MEMBRETE_TXT = [
 
 
 def escribir(A, archivo, titulo, sub, sc, out):
-    html = CV.pagina(A, titulo, sub, sc, titulo).replace("</style>", CSS + "</style>", 1)
+    html = CV.pagina(A, titulo, sub, sc, titulo).replace("</style>", CSS + conceptos.CSS + "</style>", 1)
+    html = html.replace("function setGuia(on)", conceptos.JS + "function setGuia(on)", 1)
     for a, b_ in MEMBRETE_TXT:
         html = html.replace(a, b_)
     revisar(html, archivo)
