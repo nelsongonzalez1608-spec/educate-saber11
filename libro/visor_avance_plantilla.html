@@ -93,7 +93,12 @@ tr:last-child td{border-bottom:0}
 dialog{border:0;padding:0;background:transparent;max-width:min(980px,100vw);width:100%;max-height:100vh}
 dialog::backdrop{background:rgba(10,12,30,.82)}
 .visor{display:grid;gap:10px;padding:12px max(12px,env(safe-area-inset-left,0px));color:#fff}
-.visor img{width:100%;height:auto;border-radius:8px;background:#fff;max-height:calc(100vh - 110px);object-fit:contain}
+.visor img{width:100%;height:auto;border-radius:8px;background:#fff;max-height:calc(100vh - 120px);object-fit:contain;display:block;margin:0 auto}
+.lienzo{overflow:auto;max-height:calc(100vh - 120px);border-radius:8px;touch-action:pan-x pan-y pinch-zoom}
+.lienzo.zoom img{max-height:none;max-width:none;cursor:zoom-out}
+.lienzo:not(.zoom) img{cursor:zoom-in}
+.zoom-b{display:inline-flex;gap:4px}
+.zoom-b button{min-width:40px;padding:8px 10px}
 .mando{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .mando p{margin:0;flex:1 1 220px;font-size:14px}
 .mando button{font:700 14px var(--texto);border-radius:8px;border:1.5px solid rgba(255,255,255,.6);background:transparent;color:#fff;padding:8px 14px;cursor:pointer}
@@ -192,11 +197,17 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
 
 <dialog id="dlg" aria-label="Página">
   <div class="visor">
-    <img id="dlg-img" alt="">
+    <div class="lienzo" id="lienzo"><img id="dlg-img" alt=""></div>
     <div class="mando">
       <button id="ant" type="button">← Anterior</button>
       <p id="dlg-txt"></p>
       <button id="sig" type="button">Siguiente →</button>
+      <span class="zoom-b" role="group" aria-label="Zoom">
+        <button id="z-menos" type="button" aria-label="Alejar">−</button>
+        <button id="z-ajustar" type="button" aria-label="Ajustar a la pantalla">100 %</button>
+        <button id="z-mas" type="button" aria-label="Acercar">+</button>
+      </span>
+      <button id="dlg-nitida" type="button" hidden title="Abre la página en PDF: se puede ampliar sin que pierda nitidez">Ver nítida (PDF)</button>
       <button id="dlg-pdf" type="button" hidden>Descargar esta página (PDF)</button>
       <button id="cerrar" type="button">Cerrar</button>
     </div>
@@ -244,13 +255,33 @@ const dlg = document.getElementById("dlg"), dimg = document.getElementById("dlg-
 let lista = [], pos = 0;
 function verLista(items, i) { lista = items; pos = i; pintar(); if (!dlg.open) dlg.showModal(); }
 function pintar() { const it = lista[pos]; dimg.src = it.src; dimg.alt = it.txt; dtxt.textContent = it.txt;
-  const bp = document.getElementById("dlg-pdf"); bp.hidden = !it.n; bp.dataset.n = it.n || ""; }
+  const bp = document.getElementById("dlg-pdf"); bp.hidden = !it.n; bp.dataset.n = it.n || "";
+  const bn = document.getElementById("dlg-nitida"); bn.hidden = !(it.n && typeof fuenteDe === "function" && fuenteDe(it.n)); bn.dataset.n = it.n || "";
+  zoom(1); }
+/* zoom de la página: botones − / 100 % / +, teclas + − 0, Ctrl + rueda y doble clic */
+const lienzo = document.getElementById("lienzo"); let zActual = 1;
+function zoom(z, cx, cy) {
+  z = Math.max(1, Math.min(4, Math.round(z * 4) / 4));
+  const r = lienzo.getBoundingClientRect(), fx = cx == null ? .5 : (cx - r.left) / r.width, fy = cy == null ? .5 : (cy - r.top) / r.height;
+  const px = (lienzo.scrollLeft + fx * lienzo.clientWidth) / Math.max(lienzo.scrollWidth, 1), py = (lienzo.scrollTop + fy * lienzo.clientHeight) / Math.max(lienzo.scrollHeight, 1);
+  zActual = z; lienzo.classList.toggle("zoom", z > 1);
+  dimg.style.width = z > 1 ? (lienzo.clientWidth * z) + "px" : "";
+  document.getElementById("z-ajustar").textContent = Math.round(z * 100) + " %";
+  if (z > 1) requestAnimationFrame(() => { lienzo.scrollLeft = px * lienzo.scrollWidth - fx * lienzo.clientWidth; lienzo.scrollTop = py * lienzo.scrollHeight - fy * lienzo.clientHeight; });
+}
+document.getElementById("z-mas").onclick = () => zoom(zActual + .5);
+document.getElementById("z-menos").onclick = () => zoom(zActual - .5);
+document.getElementById("z-ajustar").onclick = () => zoom(1);
+dimg.addEventListener("dblclick", e => zoom(zActual > 1 ? 1 : 2, e.clientX, e.clientY));
+lienzo.addEventListener("wheel", e => { if (!e.ctrlKey) return; e.preventDefault(); zoom(zActual + (e.deltaY < 0 ? .25 : -.25), e.clientX, e.clientY); }, {passive: false});
+document.addEventListener("keydown", e => { if (!dlg.open) return;
+  if (e.key === "+" || e.key === "=") zoom(zActual + .5); if (e.key === "-") zoom(zActual - .5); if (e.key === "0") zoom(1); });
 function mover(d) { const i = pos + d; if (i >= 0 && i < lista.length) { pos = i; pintar(); } }
 document.getElementById("ant").onclick = () => mover(-1);
 document.getElementById("sig").onclick = () => mover(1);
 document.getElementById("cerrar").onclick = () => dlg.close();
 dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
-document.addEventListener("keydown", e => { if (!dlg.open) return; if (e.key === "ArrowRight") mover(1); if (e.key === "ArrowLeft") mover(-1); });
+document.addEventListener("keydown", e => { if (!dlg.open) return; if (e.key === "ArrowRight" && zActual === 1) mover(1); if (e.key === "ArrowLeft" && zActual === 1) mover(-1); });
 const listaCuaderno = hechas.map(n => ({n, src: imgPag(n), txt: `Página ${n} · ${porNum.get(n).tit}`}));
 const abrirPag = n => verLista(listaCuaderno, hechas.indexOf(n));
 
@@ -551,6 +582,9 @@ document.addEventListener("click", e => {
   const mp = e.target.closest("[data-mis-pdf]"); if (mp) { const [k, m] = mp.dataset.misPdf.split(":"); return pdfMision(AREAS.find(a => a.k === k), +m); }
   if (e.target.closest("[data-todo]")) return pdfTodo();
   if (e.target.id === "dlg-pdf" && e.target.dataset.n) return pdfPagina(+e.target.dataset.n);
+  if (e.target.id === "dlg-nitida" && e.target.dataset.n) { const n = +e.target.dataset.n, f = fuenteDe(n); if (!f) return;
+    dlg.close(); document.getElementById("guia-tit").textContent = `Página ${n} · en PDF: usa el zoom del visor de PDF`;
+    document.getElementById("guia-bajar").dataset.f = f.f; fGuia.src = `${f.f}#page=${n - f.a + 1}&zoom=page-fit`; dGuia.showModal(); return; }
 });
 const enCuaderno = f => D.fuentes.some(x => x.f === f);
 document.getElementById("desc").innerHTML = D.descargas.filter(d => !enCuaderno(d.f)).map(d => `<div class="desc-fila"><div><b>${esc(d.t)}</b><br><small>${esc(d.f.split("/").pop())} · ${d.mb} MB</small></div>
