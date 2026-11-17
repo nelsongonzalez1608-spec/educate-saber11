@@ -34,8 +34,21 @@ ROJO = "#A82424"; ROJO_BG = "#FBEFEF"; ROJO_LN = "#E6C4C4"
 VERDE = "#2E7A39"; VERDE_BG = "#EDF5EE"; VERDE_LN = "#C3DEC8"
 PIZ = "#28313F"           # banda de cabecera
 OUT = "/home/claude/libro/"
-TOT = 24                  # 2 de entrada · 2 de momentos · 12 de clase · 1 de
-                          # simulacro (hoja 17) · 6 de dinámicas · 1 de cierre (hoja 24)
+TOT = 30                  # 2 de entrada · 2 de momentos · 18 de clase (conceptualización y dos
+                          # caras por clase, 17 nov) · 1 de simulacro · 6 de dinámicas · 1 de cierre
+
+
+def _numeracion():
+    """Número de hoja de cada pieza, en el orden de impresión (17 nov: entra la conceptualización)."""
+    orden = ["h1", "h2", "m1", "m2"]
+    for m in range(1, 7):
+        orden += [("k", m), ("c", m), ("cb", m)]
+    orden += ["sim"] + [("d", m) for m in range(1, 7)] + ["cierre"]
+    assert len(orden) == TOT
+    return {k: i + 1 for i, k in enumerate(orden)}
+
+
+NUM = _numeracion()
 PAGS = []                 # nombres de las hojas, en orden
 
 
@@ -121,10 +134,12 @@ FASES = [
      "fórmula, reconociendo en datos cotidianos qué magnitud varía y respecto a cuál.",
      ["Escribe en el tablero tres o cuatro datos en tabla, sin decir de qué son.",
       "Lanza una sola pregunta oral: ¿qué está cambiando aquí y respecto a qué?",
+      "Le pone nombre a lo descubierto: conceptualización (3 min), palabras de hoy y mapa.",
       "Ejecuta la dinámica de apertura según la estrategia del encuentro."],
-     "No resuelve, no corrige y no adelanta vocabulario técnico. Si alguien dice «función» "
-     "o «pendiente», lo deja pasar sin confirmar ni negar. El cuaderno permanece cerrado.",
-     "Tablero y espacio despejado. Todavía no se abre el cuaderno."),
+     "No resuelve ni corrige. Mientras está el dato en el tablero no adelanta vocabulario: si "
+     "alguien dice «función» o «pendiente», lo anota sin confirmar. En la conceptualización le "
+     "pone nombre a lo que el grupo descubrió: una frase por tarjeta. El cuaderno sigue cerrado.",
+     "Tablero, espacio despejado y la guía en pantalla. Todavía no se abre el cuaderno."),
     ("Pregunta problematizadora", 20, ROJO,
      "Que el estudiante compruebe que una pregunta del ICFES no se resuelve calculando sino "
      "interpretando, usando la pregunta modelo del libro.",
@@ -691,8 +706,9 @@ def hoja_clase(mis):
     ins = {p: i for p, e, i, c in TALLER.get(mis, [])}
     din = DINAMICAS[mis]
     concreto = [
-        f"Dato de apertura en el tablero. Cuaderno cerrado. Dinámica E1 «{din[0][0]}» "
-        f"({din[0][1]}'). Las páginas {t_pags[0]} y {t_pags[1]} todavía sin abrir.",
+        f"Dato de apertura en el tablero. Cuaderno cerrado. Conceptualización (3', hoja "
+        f"anterior). Dinámica E1 «{din[0][0]}» ({din[0][1]}'). Las páginas {t_pags[0]} y "
+        f"{t_pags[1]} todavía sin abrir.",
         f"Pregunta modelo del libro, a la vista todo el momento. Hipótesis a mano alzada antes "
         f"de analizar. Se abre la página {t_pags[0]} solo en «mi primera idea, antes de hacer nada».",
         f"Las diez preguntas por bloques: 1-2 en pantalla (página {t_pags[0]}, instrumentos "
@@ -722,8 +738,8 @@ def hoja_clase(mis):
         reloj += mins
         y += h + 7
 
-    pie(b, 3 + mis * 2, TOT)
-    svg_close(b, OUT + f"plan_mate_{3 + mis * 2:02d}.svg")
+    pie(b, NUM[("c", mis)], TOT)
+    svg_close(b, OUT + f"plan_mate_{NUM[('c', mis)]:02d}.svg")
 
 
 def hoja_clase_b(mis):
@@ -808,8 +824,26 @@ def hoja_clase_b(mis):
         "el cuaderno en blanco sí, porque adivinó.",
         VERDE, VERDE_BG, VERDE_LN, "Cómo se califica este momento", 25)
 
-    pie(b, 4 + mis * 2, TOT)
-    svg_close(b, OUT + f"plan_mate_{4 + mis * 2:02d}.svg")
+    pie(b, NUM[("cb", mis)], TOT)
+    svg_close(b, OUT + f"plan_mate_{NUM[('cb', mis)]:02d}.svg")
+
+
+# ═══════════════════ conceptualización · una hoja antes de cada clase de contenido ═══════════════════
+def hoja_concepto(mis):
+    """Clase N · conceptualización (Nelson, 17 nov): los conceptos de la misión, lo justo para comprender.
+    Los datos son los mismos de la guía en pantalla (conceptos_mate.py); el dibujo, conceptos.hoja_planeador."""
+    import conceptos, conceptos_mate, clase_viva_mate as CVM
+    import base
+    D = conceptos_mate.de(mis, CVM.ESTR, CVM.EST_COL)
+    b = svg_open()
+    y = cabecera(b, f"Clase {mis} · conceptualización",
+                 "Los conceptos de la misión, sin teoría de más: lo justo para comprender",
+                 "PLANEADOR DEL DOCENTE", "3", "min, dentro de la Activación")
+    L = dict(T=T, rect=rect, parrafo_j=parrafo_j, wrap_px=wrap_px, tw=tw, INK=INK, GRAY=GRAY, M=M, CW=CW)
+    y = conceptos.hoja_planeador(b, y, D, CVM.EST_COL[mis], L, seccion, nota, AZ, AZ_BG, AZ_LN)
+    assert y < H_PAGE - 130, f"conceptualización clase {mis}: el contenido llega a y = {y:.0f}"
+    pie(b, NUM[("k", mis)], TOT)
+    svg_close(b, OUT + f"plan_mate_{NUM[('k', mis)]:02d}.svg")
 
 
 # ═══════════════════ hoja 17 · clases 7 y 8 · el simulacro ═══════════════════
@@ -820,8 +854,8 @@ def h16():
     y = cabecera(b, "Clases 7 y 8", "El simulacro de EDUCATE y su socialización en el cuaderno",
                  "PLANEADOR DEL DOCENTE", str(C8["preguntas_cuaderno"]), "preguntas caben en el cuaderno")
     PS.hoja(b, y, C7, C8, AZ, AZ_BG, AZ_LN, seccion, nota)
-    pie(b, 17, TOT)
-    svg_close(b, OUT + "plan_mate_17.svg")
+    pie(b, NUM["sim"], TOT)
+    svg_close(b, OUT + f"plan_mate_{NUM['sim']:02d}.svg")
 
 
 # ═══════════════════ hoja 24 · cierre del área ═══════════════════
@@ -875,8 +909,8 @@ def h17():
         parrafo_j(b, M + 580, y + (h - len(lin) * 32) / 2 - 4, s_, CW - 620, 23, GRAY, lh=32)
         y += h + 12
 
-    pie(b, 24, TOT)
-    svg_close(b, OUT + "plan_mate_24.svg")
+    pie(b, NUM["cierre"], TOT)
+    svg_close(b, OUT + f"plan_mate_{NUM['cierre']:02d}.svg")
 
 
 # ═══════════════════════ banco de dinámicas ═══════════════════════
@@ -1177,15 +1211,15 @@ def hoja_dinamicas(mis):
                GRAY, style="italic"))
     parrafo_j(b, M + 44, y + 98, txt_r, CW - 90, 23, INK, lh=32)
 
-    pie(b, 17 + mis, TOT)
-    svg_close(b, OUT + f"plan_mate_{17 + mis:02d}.svg")
+    pie(b, NUM[("d", mis)], TOT)
+    svg_close(b, OUT + f"plan_mate_{NUM[('d', mis)]:02d}.svg")
 
 
 def build():
     h1(); h2()
     hoja_momentos(1); hoja_momentos(2)
     for m in range(1, 7):
-        hoja_clase(m); hoja_clase_b(m)
+        hoja_concepto(m); hoja_clase(m); hoja_clase_b(m)
     h16()
     for m in range(1, 7):
         hoja_dinamicas(m)

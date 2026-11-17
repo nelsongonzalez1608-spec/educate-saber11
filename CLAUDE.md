@@ -346,6 +346,17 @@ Lo replica `clase_viva_lc.py`.
   intercaladas) · reto del corte · 4 preguntas ICFES con su texto completo · cierre.
 - Archivo único, funciona con doble clic y sin internet.
 
+## 7b. La conceptualización (Nelson, 17 nov)
+
+Va **dentro** de la guía de cada clase de contenido, no como presentación aparte: dos diapositivas después de la
+activación y antes de la dinámica E1 (vocabulario «las palabras de hoy» y «el mapa de la misión», con una tarjeta por
+estrategia que se abre en infografía). Toma **3 de los 15 minutos de la Activación**: el reparto no cambia. Primero
+descubren, después se nombra, después se entrena. Sin teoría profunda: definición corta, fórmula, un ejemplo **propio**
+(nunca datos del taller ni del entrenamiento) y el «ojo». Estilo: fondo claro, colores institucionales solo como acento.
+Motor: `libro/conceptos.py` (diapositivas, CSS, JS y la hoja del planeador `hoja_planeador`). Datos por área:
+`conceptos_mate.py` (hecho). En el planeador entra una hoja «Clase N · conceptualización» antes de cada clase: el de
+Matemáticas pasó de 24 a **30 hojas** (`plan_mate.NUM` numera). Faltan las otras seis áreas.
+
 ## 8. El planeador del docente
 
 Modelo aprobado: `piloto/paquete_mision1_aprobado/2_docente/Mate_Mision1_PLANEADOR.pdf` (4 hojas).

@@ -116,7 +116,18 @@ def esc_mapa(A, mis, D, colores):
     return dict(m=0, min=MIN, html=h, guia=_guia(
         "Ponerle nombre a lo que el grupo acaba de descubrir en la activación: una idea central y una "
         "por estrategia.",
-        D["decir"], D["apoyo"]))
+        D["decir"], list(D["apoyo"]) + _chequeos(D)))
+
+
+def _chequeos(D):
+    """Para la guía del profe: la pregunta con la que comprueba que cada idea quedó (respuesta entre paréntesis)."""
+    out = []
+    if D.get("centro_chequeo"):
+        out.append(f"Para comprobar la idea central: {D['centro_chequeo']}")
+    for k, i in enumerate(D["ideas"], 1):
+        if i.get("chequeo"):
+            out.append(f"Estrategia {k} · {i['t']}: {i['chequeo']}")
+    return out
 
 
 def _detalle(ident, g, c, t, d, f, ej, ojo, svg):
@@ -135,3 +146,98 @@ def _detalle(ident, g, c, t, d, f, ej, ojo, svg):
 
 def escenas(A, mis, D, colores):
     return [esc_vocabulario(A, mis, D, colores), esc_mapa(A, mis, D, colores)]
+
+
+# ═══════════════════════ la hoja del planeador ═══════════════════════
+# Una hoja por clase de contenido: «Clase N · conceptualización». Mismo motor que el planeador
+# (SVG 2000 × 2588). La usa plan_mate.py; las otras áreas la llaman igual cuando tengan sus datos.
+def _fig(svg, x, y, w):
+    """Inserta la figura (viewBox 420 × 300) en el SVG de la hoja, al ancho w."""
+    import re
+    vb = re.search(r'viewBox="0 0 (\d+) (\d+)"', svg)
+    vw, vh = int(vb.group(1)), int(vb.group(2))
+    h = w * vh / vw
+    return svg.replace("<svg ", f'<svg x="{x}" y="{y}" width="{w}" height="{h:.0f}" ', 1), h
+
+
+def _bloque_idea(b, x, y, w, i, color, rotulo, L, medir=False):
+    """Tarjeta de una idea. Devuelve el alto. Con medir=True no dibuja nada."""
+    T, rect, parrafo_j, wrap_px, tw, INK, GRAY = L["T"], L["rect"], L["parrafo_j"], L["wrap_px"], L["tw"], L["INK"], L["GRAY"]
+    pad, fw = 26, 240
+    tx, tw_ = x + pad + fw + 26, w - pad * 2 - fw - 26
+    sink = [] if medir else b
+    # cabecera de la tarjeta, al lado de la figura
+    yy = y + pad
+    sink.append(T(tx, yy + 18, [rotulo.upper()], 17, color, weight="700", ls=1.3))
+    yy += 30
+    yy = parrafo_j(sink, tx, yy, i["t"], tw_, 27, INK, weight="700") + 4
+    yy = parrafo_j(sink, tx, yy, i["d"], tw_, 21, INK, lh=29)
+    fig, fh = _fig(i["svg"], x + pad, y + pad, fw)
+    yy = max(yy, y + pad + fh) + 12
+    # fórmula en recuadro punteado
+    if i.get("f"):
+        fl = wrap_px(i["f"], 22, w - pad * 2 - 30, weight="700")
+        fh2 = 18 + len(fl) * 30
+        sink.append(rect(x + pad, yy, min(w - pad * 2, max(tw(" ".join(l), 22, "700") for l in fl) + 34), fh2,
+                         "white", r=10, stroke=color, sw=2, dash="7,6"))
+        sink.append(T(x + pad + 16, yy + 32, [" ".join(l) for l in fl], 22, INK, weight="700", lh=30))
+        yy += fh2 + 12
+    for rot, txt, c in (("Ejemplo", i["ej"], GRAY), ("Ojo", i["ojo"], INK), ("Comprueba", i["chequeo"], INK)):
+        sink.append(T(x + pad, yy + 20, [rot.upper()], 16, color if rot != "Ojo" else "#C9821B", weight="700", ls=1.2))
+        yy = parrafo_j(sink, x + pad, yy + 24, txt, w - pad * 2, 20, c, lh=26) + 4
+    h = yy - y + pad - 6
+    if not medir:
+        b.append(fig)
+    return h
+
+
+def hoja_planeador(b, y, D, colores, L, seccion, nota, area_color, area_bg, area_ln):
+    """Dibuja la hoja de conceptualización desde y. L: primitivas de lib (dict). Devuelve el y final."""
+    T, rect, parrafo_j, wrap_px, tw, INK, GRAY, M, CW = (L[k] for k in
+        ("T", "rect", "parrafo_j", "wrap_px", "tw", "INK", "GRAY", "M", "CW"))
+    y = nota(b, M, y,
+             CW, "Al cierre de la Activación (3 min), antes de la dinámica de la estrategia 1: primero descubren, después "
+             "se nombra, después se entrena. En pantalla: «las palabras de hoy» y «el mapa de la misión». Abres el centro "
+             "y la estrategia 1; las demás, cuando llegue su pregunta en el taller. Una frase por tarjeta y la pregunta "
+             "de «comprueba».",
+             "#C9821B", "#FDF5E7", "#E8CFA3", "Cuándo y cómo", 22) + 26
+    y = seccion(b, y, f"El mapa de la misión · {D['titulo']}")
+    # la idea central, a todo el ancho
+    ct, cd, csvg = D["centro"]
+    centro = dict(t=ct, d=cd, f="", ej=D.get("centro_ej", ""), ojo=D.get("centro_ojo", ""),
+                  chequeo=D.get("centro_chequeo", ""), svg=csvg)
+    h = _bloque_idea(None, M, y, CW, centro, area_color, "La idea central", L, medir=True)
+    b.append(rect(M, y, CW, h, area_bg, r=18, stroke=area_ln, sw=2))
+    b.append(rect(M + 12, y + 14, 5, h - 28, area_color, r=3))
+    _bloque_idea(b, M, y, CW, centro, area_color, "La idea central", L)
+    y += h + 18
+    # las cuatro estrategias, de a dos
+    an = (CW - 18) / 2
+    for fila in range(2):
+        par = D["ideas"][fila * 2: fila * 2 + 2]
+        hs = [_bloque_idea(None, 0, 0, an, i, colores[fila * 2 + k], f"Estrategia {fila*2+k+1}", L, medir=True)
+              for k, i in enumerate(par)]
+        hh = max(hs)
+        for k, i in enumerate(par):
+            x = M + k * (an + 18)
+            c = colores[fila * 2 + k]
+            b.append(rect(x, y, an, hh, "white", r=18, stroke=area_ln, sw=2))
+            b.append(rect(x + 12, y + 14, 5, hh - 28, c, r=3))
+            _bloque_idea(b, x, y, an, i, c, f"Estrategia {fila*2+k+1}", L)
+        y += hh + 18
+    # el vocabulario
+    y = seccion(b, y + 6, "Las palabras de hoy",
+                "Se leen una vez en voz alta al empezar; después se juega: dices la definición y el grupo dice la palabra.")
+    col = 3
+    aw = (CW - 2 * 14) / col
+    filas = [D["vocab"][k:k + col] for k in range(0, len(D["vocab"]), col)]
+    for fila in filas:
+        hh = max(50 + len(wrap_px(d, 19, aw - 44)) * 25 + 8 for p, d in fila)
+        for k, (p, d) in enumerate(fila):
+            x = M + k * (aw + 14)
+            b.append(rect(x, y, aw, hh, "white", r=12, stroke=area_ln, sw=1.8))
+            b.append(rect(x + 10, y + 10, 4, hh - 20, colores[(filas.index(fila) * col + k) % len(colores)], r=2))
+            b.append(T(x + 26, y + 34, [p], 22, INK, weight="700"))
+            parrafo_j(b, x + 26, y + 42, d, aw - 44, 19, GRAY, lh=25)
+        y += hh + 10
+    return y
