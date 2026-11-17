@@ -1154,6 +1154,7 @@ def h24():
 
 
 def build():
+    PZ.activar_conceptos("lc", FASES)          # 30 hojas si el área ya tiene conceptualización
     h1(); h2()
     hoja_momentos(1); hoja_momentos(2)
     for m in range(1, 7):
@@ -1162,7 +1163,7 @@ def build():
     for m in range(1, 7):
         hoja_dinamicas(m)
     h24()
-    return [f"plan_lc_{i:02d}" for i in range(1, TOTAL + 1)]
+    return PZ.con_conceptos([f"plan_lc_{i:02d}" for i in range(1, TOTAL + 1)], "lc")
 
 
 PDF = os.path.join(RAIZ, "entregables", "EDUCATE_Planeador_LecturaCritica.pdf")

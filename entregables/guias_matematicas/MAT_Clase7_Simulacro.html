@@ -118,27 +118,6 @@ p{margin:.35em 0 .6em}
 .herr{display:flex;align-items:center;gap:14px;background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--area);border-radius:16px;padding:14px 18px;font-size:1.12em}
 .herr svg{flex:none}
 
-.dat{border-collapse:collapse;margin-top:10px;font-size:.95em;background:var(--paper)}
-.dat th,.dat td{border:1px solid var(--line);padding:6px 14px;text-align:center}
-.dat th{background:#EEF3FA;font-weight:700}
-.dat.act{font-size:1.15em;margin-top:0}.dat.act td,.dat.act th{min-width:4.2em;padding:8px 16px}
-.dat td.q{color:var(--faint);font-weight:700}
-.fig{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-top:10px}
-.fig svg{display:block;width:100%;height:auto;margin:0 auto}
-.fig text{font-family:var(--text)}
-.ops.c2{grid-template-columns:1fr 1fr}
-.modelo{font-size:.9em}.manos{align-self:center}.modelo .card p{margin-top:0}
-.lado{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}.lado .fig{flex:1 1 260px}.lado .dat{flex:0 0 auto}
-.inst{font-style:italic;color:var(--muted)}
-.nota{font-size:.85em;margin-top:4px}
-.enun2{font-weight:600;margin-top:10px}
-.cajas{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-.caja{flex:1 1 200px;background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--m5);border-radius:10px;padding:8px 14px}
-.caja b{display:block;font-family:var(--display)}.caja span{display:block}
-.suc{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-.suc span{min-width:3.6em;text-align:center;font-family:var(--display);font-weight:800;font-size:1.4em;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:8px 12px}
-.keychip.doble{width:auto;padding:0 .45em}
-
 .cv-voc{display:grid;gap:clamp(10px,1.2vw,18px);grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));margin-top:clamp(14px,1.8vw,26px)}
 .cv-voc div{background:#fff;border:1.5px solid var(--line);border-top:5px solid var(--acc,var(--area));border-radius:14px;padding:12px 16px;box-shadow:4px 4px 0 rgba(30,34,48,.08)}
 .cv-voc b{display:block;font-family:var(--display);font-size:1.18em;color:var(--ink)}
@@ -161,7 +140,33 @@ p{margin:.35em 0 .6em}
 .cv-ej{color:var(--muted)}
 .cv-ojo{margin-top:8px;padding-left:12px;border-left:4px solid var(--oro)}
 .cv-ojo b{color:var(--oro)}
+#wrap{position:relative}
+.cv-motivo{position:absolute;top:-6px;right:0;width:clamp(110px,13vw,220px);opacity:.22;pointer-events:none;z-index:0}
+.cv-motivo svg{width:100%;height:auto;display:block}
+.cv-motivo~*{position:relative;z-index:1}
+@media (max-width:760px){.cv-motivo{display:none}}
 @media (max-width:760px){.cv-mapa{grid-template-columns:1fr;grid-template-areas:"c" "a" "b" "d" "e"}.cv-mapa>svg{display:none}.cv-det{grid-template-columns:1fr}}
+
+.dat{border-collapse:collapse;margin-top:10px;font-size:.95em;background:var(--paper)}
+.dat th,.dat td{border:1px solid var(--line);padding:6px 14px;text-align:center}
+.dat th{background:#EEF3FA;font-weight:700}
+.dat.act{font-size:1.15em;margin-top:0}.dat.act td,.dat.act th{min-width:4.2em;padding:8px 16px}
+.dat td.q{color:var(--faint);font-weight:700}
+.fig{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-top:10px}
+.fig svg{display:block;width:100%;height:auto;margin:0 auto}
+.fig text{font-family:var(--text)}
+.ops.c2{grid-template-columns:1fr 1fr}
+.modelo{font-size:.9em}.manos{align-self:center}.modelo .card p{margin-top:0}
+.lado{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}.lado .fig{flex:1 1 260px}.lado .dat{flex:0 0 auto}
+.inst{font-style:italic;color:var(--muted)}
+.nota{font-size:.85em;margin-top:4px}
+.enun2{font-weight:600;margin-top:10px}
+.cajas{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.caja{flex:1 1 200px;background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--m5);border-radius:10px;padding:8px 14px}
+.caja b{display:block;font-family:var(--display)}.caja span{display:block}
+.suc{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.suc span{min-width:3.6em;text-align:center;font-family:var(--display);font-weight:800;font-size:1.4em;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:8px 12px}
+.keychip.doble{width:auto;padding:0 .45em}
 </style>
 </head>
 <body>

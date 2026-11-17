@@ -264,7 +264,8 @@ def esc_portada(A, mis):
     if adv:
         apoyo.insert(0, "⚑ Esta clase tiene advertencia previa. Léela antes del sábado: " +
                      re.sub(r"\s+", " ", adv)[:700])
-    h = (f'<div class="logo-xl"><img src="__LOGO__" alt="EDUCATE · Para el Saber"></div>'
+    import conceptos
+    h = (conceptos.motivo_html(A) + f'<div class="logo-xl"><img src="__LOGO__" alt="EDUCATE · Para el Saber"></div>'
          f'<div class="eyebrow"><span class="tag">Clase {mis} de 8</span>'
          f'<span class="kicker">{E(A.nombre)} · Componente {E(d["comp"])}</span></div>'
          f'<h1>{E(A.titulos[mis])}</h1>')
@@ -775,7 +776,8 @@ def escenas_clase(A, mis):
     for k, q in enumerate(qs, 1):
         sc.append(esc_icfes(A, mis, k, q, banco[k - 1]["clave"], A.textos.get((mis, k), {})))
     sc.append(esc_cierre(A, mis))
-    return sc
+    import conceptos
+    return conceptos.para_guia(A, mis, sc)
 
 
 # ─────────────────────────────── la página ───────────────────────────────
@@ -793,7 +795,10 @@ def pagina(A, titulo, sub, escenas, nombre_mom):
     datos = json.dumps(escenas, ensure_ascii=False).replace("__LOGO__", logo).replace("</", "<\\/")
     mom = json.dumps([dict(n=i + 1, nom=f[0], min=f[1], c=f"--m{i+1}") for i, f in enumerate(A.P.FASES)],
                      ensure_ascii=False)
-    return (PLANTILLA.replace("__COLORES__", colores_css(A)).replace("__FUERTE__", E(A.fuerte))
+    import conceptos
+    return (PLANTILLA.replace("</style>", conceptos.CSS + "</style>", 1)
+            .replace("function setGuia(on)", conceptos.JS + "function setGuia(on)", 1)
+            .replace("__COLORES__", colores_css(A)).replace("__FUERTE__", E(A.fuerte))
             .replace("__TITULO__", E(titulo)).replace("__SUB__", E(sub))
             .replace("__NOMBRE__", E(nombre_mom)).replace("__LOGOSRC__", logo)
             .replace("__ESCENAS__", datos).replace("__MOM__", mom))

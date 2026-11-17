@@ -51,6 +51,11 @@ CSS = """
 .cv-ej{color:var(--muted)}
 .cv-ojo{margin-top:8px;padding-left:12px;border-left:4px solid var(--oro)}
 .cv-ojo b{color:var(--oro)}
+#wrap{position:relative}
+.cv-motivo{position:absolute;top:-6px;right:0;width:clamp(110px,13vw,220px);opacity:.22;pointer-events:none;z-index:0}
+.cv-motivo svg{width:100%;height:auto;display:block}
+.cv-motivo~*{position:relative;z-index:1}
+@media (max-width:760px){.cv-motivo{display:none}}
 @media (max-width:760px){.cv-mapa{grid-template-columns:1fr;grid-template-areas:"c" "a" "b" "d" "e"}.cv-mapa>svg{display:none}.cv-det{grid-template-columns:1fr}}
 """
 
@@ -71,6 +76,13 @@ wrap.addEventListener("click", function(e){
 AREAS_GRID = ["a", "b", "d", "e"]
 
 
+def motivo_html(A):
+    """El toque del área (motivos.py), en la esquina de la diapositiva. Vacío si el área no lo tiene."""
+    import motivos
+    clave = motivos.CLAVE.get(getattr(A, "nombre", ""), None)
+    return f'<div class="cv-motivo">{motivos.motivo(clave)}</div>' if clave else ""
+
+
 def _guia(obj, decir, apoyo):
     return dict(obj=obj, decir=list(decir), como="", apoyo=list(apoyo))
 
@@ -79,7 +91,7 @@ def esc_vocabulario(A, mis, D, colores):
     tarjetas = "".join(
         f'<div style="--acc:{colores[k % len(colores)]}"><b>{E(p)}</b><span>{E(d)}</span></div>'
         for k, (p, d) in enumerate(D["vocab"]))
-    h = (f'<div class="eyebrow"><span class="min" style="--accent:var(--m1)">Conceptualización · {MIN} min</span>'
+    h = (motivo_html(A) + f'<div class="eyebrow"><span class="min" style="--accent:var(--m1)">Conceptualización · {MIN} min</span>'
          f'<span class="kicker">Las palabras de hoy</span></div>'
          f'<h2>{len(D["vocab"])} palabras para esta clase</h2>'
          f'<div class="cv-voc" id="voc{mis}">{tarjetas}</div>'
@@ -109,7 +121,7 @@ def esc_mapa(A, mis, D, colores):
               + "".join(f'<line x1="50" y1="50" x2="{x}" y2="{y}" stroke="#9AA3B2" stroke-width="2" '
                         f'stroke-dasharray="6 6" vector-effect="non-scaling-stroke"/>'
                         for x, y in ((18, 16), (82, 16), (18, 84), (82, 84))) + '</svg>')
-    h = (f'<div class="eyebrow"><span class="min" style="--accent:var(--m1)">Conceptualización · {MIN} min</span>'
+    h = (motivo_html(A) + f'<div class="eyebrow"><span class="min" style="--accent:var(--m1)">Conceptualización · {MIN} min</span>'
          f'<span class="kicker">El mapa de la misión · toca una tarjeta para abrirla</span></div>'
          f'<h2>{E(D["titulo"])}</h2>'
          f'<div class="cv-mapa" id="{g}">{lineas}{"".join(nodos)}</div>{"".join(dets)}')
@@ -241,3 +253,75 @@ def hoja_planeador(b, y, D, colores, L, seccion, nota, area_color, area_bg, area
             parrafo_j(b, x + 26, y + 42, d, aw - 44, 19, GRAY, lh=25)
         y += hh + 10
     return y
+
+
+# ═══════════════════════ uso general (las siete áreas) ═══════════════════════
+DECIR = ["«Lo que acaban de descubrir tiene nombre». Toca la tarjeta del centro y dila en una frase.",
+         "Abre solo la tarjeta de la estrategia 1: es la que se entrena ya en la dinámica. Las demás se "
+         "abren cuando aparezcan en el taller: vuelve a esta diapositiva con ← cuando haga falta.",
+         "Una frase por tarjeta, nada más. Si alguien pregunta algo largo: «lo vemos en la pregunta que toca»."]
+APOYO = ["Lo de las tarjetas está para reconocerlo en el taller, no para memorizarlo hoy.",
+         "Los ejemplos son propios de la guía: no son los del libro, para que no resuelvan el taller por "
+         "adelantado.",
+         "La conceptualización se toma 3 de los 15 minutos de la Activación. Si la activación se alargó, pasa "
+         "directo a la dinámica: el mapa sigue disponible para el cierre."]
+COLOR_CENTRO = "#242478"
+
+
+def armar(datos_mision, orden, color_de):
+    """Datos de un módulo conceptos_<área>.py → lo que dibujan escenas() y hoja_planeador().
+    orden: nombres de las estrategias en el orden del cuaderno. color_de(nombre) → color de la estrategia.
+    Las figuras son funciones que reciben el color."""
+    D = datos_mision
+    ct, cd, cfig = D["centro"]
+    faltan = [n for n in orden if n not in D["ideas"]]
+    sobran = [n for n in D["ideas"] if n not in orden]
+    assert not faltan and not sobran, f"estrategias que no cuadran · faltan {faltan} · sobran {sobran}"
+    ideas = []
+    for nombre in orden:
+        i = dict(D["ideas"][nombre], t=nombre)
+        i["svg"] = i["svg"](color_de(nombre))
+        i.setdefault("f", "")
+        ideas.append(i)
+    out = dict(D, centro=(ct, cd, cfig(COLOR_CENTRO)), ideas=ideas,
+               decir=D.get("decir", DECIR), apoyo=D.get("apoyo", APOYO))
+    for i in ideas:
+        falta = [k for k in ("t", "corto", "d", "ej", "ojo", "chequeo", "svg") if not i.get(k)]
+        assert not falta, (i["t"], falta)
+    for k in ("titulo", "centro_ej", "centro_ojo", "centro_chequeo", "vocab"):
+        assert out.get(k), f"falta {k}"
+    assert 6 <= len(out["vocab"]) <= 9, "el vocabulario lleva de 6 a 9 palabras"
+    return out
+
+
+def insertar_guia(sc, A, mis, D, colores):
+    """Mete las dos diapositivas después de la activación (la primera escena del momento 0 que no es
+    dinámica). Devuelve sc."""
+    for k, e in enumerate(sc):
+        if e.get("m") == 0 and ">Activación<" in e["html"][:600]:
+            sc[k + 1:k + 1] = escenas(A, mis, D, colores)
+            return sc
+    raise ValueError("no encontré la activación")
+
+
+def para_guia(A, mis, sc):
+    """Gancho de las guías de las seis áreas (Matemáticas mete la suya en clase_viva_mate.py): si el área
+    tiene conceptualización para la misión, la inserta después de la activación."""
+    import motivos, conceptos_area
+    clave = motivos.CLAVE.get(getattr(A, "nombre", ""))
+    if not clave or clave == "mate":
+        return sc
+    D, cols = conceptos_area.de(clave, mis)
+    if D:
+        insertar_guia(sc, A, mis, D, cols)
+    return sc
+
+
+def motivo_cabecera(b, area, x=None, y=58, lado=184):
+    """El toque del área en la banda oscura de la cabecera del planeador: trazo blanco, muy tenue."""
+    import motivos
+    from lib import W, M
+    x = W - M - 470 if x is None else x
+    svg = motivos.motivo(area, "#FFFFFF").replace(
+        "<svg ", f'<svg x="{x}" y="{y}" width="{lado}" height="{lado}" opacity="0.28" ', 1)
+    b.append(svg)

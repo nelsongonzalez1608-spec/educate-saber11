@@ -839,6 +839,7 @@ def hoja_concepto(mis):
     y = cabecera(b, f"Clase {mis} · conceptualización",
                  "Los conceptos de la misión, sin teoría de más: lo justo para comprender",
                  "PLANEADOR DEL DOCENTE", "3", "min, dentro de la Activación")
+    conceptos.motivo_cabecera(b, "mate")
     L = dict(T=T, rect=rect, parrafo_j=parrafo_j, wrap_px=wrap_px, tw=tw, INK=INK, GRAY=GRAY, M=M, CW=CW)
     y = conceptos.hoja_planeador(b, y, D, CVM.EST_COL[mis], L, seccion, nota, AZ, AZ_BG, AZ_LN)
     assert y < H_PAGE - 130, f"conceptualización clase {mis}: el contenido llega a y = {y:.0f}"

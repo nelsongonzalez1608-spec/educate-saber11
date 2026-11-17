@@ -656,7 +656,8 @@ def escenas_contenido(A, mis):
     apoyo.append("Si un estudiante pregunta algo que no sabes, no inventes: «No lo sé; vamos a ver qué dice el "
                  "texto». Anótalo en tu registro y tráelo resuelto. Si alguien sabe más inglés, que lea en voz alta.")
     sc[0]["guia"]["apoyo"] = apoyo + sc[0]["guia"]["apoyo"]
-    return sc
+    import conceptos
+    return conceptos.para_guia(A, mis, sc)
 
 
 

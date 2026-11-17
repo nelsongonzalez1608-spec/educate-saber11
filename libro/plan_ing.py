@@ -1561,6 +1561,7 @@ TOPE = 2470          # donde empieza el pie (verifica_plan.py)
 def build():
     """Dibuja las 24 hojas. Cada función devuelve hasta dónde llegó su contenido: verifica_plan.py no ve
     lo que empieza por debajo del pie (lo salta como si fuera el pie), así que aquí se mide aparte."""
+    PZ.activar_conceptos("ing", FASES)          # 30 hojas si el área ya tiene conceptualización
     altos = {1: h1(), 2: h2()}
     hoja_momentos(1); hoja_momentos(2)
     for m in range(1, 7):
@@ -1573,7 +1574,7 @@ def build():
     malas = {k: round(v) for k, v in altos.items() if v > TOPE}
     if malas:
         raise SystemExit(f"Se meten en el pie (hoja: hasta dónde llegan): {malas}")
-    return [f"{OUTP}{i:02d}.svg" for i in range(1, TOTAL + 1)]
+    return PZ.con_conceptos([f"{OUTP}{i:02d}.svg" for i in range(1, TOTAL + 1)], "ing")
 
 
 PDF = "/home/user/educate-saber11/entregables/EDUCATE_Planeador_Ingles.pdf"

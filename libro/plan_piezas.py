@@ -11,6 +11,7 @@ sólida y los acentos de los recuadros son verticales), texto justificado medido
 la fuente real y EDUCATE siempre en mayúsculas sostenidas.
 """
 from lib import *
+import os
 
 OUT = "/home/claude/libro/"
 
@@ -221,3 +222,78 @@ def registro_docente(body, y, campos=None, alto=232):
         body.append(wlines(x + 40, yy + 118, an - 80, max(1, int((alto - 118) // 38)),
                            c="#E6EAF0", step=38))
     return y + (alto + 14) * ((len(campos) + 1) // 2) - 14
+
+
+# ═══════════════ conceptualización (Nelson, 17 nov): una hoja antes de cada clase ═══════════════
+# El planeador pasa de 24 a 30 hojas: 1–2 entrada · 3–4 los 120 minutos · por clase m: 3m+2
+# conceptualización, 3m+3 y 3m+4 las dos caras de la clase · 23 clases 7 y 8 · 24–29 dinámicas · 30 cierre.
+# Las funciones de cada área siguen llamando pie(b, n) con la numeración vieja: pie() la traduce.
+REMAP = None
+
+
+def activar_conceptos(area, FASES=None):
+    """Si el área tiene la conceptualización de las seis misiones, pasa a 30 hojas y devuelve True.
+    FASES: las del área, para añadir la conceptualización a «qué hace el docente» de la Activación."""
+    global TOT, REMAP
+    import conceptos_area as CA
+    if not all(CA.de(area, m)[0] for m in range(1, 7)):
+        return False
+    TOT = 30
+    REMAP = {1: 1, 2: 2, 3: 3, 4: 4, 17: 23, 24: 30}
+    for m in range(1, 7):
+        REMAP[3 + 2 * m] = 3 * m + 3
+        REMAP[4 + 2 * m] = 3 * m + 4
+        REMAP[17 + m] = 23 + m
+    if FASES is not None:
+        hace = FASES[0][4]
+        linea = "Le pone nombre a lo descubierto: conceptualización (3 min), palabras de hoy y mapa."
+        if linea not in hace:
+            hace.insert(len(hace) - 1, linea)
+    return True
+
+
+def _pie_num(pag):
+    return REMAP.get(pag, pag) if REMAP else pag
+
+
+_pie_original = pie
+
+
+def pie(body, pag):                                    # noqa: F811 — traduce la numeración vieja
+    _pie_original(body, _pie_num(pag))
+
+
+def hoja_conceptualizacion(area, mis, archivo):
+    """«Clase N · conceptualización»: los datos de conceptos_<área>.py dibujados con conceptos.hoja_planeador."""
+    import conceptos, conceptos_area as CA
+    D, colores = CA.de(area, mis)
+    b = svg_open()
+    y = cabecera(b, f"Clase {mis} · conceptualización",
+                 "Los conceptos de la misión, sin teoría de más: lo justo para comprender",
+                 "PLANEADOR DEL DOCENTE", "3", "min, dentro de la Activación")
+    conceptos.motivo_cabecera(b, area)
+    L = dict(T=T, rect=rect, parrafo_j=parrafo_j, wrap_px=wrap_px, tw=tw, INK=INK, GRAY=GRAY, M=M, CW=CW)
+    y = conceptos.hoja_planeador(b, y, D, colores, L, seccion, nota, A, A_BG, A_LN)
+    assert y < H_PAGE - 130, f"conceptualización {area} clase {mis}: el contenido llega a y = {y:.0f}"
+    _pie_original(b, 3 * mis + 2)
+    svg_close(b, archivo)
+    return y
+
+
+def con_conceptos(hojas, area):
+    """Lista de 24 hojas (en el formato que devuelva el build del área: nombre sin extensión o ruta .svg)
+    → lista de 30 con la hoja de conceptualización delante de cada clase. Dibuja las seis hojas nuevas."""
+    if not REMAP:
+        return hojas
+    ruta = hojas[0].endswith(".svg")
+    nuevas = []
+    for m in range(1, 7):
+        f = os.path.join(OUT, f"plan_{area}_k{m}.svg")
+        hoja_conceptualizacion(area, m, f)
+        nuevas.append(f if ruta else f"plan_{area}_k{m}")
+    orden = hojas[:4]
+    for m in range(1, 7):
+        orden += [nuevas[m - 1], hojas[3 + 2 * m - 1], hojas[4 + 2 * m - 1]]
+    orden += hojas[16:]
+    assert len(orden) == 30
+    return orden

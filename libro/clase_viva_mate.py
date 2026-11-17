@@ -1121,8 +1121,7 @@ MEMBRETE_TXT = [
 
 
 def escribir(A, archivo, titulo, sub, sc, out):
-    html = CV.pagina(A, titulo, sub, sc, titulo).replace("</style>", CSS + conceptos.CSS + "</style>", 1)
-    html = html.replace("function setGuia(on)", conceptos.JS + "function setGuia(on)", 1)
+    html = CV.pagina(A, titulo, sub, sc, titulo).replace("</style>", CSS + "</style>", 1)
     for a, b_ in MEMBRETE_TXT:
         html = html.replace(a, b_)
     revisar(html, archivo)

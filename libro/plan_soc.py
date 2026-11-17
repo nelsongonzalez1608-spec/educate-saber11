@@ -1341,6 +1341,7 @@ def h24():
 
 
 def build():
+    PZ.activar_conceptos("soc", FASES)          # 30 hojas si el área ya tiene conceptualización
     h1(); h2()
     hoja_momentos(1); hoja_momentos(2)
     for m in range(1, 7):
@@ -1349,7 +1350,7 @@ def build():
     for m in range(1, 7):
         hoja_dinamicas(m)
     h24()
-    return [f"{OUTP}{i:02d}.svg" for i in range(1, TOTAL + 1)]
+    return PZ.con_conceptos([f"{OUTP}{i:02d}.svg" for i in range(1, TOTAL + 1)], "soc")
 
 
 PDF = "/home/user/educate-saber11/entregables/EDUCATE_Planeador_Sociales.pdf"
