@@ -99,6 +99,13 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
 .lienzo.zoom.arrastrando img{cursor:grabbing}
 .lienzo:not(.zoom) img{cursor:zoom-in}
 .zoom-b{display:inline-flex;gap:4px}
+.vpdf{border:0;padding:0;margin:0;width:100vw;height:100vh;max-width:100vw;max-height:100vh;background:#0B0D1F}
+.vpdf[open]{display:grid;grid-template-rows:auto 1fr}
+.vpdf .guia-barra p{margin:0;font-size:14px;min-width:8ch;text-align:center}
+.vpdf-lienzo{overflow:auto;background:#3A3D52;display:grid;justify-items:center;align-items:start;padding:12px;touch-action:pan-x pan-y}
+.vpdf-lienzo canvas{background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.4);cursor:grab}
+.vpdf-lienzo.arrastrando canvas{cursor:grabbing}
+.vpdf-lienzo .cargando{color:#fff;font-size:15px;padding:40px}
 .zoom-b button{min-width:40px;padding:8px 10px}
 .mando{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .mando p{margin:0;flex:1 1 220px;font-size:14px}
@@ -215,6 +222,14 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
   </div>
 </dialog>
 
+<dialog id="dlg-vpdf" class="vpdf" aria-label="Documento">
+  <div class="guia-barra"><b id="vpdf-tit"></b>
+    <button type="button" id="vpdf-ant" aria-label="Página anterior">←</button><p id="vpdf-num"></p><button type="button" id="vpdf-sig" aria-label="Página siguiente">→</button>
+    <button type="button" id="vpdf-menos" aria-label="Alejar">−</button><button type="button" id="vpdf-ajustar">100 %</button><button type="button" id="vpdf-mas" aria-label="Acercar">+</button>
+    <button type="button" id="vpdf-bajar">Descargar</button><button type="button" id="vpdf-cerrar">Cerrar</button></div>
+  <div class="vpdf-lienzo" id="vpdf-lienzo"><canvas id="vpdf-canvas"></canvas></div>
+</dialog>
+
 <dialog id="dlg-guia" class="guia-dlg" aria-label="Guía de clase">
   <div class="guia-barra"><b id="guia-tit"></b><button type="button" id="guia-bajar">Descargar</button><button type="button" id="guia-cerrar">Cerrar</button></div>
   <iframe id="guia-frame" title="Guía de clase"></iframe>
@@ -222,6 +237,8 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
 <script>
 const D = __DATOS__;
 const AREAS = [
@@ -371,9 +388,7 @@ doc.innerHTML = D.docente.map((d, i) => {
 doc.addEventListener("click", e => {
   const b = e.target.closest("[data-plan]");
   if (b) { const d = D.docente[+b.dataset.plan];
-    document.getElementById("guia-tit").textContent = `${d.area} · planeador del docente`;
-    document.getElementById("guia-bajar").dataset.f = d.planeador.pdf;
-    fGuia.src = d.planeador.pdf; dGuia.showModal(); }
+    verPDF(d.planeador.pdf, 1, `${d.area} · planeador del docente`); }
 });
 
 /* ---------- presentaciones ---------- */
@@ -396,10 +411,62 @@ document.addEventListener("click", e => {
 fGuia.addEventListener("load", () => fGuia.focus());
 document.addEventListener("click", e => {
   const b = e.target.closest("[data-plan-ver]"); if (!b) return;
-  document.getElementById("guia-tit").textContent = b.dataset.tit;
-  document.getElementById("guia-bajar").dataset.f = b.dataset.planVer;
-  fGuia.src = b.dataset.planVer; dGuia.showModal();
+  verPDF(b.dataset.planVer, 1, b.dataset.tit);
 });
+
+/* ---------- visor de PDF propio (pdf.js): planeadores y «Ver nítida» ---------- */
+const dV = document.getElementById("dlg-vpdf"), lzV = document.getElementById("vpdf-lienzo"), cvV = document.getElementById("vpdf-canvas");
+let docV = null, urlV = "", pagV = 1, zV = 1, tareaV = null;
+const cacheV = new Map();
+async function verPDF(url, pagina, titulo, desde) {
+  document.getElementById("vpdf-tit").textContent = titulo || "";
+  document.getElementById("vpdf-bajar").dataset.f = url;
+  if (!dV.open) dV.showModal();
+  if (!window.pdfjsLib) { lzV.innerHTML = `<p class="cargando">No cargó el visor de PDF. Recarga la página o usa «Descargar».</p>`; return; }
+  if (!lzV.contains(cvV)) { lzV.innerHTML = ""; lzV.appendChild(cvV); }
+  try {
+    if (urlV !== url) {
+      if (!cacheV.has(url)) cacheV.set(url, pdfjsLib.getDocument({url, isEvalSupported: false}).promise);
+      docV = await cacheV.get(url); urlV = url;
+    }
+    pagV = Math.min(Math.max(1, pagina || 1), docV.numPages); zV = 1; desdeV = desde || 0;
+    await pintarV();
+  } catch (e) { lzV.innerHTML = `<p class="cargando">No se pudo abrir el documento. Usa «Descargar».</p>`; }
+}
+let desdeV = 0;
+async function pintarV() {
+  const pg = await docV.getPage(pagV);
+  const base = pg.getViewport({scale: 1});
+  const ancho = Math.min(lzV.clientWidth - 24, 1100), escala = ancho / base.width * zV;
+  const vp = pg.getViewport({scale: escala}), dpr = window.devicePixelRatio || 1;
+  cvV.width = Math.floor(vp.width * dpr); cvV.height = Math.floor(vp.height * dpr);
+  cvV.style.width = Math.floor(vp.width) + "px"; cvV.style.height = Math.floor(vp.height) + "px";
+  if (tareaV) { try { tareaV.cancel(); } catch (e) {} }
+  tareaV = pg.render({canvasContext: cvV.getContext("2d"), viewport: vp, transform: dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : null});
+  try { await tareaV.promise; } catch (e) { return; }
+  const real = desdeV ? desdeV + pagV - 1 : 0;
+  document.getElementById("vpdf-num").textContent = real ? `p. ${real}` : `${pagV} / ${docV.numPages}`;
+  document.getElementById("vpdf-ajustar").textContent = Math.round(zV * 100) + " %";
+}
+const zoomV = z => { zV = Math.max(.5, Math.min(4, Math.round(z * 4) / 4)); pintarV(); };
+document.getElementById("vpdf-mas").onclick = () => zoomV(zV + .5);
+document.getElementById("vpdf-menos").onclick = () => zoomV(zV - .5);
+document.getElementById("vpdf-ajustar").onclick = () => zoomV(1);
+document.getElementById("vpdf-ant").onclick = () => { if (docV && pagV > 1) { pagV--; lzV.scrollTop = 0; pintarV(); } };
+document.getElementById("vpdf-sig").onclick = () => { if (docV && pagV < docV.numPages) { pagV++; lzV.scrollTop = 0; pintarV(); } };
+document.getElementById("vpdf-cerrar").onclick = () => dV.close();
+document.getElementById("vpdf-bajar").onclick = e => bajar(e.target.dataset.f, e.target.dataset.f.split("/").pop());
+dV.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight") document.getElementById("vpdf-sig").click();
+  if (e.key === "ArrowLeft") document.getElementById("vpdf-ant").click();
+  if (e.key === "+" || e.key === "=") zoomV(zV + .5); if (e.key === "-") zoomV(zV - .5); if (e.key === "0") zoomV(1); });
+lzV.addEventListener("wheel", e => { if (!e.ctrlKey) return; e.preventDefault(); zoomV(zV + (e.deltaY < 0 ? .25 : -.25)); }, {passive: false});
+let arrV = null;
+lzV.addEventListener("pointerdown", e => { if (e.button !== 0) return; arrV = {x: e.clientX, y: e.clientY, l: lzV.scrollLeft, t: lzV.scrollTop, id: e.pointerId};
+  lzV.classList.add("arrastrando"); lzV.setPointerCapture(e.pointerId); });
+lzV.addEventListener("pointermove", e => { if (!arrV || e.pointerId !== arrV.id) return; lzV.scrollLeft = arrV.l - (e.clientX - arrV.x); lzV.scrollTop = arrV.t - (e.clientY - arrV.y); });
+const soltarV = () => { arrV = null; lzV.classList.remove("arrastrando"); };
+lzV.addEventListener("pointerup", soltarV); lzV.addEventListener("pointercancel", soltarV);
 document.getElementById("guia-cerrar").onclick = () => { dGuia.close(); };
 dGuia.addEventListener("close", () => { fGuia.src = "about:blank"; });
 document.getElementById("guia-bajar").onclick = e => bajar(e.target.dataset.f, e.target.dataset.f.split("/").pop());
@@ -593,8 +660,7 @@ document.addEventListener("click", e => {
   if (e.target.closest("[data-todo]")) return pdfTodo();
   if (e.target.id === "dlg-pdf" && e.target.dataset.n) return pdfPagina(+e.target.dataset.n);
   if (e.target.id === "dlg-nitida" && e.target.dataset.n) { const n = +e.target.dataset.n, f = fuenteDe(n); if (!f) return;
-    dlg.close(); document.getElementById("guia-tit").textContent = `Página ${n} · en PDF: usa el zoom del visor de PDF`;
-    document.getElementById("guia-bajar").dataset.f = f.f; fGuia.src = `${f.f}#page=${n - f.a + 1}&zoom=page-fit`; dGuia.showModal(); return; }
+    dlg.close(); verPDF(f.f, n - f.a + 1, `Cuaderno · página ${n} (nítida: acerca con + y mueve con la manito)`, f.a); return; }
 });
 const enCuaderno = f => D.fuentes.some(x => x.f === f);
 document.getElementById("desc").innerHTML = D.descargas.filter(d => !enCuaderno(d.f)).map(d => `<div class="desc-fila"><div><b>${esc(d.t)}</b><br><small>${esc(d.f.split("/").pop())} · ${d.mb} MB</small></div>
