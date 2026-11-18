@@ -216,6 +216,8 @@ def main(out):
                         for m in [_re.search(r"Cuaderno_\d\d_[A-Za-z]+_p(\d+)-(\d+)\.pdf$", d["f"])] if m]
     p = open(os.path.join(LIB, "visor_avance_plantilla.html"), encoding="utf-8").read()
     p = p.replace("__DATOS__", json.dumps(datos, ensure_ascii=False))
+    import time
+    p = p.replace("__VERSION__", time.strftime("%Y%m%d%H%M"))
     p = p.replace("__FECHA__", datetime.date.today().strftime("%d/%m/%Y"))
     open(os.path.join(out, "index.html"), "w", encoding="utf-8").write(p)
     print(len(man), "páginas en el visor")

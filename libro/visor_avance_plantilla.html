@@ -241,6 +241,9 @@ dialog::backdrop{background:rgba(10,12,30,.82)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
 <script>
 const D = __DATOS__;
+/* versión de esta publicación: obliga al navegador a pedir los archivos nuevos y no usar los guardados */
+const VER = "__VERSION__";
+const cb = u => u + (u.includes("?") ? "&" : "?") + "v=" + VER;
 const AREAS = [
   {k:"ap", n:"Apertura", c:"#242478", a:1, b:6},
   {k:"m", n:"Matemáticas", c:"#1F4E8C", a:7, b:59},
@@ -406,7 +409,7 @@ document.addEventListener("click", e => {
   const g = e.target.closest("[data-guia]"); if (!g) return;
   document.getElementById("guia-tit").textContent = g.dataset.tit;
   document.getElementById("guia-bajar").dataset.f = g.dataset.guia;
-  fGuia.src = g.dataset.guia; dGuia.showModal(); setTimeout(() => fGuia.focus(), 300);
+  fGuia.src = cb(g.dataset.guia); dGuia.showModal(); setTimeout(() => fGuia.focus(), 300);
 });
 fGuia.addEventListener("load", () => fGuia.focus());
 document.addEventListener("click", e => {
@@ -426,7 +429,7 @@ async function verPDF(url, pagina, titulo, desde) {
   if (!lzV.contains(cvV)) { lzV.innerHTML = ""; lzV.appendChild(cvV); }
   try {
     if (urlV !== url) {
-      if (!cacheV.has(url)) cacheV.set(url, pdfjsLib.getDocument({url, isEvalSupported: false}).promise);
+      if (!cacheV.has(url)) cacheV.set(url, pdfjsLib.getDocument({url: cb(url), isEvalSupported: false}).promise);
       docV = await cacheV.get(url); urlV = url;
     }
     pagV = Math.min(Math.max(1, pagina || 1), docV.numPages); zV = 1; desdeV = desde || 0;
@@ -504,7 +507,7 @@ async function bajar(ruta, nombre) {
   if (!bajador) { aviso("Las descargas no están disponibles en esta vista. Abre la página en claude.ai."); return; }
   aviso(`Preparando ${nombre}…`);
   try {
-    const r = await fetch(ruta); if (!r.ok) throw new Error("no se pudo leer el archivo");
+    const r = await fetch(cb(ruta)); if (!r.ok) throw new Error("no se pudo leer el archivo");
     const res = await bajador.save({filename: nombre, data: await r.blob()});
     aviso(res.status === "saved" ? `Guardado: ${nombre}` : `Enviado: ${nombre}`);
   } catch (e) {
@@ -585,7 +588,7 @@ document.getElementById("h-xlsx").onclick = async () => {
 const fuenteDe = n => D.fuentes.find(f => n >= f.a && n <= f.b);
 const cacheF = new Map();
 async function cargarFuente(f) {
-  if (!cacheF.has(f.f)) cacheF.set(f.f, fetch(f.f).then(r => { if (!r.ok) throw new Error("no se pudo leer " + f.f); return r.arrayBuffer(); })
+  if (!cacheF.has(f.f)) cacheF.set(f.f, fetch(cb(f.f)).then(r => { if (!r.ok) throw new Error("no se pudo leer " + f.f); return r.arrayBuffer(); })
     .then(b => PDFLib.PDFDocument.load(b)));
   return cacheF.get(f.f);
 }
