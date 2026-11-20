@@ -798,7 +798,8 @@ def pagina(A, titulo, sub, escenas, nombre_mom):
     mom = json.dumps([dict(n=i + 1, nom=f[0], min=f[1], c=f"--m{i+1}") for i, f in enumerate(A.P.FASES)],
                      ensure_ascii=False)
     import conceptos
-    return (PLANTILLA.replace("</style>", conceptos.CSS + "</style>", 1)
+    import estilo_guias
+    return (PLANTILLA.replace("</style>", conceptos.CSS + estilo_guias.estilo() + "</style>", 1)
             .replace("function setGuia(on)", conceptos.JS + "function setGuia(on)", 1)
             .replace("__COLORES__", colores_css(A)).replace("__FUERTE__", E(A.fuerte))
             .replace("__TITULO__", E(titulo)).replace("__SUB__", E(sub))
