@@ -202,8 +202,30 @@ def apuntes():
     return s if False else "".join(s)
 
 
+def nota_animo():
+    """Una nota pegada sobre los dos primeros escalones (Nelson, 20 nov): ánimo sin sermón."""
+    from bitacora import HAND
+    x, y, w, h, rot = 150, 1290, 520, 330, -4
+    tinta = "#1E2230"
+    s = [f'<g transform="rotate({rot} {x + w/2} {y + h/2})">',
+         f'<rect x="{x+10}" y="{y+12}" width="{w}" height="{h}" rx="6" fill="#000000" fill-opacity=".18"/>',
+         f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="#FFF2A8"/>',
+         f'<rect x="{x + w/2 - 70}" y="{y - 22}" width="140" height="44" rx="4" fill="#FFFFFF" fill-opacity=".55" '
+         f'transform="rotate(3 {x + w/2} {y})"/>']
+    for k, (t, size) in enumerate([("Nadie sube a 500", 58), ("de un solo salto.", 58), ("Un escalón por sábado", 50),
+                                   ("y ya vas subiendo.", 50)]):
+        s.append(f'<text x="{x + 34}" y="{y + 82 + k * 64}" font-family="{HAND}, Caveat, cursive" font-size="{size}" '
+                 f'font-weight="700" fill="{tinta}">{t}</text>')
+    s.append("</g>")
+    # «empieza aquí» con flecha hacia el primer escalón
+    s.append(_mano(150, 1770, "empieza aquí", 50, -3, op=.75))
+    s.append(_trazo("M300 1790 q40 70 -10 130 l-4 -22 m4 22 l20 -10", op=.7, sw=5))
+    return "".join(s)
+
+
 def portada_apuntes():
     b = portada("A")
     i = next(k for k, x in enumerate(b) if "M60 60h0" in x)        # justo encima de los puntos del fondo
     b.insert(i + 1, apuntes())
+    b.append(nota_animo())
     return b

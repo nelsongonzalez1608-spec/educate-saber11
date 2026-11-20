@@ -133,7 +133,7 @@ def portada():
     """Portada aprobada por Nelson el 20 nov: la variante A de portada_propuesta2.py (escalera de niveles sobre
     azul). La anterior (bitácora con índice) queda abajo como portada_bitacora()."""
     import portada_propuesta2
-    return portada_propuesta2.portada("A")
+    return portada_propuesta2.portada_apuntes()      # con los apuntes de clase y la nota de ánimo (20 nov)
 
 
 def portada_bitacora():

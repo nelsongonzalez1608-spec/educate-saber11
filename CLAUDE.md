@@ -379,7 +379,7 @@ conceptualización del planeador. Sutil: nunca detrás del texto ni como fondo.
   11», escalera de 7 bloques en 3D (cada área un nivel, con su motivo, sus 6 casillas de misión y sus páginas en la tapa),
   el 500 como meta y la etiqueta del nombre. `apertura_b.portada()` la llama; la anterior quedó como `portada_bitacora()`.
   Sobre el azul va `libro/logo_educate_reverso.png` (sin recuadro blanco; la tilde de «Edú» no se ve: falta el logo en
-  vector). Hay una variante con apuntes de diario en blanco tenue (`portada_apuntes()`) que espera la decisión de Nelson.
+  vector). Va la variante con apuntes reales de clase en blanco tenue y una nota de ánimo sobre los dos primeros escalones (`portada_apuntes()`, aprobada el 20 nov).
   En imprenta, el azul a sangre necesita los 3 mm de sangrado.
 
 ## 8. El planeador del docente
