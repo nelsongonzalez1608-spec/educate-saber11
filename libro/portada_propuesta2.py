@@ -16,6 +16,16 @@ import subprocess
 from lib import *                    # noqa: F401,F403
 from bitacora import TX, twf, SHA, MONO, TINTA_B, FOSFO
 import motivos
+import base64
+
+_REV = base64.b64encode(open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "logo_educate_reverso.png"), "rb").read()).decode()
+
+
+def logo_reverso(x, y, h):
+    """Logo para fondo azul, sin recuadro blanco: «Para el Saber» en blanco (libro/logo_educate_reverso.png)."""
+    w = logo_w(h)
+    return (f'<image x="{x}" y="{y}" width="{w}" height="{h}" xlink:href="data:image/png;base64,{_REV}" '
+            f'preserveAspectRatio="xMidYMid meet"/>')
 
 LIBRO = os.path.dirname(os.path.realpath(__file__)) + "/"
 NIVELES = [("mate", "MATEMÁTICAS"), ("lc", "LECTURA"), ("soc", "SOCIALES"), ("bio", "BIOLOGÍA"),
@@ -37,10 +47,16 @@ def bloque(x, y, w, h, d, c, area, n, nombre, tinta):
          f'<polygon points="{x+w},{y} {x+w+d},{y-k} {x+w+d},{y+h-k} {x+w},{y+h}" fill="{lado}" stroke="{tinta}" stroke-width="3" stroke-linejoin="round"/>'
          f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{c}" stroke="{tinta}" stroke-width="3"/>')
     m = motivos.motivo(area, "#FFFFFF").replace(
-        "<svg ", f'<svg x="{x + w/2 - 62}" y="{y + 14}" width="124" height="124" opacity="0.9" ', 1)
+        "<svg ", f'<svg x="{x + w/2 - 56}" y="{y + 8}" width="112" height="112" opacity="0.9" ', 1)
     s += m
-    s += TX(x + 16, y + h - 18, f"{n:02d}", 22, "#FFFFFF", MONO, "700")
-    s += TX(x + w - 14, y + h - 18, nombre, 17, "#FFFFFF", MONO, "700", anchor="end")
+    # las seis misiones del área: se pintan cuando se superan
+    lado, gap = 24, 7
+    x6 = x + (w - (6 * lado + 5 * gap)) / 2
+    for i in range(6):
+        s += (f'<rect x="{x6 + i*(lado+gap):.1f}" y="{y + h - 84}" width="{lado}" height="{lado}" rx="5" '
+              f'fill="none" stroke="#FFFFFF" stroke-width="2.5"/>')
+    s += TX(x + 16, y + h - 20, f"{n:02d}", 22, "#FFFFFF", MONO, "700")
+    s += TX(x + w - 14, y + h - 20, nombre, 17, "#FFFFFF", MONO, "700", anchor="end")
     return s
 
 
@@ -56,7 +72,7 @@ def portada(variante):
     pts = "".join(f"M{x} {y}h0" for y in range(60, H_PAGE, 56) for x in range(60, W, 56))
     b.append(f'<path d="{pts}" stroke="{"#FFFFFF" if oscuro else "#1E2230"}" stroke-opacity="{.10 if oscuro else .07}" '
              f'stroke-width="5" stroke-linecap="round"/>')
-    b.append(logo(M + 10, 96, 92, chip=oscuro, pad=16))
+    b.append(logo_reverso(M + 10, 90, 104) if oscuro else logo(M + 10, 96, 92))
     b.append(TX(W - M - 10, 140, "CUADERNO DE TRABAJO", 24, suave, MONO, "700", anchor="end", ls=2))
 
     # título
@@ -72,20 +88,26 @@ def portada(variante):
     b.append(TX(M + 6, y + 100, "42 misiones · 7 áreas · un solo número", 46, suave if oscuro else INK, SHA, "400"))
 
     # la escalera: cada área un nivel
-    w, h, d = 210, 196, 92
+    w, h, d = 210, 214, 92
     x0, y0 = 120, 2010
     for n, (area, nombre) in enumerate(NIVELES):
         x, yb = x0 + n * 228, y0 - n * 152
         b.append(bloque(x, yb, w, h, d, motivos.AREA_COLOR[area], area, n + 1, nombre, borde))
-    # la meta, arriba de la escalera: se escribe
-    mx, my = x0 + 6 * 228 + w / 2 + 40, y0 - 6 * 152 - 210
-    b.append(f'<circle cx="{mx}" cy="{my}" r="104" fill="{"#FFFFFF" if oscuro else "#FFFFFF"}" stroke="{FOSFO if oscuro else EDU_ORO}" '
-             f'stroke-width="6" stroke-dasharray="14 10"/>')
-    b.append(TX(mx, my - 34, "MI META", 22, TINTA_B, MONO, "700", anchor="middle", ls=2))
-    b.append(f'<line x1="{mx-62}" y1="{my+40}" x2="{mx+62}" y2="{my+40}" stroke="{LGRAY}" stroke-width="3"/>')
-    b.append(TX(mx, my + 78, "de 500", 22, GRAY, SHA, "700", anchor="middle"))
-    b.append(TX(x0 + 6, y0 - 6 * 152 - 30, "cada área es un nivel", 34, suave if oscuro else EDU_ORO, SHA, "700"))
-    b.append(TX(x0 + 6, y0 - 6 * 152 + 14, "súbelos uno a uno", 34, suave if oscuro else EDU_ORO, SHA, "700"))
+    # la meta, arriba de la escalera: un 500 grande
+    tope_x, tope_y = x0 + 6 * 228 + d * 0.5, y0 - 6 * 152 - d * 0.58
+    mx = tope_x + w / 2
+    acento = FOSFO if oscuro else EDU_ORO
+    b.append(TX(mx, tope_y - 120, "500", 190, acento if oscuro else TINTA_B, SHA, "800", anchor="middle"))
+    if not oscuro:
+        w5 = twf("500", 190, SHA, "800")
+        b.insert(len(b) - 1, f'<rect x="{mx - w5/2 - 14}" y="{tope_y - 250}" width="{w5 + 28}" height="120" rx="10" '
+                             f'fill="{FOSFO}" transform="rotate(-2 {mx} {tope_y - 190})"/>')
+    b.append(TX(mx, tope_y - 330, "LA META", 26, suave, MONO, "700", anchor="middle", ls=4))
+    b.append(TX(mx, tope_y - 50, "mi meta:", 30, suave if oscuro else GRAY, SHA, "700", anchor="end"))
+    b.append(f'<line x1="{mx + 12}" y1="{tope_y - 44}" x2="{mx + 150}" y2="{tope_y - 44}" '
+             f'stroke="{suave}" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>')
+    b.append(TX(x0 + 6, y0 - 6 * 152 - 30, "cada área es un nivel:", 34, suave if oscuro else EDU_ORO, SHA, "700"))
+    b.append(TX(x0 + 6, y0 - 6 * 152 + 14, "pinta una casilla por misión", 34, suave if oscuro else EDU_ORO, SHA, "700"))
 
     # la etiqueta del cuaderno
     ly = 2290
