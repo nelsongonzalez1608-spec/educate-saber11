@@ -369,6 +369,19 @@ péndulo, Inglés Big Ben, Estatua de la Libertad y las banderas). Va tenue (opa
 cada guía y de las dos diapositivas de conceptualización, y en blanco sobre la banda de la cabecera de la hoja de
 conceptualización del planeador. Sutil: nunca detrás del texto ni como fondo.
 
+## 7c. El look de las guías y la portada (Nelson, 20 nov)
+
+- **Guías:** «mismo look que las diapositivas, sin internet» (Nelson descartó el artefacto de diapositivas: no se
+  puede depender de Claude ni de internet para verlas). `libro/estilo_guias.py` agrega a `clase_viva.pagina()` las letras
+  incrustadas (Shantell Sans y Space Mono en woff2 recortados, `libro/fuentes_web/`, OFL), tarjetas blancas con borde de
+  tinta y sombra corrida del acento. Vale para las 56. Cada guía pesa ~230–290 KB.
+- **Portada del cuaderno (página 1):** la variante A de `portada_propuesta2.py` (aprobada): fondo azul institucional, «Saber
+  11», escalera de 7 bloques en 3D (cada área un nivel, con su motivo, sus 6 casillas de misión y sus páginas en la tapa),
+  el 500 como meta y la etiqueta del nombre. `apertura_b.portada()` la llama; la anterior quedó como `portada_bitacora()`.
+  Sobre el azul va `libro/logo_educate_reverso.png` (sin recuadro blanco; la tilde de «Edú» no se ve: falta el logo en
+  vector). Hay una variante con apuntes de diario en blanco tenue (`portada_apuntes()`) que espera la decisión de Nelson.
+  En imprenta, el azul a sangre necesita los 3 mm de sangrado.
+
 ## 8. El planeador del docente
 
 Modelo aprobado: `piloto/paquete_mision1_aprobado/2_docente/Mate_Mision1_PLANEADOR.pdf` (4 hojas).
