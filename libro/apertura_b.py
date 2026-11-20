@@ -130,6 +130,13 @@ FRASE = ("Este cuaderno no trae las respuestas.",
 
 
 def portada():
+    """Portada aprobada por Nelson el 20 nov: la variante A de portada_propuesta2.py (escalera de niveles sobre
+    azul). La anterior (bitácora con índice) queda abajo como portada_bitacora()."""
+    import portada_propuesta2
+    return portada_propuesta2.portada("A")
+
+
+def portada_bitacora():
     b = pagina()
     b.append(rect(M - 14, 70, logo_w(110) + 28, 136, "white", r=4))
     b.append(logo(M, 82, 110))
