@@ -146,31 +146,60 @@ def _trazo(d, op=.25, sw=3.2):
 
 
 def apuntes():
-    """Notas de cuaderno, como las que deja un estudiante en los márgenes: una por área, sin tapar nada."""
+    """Apuntes reales de un estudiante, en blanco tenue y trazo grueso: una ecuación resuelta paso a paso,
+    un mapa conceptual, una gráfica con su tabla de datos y un triángulo con su razón. Sin tapar nada."""
     s = []
-    # junto al título, arriba a la derecha
-    s.append(_mano(1270, 300, "a² + b² = c²", 54, -6))
-    s.append(_trazo("M1262 318 Q1420 332 1560 312"))                       # subrayado a mano
-    s.append(_mano(1600, 420, "¿y si…?", 50, 4))
-    s.append(_trazo("M1590 440 q-40 40 -10 90 l-12 -18 m12 18 l18 -12"))   # flechita curva
-    s.append(_mano(1700, 230, "H₂O", 50, -3))
-    # margen izquierdo, entre el título y la escalera
-    s.append(_mano(120, 820, "v = d / t", 50, -4))
-    s.append(_mano(160, 930, "«leer entre líneas»", 44, 3))
-    s.append(_trazo("M150 950 q170 -30 330 4"))
-    s.append(_mano(560, 760, "sin θ", 48, 8))
-    s.append(_trazo("M548 712 a64 44 -8 1 0 120 6 a64 44 -8 1 0 -120 -6", sw=2.6))   # nota encerrada
-    s.append(_mano(740, 900, "I have been…", 44, -5))
-    # abajo a la derecha, bajo la escalera
-    s.append(_mano(1250, 1900, "1991 · Constitución", 46, -3))
-    s.append(_mano(1450, 2040, "Δ = cambio", 48, 4))
-    s.append(_mano(1200, 2170, "ojo: primero el porqué", 44, -2))
-    s.append(_trazo("M1190 2190 q260 -18 500 6"))
-    s.append(_trazo("M1760 1960 l40 40 m0 -40 l-40 40", sw=3))               # una equis de «descartada»
-    s.append(_trazo("M1660 1880 l18 20 l36 -42", sw=3.4))                     # chulito
-    # espiral y estrellita de margen, sin cliché: un garabato de lápiz
-    s.append(_trazo("M1180 760 q20 -20 40 0 q20 20 0 40 q-30 30 -60 0 q-40 -40 0 -80 q50 -50 100 0", sw=2.6))
-    return "".join(s)
+    M_ = lambda x, y, t, size=54, rot=0: _mano(x, y, t, size, rot, op=.34)
+    L_ = lambda d, sw=5: _trazo(d, op=.32, sw=sw)
+    # 1 · ecuación resuelta (arriba a la derecha, junto al título)
+    ex, ey = 1250, 250
+    s.append(M_(ex, ey, "2x + 5 = 17", 60))
+    s.append(M_(ex, ey + 86, "2x = 12", 60))
+    s.append(M_(ex, ey + 172, "x = 6", 64))
+    s.append(L_(f"M{ex-14} {ey+122} h210 v68 h-210 z", 4.5))                     # resultado encerrado
+    s.append(M_(ex + 420, ey + 40, "−5", 46))
+    s.append(L_(f"M{ex+400} {ey+8} q46 30 0 70 l14 -4 m-14 4 l4 -14", 4))       # flechita del paso
+    s.append(M_(ex + 360, ey + 128, "÷2", 46))
+    s.append(L_(f"M{ex+340} {ey+96} q46 30 0 70 l14 -4 m-14 4 l4 -14", 4))
+    # 2 · mapa conceptual (izquierda, entre el título y la escalera)
+    cx, cy = 330, 820
+    s.append(L_(f"M{cx-120} {cy} a120 52 0 1 0 240 0 a120 52 0 1 0 -240 0", 5))
+    s.append(M_(cx - 82, cy + 18, "CÉLULA", 52))
+    for (tx, ty, t) in [(70, 690, "núcleo"), (520, 690, "membrana"), (110, 985, "mitocondria")]:
+        s.append(M_(tx, ty, t, 46))
+    s.append(L_(f"M{cx-70} {cy-48} L170 704", 4))
+    s.append(L_(f"M{cx+70} {cy-48} L560 704", 4))
+    s.append(L_(f"M{cx-40} {cy+52} L230 950", 4))
+    s.append(M_(560, 930, "→ energía", 44, -4))
+    s.append(L_(f"M{cx+60} {cy+50} Q500 900 552 915", 4))
+    # 3 · triángulo con su razón (centro, entre el mapa y el 500)
+    tx0, ty0 = 860, 960
+    s.append(L_(f"M{tx0} {ty0} L{tx0+300} {ty0} L{tx0+300} {ty0-200} Z", 5))
+    s.append(L_(f"M{tx0+272} {ty0} v-28 h28", 3.5))
+    s.append(L_(f"M{tx0+70} {ty0} a70 70 0 0 0 -8 -40", 4))
+    s.append(M_(tx0 + 84, ty0 - 14, "θ", 44))
+    s.append(M_(tx0 + 316, ty0 - 90, "op", 42))
+    s.append(M_(tx0 + 100, ty0 - 128, "hip", 42, -30))
+    s.append(M_(tx0 + 20, ty0 - 250, "sen θ = op / hip", 50, -3))
+    # 4 · gráfica con su tabla de datos (abajo a la derecha, bajo la escalera)
+    gx, gy = 1500, 2200
+    s.append(L_(f"M{gx} {gy} V{gy-330} M{gx} {gy} H{gx+380}", 5))
+    s.append(L_(f"M{gx-10} {gy-320} l10 -14 l10 14 M{gx+370} {gy-10} l14 10 l-14 10", 4))
+    for k in range(4):                                  # los mismos datos de la tabla: d = 6t
+        px, py = gx + 30 + k * 105, gy - 30 - k * 85
+        s.append(f'<circle cx="{px}" cy="{py}" r="10" fill="#FFFFFF" fill-opacity=".36"/>')
+    s.append(L_(f"M{gx+20} {gy-22} L{gx+370} {gy-305}", 3.5))
+    s.append(M_(gx + 300, gy + 52, "t (s)", 42))
+    s.append(M_(gx + 18, gy - 312, "d (m)", 42))
+    tbx, tby = 1150, 1890
+    s.append(L_(f"M{tbx} {tby} h220 M{tbx+90} {tby-60} v300", 4))
+    s.append(M_(tbx + 24, tby - 16, "t", 44))
+    s.append(M_(tbx + 120, tby - 16, "d", 44))
+    for k, (a, d_) in enumerate([("0", "0"), ("1", "6"), ("2", "12"), ("3", "18")]):
+        s.append(M_(tbx + 26, tby + 54 + k * 56, a, 44))
+        s.append(M_(tbx + 118, tby + 54 + k * 56, d_, 44))
+    s.append(M_(tbx - 10, tby + 300, "v = 6 m/s ✓", 46, -3))
+    return s if False else "".join(s)
 
 
 def portada_apuntes():
