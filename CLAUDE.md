@@ -381,6 +381,10 @@ conceptualización del planeador. Sutil: nunca detrás del texto ni como fondo.
   Sobre el azul va `libro/logo_educate_reverso.png` (sin recuadro blanco; la tilde de «Edú» no se ve: falta el logo en
   vector). Va la variante con apuntes reales de clase en blanco tenue y una nota de ánimo sobre los dos primeros escalones (`portada_apuntes()`, aprobada el 20 nov).
   En imprenta, el azul a sangre necesita los 3 mm de sangrado.
+- **Portadas de área (21 nov):** `libro/portadas_area.py` reemplaza `apertura3.portada_area()`: franja del color del área
+  (NIVEL n DE 7, nombre grande, competencias, apuntes reales del área y su bloque blanco en 3D con motivo, 6 misiones y
+  páginas) y abajo, en papel claro, lo que se llena (instrumento, seis momentos, ocho clases, puntaje). Las 7 están en el
+  cuaderno (páginas 7, 60, 113, 166, 215, 264, 313).
 
 ## 8. El planeador del docente
 
