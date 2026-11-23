@@ -27,16 +27,24 @@ respaldo. Así el margen del lomo queda del lado del lomo en las dos caras.
 
 | Hoja | Frente (impar) | Respaldo (par) |
 |---|---|---|
-| 1 | p. 1 · Portada | p. 178 · Taller de Biología, letra pequeña |
+| 1 | p. 1 · Portada (azul a sangre) | p. 178 · Taller de Biología, letra pequeña |
 | 2 | p. 3 · Metas | p. 30 · Matemáticas con figura |
-| 3 | p. 7 · Portada de Matemáticas | p. 370 · Inglés, texto largo |
+| 3 | p. 7 · Portada de Matemáticas (franja azul a sangre) | p. 370 · Inglés, texto largo |
 | 4 | p. 103 · Simulacro | p. 396 · Cierre |
-| 5 | p. 359 · Inglés | p. 398 · Página final |
+| 5 | p. 313 · Portada de Inglés (franja turquesa a sangre) | p. 398 · Página final |
+
+## Color a sangre (actualizado el 23 nov)
+
+La portada (p. 1) es azul hasta el borde, y las portadas de área (en la prueba, p. 7 y p. 313) llevan una franja de
+color arriba que también llega al borde. En el archivo ese color se extiende los 3 mm de sangrado: después del corte no
+debe quedar ningún filo blanco.
 
 ## Qué les pedimos revisar
 
 1. **La letra más pequeña.** Hay rótulos de unos 4 puntos y texto corrido de 5,7 puntos. Revisen
    que salgan nítidos y sin empastarse, sobre todo en las p. 178, 370 y 103.
+1b. **El color a sangre** de las p. 1, 7 y 313: que no quede filo blanco en el corte y que el azul oscuro no se
+   empaste (es un azul con mucha tinta).
 2. **El lomo.** Si pueden, peguen o simulen el pegado de la prueba y confirmen que 2 cm alcanzan
    con el papel y el pegante que van a usar.
 3. **El registro y el negro.** El texto negro va solo en K. Les pedimos **sobreimprimir el negro**

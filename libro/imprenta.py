@@ -63,7 +63,7 @@ TINTA_ARR, TINTA_ABJ = 14 * U, 65 * U      # blanco arriba y abajo de la tinta (
 # Las 10 páginas de la prueba: (página del cuaderno, qué prueba). La posición en la prueba tiene
 # la misma paridad que la página real, para que el lomo quede del lado que quedará en el libro.
 PRUEBA = [
-    (1, "Portada del cuaderno · logo raster"),
+    (1, "Portada del cuaderno · azul a sangre · logo raster"),
     (178, "Taller de Biología con letra pequeña (la que más texto ≤ 14 unidades tiene)"),
     (3, "Apertura · tablero de metas"),
     (30, "Matemáticas con figura (triángulo y tabla) · Misión 4"),
@@ -71,9 +71,29 @@ PRUEBA = [
     (370, "Entrenamiento ICFES de Inglés · el texto más largo del cuaderno"),
     (103, "Simulacro de Lectura Crítica"),
     (396, "Cierre · después del examen"),
-    (359, "Inglés con «Corrección EDUCATE»"),
+    (313, "Portada de área · Inglés (franja turquesa a sangre)"),
     (398, "Mensaje final"),
 ]
+
+
+# Páginas con color hasta el borde (20-21 nov): la portada (azul entero) y las 7 portadas de área (franja de 860
+# unidades arriba). La página se sigue escalando y corriendo por el lomo, así que el color se pinta además DEBAJO,
+# hasta el sangrado: (color, alto de la franja en unidades del SVG; None = la página entera).
+HERO = 860
+FONDOS = {1: ("#242478", None), 7: ("#1F4E8C", HERO), 60: ("#A82424", HERO), 113: ("#C9821B", HERO),
+          166: ("#30843C", HERO), 215: ("#0F7A68", HERO), 264: ("#5C7A1E", HERO), 313: ("#1BA0A8", HERO)}
+
+
+def _fondo(pagina, e, f, escala):
+    """El color a sangre de las páginas de FONDOS, debajo de la página escalada."""
+    if pagina not in FONDOS:
+        return b""
+    c, alto = FONDOS[pagina]
+    r, g, b_ = (int(c[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    x0, x1 = ZONA - SANGRADO, ZONA + W + SANGRADO
+    y1 = ZONA + H + SANGRADO
+    y0 = ZONA - SANGRADO if alto is None else ZONA + f + (H - alto * U) * escala
+    return f"q {r:.4f} {g:.4f} {b_:.4f} rg {x0:.3f} {y0:.3f} {x1 - x0:.3f} {y1 - y0:.3f} re f Q\n".encode()
 
 
 # ───────────────────────── 1 · 2  imposición: lomo, sangrado, marcas ─────────────────────────
@@ -131,7 +151,8 @@ def imponer(paginas, dest, lomo_cm=2.0, escala=0.93, fuente=FUENTE):
             BleedBox=[ZONA - SANGRADO, ZONA - SANGRADO, ZONA + W + SANGRADO, ZONA + H + SANGRADO],
             Resources=pikepdf.Dictionary(XObject=pikepdf.Dictionary(P0=fx)),
         )
-        cuerpo = (f"q {escala:.5f} 0 0 {escala:.5f} {ZONA + e:.3f} {ZONA + f:.3f} cm /P0 Do Q\n").encode()
+        cuerpo = _fondo(p, e, f, escala) + (
+            f"q {escala:.5f} 0 0 {escala:.5f} {ZONA + e:.3f} {ZONA + f:.3f} cm /P0 Do Q\n").encode()
         pg.Contents = out.make_stream(cuerpo + marcas)
         out.pages.append(pikepdf.Page(pg))
     out.docinfo["/Title"] = "EDUCATE · Cuaderno Saber 11 · imprenta"
