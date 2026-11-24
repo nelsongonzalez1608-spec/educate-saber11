@@ -322,7 +322,7 @@ def portada_mate():
                  "En Matemáticas nada se resuelve «en la cabeza». La cuadrícula es donde pones la tabla, la "
                  "diferencia entre un valor y el siguiente, el dibujo de la gráfica, la cuenta. Si la cuadrícula está vacía, "
                  "la respuesta no es tuya todavía.", _dib_mate,
-                 [("Patrones y relaciones de cambio", "Componente numérico-variacional"),
+                 [("Variación, modelos lineales y el extremo de una parábola", "Componente numérico-variacional"),
                   ("Máximos, aumento constante y datos que desmienten", "Componente numérico-variacional"),
                   ("Volumen, semejanza y recubrimiento", "Componente espacial-métrico"),
                   ("Escalas, trigonometría y volúmenes", "Componente espacial-métrico"),
@@ -357,9 +357,10 @@ def portada_soc():
                  "Casi ninguna pregunta de esta área se resuelve recordando una fecha. Se resuelve preguntando quién "
                  "gana, quién pierde y quién decide. Cuando tengas los tres nombres escritos, la mitad de las opciones "
                  "se cae sola.", _dib_soc,
-                 [("Pensar socialmente", "Competencias ciudadanas"), ("", "Competencias ciudadanas"),
-                  ("", "Competencias ciudadanas"), ("", "Historia y cultura"), ("", "Espacio y ambiente"),
-                  ("", "Ético-político")],
+                 [("Pensar socialmente", "Competencias ciudadanas"), ("Contrastar posturas", "Competencias ciudadanas"),
+                  ("Lo que mueve una decisión", "Competencias ciudadanas"), ("Un hecho, muchas miradas", "Historia y cultura"),
+                  ("El territorio no es neutro", "Espacio y ambiente"),
+                  ("Lo que hace legítimo a un poder", "Ético-político")],
                  "fecha · cómo llegué · cómo salí · un caso que me marcó", "el caso:", "ap96_soc.svg",
                  sub_titulo="y Ciudadanas", iw=330, cajas=(EDU_AZUL, EDU_VERDE, EDU_ORO),
                  x_clase_sub=760, x_puntaje=560, paso_puntaje=320)

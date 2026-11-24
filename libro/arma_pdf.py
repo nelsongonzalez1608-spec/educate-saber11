@@ -284,6 +284,9 @@ def partir(completo=COMPLETO):
 
 if __name__ == "__main__":
     d, n, r = armar()
+    import parches                        # correcciones de texto de la revisión del 24 nov
+    for h in parches.aplicar(d):
+        print("parche", h)
     print(f"{d}: {n} páginas de misión rehechas sobre el original · {r} desde su SVG · "
           f"{os.path.getsize(d) / 1e6:.1f} MB")
     print("pies:", render.verifica(d, "Aprende"))

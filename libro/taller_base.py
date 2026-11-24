@@ -504,7 +504,7 @@ def tarjeta_icfes(b, y, q, n):
         notas(b, ix, y_fin + 14, IW - 4, fondo - y_fin - 14, rotulo="MIS CUENTAS Y LO QUE SUBRAYÉ")
     columna_derecha(b, y, est, cierre=("¿En qué se parece a lo del taller?",
                                        "(el libro y el ICFES preguntan lo mismo de otra forma)"),
-                    letras="ABCDEFGH"[:len(q["o"])])
+                    letras=q.get("letras") or ("ABCDEFGH"[:len(q["o"])] if q["o"] else "ABCD"))   # opciones en figura: A–D
 
 
 # ───────── franja de vocabulario ─────────

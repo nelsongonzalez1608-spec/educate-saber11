@@ -96,6 +96,27 @@ def _fondo(pagina, e, f, escala):
     return f"q {r:.4f} {g:.4f} {b_:.4f} rg {x0:.3f} {y0:.3f} {x1 - x0:.3f} {y1 - y0:.3f} re f Q\n".encode()
 
 
+def _costura(pagina, e, f, escala):
+    """Tapa el filete claro donde la página reducida se encuentra con el fondo a sangre: una franja de 1,6 pt del
+    mismo color, encima del borde de la página (ahí no hay contenido: todo empieza a M = 70 unidades del borde)."""
+    if pagina not in FONDOS:
+        return b""
+    c, alto = FONDOS[pagina]
+    r, g, b_ = (int(c[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    xl, xr = ZONA + e, ZONA + e + W * escala
+    yt = ZONA + f + H * escala
+    yb = ZONA + f if alto is None else ZONA + f + (H - alto * U) * escala
+    t = 0.8
+    s = [f"q {r:.4f} {g:.4f} {b_:.4f} rg",
+         f"{xl - t:.3f} {yb:.3f} {2 * t:.3f} {yt - yb:.3f} re f",          # borde izquierdo
+         f"{xr - t:.3f} {yb:.3f} {2 * t:.3f} {yt - yb:.3f} re f",          # borde derecho
+         f"{xl - t:.3f} {yt - t:.3f} {xr - xl + 2 * t:.3f} {2 * t:.3f} re f"]  # borde de arriba
+    if alto is None:
+        s.append(f"{xl - t:.3f} {yb - t:.3f} {xr - xl + 2 * t:.3f} {2 * t:.3f} re f")  # y el de abajo
+    s.append("Q")
+    return ("\n".join(s) + "\n").encode()
+
+
 # ───────────────────────── 1 · 2  imposición: lomo, sangrado, marcas ─────────────────────────
 def _marcas():
     """Marcas de corte en las cuatro esquinas, en registro (CMYK 100/100/100/100)."""
@@ -152,7 +173,8 @@ def imponer(paginas, dest, lomo_cm=2.0, escala=0.93, fuente=FUENTE):
             Resources=pikepdf.Dictionary(XObject=pikepdf.Dictionary(P0=fx)),
         )
         cuerpo = _fondo(p, e, f, escala) + (
-            f"q {escala:.5f} 0 0 {escala:.5f} {ZONA + e:.3f} {ZONA + f:.3f} cm /P0 Do Q\n").encode()
+            f"q {escala:.5f} 0 0 {escala:.5f} {ZONA + e:.3f} {ZONA + f:.3f} cm /P0 Do Q\n").encode() + \
+            _costura(p, e, f, escala)
         pg.Contents = out.make_stream(cuerpo + marcas)
         out.pages.append(pikepdf.Page(pg))
     out.docinfo["/Title"] = "EDUCATE · Cuaderno Saber 11 · imprenta"
@@ -243,6 +265,53 @@ def a_cmyk(src, dest):
         "-o", dest, src], check=True)
 
 
+def sin_cierres_huerfanos(path):
+    """Ghostscript deja a veces un `h` (cerrar trazo) sin trazo abierto: los lectores avisan «No current point in
+    closepath» (pasó en el simulacro de Lectura Crítica). Se quitan esos `h`; no cambian nada de lo que se ve."""
+    pdf = pikepdf.open(path, allow_overwriting_input=True)
+    CONSTRUYE = {"m", "l", "c", "v", "y", "re"}
+    PINTA = {"S", "s", "f", "F", "f*", "B", "B*", "b", "b*", "n"}
+    vistos, quitados = set(), 0
+
+    def limpiar(obj):
+        nonlocal quitados
+        ops = pikepdf.parse_content_stream(obj)
+        punto, nuevos, cambio = False, [], False
+        for args, op in ops:
+            o = str(op)
+            if o == "h" and not punto:
+                cambio = True
+                quitados += 1
+                continue
+            if o in CONSTRUYE:
+                punto = True
+            elif o in PINTA:
+                punto = False
+            nuevos.append((args, op))
+        if cambio:
+            data = pikepdf.unparse_content_stream(nuevos)
+            if isinstance(obj, pikepdf.Stream):
+                obj.write(data)
+            else:
+                obj.Contents = pdf.make_stream(data)
+
+    def recorrer(res):
+        if res is None:
+            return
+        for _, x in (res.get("/XObject") or {}).items():
+            if x.objgen in vistos or x.get("/Subtype") != "/Form":
+                continue
+            vistos.add(x.objgen)
+            limpiar(x)
+            recorrer(x.get("/Resources"))
+
+    for page in pdf.pages:
+        limpiar(page)
+        recorrer(page.get("/Resources"))
+    pdf.save(path)
+    return quitados
+
+
 def marcar_pdfx4(path, cajas, titulo):
     """OutputIntent + cajas + metadatos PDF/X-4. `cajas`: [(MediaBox, TrimBox, BleedBox)]."""
     pdf = pikepdf.open(path, allow_overwriting_input=True)
@@ -289,6 +358,7 @@ def armar(paginas, dest_cmyk, dest_rgb=None, lomo_cm=2.0, escala=0.93, titulo=No
     cajas = [([0, 0, mw, mh], [ZONA, ZONA, ZONA + W, ZONA + H],
               [ZONA - SANGRADO, ZONA - SANGRADO, ZONA + W + SANGRADO, ZONA + H + SANGRADO])
              for _ in paginas]
+    print("cierres huérfanos quitados:", sin_cierres_huerfanos(dest_cmyk))
     marcar_pdfx4(dest_cmyk, cajas, titulo)
     return resumen
 

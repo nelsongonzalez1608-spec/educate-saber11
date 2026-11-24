@@ -136,7 +136,7 @@ if __name__ == "__main__":
 # ── variante con apuntes de diario (Nelson, 20 nov): garabatos a mano en blanco tenue sobre el azul ──
 def _mano(x, y, txt, size=46, rot=0, op=.27):
     from bitacora import HAND
-    return (f'<text x="{x}" y="{y}" font-family="{HAND}, Caveat, cursive" font-size="{size}" fill="#FFFFFF" '
+    return (f'<text x="{x}" y="{y}" font-family="{HAND}, DejaVu Sans, cursive" font-size="{size}" fill="#FFFFFF" '
             f'fill-opacity="{op}" transform="rotate({rot} {x} {y})">{txt}</text>')
 
 
@@ -214,7 +214,7 @@ def nota_animo():
          f'transform="rotate(3 {x + w/2} {y})"/>']
     for k, (t, size) in enumerate([("Nadie sube a 500", 58), ("de un solo salto.", 58), ("Un escalón por sábado", 50),
                                    ("y ya vas subiendo.", 50)]):
-        s.append(f'<text x="{x + 34}" y="{y + 82 + k * 64}" font-family="{HAND}, Caveat, cursive" font-size="{size}" '
+        s.append(f'<text x="{x + 34}" y="{y + 82 + k * 64}" font-family="{HAND}, DejaVu Sans, cursive" font-size="{size}" '
                  f'font-weight="700" fill="{tinta}">{t}</text>')
     s.append("</g>")
     # «empieza aquí» con flecha hacia el primer escalón

@@ -24,7 +24,7 @@ CLAVE = {"Matemáticas": "mate", "Lectura Crítica": "lc", "Sociales": "soc", "B
 
 
 def _mano(x, y, t, size=50, rot=0, op=.48):
-    return (f'<text x="{x}" y="{y}" font-family="{BT.HAND}, Caveat, cursive" font-size="{size}" fill="#FFFFFF" '
+    return (f'<text x="{x}" y="{y}" font-family="{BT.HAND}, DejaVu Sans, cursive" font-size="{size}" fill="#FFFFFF" '
             f'fill-opacity="{op}" transform="rotate({rot} {x} {y})">{t}</text>')
 
 
@@ -64,7 +64,7 @@ def apuntes(area):
               _tr(f"M{bx} {by} h70 v70 h-70 z", 4), _tr(f"M{bx+35} {by+70} v70 m-10 -14 l10 14 l10 -14", 4),
               _tr(f"M{bx+70} {by+35} h80 m-14 -10 l14 10 l-14 10", 4), _mano(bx + 50, by + 170, "peso", 36)]
     elif area == "ing":
-        s += [_mano(x, y, "I have been studying", 48), _mano(x, y + 72, "since 2020 · for 3 years", 42),
+        s += [_mano(x, y, "I have been studying", 48), _mano(x, y + 72, "since Monday · for 3 days", 42),
               _tr(f"M{x} {y+130} H{x+440} m-14 -10 l14 10 l-14 10"), _mano(x, y + 180, "past → now", 40)]
     return "".join(s)
 
