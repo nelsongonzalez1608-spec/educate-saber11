@@ -63,11 +63,18 @@ def cabecera(b, a, c):
     y = 206
     b.append(BT.wob_rect(M, y, CW, 78, BT.TINTA_B, 2.6, fill="white", seed=43))
     x = M + 34
-    for txt, wl in [("Me llamo", 760), ("Simulacro n.º", 330), ("Fecha", 330)]:
+    for txt, wl in [("Me llamo", 700), ("Fecha", 250)]:
         b.append(T(x, y + 50, [txt], 21, c, weight="700"))
         x += tw(txt, 21, "700") + 14
         b.append(line(x, y + 54, x + wl, y + 54, S.LN_W, 1.8))
         x += wl + 40
+    # el intento: el mismo simulacro se puede presentar más de una vez (puntajes 1, 2 y 3 de la portada del área)
+    b.append(T(x, y + 50, ["Intento"], 21, c, weight="700"))
+    x += tw("Intento", 21, "700") + 22
+    for lab in ("1.º", "2.º", "3.º"):
+        b.append(rect(x, y + 28, 30, 30, "white", r=5, stroke=c, sw=2.4))
+        b.append(T(x + 40, y + 52, [lab], 22, INK, weight="700"))
+        x += 40 + tw(lab, 22, "700") + 34
     return y + 78
 
 
